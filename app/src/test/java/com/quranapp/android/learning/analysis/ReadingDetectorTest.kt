@@ -72,6 +72,11 @@ class ReadingDetectorTest {
     }
 
     @Test
+    fun `awanun - tanween with small meem on a noon (2 68)`() {
+        assertTrue(TANWEEN in detect("عَوَانُۢ"))
+    }
+
+    @Test
     fun `anbiyaa - a small meem on a noon is not tanween (2 91)`() {
         assertFalse(TANWEEN in detect("أَنۢبِيَآءَ"))
     }

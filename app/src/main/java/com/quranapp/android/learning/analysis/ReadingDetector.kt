@@ -41,12 +41,12 @@ object ReadingDetector {
 
     /**
      * Tanween is usually a doubled vowel mark. When it is followed by ب (iqlab), the text
-     * instead writes a single vowel plus a small meem, as in مُحِيطُۢ. A small meem on a
-     * noon, by contrast, is a noon sakinah (أَنۢبِيَآءَ), not tanween.
+     * instead writes a single vowel plus a small meem, as in مُحِيطُۢ or عَوَانُۢ. A small meem
+     * on a noon *without* a vowel is a noon sakinah (أَنۢبِيَآءَ), not tanween.
      */
     private fun isTanween(cluster: LetterCluster): Boolean {
         if (cluster.hasAny(Arabic.TANWEEN)) return true
-        return cluster.letter != Arabic.NOON && cluster.hasAny(Arabic.IQLAB_MARKS)
+        return cluster.hasAny(Arabic.SHORT_VOWELS) && cluster.hasAny(Arabic.IQLAB_MARKS)
     }
 
     private fun isHamza(cluster: LetterCluster): Boolean {
