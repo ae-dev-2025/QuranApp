@@ -127,6 +127,85 @@ object LessonCatalog {
             sayIt = R.array.lesson_sajdah_how,
             confusedWith = ConfusedWith(ConceptIds.STOP_SIGNS, R.string.lesson_sajdah_confused),
         ),
+
+        // ---- Tajweed: noon sakinah and tanween ----
+        Lesson(
+            conceptId = ConceptIds.IZHAR,
+            keyExample = KeyExample(1, 7, 2..2, R.string.lesson_izhar_say),
+            spotIt = R.array.lesson_izhar_spot,
+            sayIt = R.array.lesson_izhar_how,
+            confusedWith = ConfusedWith(ConceptIds.IKHFA, R.string.lesson_izhar_confused),
+        ),
+        Lesson(
+            conceptId = ConceptIds.IDGHAM_GHUNNAH,
+            keyExample = KeyExample(
+                78, 13, 1..2, R.string.lesson_idgham_ghunnah_say,
+                R.string.lesson_idgham_ghunnah_not_say,
+            ),
+            spotIt = R.array.lesson_idgham_ghunnah_spot,
+            sayIt = R.array.lesson_idgham_ghunnah_how,
+            confusedWith = ConfusedWith(
+                ConceptIds.IDGHAM_NO_GHUNNAH, R.string.lesson_idgham_ghunnah_confused,
+            ),
+        ),
+        Lesson(
+            conceptId = ConceptIds.IDGHAM_NO_GHUNNAH,
+            keyExample = KeyExample(
+                78, 36, 1..2, R.string.lesson_idgham_no_ghunnah_say,
+                R.string.lesson_idgham_no_ghunnah_not_say,
+            ),
+            spotIt = R.array.lesson_idgham_no_ghunnah_spot,
+            sayIt = R.array.lesson_idgham_no_ghunnah_how,
+            confusedWith = ConfusedWith(
+                ConceptIds.IDGHAM_GHUNNAH, R.string.lesson_idgham_no_ghunnah_confused,
+            ),
+        ),
+        Lesson(
+            conceptId = ConceptIds.IQLAB,
+            keyExample = KeyExample(
+                80, 27, 0..0, R.string.lesson_iqlab_say, R.string.lesson_iqlab_not_say,
+            ),
+            spotIt = R.array.lesson_iqlab_spot,
+            sayIt = R.array.lesson_iqlab_how,
+            confusedWith = ConfusedWith(ConceptIds.IKHFA_SHAFAWI, R.string.lesson_iqlab_confused),
+        ),
+        Lesson(
+            conceptId = ConceptIds.IKHFA,
+            keyExample = KeyExample(
+                113, 3, 0..1, R.string.lesson_ikhfa_say, R.string.lesson_ikhfa_not_say,
+            ),
+            spotIt = R.array.lesson_ikhfa_spot,
+            sayIt = R.array.lesson_ikhfa_how,
+            confusedWith = ConfusedWith(ConceptIds.IZHAR, R.string.lesson_ikhfa_confused),
+        ),
+
+        // ---- Tajweed: meem sakinah ----
+        Lesson(
+            conceptId = ConceptIds.IZHAR_SHAFAWI,
+            keyExample = KeyExample(112, 3, 0..1, R.string.lesson_izhar_shafawi_say),
+            spotIt = R.array.lesson_izhar_shafawi_spot,
+            sayIt = R.array.lesson_izhar_shafawi_how,
+            confusedWith = ConfusedWith(ConceptIds.IZHAR, R.string.lesson_izhar_shafawi_confused),
+        ),
+        Lesson(
+            conceptId = ConceptIds.IDGHAM_SHAFAWI,
+            keyExample = KeyExample(97, 4, 5..6, R.string.lesson_idgham_shafawi_say),
+            spotIt = R.array.lesson_idgham_shafawi_spot,
+            sayIt = R.array.lesson_idgham_shafawi_how,
+            confusedWith = ConfusedWith(
+                ConceptIds.IDGHAM_GHUNNAH, R.string.lesson_idgham_shafawi_confused,
+            ),
+        ),
+        Lesson(
+            conceptId = ConceptIds.IKHFA_SHAFAWI,
+            keyExample = KeyExample(
+                84, 24, 0..1, R.string.lesson_ikhfa_shafawi_say,
+                R.string.lesson_ikhfa_shafawi_not_say,
+            ),
+            spotIt = R.array.lesson_ikhfa_shafawi_spot,
+            sayIt = R.array.lesson_ikhfa_shafawi_how,
+            confusedWith = ConfusedWith(ConceptIds.IQLAB, R.string.lesson_ikhfa_shafawi_confused),
+        ),
     )
 
     private val byConceptId: Map<String, Lesson> = all.associateBy { it.conceptId }
