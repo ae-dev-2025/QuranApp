@@ -3,6 +3,7 @@ package com.quranapp.android.learning.ui
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,21 +11,29 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
@@ -33,6 +42,7 @@ import com.quranapp.android.R
 import com.quranapp.android.compose.components.reader.LocalReaderViewModel
 import com.quranapp.android.compose.extensions.bottomBorder
 import com.quranapp.android.compose.theme.alpha
+import com.quranapp.android.db.DatabaseProvider
 import com.quranapp.android.db.relations.VerseWithDetails
 import com.quranapp.android.learning.analysis.AyahAnalyzer
 import com.quranapp.android.learning.concepts.Concept
@@ -42,6 +52,7 @@ import com.quranapp.android.learning.concepts.Track
 import com.quranapp.android.repository.QuranRepository
 import com.quranapp.android.utils.reader.QuranScriptUtils
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 /**
@@ -131,10 +142,21 @@ private suspend fun loadState(repository: QuranRepository, ayahId: Int): Underst
 @Composable
 private fun SheetContent(verse: VerseWithDetails, state: UnderstandAyahState) {
     val arabicFont = remember { FontFamily(Font(R.font.uthmanic_hafs)) }
+    val context = LocalContext.current
+    val progress = remember { DatabaseProvider.getLearningProgressRepository(context) }
+
+    // The set of known concept IDs. Whenever the database changes, the Flow emits a new set
+    // and Compose redraws everything that reads `known`.
+    val known by progress.knownConceptIds.collectAsState(initial = emptySet())
+
+    // Tied to this composable: if the sheet closes, unfinished work is cancelled.
+    val scope = rememberCoroutineScope()
+
+    val knownCount = state.items.count { it.concept.id in known }
 
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         item {
-            Header(verse, state, arabicFont)
+            Header(verse, state, knownCount, arabicFont)
         }
 
         // The list is already in learning order, and all reading concepts come before
@@ -146,7 +168,16 @@ private fun SheetContent(verse: VerseWithDetails, state: UnderstandAyahState) {
                 item(key = "track-$track") { TrackHeading(track) }
                 previousTrack = track
             }
-            item(key = conceptItem.concept.id) { ConceptRow(conceptItem, arabicFont) }
+            item(key = conceptItem.concept.id) {
+                ConceptRow(
+                    item = conceptItem,
+                    isKnown = conceptItem.concept.id in known,
+                    onKnownChange = { isKnown ->
+                        scope.launch { progress.setKnown(conceptItem.concept.id, isKnown) }
+                    },
+                    arabicFont = arabicFont,
+                )
+            }
         }
 
         item {
@@ -164,7 +195,12 @@ private fun SheetContent(verse: VerseWithDetails, state: UnderstandAyahState) {
 }
 
 @Composable
-private fun Header(verse: VerseWithDetails, state: UnderstandAyahState, arabicFont: FontFamily) {
+private fun Header(
+    verse: VerseWithDetails,
+    state: UnderstandAyahState,
+    knownCount: Int,
+    arabicFont: FontFamily,
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -199,6 +235,19 @@ private fun Header(verse: VerseWithDetails, state: UnderstandAyahState, arabicFo
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(top = 8.dp),
         )
+
+        val total = state.items.size
+        LinearProgressIndicator(
+            progress = { if (total == 0) 0f else knownCount / total.toFloat() },
+            modifier = Modifier
+                .fillMaxWidth(0.6f)
+                .padding(top = 12.dp),
+        )
+        Text(
+            text = stringResource(R.string.learning_you_know, knownCount, total),
+            style = typography.labelMedium,
+            color = colorScheme.primary,
+        )
     }
 }
 
@@ -218,11 +267,35 @@ private fun TrackHeading(track: Track) {
 }
 
 @Composable
-private fun ConceptRow(item: ConceptItem, arabicFont: FontFamily) {
-    Column(
+private fun ConceptRow(
+    item: ConceptItem,
+    isKnown: Boolean,
+    onKnownChange: (Boolean) -> Unit,
+    arabicFont: FontFamily,
+) {
+    // The whole row is one toggle, so it is easy to tap and screen readers announce it as a
+    // checkbox. The Checkbox itself only shows the state (onCheckedChange = null).
+    Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .toggleable(value = isKnown, role = Role.Checkbox, onValueChange = onKnownChange)
+            .padding(start = 16.dp, end = 4.dp, top = 8.dp, bottom = 8.dp),
+    ) {
+        ConceptDetails(
+            item = item,
+            arabicFont = arabicFont,
+            modifier = Modifier
+                .weight(1f)
+                .alpha(if (isKnown) 0.55f else 1f),
+        )
+        Checkbox(checked = isKnown, onCheckedChange = null, modifier = Modifier.padding(12.dp))
+    }
+}
+
+@Composable
+private fun ConceptDetails(item: ConceptItem, arabicFont: FontFamily, modifier: Modifier) {
+    Column(
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(2.dp),
     ) {
         Text(
