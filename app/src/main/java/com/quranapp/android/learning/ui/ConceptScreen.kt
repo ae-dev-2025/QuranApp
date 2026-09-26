@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.intl.Locale
@@ -45,6 +46,7 @@ import com.quranapp.android.compose.components.common.AppBar
 import com.quranapp.android.compose.theme.alpha
 import com.quranapp.android.db.DatabaseProvider
 import com.quranapp.android.learning.concepts.Concept
+import com.quranapp.android.learning.concepts.ConceptCatalog
 import com.quranapp.android.learning.concepts.ConceptGraph
 import com.quranapp.android.learning.concepts.Track
 import com.quranapp.android.learning.lessons.LessonCatalog
@@ -66,6 +68,7 @@ fun ConceptScreen(concept: Concept) {
     val prerequisites = remember(concept) { graph.prerequisitesOf(concept.id) }
     val unlocks = remember(concept) { graph.dependentsOf(concept.id) }
     val lesson = remember(concept) { LessonCatalog[concept.id] }
+    val isUmbrella = concept.id in ConceptCatalog.umbrellaIds
     val isKnown = concept.id in known
 
     // Each linked concept opens as its own page; the back button returns here.
@@ -83,7 +86,17 @@ fun ConceptScreen(concept: Concept) {
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            item { TrackAndStatus(concept.track, isKnown) }
+            item {
+                // An umbrella concept counts its rules; any other shows known / not known yet.
+                val status = if (isUmbrella) {
+                    val knownRules = unlocks.count { it.id in known }
+                    pluralStringResource(R.plurals.learning_rules_known, unlocks.size, knownRules, unlocks.size)
+                } else {
+                    stringResource(if (isKnown) R.string.learning_known else R.string.learning_not_known_yet)
+                }
+                val done = if (isUmbrella) unlocks.all { it.id in known } else isKnown
+                TrackAndStatus(concept.track, status, done)
+            }
 
             if (prerequisites.isNotEmpty()) {
                 item {
@@ -106,6 +119,10 @@ fun ConceptScreen(concept: Concept) {
                 item { LessonCard(lesson, known, openConcept) }
             }
 
+            if (isUmbrella) {
+                item { RuleOverview(unlocks, openConcept) }
+            }
+
             item { ConceptExamplesSection(concept.id) }
 
             item {
@@ -117,7 +134,8 @@ fun ConceptScreen(concept: Concept) {
                 )
             }
 
-            if (unlocks.isNotEmpty()) {
+            // An umbrella concept already lists what it unlocks: its rules, above.
+            if (unlocks.isNotEmpty() && !isUmbrella) {
                 item { ConceptChipGroup(R.string.learning_unlocks, unlocks, known, openConcept) }
             }
 
@@ -135,7 +153,7 @@ fun ConceptScreen(concept: Concept) {
 }
 
 @Composable
-private fun TrackAndStatus(track: Track, isKnown: Boolean) {
+private fun TrackAndStatus(track: Track, status: String, done: Boolean) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -148,13 +166,13 @@ private fun TrackAndStatus(track: Track, isKnown: Boolean) {
             color = colorScheme.primary,
         )
 
-        val (label, background, foreground) = if (isKnown) {
-            Triple(R.string.learning_known, colorScheme.primary.alpha(0.12f), colorScheme.primary)
+        val (background, foreground) = if (done) {
+            colorScheme.primary.alpha(0.12f) to colorScheme.primary
         } else {
-            Triple(R.string.learning_not_known_yet, colorScheme.surfaceVariant, colorScheme.onSurfaceVariant)
+            colorScheme.surfaceVariant to colorScheme.onSurfaceVariant
         }
         Text(
-            text = stringResource(label),
+            text = status,
             style = typography.labelMedium,
             color = foreground,
             modifier = Modifier

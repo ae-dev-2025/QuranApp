@@ -215,6 +215,12 @@ object ConceptCatalog {
         ),
     )
 
+    /**
+     * Concepts that group several rules and never occur in the text themselves. Their page
+     * shows an overview of those rules instead of a lesson.
+     */
+    val umbrellaIds: Set<String> = setOf(NOON_SAKINAH, MEEM_SAKINAH)
+
     private val byId: Map<String, Concept> = all.associateBy { it.id }
 
     /** Looks up a concept by its ID; `null` if the ID is unknown. */
