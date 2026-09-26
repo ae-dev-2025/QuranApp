@@ -49,4 +49,14 @@ class ConceptGraph(private val concepts: List<Concept> = ConceptCatalog.all) {
             concept.id !in known && concept.prerequisites.all { it in known }
         }
     }
+
+    /** The direct prerequisites of a concept, in learning order. */
+    fun prerequisitesOf(conceptId: String): List<Concept> {
+        return inLearningOrder(byId[conceptId]?.prerequisites.orEmpty())
+    }
+
+    /** Concepts that list [conceptId] as a direct prerequisite, i.e. what it unlocks. */
+    fun dependentsOf(conceptId: String): List<Concept> {
+        return concepts.filter { conceptId in it.prerequisites }
+    }
 }

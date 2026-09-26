@@ -1,8 +1,13 @@
 package com.quranapp.android.learning.concepts
 
 import com.quranapp.android.learning.concepts.ConceptIds.HAMZA
+import com.quranapp.android.learning.concepts.ConceptIds.IDGHAM_GHUNNAH
+import com.quranapp.android.learning.concepts.ConceptIds.IDGHAM_NO_GHUNNAH
 import com.quranapp.android.learning.concepts.ConceptIds.IKHFA
+import com.quranapp.android.learning.concepts.ConceptIds.IQLAB
+import com.quranapp.android.learning.concepts.ConceptIds.IZHAR
 import com.quranapp.android.learning.concepts.ConceptIds.LETTERS
+import com.quranapp.android.learning.concepts.ConceptIds.MADD_LAZIM
 import com.quranapp.android.learning.concepts.ConceptIds.NOON_SAKINAH
 import com.quranapp.android.learning.concepts.ConceptIds.SAJDAH
 import com.quranapp.android.learning.concepts.ConceptIds.SHADDA
@@ -49,6 +54,21 @@ class ConceptGraphTest {
             listOf(SHORT_VOWELS, SAJDAH),
             graph.readyToLearn(known = setOf(LETTERS)).map { it.id },
         )
+    }
+
+    @Test
+    fun `prerequisitesOf lists direct prerequisites in learning order`() {
+        assertEquals(listOf(SUKUN, TANWEEN), graph.prerequisitesOf(NOON_SAKINAH).map { it.id })
+        assertEquals(emptyList<String>(), graph.prerequisitesOf(LETTERS).map { it.id })
+    }
+
+    @Test
+    fun `dependentsOf lists what a concept unlocks`() {
+        assertEquals(
+            listOf(IZHAR, IDGHAM_GHUNNAH, IDGHAM_NO_GHUNNAH, IQLAB, IKHFA),
+            graph.dependentsOf(NOON_SAKINAH).map { it.id },
+        )
+        assertEquals(emptyList<String>(), graph.dependentsOf(MADD_LAZIM).map { it.id })
     }
 
     @Test

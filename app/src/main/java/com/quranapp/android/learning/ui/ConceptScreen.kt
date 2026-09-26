@@ -1,14 +1,25 @@
 package com.quranapp.android.learning.ui
 
+import androidx.annotation.StringRes
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Scaffold
@@ -19,24 +30,46 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.intl.Locale
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranapp.android.R
 import com.quranapp.android.compose.components.common.AppBar
+import com.quranapp.android.compose.theme.alpha
 import com.quranapp.android.db.DatabaseProvider
 import com.quranapp.android.learning.concepts.Concept
+import com.quranapp.android.learning.concepts.ConceptGraph
+import com.quranapp.android.learning.concepts.Track
 import kotlinx.coroutines.launch
 
-/** The learning page of one concept. More sections are added in the following PRs. */
+/**
+ * The learning page of one concept, in the approved "guided" order: what to learn first,
+ * the explanation, then "I know this", and what the concept unlocks. The key example,
+ * lesson and examples from the Quran are added above the button in the next PRs.
+ */
 @Composable
 fun ConceptScreen(concept: Concept) {
     val context = LocalContext.current
     val progress = remember { DatabaseProvider.getLearningProgressRepository(context) }
     val known by progress.knownConceptIds.collectAsStateWithLifecycle(initialValue = emptySet())
     val scope = rememberCoroutineScope()
+
+    val graph = remember { ConceptGraph() }
+    val prerequisites = remember(concept) { graph.prerequisitesOf(concept.id) }
+    val unlocks = remember(concept) { graph.dependentsOf(concept.id) }
+    val isKnown = concept.id in known
+
+    // Each linked concept opens as its own page; the back button returns here.
+    val openConcept = { linked: Concept ->
+        context.startActivity(ActivityConcept.intent(context, linked.id))
+    }
 
     Scaffold(
         topBar = { AppBar(title = stringResource(concept.titleRes)) },
@@ -46,14 +79,14 @@ fun ConceptScreen(concept: Concept) {
                 .fillMaxSize()
                 .padding(innerPadding),
             contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            item {
-                Text(
-                    text = stringResource(concept.track.labelRes),
-                    style = typography.labelLarge,
-                    color = colorScheme.primary,
-                )
+            item { TrackAndStatus(concept.track, isKnown) }
+
+            if (prerequisites.isNotEmpty()) {
+                item {
+                    ConceptChipGroup(R.string.learning_learn_these_first, prerequisites, known, openConcept)
+                }
             }
 
             item {
@@ -64,11 +97,25 @@ fun ConceptScreen(concept: Concept) {
             }
 
             item {
-                KnownToggle(
-                    isKnown = concept.id in known,
-                    onKnownChange = { isKnown ->
-                        scope.launch { progress.setKnown(concept.id, isKnown) }
+                KnownButton(
+                    isKnown = isKnown,
+                    onKnownChange = { checked ->
+                        scope.launch { progress.setKnown(concept.id, checked) }
                     },
+                )
+            }
+
+            if (unlocks.isNotEmpty()) {
+                item { ConceptChipGroup(R.string.learning_unlocks, unlocks, known, openConcept) }
+            }
+
+            item {
+                Text(
+                    text = stringResource(R.string.learning_analysis_disclaimer),
+                    style = typography.labelSmall,
+                    color = colorScheme.onSurface.alpha(0.6f),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth(),
                 )
             }
         }
@@ -76,17 +123,117 @@ fun ConceptScreen(concept: Concept) {
 }
 
 @Composable
-private fun KnownToggle(isKnown: Boolean, onKnownChange: (Boolean) -> Unit) {
+private fun TrackAndStatus(track: Track, isKnown: Boolean) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            // Locale-aware upper case ("TAJWEED"); Arabic and other scripts are unaffected.
+            text = stringResource(track.labelRes).toUpperCase(Locale.current),
+            style = typography.labelLarge,
+            color = colorScheme.primary,
+        )
+
+        val (label, background, foreground) = if (isKnown) {
+            Triple(R.string.learning_known, colorScheme.primary.alpha(0.12f), colorScheme.primary)
+        } else {
+            Triple(R.string.learning_not_known_yet, colorScheme.surfaceVariant, colorScheme.onSurfaceVariant)
+        }
+        Text(
+            text = stringResource(label),
+            style = typography.labelMedium,
+            color = foreground,
+            modifier = Modifier
+                .clip(RoundedCornerShape(50))
+                .background(background)
+                .padding(horizontal = 10.dp, vertical = 4.dp),
+        )
+    }
+}
+
+/** A titled group of concept chips, e.g. "Learn these first". Chips wrap onto new lines. */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun ConceptChipGroup(
+    @StringRes title: Int,
+    concepts: List<Concept>,
+    known: Set<String>,
+    onOpen: (Concept) -> Unit,
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(
+            text = stringResource(title),
+            style = typography.bodySmall,
+            color = colorScheme.onSurfaceVariant,
+        )
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            for (concept in concepts) {
+                ConceptChip(concept, isKnown = concept.id in known, onClick = { onOpen(concept) })
+            }
+        }
+    }
+}
+
+/** Known concepts are filled green with a tick; the others are outlined with a ">". */
+@Composable
+private fun ConceptChip(concept: Concept, isKnown: Boolean, onClick: () -> Unit) {
+    val shape = RoundedCornerShape(50)
+    val look = if (isKnown) {
+        Modifier.background(colorScheme.primary.alpha(0.12f))
+    } else {
+        Modifier.border(1.dp, colorScheme.outlineVariant, shape)
+    }
+
+    Row(
+        modifier = Modifier
+            .heightIn(min = 40.dp)
+            .clip(shape)
+            .then(look)
+            .clickable(onClickLabel = stringResource(R.string.learning_open_lesson), onClick = onClick)
+            .padding(horizontal = 12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
+    ) {
+        if (isKnown) {
+            Icon(
+                painter = painterResource(R.drawable.dr_icon_check),
+                contentDescription = stringResource(R.string.learning_known),
+                tint = colorScheme.primary,
+                modifier = Modifier.size(16.dp),
+            )
+        }
+        Text(
+            text = stringResource(concept.titleRes),
+            style = typography.labelLarge,
+            color = if (isKnown) colorScheme.primary else colorScheme.onSurface,
+        )
+        if (!isKnown) OpenChevron()
+    }
+}
+
+/** The page ends with this: tick it once you've understood the concept. */
+@Composable
+private fun KnownButton(isKnown: Boolean, onKnownChange: (Boolean) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .heightIn(min = 56.dp)
+            .clip(RoundedCornerShape(16.dp))
+            .background(colorScheme.primary.alpha(0.12f))
             .toggleable(value = isKnown, role = Role.Checkbox, onValueChange = onKnownChange),
+        horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Checkbox(checked = isKnown, onCheckedChange = null)
         Text(
             text = stringResource(R.string.learning_i_know_this),
-            style = typography.bodyMedium,
+            style = typography.titleSmall,
+            color = colorScheme.primary,
             modifier = Modifier.padding(start = 12.dp),
         )
     }
