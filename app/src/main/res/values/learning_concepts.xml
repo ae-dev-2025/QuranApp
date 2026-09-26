@@ -12,7 +12,7 @@
     <string name="concept_short_vowels_summary">Fatḥa (a), kasra (i) and ḍamma (u): small marks above or below a letter.</string>
 
     <string name="concept_sukun_title">Sukūn</string>
-    <string name="concept_sukun_summary">A small mark (ۡ) meaning the letter has no vowel, so it closes the syllable.</string>
+    <string name="concept_sukun_summary">A small mark on a letter, as in بۡ, meaning it has no vowel, so it closes the syllable.</string>
 
     <string name="concept_long_vowels_title">Long vowels</string>
     <string name="concept_long_vowels_summary">Alif after fatḥa, wāw after ḍamma and yāʾ after kasra stretch the vowel to two counts (natural madd).</string>
@@ -27,13 +27,13 @@
     <string name="concept_ta_marbuta_summary">The round tāʾ (ة) at the end of a word: read as t when continuing and as h when stopping.</string>
 
     <string name="concept_shadda_title">Shadda</string>
-    <string name="concept_shadda_summary">A mark (ّ) that doubles a letter: the first one has a sukūn and the second one carries the vowel.</string>
+    <string name="concept_shadda_summary">A mark that doubles a letter, as in بّ: the first one has a sukūn and the second one carries the vowel.</string>
 
     <string name="concept_dagger_alif_title">Dagger alif</string>
-    <string name="concept_dagger_alif_summary">A small alif written above a letter (ٰ). It is read as a long ā.</string>
+    <string name="concept_dagger_alif_summary">A small alif written above a letter, as in مَٰ. It is read as a long ā.</string>
 
     <string name="concept_small_madd_letters_title">Small wāw and yāʾ</string>
-    <string name="concept_small_madd_letters_summary">Small letters (ۥ ۦ) that show a long vowel the spelling leaves out, as in بِهِۦ (bihī).</string>
+    <string name="concept_small_madd_letters_summary">A small wāw or yāʾ that shows a long vowel the spelling leaves out, as in بِهِۦ (bihī).</string>
 
     <string name="concept_hamzat_wasl_title">Hamzat al-waṣl</string>
     <string name="concept_hamzat_wasl_summary">The alif with a small ṣād (ٱ). It is pronounced only when you start reading from this word, and silent when joined to the word before.</string>
@@ -42,7 +42,7 @@
     <string name="concept_silent_letters_summary">A small circle marks a letter that is written but never pronounced, like the final alif in كَفَرُواْ.</string>
 
     <string name="concept_stop_signs_title">Stop signs</string>
-    <string name="concept_stop_signs_summary">Small marks above the text (ۖ ۗ ۚ ۘ ۛ ۜ) that tell you where stopping is better, allowed or required.</string>
+    <string name="concept_stop_signs_summary">Small signs above the text, such as ج, صلى and قلى, that tell you where stopping is allowed, better or required.</string>
 
     <string name="concept_sajdah_title">Prostration sign</string>
     <string name="concept_sajdah_summary">The ۩ sign marks a place where the prostration of recitation (sajdat al-tilāwa) is made.</string>
@@ -79,7 +79,7 @@
     <string name="concept_idgham_no_ghunnah_summary">Before ل or ر the noon merges completely into the next letter, with no nasal sound.</string>
 
     <string name="concept_iqlab_title">Iqlāb</string>
-    <string name="concept_iqlab_summary">Before ب the noon turns into a hidden meem, shown by a small meem (ۢ).</string>
+    <string name="concept_iqlab_summary">Before ب the noon turns into a hidden meem, shown by a small meem above it: نۢ.</string>
 
     <string name="concept_ikhfa_title">Ikhfāʾ (hiding)</string>
     <string name="concept_ikhfa_summary">Before the other 15 letters the noon is hidden: between clear and merged, with a nasal sound.</string>
@@ -97,7 +97,7 @@
     <string name="concept_ikhfa_shafawi_summary">Before ب the meem is hidden, with the lips lightly closed and a nasal sound.</string>
 
     <string name="concept_madd_sign_title">Madd sign</string>
-    <string name="concept_madd_sign_summary">The wavy line (ٓ) over a long vowel means: stretch it longer than the natural two counts.</string>
+    <string name="concept_madd_sign_summary">The wavy line over a long vowel, as in آ, means: stretch it longer than the natural two counts.</string>
 
     <string name="concept_madd_muttasil_title">Madd muttaṣil (connected)</string>
     <string name="concept_madd_muttasil_summary">A long vowel followed by a hamza in the same word is stretched 4 to 5 counts.</string>

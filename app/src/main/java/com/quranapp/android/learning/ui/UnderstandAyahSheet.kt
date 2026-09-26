@@ -1,0 +1,260 @@
+package com.quranapp.android.learning.ui
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme.colorScheme
+import androidx.compose.material3.MaterialTheme.typography
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.produceState
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import com.quranapp.android.R
+import com.quranapp.android.compose.components.reader.LocalReaderViewModel
+import com.quranapp.android.compose.extensions.bottomBorder
+import com.quranapp.android.compose.theme.alpha
+import com.quranapp.android.db.relations.VerseWithDetails
+import com.quranapp.android.learning.analysis.AyahAnalyzer
+import com.quranapp.android.learning.concepts.Concept
+import com.quranapp.android.learning.concepts.ConceptGraph
+import com.quranapp.android.learning.concepts.ConceptIds
+import com.quranapp.android.learning.concepts.Track
+import com.quranapp.android.repository.QuranRepository
+import com.quranapp.android.utils.reader.QuranScriptUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+
+/**
+ * One concept to show, with the words of the ayah where it appears. [words] is empty for a
+ * concept that is only needed as a prerequisite.
+ */
+private data class ConceptItem(
+    val concept: Concept,
+    val words: List<String>,
+    val inEveryWord: Boolean,
+)
+
+/** Everything the sheet shows for one ayah. */
+private data class UnderstandAyahState(
+    val ayahText: String,
+    val items: List<ConceptItem>,
+)
+
+/**
+ * Bottom sheet that answers "what do I need to know to read this ayah?".
+ *
+ * It lists every concept the ayah uses, plus their prerequisites, in the order a learner
+ * should study them. Nothing is shown when [verse] is null.
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun UnderstandAyahSheet(
+    verse: VerseWithDetails?,
+    onDismiss: () -> Unit,
+) {
+    if (verse == null) return
+
+    val repository = LocalReaderViewModel.current.repository
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+
+    // Starts as null (loading) and is filled in by the coroutine below. The work is
+    // restarted only when the ayah changes.
+    val state by produceState<UnderstandAyahState?>(initialValue = null, verse.id) {
+        value = withContext(Dispatchers.IO) { loadState(repository, verse.id) }
+    }
+
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        sheetState = sheetState,
+        scrimColor = colorScheme.scrim.alpha(0.5f),
+        containerColor = colorScheme.surface,
+        contentColor = colorScheme.onSurface,
+        contentWindowInsets = { WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom) },
+    ) {
+        val loaded = state
+
+        if (loaded == null) {
+            Box(Modifier.fillMaxWidth().padding(32.dp), contentAlignment = Alignment.Center) {
+                CircularProgressIndicator()
+            }
+        } else {
+            SheetContent(verse, loaded)
+        }
+    }
+}
+
+private suspend fun loadState(repository: QuranRepository, ayahId: Int): UnderstandAyahState {
+    // Always analyze the Unicode text: the other scripts store font glyph codes, not letters.
+    val words = repository
+        .getWordsForAyahById(ayahId, QuranScriptUtils.SCRIPT_UTHMANI)
+        .map { it.text }
+
+    val analysis = AyahAnalyzer.analyze(words)
+    val graph = ConceptGraph()
+    val needed = graph.inLearningOrder(graph.withPrerequisites(analysis.conceptIds))
+
+    // Every real word has letters; the ayah-number marker at the end has none.
+    val wordCount = analysis.wordsByConcept[ConceptIds.LETTERS].orEmpty().size
+
+    val items = needed.map { concept ->
+        val wordIndexes = analysis.wordsByConcept[concept.id].orEmpty()
+        ConceptItem(
+            concept = concept,
+            words = wordIndexes.map { words[it] },
+            inEveryWord = wordCount > 1 && wordIndexes.size == wordCount,
+        )
+    }
+
+    return UnderstandAyahState(ayahText = words.joinToString(" "), items = items)
+}
+
+@Composable
+private fun SheetContent(verse: VerseWithDetails, state: UnderstandAyahState) {
+    val arabicFont = remember { FontFamily(Font(R.font.uthmanic_hafs)) }
+
+    LazyColumn(modifier = Modifier.fillMaxWidth()) {
+        item {
+            Header(verse, state, arabicFont)
+        }
+
+        // The list is already in learning order, and all reading concepts come before
+        // tajweed ones, so a heading is added whenever the track changes.
+        var previousTrack: Track? = null
+        for (conceptItem in state.items) {
+            val track = conceptItem.concept.track
+            if (track != previousTrack) {
+                item(key = "track-$track") { TrackHeading(track) }
+                previousTrack = track
+            }
+            item(key = conceptItem.concept.id) { ConceptRow(conceptItem, arabicFont) }
+        }
+
+        item {
+            Text(
+                text = stringResource(R.string.learning_analysis_disclaimer),
+                style = typography.labelSmall,
+                color = colorScheme.onSurface.alpha(0.6f),
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+            )
+        }
+    }
+}
+
+@Composable
+private fun Header(verse: VerseWithDetails, state: UnderstandAyahState, arabicFont: FontFamily) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .bottomBorder()
+            .padding(horizontal = 16.dp)
+            .padding(bottom = 16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(4.dp),
+    ) {
+        Text(
+            text = stringResource(R.string.learning_understand_title),
+            style = typography.titleMedium,
+        )
+        Text(
+            text = stringResource(
+                R.string.strLabelVerseWithChapNameAndNo,
+                verse.chapter.getCurrentName(),
+                verse.chapterNo,
+                verse.verseNo,
+            ) + " · " + pluralStringResource(
+                R.plurals.learning_concept_count,
+                state.items.size,
+                state.items.size,
+            ),
+            style = typography.labelMedium,
+            color = colorScheme.onSurface.alpha(0.8f),
+        )
+        Text(
+            text = state.ayahText,
+            fontFamily = arabicFont,
+            style = typography.titleLarge,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(top = 8.dp),
+        )
+    }
+}
+
+@Composable
+private fun TrackHeading(track: Track) {
+    val label = when (track) {
+        Track.READING -> R.string.learning_track_reading
+        Track.TAJWEED -> R.string.learning_track_tajweed
+    }
+
+    Text(
+        text = stringResource(label),
+        style = typography.labelLarge,
+        color = colorScheme.primary,
+        modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 4.dp),
+    )
+}
+
+@Composable
+private fun ConceptRow(item: ConceptItem, arabicFont: FontFamily) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(2.dp),
+    ) {
+        Text(
+            text = stringResource(item.concept.titleRes),
+            style = typography.titleSmall,
+        )
+        Text(
+            text = stringResource(item.concept.summaryRes),
+            style = typography.bodySmall,
+            color = colorScheme.onSurface.alpha(0.75f),
+        )
+
+        if (item.inEveryWord) {
+            Text(
+                text = stringResource(R.string.learning_in_every_word),
+                style = typography.labelSmall,
+                color = colorScheme.primary,
+            )
+        } else if (item.words.isNotEmpty()) {
+            Text(
+                text = item.words.joinToString("   "),
+                fontFamily = arabicFont,
+                style = typography.titleMedium,
+                color = colorScheme.primary,
+                modifier = Modifier.padding(top = 4.dp),
+            )
+        } else {
+            Text(
+                text = stringResource(R.string.learning_needed_as_foundation),
+                style = typography.labelSmall,
+                color = colorScheme.onSurface.alpha(0.6f),
+            )
+        }
+    }
+}
