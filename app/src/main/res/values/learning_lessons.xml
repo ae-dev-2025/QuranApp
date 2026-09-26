@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Lessons on the concept pages (see LessonCatalog.kt). Each lesson has:
+    _say / _not_say: how the key example sounds (transliteration), and a common mistake;
+    _spot: "How to spot it" bullets; _how: "How to say it" bullets;
+    _confused: how to tell it apart from a concept that looks similar.
+    To be checked by a qualified teacher before release.
+-->
+<resources>
+    <!-- Arabic letters -->
+    <string name="lesson_letters_say">bismi</string>
+    <string-array name="lesson_letters_spot">
+        <item>Arabic is read from right to left.</item>
+        <item>Most letters join to the next one, so a letter changes shape at the start, middle and end of a word.</item>
+        <item>Six letters, ا د ذ ر ز و, never join to the letter after them.</item>
+    </string-array>
+    <string-array name="lesson_letters_how">
+        <item>Each letter is one consonant. The vowels are the small marks above and below it.</item>
+        <item>بِسۡمِ is three letters joined together: ب, س and م.</item>
+    </string-array>
+
+    <!-- Short vowels -->
+    <string name="lesson_short_vowels_say">qu-ti-la</string>
+    <string-array name="lesson_short_vowels_spot">
+        <item>Fatḥa: a small slanted line above the letter (بَ).</item>
+        <item>Kasra: the same line below the letter (بِ).</item>
+        <item>Ḍamma: a small curl like a wāw above the letter (بُ).</item>
+    </string-array>
+    <string-array name="lesson_short_vowels_how">
+        <item>Fatḥa sounds like the a in ba, kasra like the i in bi, ḍamma like the u in bu.</item>
+        <item>Keep them short: one count each.</item>
+    </string-array>
+    <string name="lesson_short_vowels_confused">Tanwīn doubles the mark and adds an n sound: ba becomes ban.</string>
+
+    <!-- Sukun -->
+    <string name="lesson_sukun_say">naʿ-bu-du</string>
+    <string name="lesson_sukun_not_say">na-ʿa-bu-du</string>
+    <string-array name="lesson_sukun_spot">
+        <item>A small mark like the top of the letter ح, above the letter (بۡ).</item>
+        <item>The letter has no vowel of its own.</item>
+    </string-array>
+    <string-array name="lesson_sukun_how">
+        <item>Say the letter without a vowel, closing the syllable before it.</item>
+        <item>Don’t add a vowel to it: naʿ, not na-ʿa.</item>
+    </string-array>
+    <string name="lesson_sukun_confused">A small circle means the letter is not pronounced at all. A letter with sukūn is pronounced, just without a vowel.</string>
+
+    <!-- Long vowels -->
+    <string name="lesson_long_vowels_say">fī-hā</string>
+    <string name="lesson_long_vowels_not_say">fi-ha</string>
+    <string-array name="lesson_long_vowels_spot">
+        <item>An alif after a fatḥa: بَا</item>
+        <item>A wāw with no mark after a ḍamma: بُو</item>
+        <item>A yāʾ with no mark after a kasra: بِي</item>
+    </string-array>
+    <string-array name="lesson_long_vowels_how">
+        <item>Stretch the vowel for two counts: bā, bū, bī.</item>
+        <item>The alif, wāw or yāʾ only lengthens the vowel. It is not a new consonant.</item>
+    </string-array>
+    <string name="lesson_long_vowels_confused">A wavy line above the long vowel means: stretch it longer than two counts.</string>
+</resources>

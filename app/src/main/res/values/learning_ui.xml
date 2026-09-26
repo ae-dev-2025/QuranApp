@@ -23,6 +23,11 @@
     <string name="learning_short_surahs_first">Short surahs first</string>
     <string name="learning_show_more_examples">Show more examples</string>
     <string name="learning_view_ayah">View ayah</string>
+    <string name="learning_you_say">You say</string>
+    <string name="learning_not">not</string>
+    <string name="learning_how_to_spot_it">How to spot it</string>
+    <string name="learning_how_to_say_it">How to say it</string>
+    <string name="learning_dont_mix_up">Don’t mix it up with</string>
 
     <string name="learning_track_reading">Reading</string>
     <string name="learning_track_tajweed">Tajweed</string>
