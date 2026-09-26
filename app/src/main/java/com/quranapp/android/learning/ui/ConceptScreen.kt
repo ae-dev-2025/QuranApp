@@ -47,12 +47,13 @@ import com.quranapp.android.db.DatabaseProvider
 import com.quranapp.android.learning.concepts.Concept
 import com.quranapp.android.learning.concepts.ConceptGraph
 import com.quranapp.android.learning.concepts.Track
+import com.quranapp.android.learning.lessons.LessonCatalog
 import kotlinx.coroutines.launch
 
 /**
  * The learning page of one concept, in the approved "guided" order: what to learn first,
- * the explanation, examples from the Quran, then "I know this", and what the concept
- * unlocks. The key example and lesson are added above the examples in the next PRs.
+ * a key example, the explanation and lesson, examples from the Quran, then "I know this",
+ * and what the concept unlocks. Concepts without a written lesson skip those two cards.
  */
 @Composable
 fun ConceptScreen(concept: Concept) {
@@ -64,6 +65,7 @@ fun ConceptScreen(concept: Concept) {
     val graph = remember { ConceptGraph() }
     val prerequisites = remember(concept) { graph.prerequisitesOf(concept.id) }
     val unlocks = remember(concept) { graph.dependentsOf(concept.id) }
+    val lesson = remember(concept) { LessonCatalog[concept.id] }
     val isKnown = concept.id in known
 
     // Each linked concept opens as its own page; the back button returns here.
@@ -89,11 +91,19 @@ fun ConceptScreen(concept: Concept) {
                 }
             }
 
+            if (lesson != null) {
+                item { KeyExampleCard(lesson.keyExample) }
+            }
+
             item {
                 Text(
                     text = stringResource(concept.summaryRes),
                     style = typography.bodyLarge,
                 )
+            }
+
+            if (lesson != null) {
+                item { LessonCard(lesson, known, openConcept) }
             }
 
             item { ConceptExamplesSection(concept.id) }
@@ -183,7 +193,7 @@ private fun ConceptChipGroup(
 
 /** Known concepts are filled green with a tick; the others are outlined with a ">". */
 @Composable
-private fun ConceptChip(concept: Concept, isKnown: Boolean, onClick: () -> Unit) {
+internal fun ConceptChip(concept: Concept, isKnown: Boolean, onClick: () -> Unit) {
     val shape = RoundedCornerShape(50)
     val look = if (isKnown) {
         Modifier.background(colorScheme.primary.alpha(0.12f))
