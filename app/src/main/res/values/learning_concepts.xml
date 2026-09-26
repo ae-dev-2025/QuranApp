@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Titles and one-line explanations of the concepts in learning mode.
+    Each concept in ConceptCatalog.kt has a _title and a _summary string here.
+-->
+<resources>
+    <!-- Reading -->
+    <string name="concept_letters_title">Arabic letters</string>
+    <string name="concept_letters_summary">The 28 letters of the Arabic alphabet and how their shapes change within a word.</string>
+
+    <string name="concept_short_vowels_title">Short vowels</string>
+    <string name="concept_short_vowels_summary">Fatḥa (a), kasra (i) and ḍamma (u): small marks above or below a letter.</string>
+
+    <string name="concept_sukun_title">Sukūn</string>
+    <string name="concept_sukun_summary">A small mark (ۡ) meaning the letter has no vowel, so it closes the syllable.</string>
+
+    <string name="concept_long_vowels_title">Long vowels</string>
+    <string name="concept_long_vowels_summary">Alif after fatḥa, wāw after ḍamma and yāʾ after kasra stretch the vowel to two counts (natural madd).</string>
+
+    <string name="concept_tanween_title">Tanwīn</string>
+    <string name="concept_tanween_summary">A doubled vowel mark at the end of a word, read as the vowel followed by n: an, in, un.</string>
+
+    <string name="concept_hamza_title">Hamza</string>
+    <string name="concept_hamza_summary">The catch in the throat (ء). It can stand alone or sit on an alif, wāw or yāʾ: أ إ ؤ ئ.</string>
+
+    <string name="concept_ta_marbuta_title">Tāʾ marbūṭa</string>
+    <string name="concept_ta_marbuta_summary">The round tāʾ (ة) at the end of a word: read as t when continuing and as h when stopping.</string>
+
+    <string name="concept_shadda_title">Shadda</string>
+    <string name="concept_shadda_summary">A mark (ّ) that doubles a letter: the first one has a sukūn and the second one carries the vowel.</string>
+
+    <string name="concept_dagger_alif_title">Dagger alif</string>
+    <string name="concept_dagger_alif_summary">A small alif written above a letter (ٰ). It is read as a long ā.</string>
+
+    <string name="concept_small_madd_letters_title">Small wāw and yāʾ</string>
+    <string name="concept_small_madd_letters_summary">Small letters (ۥ ۦ) that show a long vowel the spelling leaves out, as in بِهِۦ (bihī).</string>
+
+    <string name="concept_hamzat_wasl_title">Hamzat al-waṣl</string>
+    <string name="concept_hamzat_wasl_summary">The alif with a small ṣād (ٱ). It is pronounced only when you start reading from this word, and silent when joined to the word before.</string>
+
+    <string name="concept_silent_letters_title">Silent letters</string>
+    <string name="concept_silent_letters_summary">A small circle marks a letter that is written but never pronounced, like the final alif in كَفَرُواْ.</string>
+
+    <string name="concept_stop_signs_title">Stop signs</string>
+    <string name="concept_stop_signs_summary">Small marks above the text (ۖ ۗ ۚ ۘ ۛ ۜ) that tell you where stopping is better, allowed or required.</string>
+
+    <string name="concept_sajdah_title">Prostration sign</string>
+    <string name="concept_sajdah_summary">The ۩ sign marks a place where the prostration of recitation (sajdat al-tilāwa) is made.</string>
+
+    <!-- Tajweed -->
+    <string name="concept_heavy_letters_title">Heavy letters (tafkhīm)</string>
+    <string name="concept_heavy_letters_summary">Seven letters, خ ص ض غ ط ق ظ, are always pronounced with a full, heavy sound.</string>
+
+    <string name="concept_lam_shamsiyya_title">Lām shamsiyya (sun letters)</string>
+    <string name="concept_lam_shamsiyya_summary">In ال before a sun letter, the lām is silent and the next letter is doubled: ٱلشَّمۡسِ (ash-shams).</string>
+
+    <string name="concept_lam_qamariyya_title">Lām qamariyya (moon letters)</string>
+    <string name="concept_lam_qamariyya_summary">In ال before a moon letter, the lām is pronounced with a sukūn: ٱلۡقَمَرِ (al-qamar).</string>
+
+    <string name="concept_lam_of_allah_title">The lām in the name Allāh</string>
+    <string name="concept_lam_of_allah_summary">The lām of ٱللَّه is heavy after a or u, and light after i, as in بِسۡمِ ٱللَّهِ.</string>
+
+    <string name="concept_ghunnah_title">Ghunnah</string>
+    <string name="concept_ghunnah_summary">A nasal sound held for two counts on a noon or meem with shadda (نّ مّ).</string>
+
+    <string name="concept_qalqalah_title">Qalqalah</string>
+    <string name="concept_qalqalah_summary">The letters ق ط ب ج د make a slight bounce when they have a sukūn or when you stop on them.</string>
+
+    <string name="concept_noon_sakinah_title">Noon sākinah and tanwīn</string>
+    <string name="concept_noon_sakinah_summary">A noon without a vowel, and the n sound of tanwīn, is pronounced in one of four ways depending on the next letter.</string>
+
+    <string name="concept_izhar_title">Iẓhār (clear)</string>
+    <string name="concept_izhar_summary">Before a throat letter (ء ه ع ح غ خ) the noon is pronounced clearly, with no extra nasal sound.</string>
+
+    <string name="concept_idgham_ghunnah_title">Idghām with ghunnah</string>
+    <string name="concept_idgham_ghunnah_summary">Before ي ن م و the noon merges into the next letter with a nasal sound.</string>
+
+    <string name="concept_idgham_no_ghunnah_title">Idghām without ghunnah</string>
+    <string name="concept_idgham_no_ghunnah_summary">Before ل or ر the noon merges completely into the next letter, with no nasal sound.</string>
+
+    <string name="concept_iqlab_title">Iqlāb</string>
+    <string name="concept_iqlab_summary">Before ب the noon turns into a hidden meem, shown by a small meem (ۢ).</string>
+
+    <string name="concept_ikhfa_title">Ikhfāʾ (hiding)</string>
+    <string name="concept_ikhfa_summary">Before the other 15 letters the noon is hidden: between clear and merged, with a nasal sound.</string>
+
+    <string name="concept_meem_sakinah_title">Meem sākinah</string>
+    <string name="concept_meem_sakinah_summary">A meem without a vowel is pronounced in one of three ways depending on the next letter.</string>
+
+    <string name="concept_izhar_shafawi_title">Iẓhār shafawī</string>
+    <string name="concept_izhar_shafawi_summary">Before any letter except ب and م, the meem is pronounced clearly.</string>
+
+    <string name="concept_idgham_shafawi_title">Idghām shafawī</string>
+    <string name="concept_idgham_shafawi_summary">A meem followed by another meem: the two merge into one doubled meem with a nasal sound.</string>
+
+    <string name="concept_ikhfa_shafawi_title">Ikhfāʾ shafawī</string>
+    <string name="concept_ikhfa_shafawi_summary">Before ب the meem is hidden, with the lips lightly closed and a nasal sound.</string>
+
+    <string name="concept_madd_sign_title">Madd sign</string>
+    <string name="concept_madd_sign_summary">The wavy line (ٓ) over a long vowel means: stretch it longer than the natural two counts.</string>
+
+    <string name="concept_madd_muttasil_title">Madd muttaṣil (connected)</string>
+    <string name="concept_madd_muttasil_summary">A long vowel followed by a hamza in the same word is stretched 4 to 5 counts.</string>
+
+    <string name="concept_madd_munfasil_title">Madd munfaṣil (separated)</string>
+    <string name="concept_madd_munfasil_summary">A long vowel at the end of a word, with a hamza at the start of the next word, is usually stretched 4 to 5 counts.</string>
+
+    <string name="concept_madd_lazim_title">Madd lāzim (necessary)</string>
+    <string name="concept_madd_lazim_summary">A long vowel followed by a shadda or a fixed sukūn is always stretched 6 counts.</string>
+</resources>
