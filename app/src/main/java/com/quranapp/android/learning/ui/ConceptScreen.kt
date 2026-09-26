@@ -51,8 +51,8 @@ import kotlinx.coroutines.launch
 
 /**
  * The learning page of one concept, in the approved "guided" order: what to learn first,
- * the explanation, then "I know this", and what the concept unlocks. The key example,
- * lesson and examples from the Quran are added above the button in the next PRs.
+ * the explanation, examples from the Quran, then "I know this", and what the concept
+ * unlocks. The key example and lesson are added above the examples in the next PRs.
  */
 @Composable
 fun ConceptScreen(concept: Concept) {
@@ -95,6 +95,8 @@ fun ConceptScreen(concept: Concept) {
                     style = typography.bodyLarge,
                 )
             }
+
+            item { ConceptExamplesSection(concept.id) }
 
             item {
                 KnownButton(

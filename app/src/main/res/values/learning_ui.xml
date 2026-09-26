@@ -19,6 +19,10 @@
     <string name="learning_not_known_yet">Not known yet</string>
     <string name="learning_learn_these_first">Learn these first</string>
     <string name="learning_unlocks">Unlocks</string>
+    <string name="learning_in_the_quran">In the Quran</string>
+    <string name="learning_short_surahs_first">Short surahs first</string>
+    <string name="learning_show_more_examples">Show more examples</string>
+    <string name="learning_view_ayah">View ayah</string>
 
     <string name="learning_track_reading">Reading</string>
     <string name="learning_track_tajweed">Tajweed</string>
