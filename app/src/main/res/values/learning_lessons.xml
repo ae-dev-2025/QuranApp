@@ -296,4 +296,126 @@
         <item>Then open into the ب.</item>
     </string-array>
     <string name="lesson_ikhfa_shafawi_confused">Iqlāb sounds the same, but there a noon or tanwīn turns into the meem.</string>
+
+    <!-- Tajweed: letters and lam -->
+
+    <!-- Heavy letters -->
+    <string name="lesson_heavy_letters_say">aṣ-ṣi-rā-ṭa</string>
+    <string name="lesson_heavy_letters_not_say">as-si-rā-ta</string>
+    <string-array name="lesson_heavy_letters_spot">
+        <item>Seven letters: خ ص ض غ ط ق ظ. They are often remembered as the phrase خُصَّ ضَغْطٍ قِظْ.</item>
+        <item>They are heavy wherever they appear, whatever their vowel.</item>
+    </string-array>
+    <string-array name="lesson_heavy_letters_how">
+        <item>Raise the back of your tongue towards the roof of your mouth, so the sound is full and deep.</item>
+        <item>A fatḥa or alif after a heavy letter sounds deeper too: ṣā, not sā.</item>
+    </string-array>
+
+    <!-- Lam shamsiyya -->
+    <string name="lesson_lam_shamsiyya_say">ar-raḥ-mā-ni</string>
+    <string name="lesson_lam_shamsiyya_not_say">al-raḥ-mā-ni</string>
+    <string-array name="lesson_lam_shamsiyya_spot">
+        <item>After ال the lām has no mark, and the next letter has a shadda: ٱلرَّ.</item>
+        <item>The 14 sun letters: ت ث د ذ ر ز س ش ص ض ط ظ ل ن.</item>
+    </string-array>
+    <string-array name="lesson_lam_shamsiyya_how">
+        <item>Don’t say the lām.</item>
+        <item>Double the next letter instead: ar-raḥmān, ash-shams.</item>
+    </string-array>
+    <string name="lesson_lam_shamsiyya_confused">Before a moon letter the lām has a sukūn and is said clearly: al-qamar.</string>
+
+    <!-- Lam qamariyya -->
+    <string name="lesson_lam_qamariyya_say">al-ḥam-du</string>
+    <string name="lesson_lam_qamariyya_not_say">aḥ-ḥam-du</string>
+    <string-array name="lesson_lam_qamariyya_spot">
+        <item>After ال the lām has a sukūn: ٱلۡ.</item>
+        <item>The 14 moon letters are all in the phrase ٱبۡغِ حَجَّكَ وَخَفۡ عَقِيمَهُ.</item>
+    </string-array>
+    <string-array name="lesson_lam_qamariyya_how">
+        <item>Say the lām clearly, then the next letter: al-ḥamdu, al-qamar.</item>
+    </string-array>
+    <string name="lesson_lam_qamariyya_confused">Before a sun letter the lām is silent and the next letter is doubled: ash-shams.</string>
+
+    <!-- Lam of Allah -->
+    <string name="lesson_lam_of_allah_say">hu-wal-lā-hu</string>
+    <string-array name="lesson_lam_of_allah_spot">
+        <item>The doubled lām in the name ٱللَّه, also in لِلَّهِ and ٱللَّهُمَّ.</item>
+        <item>Look at the vowel just before it, even at the end of the word before.</item>
+    </string-array>
+    <string-array name="lesson_lam_of_allah_how">
+        <item>After fatḥa or ḍamma, say the lām heavy: huwa-llāhu, qāla-llāhu.</item>
+        <item>After kasra, say it light: bismi-llāhi.</item>
+    </string-array>
+    <string name="lesson_lam_of_allah_confused">The seven heavy letters are always heavy. The lām is normally light and is heavy only in the name Allāh after a or u.</string>
+
+    <!-- Ghunnah -->
+    <string name="lesson_ghunnah_say">an-nnnā-si</string>
+    <string name="lesson_ghunnah_not_say">a-nā-si</string>
+    <string-array name="lesson_ghunnah_spot">
+        <item>A noon or meem with a shadda: نّ or مّ.</item>
+    </string-array>
+    <string-array name="lesson_ghunnah_how">
+        <item>Hold the n or m with a hum through your nose for two counts.</item>
+        <item>Try pinching your nose: if the sound stops, you are doing it right.</item>
+    </string-array>
+    <string name="lesson_ghunnah_confused">Idghām with ghunnah creates the same hum when a noon merges into the next word.</string>
+
+    <!-- Qalqalah -->
+    <string name="lesson_qalqalah_say">al-fa-laq</string>
+    <string-array name="lesson_qalqalah_spot">
+        <item>Five letters: ق ط ب ج د, remembered as قُطْبُ جَدٍّ.</item>
+        <item>They bounce when they have a sukūn, or when you stop on them, as at the end of this ayah.</item>
+    </string-array>
+    <string-array name="lesson_qalqalah_how">
+        <item>Close on the letter, then release it with a small echo, without adding a vowel.</item>
+        <item>The echo is stronger when you stop on the letter than in the middle of a word.</item>
+    </string-array>
+
+    <!-- Tajweed: madd -->
+
+    <!-- Madd sign -->
+    <string name="lesson_madd_sign_say">jāāāʾa</string>
+    <string name="lesson_madd_sign_not_say">jāʾa</string>
+    <string-array name="lesson_madd_sign_spot">
+        <item>A wavy line over a long vowel: آ.</item>
+        <item>It is followed by a hamza, a sukūn or a shadda, which is why the vowel is stretched.</item>
+    </string-array>
+    <string-array name="lesson_madd_sign_how">
+        <item>Stretch the vowel beyond two counts. How far depends on what follows: see the three kinds of madd.</item>
+    </string-array>
+    <string name="lesson_madd_sign_confused">Without the wavy line a long vowel is only two counts.</string>
+
+    <!-- Madd muttasil -->
+    <string name="lesson_madd_muttasil_say">as-sa-māāāʾu</string>
+    <string-array name="lesson_madd_muttasil_spot">
+        <item>A long vowel with the madd sign, followed by a hamza in the same word: ـَآء.</item>
+    </string-array>
+    <string-array name="lesson_madd_muttasil_how">
+        <item>Stretch it for 4 or 5 counts, the same length every time you recite.</item>
+        <item>It must always be stretched. Shortening it is a mistake.</item>
+    </string-array>
+    <string name="lesson_madd_muttasil_confused">In munfaṣil the hamza starts the next word, not the same word.</string>
+
+    <!-- Madd munfasil -->
+    <string name="lesson_madd_munfasil_say">lāāā aʿ-bu-du</string>
+    <string-array name="lesson_madd_munfasil_spot">
+        <item>A word ends with a long vowel and the madd sign.</item>
+        <item>The next word starts with a hamza.</item>
+    </string-array>
+    <string-array name="lesson_madd_munfasil_how">
+        <item>Stretch it for 4 or 5 counts, the same length as muttaṣil.</item>
+        <item>If you stop on the first word, it is a normal two-count vowel.</item>
+    </string-array>
+    <string name="lesson_madd_munfasil_confused">In muttaṣil the hamza is in the same word.</string>
+
+    <!-- Madd lazim -->
+    <string name="lesson_madd_lazim_say">aḍ-ḍāāāāāl-līn</string>
+    <string-array name="lesson_madd_lazim_spot">
+        <item>A long vowel with the madd sign, followed in the same word by a shadda or a fixed sukūn.</item>
+        <item>It also appears in some of the letters that open surahs, such as الٓمٓ.</item>
+    </string-array>
+    <string-array name="lesson_madd_lazim_how">
+        <item>Always stretch it for 6 counts.</item>
+    </string-array>
+    <string name="lesson_madd_lazim_confused">Muttaṣil is 4 to 5 counts and comes before a hamza. Lāzim is 6 counts and comes before a shadda or sukūn.</string>
 </resources>
