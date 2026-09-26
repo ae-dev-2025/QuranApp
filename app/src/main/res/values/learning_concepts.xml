@@ -42,7 +42,7 @@
     <string name="concept_silent_letters_summary">A small circle marks a letter that is written but never pronounced, like the final alif in كَفَرُواْ.</string>
 
     <string name="concept_stop_signs_title">Stop signs</string>
-    <string name="concept_stop_signs_summary">Small signs above the text, such as ج, صلى and قلى, that tell you where stopping is allowed, better or required.</string>
+    <string name="concept_stop_signs_summary">Small signs above the text, such as ج&#x200E;, صلى&#x200E; and قلى&#x200E;, that tell you where stopping is allowed, better or required.</string>
 
     <string name="concept_sajdah_title">Prostration sign</string>
     <string name="concept_sajdah_summary">The ۩ sign marks a place where the prostration of recitation (sajdat al-tilāwa) is made.</string>

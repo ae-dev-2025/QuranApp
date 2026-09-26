@@ -20,16 +20,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.quranapp.android.R
 import com.quranapp.android.db.DatabaseProvider
@@ -136,7 +140,7 @@ fun LessonCard(lesson: Lesson, known: Set<String>, onOpenConcept: (Concept) -> U
         if (confused != null && other != null) {
             LessonHeading(R.string.learning_dont_mix_up, Modifier.padding(top = 8.dp))
             ConceptChip(other, isKnown = other.id in known, onClick = { onOpenConcept(other) })
-            Text(stringResource(confused.note), style = typography.bodyMedium)
+            Text(stringResource(confused.note), style = paragraphStyle())
         }
     }
 }
@@ -152,8 +156,25 @@ private fun Bullets(items: Array<String>) {
         for (item in items) {
             Row {
                 Text("•", style = typography.bodyMedium, modifier = Modifier.padding(end = 8.dp))
-                Text(item, style = typography.bodyMedium)
+                // weight(1f) gives the text the whole remaining width. Without it the width is
+                // measured from the text itself, which comes out too small for lines that mix
+                // Arabic and English, and they wrap too early.
+                Text(item, style = paragraphStyle(), modifier = Modifier.weight(1f))
             }
         }
     }
+}
+
+/**
+ * Lesson text is written in the app's language but often starts with an Arabic example
+ * ("قلى: you may continue…"). By default a paragraph takes its direction from its first
+ * letter, which would lay such a line out right-to-left. Follow the app's layout instead.
+ */
+@Composable
+private fun paragraphStyle(): TextStyle {
+    val direction = when (LocalLayoutDirection.current) {
+        LayoutDirection.Rtl -> TextDirection.Rtl
+        LayoutDirection.Ltr -> TextDirection.Ltr
+    }
+    return typography.bodyMedium.copy(textDirection = direction)
 }
