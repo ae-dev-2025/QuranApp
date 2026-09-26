@@ -1,6 +1,7 @@
 package com.quranapp.android.learning.lessons
 
 import com.quranapp.android.learning.concepts.ConceptCatalog
+import com.quranapp.android.learning.concepts.ConceptIds
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNotNull
@@ -15,6 +16,15 @@ class LessonCatalogTest {
         for (lesson in lessons) {
             assertNotNull("Unknown concept ${lesson.conceptId}", ConceptCatalog[lesson.conceptId])
         }
+    }
+
+    @Test
+    fun `every concept has a lesson, except the umbrella ones`() {
+        // Umbrella concepts get a rule overview instead of a lesson (design decision 5).
+        val umbrellas = setOf(ConceptIds.NOON_SAKINAH, ConceptIds.MEEM_SAKINAH)
+        val missing = ConceptCatalog.all.map { it.id }.filter { it !in umbrellas && LessonCatalog[it] == null }
+
+        assertTrue("Concepts without a lesson: $missing", missing.isEmpty())
     }
 
     @Test
