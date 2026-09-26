@@ -1,5 +1,6 @@
 package com.quranapp.android.learning.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,11 +11,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.MaterialTheme.typography
@@ -30,13 +32,16 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.quranapp.android.R
 import com.quranapp.android.compose.components.reader.LocalReaderViewModel
@@ -175,6 +180,9 @@ private fun SheetContent(verse: VerseWithDetails, state: UnderstandAyahState) {
                     onKnownChange = { isKnown ->
                         scope.launch { progress.setKnown(conceptItem.concept.id, isKnown) }
                     },
+                    onOpen = {
+                        context.startActivity(ActivityConcept.intent(context, conceptItem.concept.id))
+                    },
                     arabicFont = arabicFont,
                 )
             }
@@ -253,13 +261,8 @@ private fun Header(
 
 @Composable
 private fun TrackHeading(track: Track) {
-    val label = when (track) {
-        Track.READING -> R.string.learning_track_reading
-        Track.TAJWEED -> R.string.learning_track_tajweed
-    }
-
     Text(
-        text = stringResource(label),
+        text = stringResource(track.labelRes),
         style = typography.labelLarge,
         color = colorScheme.primary,
         modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 4.dp),
@@ -271,14 +274,15 @@ private fun ConceptRow(
     item: ConceptItem,
     isKnown: Boolean,
     onKnownChange: (Boolean) -> Unit,
+    onOpen: () -> Unit,
     arabicFont: FontFamily,
 ) {
-    // The whole row is one toggle, so it is easy to tap and screen readers announce it as a
-    // checkbox. The Checkbox itself only shows the state (onCheckedChange = null).
+    // Two tap targets: the row opens the concept's learning page, the checkbox marks it known.
+    // onClickLabel is what screen readers announce: "double-tap to open lesson".
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .toggleable(value = isKnown, role = Role.Checkbox, onValueChange = onKnownChange)
+            .clickable(onClickLabel = stringResource(R.string.learning_open_lesson), onClick = onOpen)
             .padding(start = 16.dp, end = 4.dp, top = 8.dp, bottom = 8.dp),
     ) {
         ConceptDetails(
@@ -288,7 +292,7 @@ private fun ConceptRow(
                 .weight(1f)
                 .alpha(if (isKnown) 0.55f else 1f),
         )
-        Checkbox(checked = isKnown, onCheckedChange = null, modifier = Modifier.padding(12.dp))
+        Checkbox(checked = isKnown, onCheckedChange = onKnownChange, modifier = Modifier.padding(4.dp))
     }
 }
 
@@ -298,10 +302,13 @@ private fun ConceptDetails(item: ConceptItem, arabicFont: FontFamily, modifier: 
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(2.dp),
     ) {
-        Text(
-            text = stringResource(item.concept.titleRes),
-            style = typography.titleSmall,
-        )
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(
+                text = stringResource(item.concept.titleRes),
+                style = typography.titleSmall,
+            )
+            OpenChevron()
+        }
         Text(
             text = stringResource(item.concept.summaryRes),
             style = typography.bodySmall,
@@ -330,4 +337,19 @@ private fun ConceptDetails(item: ConceptItem, arabicFont: FontFamily, modifier: 
             )
         }
     }
+}
+
+/** A small ">" that hints the row opens a page. It points left in right-to-left languages. */
+@Composable
+private fun OpenChevron() {
+    val isRtl = LocalLayoutDirection.current == LayoutDirection.Rtl
+
+    Icon(
+        painter = painterResource(R.drawable.dr_icon_chevron_down),
+        contentDescription = null, // decorative: the row's click label already says what happens
+        tint = colorScheme.onSurface.alpha(0.5f),
+        modifier = Modifier
+            .size(18.dp)
+            .rotate(if (isRtl) 90f else -90f),
+    )
 }
