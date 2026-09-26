@@ -58,4 +58,133 @@
         <item>The alif, wāw or yāʾ only lengthens the vowel. It is not a new consonant.</item>
     </string-array>
     <string name="lesson_long_vowels_confused">A wavy line above the long vowel means: stretch it longer than two counts.</string>
+
+    <!-- Tanwin -->
+    <string name="lesson_tanween_say">nā-run ḥā-mi-yah</string>
+    <string name="lesson_tanween_not_say">nā-ru ḥā-mi-yah</string>
+    <string-array name="lesson_tanween_spot">
+        <item>A doubled vowel mark on the last letter of a word: بً&#x200E;, بٍ&#x200E; or بٌ.</item>
+        <item>Fatḥatān is usually followed by an alif (بًا). That alif is only read when you stop on the word.</item>
+    </string-array>
+    <string-array name="lesson_tanween_how">
+        <item>Say the vowel, then an n: an, in, un.</item>
+        <item>When you stop on the word, drop the n: -un and -in lose their vowel, and -an becomes ā.</item>
+        <item>Before some letters the n changes. That is covered by the noon sākinah rules in Tajweed.</item>
+    </string-array>
+    <string name="lesson_tanween_confused">A single mark is only a short vowel, with no n: ba. Tanwīn doubles it and adds the n: ban.</string>
+
+    <!-- Hamza -->
+    <string name="lesson_hamza_say">an-na-ba-ʾi</string>
+    <string name="lesson_hamza_not_say">an-na-ba-i</string>
+    <string-array name="lesson_hamza_spot">
+        <item>On its own: ء</item>
+        <item>Sitting on an alif (أ إ), a wāw (ؤ) or a yāʾ (ئ).</item>
+        <item>The letter it sits on is not pronounced, only the hamza and its vowel.</item>
+    </string-array>
+    <string-array name="lesson_hamza_how">
+        <item>A short catch in the throat, like the break in “uh-oh”.</item>
+        <item>Don’t skip it or blend it into the vowel before it: nabaʾi, not nabai.</item>
+    </string-array>
+    <string name="lesson_hamza_confused">The alif with a small ṣād (ٱ) is only pronounced when you start reading from it. A hamza (ء أ إ) is always pronounced.</string>
+
+    <!-- Ta marbuta -->
+    <string name="lesson_ta_marbuta_say">ar-rā-ji-fah</string>
+    <string-array name="lesson_ta_marbuta_spot">
+        <item>At the end of a word, shaped like a ه with two dots on top: ة, or ـة when joined.</item>
+        <item>It only ever comes at the end of a word.</item>
+    </string-array>
+    <string-array name="lesson_ta_marbuta_how">
+        <item>When you continue to the next word, read it as t with its vowel: ar-rājifatu.</item>
+        <item>When you stop on it, read it as h: ar-rājifah. In this example the ayah ends, so you stop.</item>
+    </string-array>
+
+    <!-- Shadda -->
+    <string name="lesson_shadda_say">rab-bi</string>
+    <string name="lesson_shadda_not_say">ra-bi</string>
+    <string-array name="lesson_shadda_spot">
+        <item>A small mark shaped like a w above the letter: بّ.</item>
+        <item>The letter’s vowel is written together with it: بَّ&#x200E;, بِّ&#x200E;, بُّ.</item>
+    </string-array>
+    <string-array name="lesson_shadda_how">
+        <item>Say the letter twice: first closing the syllable, then again with its vowel: rab-bi.</item>
+        <item>You can feel the letter held a little longer than a single one.</item>
+    </string-array>
+    <string name="lesson_shadda_confused">A sukūn only removes the vowel. A shadda doubles the letter: the first half has a sukūn, the second has the vowel.</string>
+
+    <!-- Dagger alif -->
+    <string name="lesson_dagger_alif_say">mā-li-ki</string>
+    <string name="lesson_dagger_alif_not_say">ma-li-ki</string>
+    <string-array name="lesson_dagger_alif_spot">
+        <item>A small upright alif above a letter, instead of a full alif after it: مَٰ.</item>
+        <item>Common in words such as ٱلرَّحۡمَٰنِ and ذَٰلِكَ.</item>
+    </string-array>
+    <string-array name="lesson_dagger_alif_how">
+        <item>Read it exactly like a normal long ā: two counts.</item>
+    </string-array>
+    <string name="lesson_dagger_alif_confused">A full alif sits on the line after the letter; a dagger alif is small and above it. Both are the same long ā.</string>
+
+    <!-- Small waw and ya -->
+    <string name="lesson_small_madd_say">bi-hī</string>
+    <string name="lesson_small_madd_not_say">bi-hi</string>
+    <string-array name="lesson_small_madd_spot">
+        <item>A small wāw or yāʾ after a letter, most often after the hāʾ that means “him” or “his”: بِهِۦ&#x200E;, لَهُۥ.</item>
+        <item>It is written small because it is not part of the basic spelling.</item>
+    </string-array>
+    <string-array name="lesson_small_madd_how">
+        <item>Lengthen the vowel before it for two counts, like a normal long vowel: bihī, lahū.</item>
+        <item>When you stop on the word, leave it out: bih, lah.</item>
+    </string-array>
+    <string name="lesson_small_madd_confused">A full wāw or yāʾ is part of the spelling. A small one shows a long vowel that is read but not written in full.</string>
+
+    <!-- Hamzat al-wasl -->
+    <string name="lesson_hamzat_wasl_say">ih-di-nā</string>
+    <string-array name="lesson_hamzat_wasl_spot">
+        <item>An alif with a small ṣād on top (ٱ), at the start of a word.</item>
+        <item>Very common before the lām of “al-” (the).</item>
+    </string-array>
+    <string-array name="lesson_hamzat_wasl_how">
+        <item>If you start reading from this word, say it as a short vowel: ihdinā, al-ḥamdu.</item>
+        <item>If you join it to the word before, skip it completely: …nastaʿīnu-hdinā.</item>
+    </string-array>
+    <string name="lesson_hamzat_wasl_confused">A hamza (ء أ إ) is always pronounced. The ٱ is silent when you join it to the word before.</string>
+
+    <!-- Silent letters -->
+    <string name="lesson_silent_say">qā-lū</string>
+    <string name="lesson_silent_not_say">qā-lū-a</string>
+    <string-array name="lesson_silent_spot">
+        <item>A small circle above a letter: that letter is never read.</item>
+        <item>Most often the alif after the wāw at the end of a verb, as in قَالُواْ.</item>
+        <item>In أَنَا (anā, “I”) the last alif is only read when you stop on the word.</item>
+    </string-array>
+    <string-array name="lesson_silent_how">
+        <item>Skip the letter completely, as if it were not written.</item>
+    </string-array>
+    <string name="lesson_silent_confused">A letter with sukūn is pronounced, just without a vowel. A small circle means the letter is not pronounced at all.</string>
+
+    <!-- Stop signs -->
+    <string name="lesson_stop_signs_say">ar-raḥmāni lā…</string>
+    <string-array name="lesson_stop_signs_spot">
+        <item>Small letters above the end of a word. They are not part of the word.</item>
+        <item>صلى: you may stop, but it is better to continue. That is the sign in this example.</item>
+        <item>قلى: you may continue, but it is better to stop.</item>
+        <item>ج: stopping and continuing are both fine.</item>
+        <item>م: stop here.</item>
+        <item>Three dots appearing twice, close together: stop at one of the two places, not both.</item>
+    </string-array>
+    <string-array name="lesson_stop_signs_how">
+        <item>When you stop, end the last word without its vowel.</item>
+        <item>Take a breath only where you stop, never in the middle of a word.</item>
+    </string-array>
+
+    <!-- Prostration sign -->
+    <string name="lesson_sajdah_say">lā yas-ju-dūn</string>
+    <string-array name="lesson_sajdah_spot">
+        <item>The ۩ sign at the end of an ayah.</item>
+        <item>There are 15 of these places in the Quran.</item>
+    </string-array>
+    <string-array name="lesson_sajdah_how">
+        <item>Recite the ayah as usual.</item>
+        <item>It is the practice to make one prostration, sajdat al-tilāwa, after reciting it.</item>
+    </string-array>
+    <string name="lesson_sajdah_confused">Stop signs are about pausing your recitation. ۩ marks a place of prostration.</string>
 </resources>
