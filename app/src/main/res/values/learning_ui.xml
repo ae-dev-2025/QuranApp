@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Texts of the learning mode screens. Concept names are in learning_concepts.xml. -->
+<resources>
+    <!-- Label under the button in the verse options sheet. Keep it short. -->
+    <string name="learning_understand_ayah">Understand</string>
+    <string name="learning_understand_title">What this ayah needs</string>
+
+    <plurals name="learning_concept_count">
+        <item quantity="one">%d concept</item>
+        <item quantity="other">%d concepts</item>
+    </plurals>
+
+    <string name="learning_track_reading">Reading</string>
+    <string name="learning_track_tajweed">Tajweed</string>
+
+    <string name="learning_in_every_word">In every word of this ayah</string>
+    <string name="learning_needed_as_foundation">Not written in this ayah, but needed for the rules that are.</string>
+    <string name="learning_analysis_disclaimer">Found automatically from the marks in the text. Please confirm with a qualified teacher.</string>
+</resources>

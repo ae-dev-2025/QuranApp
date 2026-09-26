@@ -46,6 +46,7 @@ import com.quranapp.android.compose.components.reader.LocalReaderViewModel
 import com.quranapp.android.compose.theme.alpha
 import com.quranapp.android.compose.utils.formattedStringResource
 import com.quranapp.android.db.relations.VerseWithDetails
+import com.quranapp.android.learning.ui.UnderstandAyahSheet
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -56,6 +57,7 @@ fun VerseOptionsSheet(
 ) {
     var shareSheetData by remember { mutableStateOf<VerseWithDetails?>(null) }
     var similarVersesSheetData by remember { mutableStateOf<VerseWithDetails?>(null) }
+    var understandSheetData by remember { mutableStateOf<VerseWithDetails?>(null) }
 
     VerseShareSheet(
         vwd = shareSheetData,
@@ -65,6 +67,11 @@ fun VerseOptionsSheet(
     SimilarVersesSheet(
         sourceVerse = similarVersesSheetData,
         onDismiss = { similarVersesSheetData = null },
+    )
+
+    UnderstandAyahSheet(
+        verse = understandSheetData,
+        onDismiss = { understandSheetData = null },
     )
 
     val sheetState = rememberModalBottomSheetState(true)
@@ -88,6 +95,9 @@ fun VerseOptionsSheet(
             onSimilarVerses = {
                 similarVersesSheetData = it
             },
+            onUnderstand = {
+                understandSheetData = it
+            },
             onShare = {
                 shareSheetData = vwd
                 onClose()
@@ -102,6 +112,7 @@ private fun VodSheetContent(
     onDismiss: () -> Unit,
     onFootnotes: (VerseWithDetails) -> Unit,
     onSimilarVerses: (VerseWithDetails) -> Unit,
+    onUnderstand: (VerseWithDetails) -> Unit,
     onShare: () -> Unit,
 ) {
     val repository = LocalReaderViewModel.current.repository
@@ -138,6 +149,15 @@ private fun VodSheetContent(
             horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally),
             verticalAlignment = Alignment.CenterVertically,
         ) {
+            VodOptionItem(
+                iconRes = R.drawable.ic_graduation_cap,
+                labelRes = R.string.learning_understand_ayah,
+                onClick = {
+                    onDismiss()
+                    onUnderstand(verse)
+                },
+            )
+
             VodOptionItem(
                 iconRes = R.drawable.dr_icon_footnote,
                 labelRes = R.string.strTitleFootnotes,
