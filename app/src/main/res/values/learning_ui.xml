@@ -19,6 +19,20 @@
     <string name="learning_not_known_yet">Not known yet</string>
     <string name="learning_learn_these_first">Learn these first</string>
     <string name="learning_unlocks">Unlocks</string>
+    <plurals name="learning_rules_known">
+        <item quantity="one">You know %1$d of %2$d rule</item>
+        <item quantity="other">You know %1$d of %2$d rules</item>
+    </plurals>
+
+    <!-- Rule overview of noon and meem sakinah: what triggers each rule -->
+    <string name="learning_rule_before_izhar">before ء ه ع ح غ خ</string>
+    <string name="learning_rule_before_idgham_ghunnah">before ي ن م و</string>
+    <string name="learning_rule_before_idgham_no_ghunnah">before ل or ر</string>
+    <string name="learning_rule_before_iqlab">before ب</string>
+    <string name="learning_rule_before_ikhfa">before the other 15 letters</string>
+    <string name="learning_rule_before_izhar_shafawi">before any letter except ب and م</string>
+    <string name="learning_rule_before_idgham_shafawi">before another م</string>
+    <string name="learning_rule_before_ikhfa_shafawi">before ب</string>
     <string name="learning_in_the_quran">In the Quran</string>
     <string name="learning_short_surahs_first">Short surahs first</string>
     <string name="learning_show_more_examples">Show more examples</string>

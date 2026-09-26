@@ -41,6 +41,7 @@ import com.quranapp.android.learning.concepts.Concept
 import com.quranapp.android.learning.concepts.ConceptCatalog
 import com.quranapp.android.learning.lessons.KeyExample
 import com.quranapp.android.learning.lessons.Lesson
+import com.quranapp.android.repository.QuranRepository
 import com.quranapp.android.utils.reader.QuranScriptUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -56,12 +57,8 @@ fun KeyExampleCard(example: KeyExample) {
 
     val loaded by produceState<LoadedExample?>(initialValue = null, example) {
         value = withContext(Dispatchers.IO) {
-            val ayahId = example.surahNo * 1000 + example.ayahNo
-            val words = repository
-                .getWordsForAyahById(ayahId, QuranScriptUtils.SCRIPT_UTHMANI)
-                .map { it.text }
             LoadedExample(
-                arabic = example.wordIndexes.mapNotNull { words.getOrNull(it) }.joinToString(" "),
+                arabic = repository.keyExampleArabic(example),
                 surahName = repository.getSurahWithLocalizations(example.surahNo)
                     ?.getCurrentName()
                     .orEmpty(),
@@ -116,6 +113,13 @@ fun KeyExampleCard(example: KeyExample) {
             color = colorScheme.onSurfaceVariant,
         )
     }
+}
+
+/** A key example's Arabic words, from the app's Uthmani text. Call it off the main thread. */
+internal suspend fun QuranRepository.keyExampleArabic(example: KeyExample): String {
+    val ayahId = example.surahNo * 1000 + example.ayahNo
+    val words = getWordsForAyahById(ayahId, QuranScriptUtils.SCRIPT_UTHMANI).map { it.text }
+    return example.wordIndexes.mapNotNull { words.getOrNull(it) }.joinToString(" ")
 }
 
 /** The written lesson: "How to spot it", "How to say it" and "Don't mix it up with". */
