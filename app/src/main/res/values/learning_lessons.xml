@@ -187,4 +187,113 @@
         <item>It is the practice to make one prostration, sajdat al-tilāwa, after reciting it.</item>
     </string-array>
     <string name="lesson_sajdah_confused">Stop signs are about pausing your recitation. ۩ marks a place of prostration.</string>
+
+    <!--
+        Tajweed: noon sakinah and tanwin. In the transliterations, (n) or (m) means a hidden
+        sound: the tongue or lips don't fully close, and you hum through the nose instead.
+    -->
+
+    <!-- Izhar -->
+    <string name="lesson_izhar_say">an-ʿam-ta</string>
+    <string-array name="lesson_izhar_spot">
+        <item>A noon with a sukūn (نۡ), or tanwīn with its two marks stacked on top of each other.</item>
+        <item>The next letter is one of the six throat letters: ء ه ع ح غ خ.</item>
+    </string-array>
+    <string-array name="lesson_izhar_how">
+        <item>Say the n clearly and move straight on to the throat letter.</item>
+        <item>No extra nasal hum, and don’t hide the n.</item>
+    </string-array>
+    <string name="lesson_izhar_confused">In ikhfāʾ the n is hidden with a nasal hum. In iẓhār it is said clearly.</string>
+
+    <!-- Idgham with ghunnah -->
+    <string name="lesson_idgham_ghunnah_say">si-rā-jaw-wah-hā-jā</string>
+    <string name="lesson_idgham_ghunnah_not_say">si-rā-jan wah-hā-jā</string>
+    <string-array name="lesson_idgham_ghunnah_spot">
+        <item>A word ends with a noon that has no mark, or with tanwīn.</item>
+        <item>The next word starts with ي ن م or و.</item>
+        <item>It only happens between two words. Inside one word, as in دُنۡيَا, the noon stays clear.</item>
+    </string-array>
+    <string-array name="lesson_idgham_ghunnah_how">
+        <item>Don’t say the n. Go into the next letter as if it were doubled.</item>
+        <item>Keep a nasal hum for two counts while you do: jaw-wah.</item>
+    </string-array>
+    <string name="lesson_idgham_ghunnah_confused">Before ل or ر the noon also merges, but with no nasal hum.</string>
+
+    <!-- Idgham without ghunnah -->
+    <string name="lesson_idgham_no_ghunnah_say">mir-rab-bi-ka</string>
+    <string name="lesson_idgham_no_ghunnah_not_say">min rab-bi-ka</string>
+    <string-array name="lesson_idgham_no_ghunnah_spot">
+        <item>A word ends with a noon that has no mark, or with tanwīn.</item>
+        <item>The next word starts with ل or ر, and that letter has a shadda: لّ or رّ.</item>
+    </string-array>
+    <string-array name="lesson_idgham_no_ghunnah_how">
+        <item>Drop the n sound completely.</item>
+        <item>Go straight into a doubled ل or ر, with no nasal hum.</item>
+    </string-array>
+    <string name="lesson_idgham_no_ghunnah_confused">Before ي ن م و the noon merges too, but a nasal hum stays.</string>
+
+    <!-- Iqlab -->
+    <string name="lesson_iqlab_say">fa-am-bat-nā</string>
+    <string name="lesson_iqlab_not_say">fa-an-bat-nā</string>
+    <string-array name="lesson_iqlab_spot">
+        <item>A small meem above the noon (نۢ), or in place of the second tanwīn mark.</item>
+        <item>The next letter is always ب.</item>
+    </string-array>
+    <string-array name="lesson_iqlab_how">
+        <item>Turn the n into an m.</item>
+        <item>Close your lips lightly and hum for two counts, then say the ب.</item>
+    </string-array>
+    <string name="lesson_iqlab_confused">In ikhfāʾ shafawī the m is already written as a meem. In iqlāb a noon becomes one.</string>
+
+    <!-- Ikhfa -->
+    <string name="lesson_ikhfa_say">wa-mi(n)-shar-ri</string>
+    <string name="lesson_ikhfa_not_say">wa-min shar-ri</string>
+    <string-array name="lesson_ikhfa_spot">
+        <item>A noon with no mark, or tanwīn with its two marks side by side, not stacked.</item>
+        <item>The next letter is one of the other fifteen: ت ث ج د ذ ز س ش ص ض ط ظ ف ق ك.</item>
+    </string-array>
+    <string-array name="lesson_ikhfa_how">
+        <item>Don’t touch the n with your tongue. Hum through your nose for two counts instead.</item>
+        <item>Shape your mouth for the next letter while you hum.</item>
+    </string-array>
+    <string name="lesson_ikhfa_confused">In iẓhār the n is said clearly, before the throat letters. In ikhfāʾ it is hidden.</string>
+
+    <!-- Tajweed: meem sakinah -->
+
+    <!-- Izhar shafawi -->
+    <string name="lesson_izhar_shafawi_say">lam ya-lid</string>
+    <string-array name="lesson_izhar_shafawi_spot">
+        <item>A meem with a sukūn (مۡ).</item>
+        <item>The next letter is anything except ب or م.</item>
+    </string-array>
+    <string-array name="lesson_izhar_shafawi_how">
+        <item>Close your lips and say a clear m, with no extra hum.</item>
+        <item>Take extra care before و and ف, where it is easy to blur the m.</item>
+    </string-array>
+    <string name="lesson_izhar_shafawi_confused">Iẓhār is the same idea for a noon: said clearly before a throat letter.</string>
+
+    <!-- Idgham shafawi -->
+    <string name="lesson_idgham_shafawi_say">rab-bi-him-min</string>
+    <string-array name="lesson_idgham_shafawi_spot">
+        <item>A word ends with a meem that has no mark.</item>
+        <item>The next word starts with a meem with a shadda (مّ).</item>
+    </string-array>
+    <string-array name="lesson_idgham_shafawi_how">
+        <item>Join the two into one doubled m.</item>
+        <item>Hold it with a nasal hum for two counts.</item>
+    </string-array>
+    <string name="lesson_idgham_shafawi_confused">Idghām with ghunnah is the same merge for a noon, before ي ن م و.</string>
+
+    <!-- Ikhfa shafawi -->
+    <string name="lesson_ikhfa_shafawi_say">fa-bash-shir-hu(m)-bi-ʿa-dhā-bin</string>
+    <string name="lesson_ikhfa_shafawi_not_say">fa-bash-shir-hum bi-ʿa-dhā-bin</string>
+    <string-array name="lesson_ikhfa_shafawi_spot">
+        <item>A word ends with a meem that has no mark.</item>
+        <item>The next word starts with ب.</item>
+    </string-array>
+    <string-array name="lesson_ikhfa_shafawi_how">
+        <item>Let your lips touch lightly, without pressing, and hum for two counts.</item>
+        <item>Then open into the ب.</item>
+    </string-array>
+    <string name="lesson_ikhfa_shafawi_confused">Iqlāb sounds the same, but there a noon or tanwīn turns into the meem.</string>
 </resources>
