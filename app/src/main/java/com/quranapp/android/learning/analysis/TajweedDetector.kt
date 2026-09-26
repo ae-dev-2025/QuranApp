@@ -2,7 +2,10 @@ package com.quranapp.android.learning.analysis
 
 import com.quranapp.android.learning.concepts.ConceptIds
 
-/** A concept found in an ayah, at the word with this 0-based index. */
+/**
+ * A concept found in an ayah, at the word with this 0-based index. A rule that joins two
+ * words (مِّن رَّبِّكَ) is reported once for each of them.
+ */
 data class Occurrence(val conceptId: String, val wordIndex: Int)
 
 /**
@@ -31,6 +34,12 @@ object TajweedDetector {
         val isLastInWord: Boolean,
     )
 
+    /**
+     * A rule found at a letter. [joinsNextLetter] is true for rules about how this letter meets
+     * the next one (noon and meem sākinah, madd before a hamza).
+     */
+    private data class Rule(val conceptId: String, val joinsNextLetter: Boolean = false)
+
     /** @param words the ayah's words, each already split into letters with [parseClusters]. */
     fun detect(words: List<List<LetterCluster>>): List<Occurrence> {
         val letters = words.flatMapIndexed { wordIndex, clusters ->
@@ -45,8 +54,14 @@ object TajweedDetector {
             val next = nextSoundedLetter(letters, index)
             val isLastOfAyah = index == letters.lastIndex
 
-            for (conceptId in rulesAt(letters, index, next, isLastOfAyah)) {
-                found += Occurrence(conceptId, letter.wordIndex)
+            for (rule in rulesAt(letters, index, next, isLastOfAyah)) {
+                found += Occurrence(rule.conceptId, letter.wordIndex)
+
+                // The letter that completes the rule may start the next word: report that word
+                // too, so the learner sees where the two words meet.
+                if (rule.joinsNextLetter && next != null && next.wordIndex != letter.wordIndex) {
+                    found += Occurrence(rule.conceptId, next.wordIndex)
+                }
             }
         }
 
@@ -58,30 +73,30 @@ object TajweedDetector {
         index: Int,
         next: Letter?,
         isLastOfAyah: Boolean,
-    ): List<String> {
+    ): List<Rule> {
         val letter = letters[index]
         val c = letter.cluster
-        val rules = mutableListOf<String>()
+        val rules = mutableListOf<Rule>()
 
-        if (c.letter in HEAVY_LETTERS) rules += ConceptIds.HEAVY_LETTERS
+        if (c.letter in HEAVY_LETTERS) rules += Rule(ConceptIds.HEAVY_LETTERS)
 
         if ((c.letter == Arabic.NOON || c.letter == Arabic.MEEM) && c.has(Arabic.SHADDA)) {
-            rules += ConceptIds.GHUNNAH
+            rules += Rule(ConceptIds.GHUNNAH)
         }
 
         // Qalqalah: the letter has a sukun, or it is the last letter and we stop on it.
         if (c.letter in QALQALAH_LETTERS && (c.has(Arabic.SUKUN) || isLastOfAyah)) {
-            rules += ConceptIds.QALQALAH
+            rules += Rule(ConceptIds.QALQALAH)
         }
 
-        noonSakinahRule(c, next)?.let { rules += it }
-        meemSakinahRule(c, next)?.let { rules += it }
-        definiteArticleRule(letters, index)?.let { rules += it }
-        if (isLamOfAllah(letters, index)) rules += ConceptIds.LAM_OF_ALLAH
+        noonSakinahRule(c, next)?.let { rules += Rule(it, joinsNextLetter = true) }
+        meemSakinahRule(c, next)?.let { rules += Rule(it, joinsNextLetter = true) }
+        definiteArticleRule(letters, index)?.let { rules += Rule(it) }
+        if (isLamOfAllah(letters, index)) rules += Rule(ConceptIds.LAM_OF_ALLAH)
 
         if (c.hasAny(Arabic.MADD_SIGNS)) {
-            rules += ConceptIds.MADD_SIGN
-            maddRule(letter, next)?.let { rules += it }
+            rules += Rule(ConceptIds.MADD_SIGN)
+            maddRule(letter, next)?.let { rules += Rule(it, joinsNextLetter = true) }
         }
 
         return rules

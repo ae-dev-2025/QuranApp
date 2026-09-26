@@ -4,7 +4,8 @@ package com.quranapp.android.learning.analysis
  * The concepts needed to read one ayah.
  *
  * @property wordsByConcept for each concept ID, the 0-based indexes of the words it occurs in
- * (the same numbering as `word_index` in the `ayah_words` table).
+ * (the same numbering as `word_index` in the `ayah_words` table). A rule that joins two words
+ * lists both.
  */
 data class AyahAnalysis(val wordsByConcept: Map<String, List<Int>>) {
     val conceptIds: Set<String> get() = wordsByConcept.keys

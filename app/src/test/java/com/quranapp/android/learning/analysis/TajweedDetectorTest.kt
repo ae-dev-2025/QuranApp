@@ -59,35 +59,43 @@ class TajweedDetectorTest {
     // ---- Noon sakinah and tanween ----
 
     @Test
+    fun `a rule that joins two words is reported at both words`() {
+        // 113:3 وَمِن شَرِّ: the noon is in word 0, the ش that decides the rule is in word 1.
+        assertAt(AYAH_113_3, IKHFA, 0, 1)
+        // 2:31 أَنۢبِـُٔونِي: noon and ب are in the same word, so only that word.
+        assertAt(AYAH_2_31, IQLAB, 9)
+    }
+
+    @Test
     fun `izhar - noon with sukun and stacked tanween`() {
         assertAt(AYAH_1_7, IZHAR, 2) // أَنۡعَمۡتَ
-        assertAt(AYAH_2_10, IZHAR, 7) // عَذَابٌ أَلِيمُۢ
-        assertAt(AYAH_112_4, IZHAR, 3) // كُفُوًا أَحَدُۢ
+        assertAt(AYAH_2_10, IZHAR, 7, 8) // عَذَابٌ أَلِيمُۢ
+        assertAt(AYAH_112_4, IZHAR, 3, 4) // كُفُوًا أَحَدُۢ
     }
 
     @Test
     fun `idgham with ghunnah - staggered tanween before waw`() {
-        assertAt(AYAH_2_10, IDGHAM_GHUNNAH, 5) // مَرَضٗاۖ وَلَهُمۡ
+        assertAt(AYAH_2_10, IDGHAM_GHUNNAH, 5, 6) // مَرَضٗاۖ وَلَهُمۡ
     }
 
     @Test
     fun `idgham without ghunnah - before lam and ra`() {
-        assertAt(AYAH_2_2, IDGHAM_NO_GHUNNAH, 5) // هُدٗى لِّلۡمُتَّقِينَ
-        assertAt(AYAH_112_4, IDGHAM_NO_GHUNNAH, 1) // يَكُن لَّهُۥ
+        assertAt(AYAH_2_2, IDGHAM_NO_GHUNNAH, 5, 6) // هُدٗى لِّلۡمُتَّقِينَ
+        assertAt(AYAH_112_4, IDGHAM_NO_GHUNNAH, 1, 2) // يَكُن لَّهُۥ
     }
 
     @Test
     fun `iqlab - small meem before ba`() {
-        assertAt(AYAH_2_10, IQLAB, 8) // أَلِيمُۢ بِمَا
+        assertAt(AYAH_2_10, IQLAB, 8, 9) // أَلِيمُۢ بِمَا
         assertAt(AYAH_2_31, IQLAB, 9) // أَنۢبِـُٔونِي
     }
 
     @Test
     fun `ikhfa - bare noon and staggered tanween`() {
         assertAt(AYAH_2_6, IKHFA, 5, 8) // ءَأَنذَرۡتَهُمۡ, تُنذِرۡهُمۡ
-        assertAt(AYAH_2_10, IKHFA, 2) // مَّرَضٞ فَزَادَهُمُ
+        assertAt(AYAH_2_10, IKHFA, 2, 3) // مَّرَضٞ فَزَادَهُمُ
         assertAt(AYAH_2_31, IKHFA, 12, 13) // إِن كُنتُمۡ
-        assertAt(AYAH_113_3, IKHFA, 0) // وَمِن شَرِّ
+        assertAt(AYAH_113_3, IKHFA, 0, 1) // وَمِن شَرِّ
     }
 
     @Test
@@ -106,18 +114,18 @@ class TajweedDetectorTest {
 
     @Test
     fun `izhar shafawi - meem with sukun`() {
-        assertAt(AYAH_1_7, IZHAR_SHAFAWI, 2, 3, 6)
-        assertAt(AYAH_2_6, IZHAR_SHAFAWI, 4, 5, 6, 7, 8)
+        assertAt(AYAH_1_7, IZHAR_SHAFAWI, 2, 3, 4, 6, 7)
+        assertAt(AYAH_2_6, IZHAR_SHAFAWI, 4, 5, 6, 7, 8, 9)
     }
 
     @Test
     fun `idgham shafawi - meem before meem`() {
-        assertAt(AYAH_2_10, IDGHAM_SHAFAWI, 1) // قُلُوبِهِم مَّرَضٞ
+        assertAt(AYAH_2_10, IDGHAM_SHAFAWI, 1, 2) // قُلُوبِهِم مَّرَضٞ
     }
 
     @Test
     fun `ikhfa shafawi - meem before ba`() {
-        assertAt(AYAH_10_51, IKHFA_SHAFAWI, 4, 8) // ءَامَنتُم بِهِۦٓ, كُنتُم بِهِۦ
+        assertAt(AYAH_10_51, IKHFA_SHAFAWI, 4, 5, 8, 9) // ءَامَنتُم بِهِۦٓ, كُنتُم بِهِۦ
     }
 
     // ---- Lam ----
@@ -177,8 +185,8 @@ class TajweedDetectorTest {
 
     @Test
     fun `madd munfasil - hamza at the start of the next word`() {
-        assertAt(AYAH_20_14, MADD_MUNFASIL, 0, 3, 5) // إِنَّنِيٓ أَنَا, لَآ إِلَٰهَ, إِلَّآ أَنَا۠
-        assertAt(AYAH_10_51, MADD_MUNFASIL, 5) // بِهِۦٓۚ ءَآلۡـَٰٔنَ
+        assertAt(AYAH_20_14, MADD_MUNFASIL, 0, 1, 3, 4, 5, 6) // إِنَّنِيٓ أَنَا, لَآ إِلَٰهَ, إِلَّآ أَنَا۠
+        assertAt(AYAH_10_51, MADD_MUNFASIL, 5, 6) // بِهِۦٓۚ ءَآلۡـَٰٔنَ
     }
 
     @Test
