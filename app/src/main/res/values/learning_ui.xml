@@ -15,6 +15,10 @@
     <!-- Concept learning page -->
     <string name="learning_open_lesson">open lesson</string>
     <string name="learning_i_know_this">I know this</string>
+    <string name="learning_known">Known</string>
+    <string name="learning_not_known_yet">Not known yet</string>
+    <string name="learning_learn_these_first">Learn these first</string>
+    <string name="learning_unlocks">Unlocks</string>
 
     <string name="learning_track_reading">Reading</string>
     <string name="learning_track_tajweed">Tajweed</string>

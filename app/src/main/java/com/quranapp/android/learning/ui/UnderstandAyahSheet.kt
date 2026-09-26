@@ -11,12 +11,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.MaterialTheme.typography
@@ -32,16 +30,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.quranapp.android.R
 import com.quranapp.android.compose.components.reader.LocalReaderViewModel
@@ -337,19 +331,4 @@ private fun ConceptDetails(item: ConceptItem, arabicFont: FontFamily, modifier: 
             )
         }
     }
-}
-
-/** A small ">" that hints the row opens a page. It points left in right-to-left languages. */
-@Composable
-private fun OpenChevron() {
-    val isRtl = LocalLayoutDirection.current == LayoutDirection.Rtl
-
-    Icon(
-        painter = painterResource(R.drawable.dr_icon_chevron_down),
-        contentDescription = null, // decorative: the row's click label already says what happens
-        tint = colorScheme.onSurface.alpha(0.5f),
-        modifier = Modifier
-            .size(18.dp)
-            .rotate(if (isRtl) 90f else -90f),
-    )
 }
