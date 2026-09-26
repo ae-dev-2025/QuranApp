@@ -10,15 +10,18 @@ import com.quranapp.android.db.dao.BookmarkDao
 import com.quranapp.android.db.dao.ReadHistoryDao
 import com.quranapp.android.db.entities.user.BookmarkEntity
 import com.quranapp.android.db.entities.user.ReadHistoryEntity
+import com.quranapp.android.learning.progress.ConceptProgressDao
+import com.quranapp.android.learning.progress.ConceptProgressEntity
 
 @Database(
-    entities = [BookmarkEntity::class, ReadHistoryEntity::class],
-    version = 2,
+    entities = [BookmarkEntity::class, ReadHistoryEntity::class, ConceptProgressEntity::class],
+    version = 3,
 )
 @TypeConverters(DbConverters::class)
 abstract class UserDatabase : RoomDatabase() {
     abstract fun bookmarkDao(): BookmarkDao
     abstract fun readHistoryDao(): ReadHistoryDao
+    abstract fun conceptProgressDao(): ConceptProgressDao
 
     companion object {
         val MIGRATION_1_2 = object : Migration(1, 2) {
@@ -36,6 +39,22 @@ abstract class UserDatabase : RoomDatabase() {
                         `mushaf_id` INTEGER NOT NULL DEFAULT 0,
                         `page_no` INTEGER,
                         `datetime` INTEGER NOT NULL DEFAULT 0
+                    )
+                    """.trimIndent()
+                )
+            }
+        }
+
+        /** Adds learning-mode progress. The SQL matches schemas/.../UserDatabase/3.json. */
+        val MIGRATION_2_3 = object : Migration(2, 3) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `concept_progress` (
+                        `concept_id` TEXT NOT NULL,
+                        `status` TEXT NOT NULL,
+                        `updated_at` INTEGER NOT NULL,
+                        PRIMARY KEY(`concept_id`)
                     )
                     """.trimIndent()
                 )
