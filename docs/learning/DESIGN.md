@@ -195,9 +195,25 @@ bottom sheet listing the concepts the ayah needs, grouped by track, prerequisite
 with a one-line explanation and the words where it occurs. Learners can mark concepts as
 known, and the sheet shows readiness ("You know 9 of 14").
 
+**Milestone 2, concept pages (design decided 2026-09-26):** tapping a concept in the sheet
+opens its page. The flow was reviewed as a clickable mockup before building, and these
+options were chosen:
+
+1. **Guided order:** "learn these first" chips, then a key example, the lesson, examples from
+   the Quran, and "I know this" at the end (not at the top).
+2. **Prerequisites as chips at the top**, known ones ticked. "Unlocks" uses the same chips
+   at the bottom.
+3. **Highlight both words** when a rule spans two words (مِّن رَّبِّكَ), so the analyzer
+   reports the word pair.
+4. **Three examples**, searching Al-Fātiḥah and Juz ʿAmma first, with "Show more". Tapping one
+   opens the reader at that ayah.
+5. **Umbrella concepts** (noon/meem sākinah) show an overview of their rules, one example each.
+6. **Lessons now** in a fixed format (key example with "you say… not…", *How to spot it*,
+   *How to say it*, *Don't mix it up with*), flagged for a teacher to check. **Listen**
+   (playing the example) comes in a later PR.
+
 **Later:**
-- **Concept page:** a short lesson, audio examples via the existing recitation player, and
-  "more ayahs with this" (examples found by the same analyzer).
+- **Listen** on concept pages, using the existing recitation player.
 - **"Path to this ayah":** the unknown prerequisites in learning order, as a checklist.
 - **Learn tab:** tracks with progress, "next up" (outer fringe), daily review (FSRS), and
   a guided path through Al-Fātiḥah → Juz ʿAmma.
