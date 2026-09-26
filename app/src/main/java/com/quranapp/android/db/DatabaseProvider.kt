@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.quranapp.android.db.migrations.ExternalQuranDatabaseMigrations
 import com.quranapp.android.db.searchindex.SearchIndexDatabase
 import com.quranapp.android.db.translation.QuranTranslDBHelper
+import com.quranapp.android.learning.progress.LearningProgressRepository
 import com.quranapp.android.repository.QuranRepository
 import com.quranapp.android.repository.TopicsRepository
 import com.quranapp.android.repository.UserRepository
@@ -16,6 +17,9 @@ object DatabaseProvider {
 
     @Volatile
     private var userRepository: UserRepository? = null
+
+    @Volatile
+    private var learningProgressRepository: LearningProgressRepository? = null
 
     @Volatile
     private var quranDatabase: QuranDatabase? = null
@@ -45,7 +49,7 @@ object DatabaseProvider {
                 UserDatabase::class.java,
                 "user_db"
             )
-                .addMigrations(UserDatabase.MIGRATION_1_2)
+                .addMigrations(UserDatabase.MIGRATION_1_2, UserDatabase.MIGRATION_2_3)
                 .fallbackToDestructiveMigration(false)
                 .build()
                 .also { userDatabase = it }
@@ -58,6 +62,14 @@ object DatabaseProvider {
                 context.applicationContext,
                 getUserDatabase(context)
             ).also { userRepository = it }
+        }
+    }
+
+    fun getLearningProgressRepository(context: Context): LearningProgressRepository {
+        return learningProgressRepository ?: synchronized(this) {
+            learningProgressRepository ?: LearningProgressRepository(
+                getUserDatabase(context).conceptProgressDao()
+            ).also { learningProgressRepository = it }
         }
     }
 
@@ -154,6 +166,7 @@ object DatabaseProvider {
             searchIndexDatabase?.close(); searchIndexDatabase = null
             topicsDatabase?.close(); topicsDatabase = null
             userRepository = null
+            learningProgressRepository = null
             quranRepository = null
             topicsRepository = null
             quranTranslDbHelper = null
