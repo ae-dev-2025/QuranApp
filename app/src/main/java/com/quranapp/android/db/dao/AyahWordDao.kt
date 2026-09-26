@@ -104,4 +104,24 @@ interface AyahWordDao {
         ayahIds: List<Int>,
         scriptCode: String,
     ): List<AyahWordEntity>
+
+    /** Every word of a surah. ayah_id is surahNo * 1000 + ayahNo, so a range selects the surah. */
+    @Query(
+        """
+        SELECT aw.*
+        FROM ayah_words aw
+        WHERE aw.ayah_id BETWEEN :surahNo * 1000 AND :surahNo * 1000 + 999
+          AND aw.script_id = (
+              SELECT COALESCE(s.parent, s.script_id)
+              FROM scripts s
+              WHERE s.code = :scriptCode
+              LIMIT 1
+          )
+        ORDER BY aw.ayah_id ASC, aw.word_index ASC
+        """
+    )
+    suspend fun getWordsForSurah(
+        surahNo: Int,
+        scriptCode: String,
+    ): List<AyahWordEntity>
 }

@@ -279,6 +279,11 @@ class QuranRepository(
         }
     }
 
+    /** Every word of a surah, grouped by ayah ID in reading order. */
+    suspend fun getWordsForSurah(surahNo: Int, scriptCode: String): Map<Int, List<AyahWordEntity>> {
+        return ayahWordDao.getWordsForSurah(surahNo, scriptCode).groupBy { it.ayahId }
+    }
+
     suspend fun getWbwWordsForAyahs(
         wbwId: String,
         ayahIds: List<Int>,
