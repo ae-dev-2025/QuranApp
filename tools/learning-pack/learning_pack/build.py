@@ -6,6 +6,8 @@ DIR holds the files listed in README.md. PATH is app/src/main/assets/db/quranapp
 """
 
 import argparse
+import gzip
+import shutil
 import sys
 from pathlib import Path
 
@@ -50,7 +52,19 @@ def main(argv=None) -> int:
     print(f"sentence data for {len(sentence.words)} words; none for {len(sentence.unmatched_app_words)}; "
           f"glosses for {len(sentence.regular_ayahs)} ayahs")
     print(f"size {args.out.stat().st_size:,} bytes, SHA-256 {sources.sha256_of(args.out)}")
+
+    download = write_gzip(args.out)
+    print(f"{download}: {download.stat().st_size:,} bytes, SHA-256 {sources.sha256_of(download)}")
     return 0
+
+
+def write_gzip(pack_path: Path) -> Path:
+    """The file to publish. A fixed name and time inside the gzip keep it reproducible."""
+    target = pack_path.with_name(pack_path.name + ".gz")
+    with open(pack_path, "rb") as source, open(target, "wb") as raw:
+        with gzip.GzipFile(filename="learning_pack.db", mode="wb", fileobj=raw, mtime=0, compresslevel=9) as out:
+            shutil.copyfileobj(source, out)
+    return target
 
 
 if __name__ == "__main__":

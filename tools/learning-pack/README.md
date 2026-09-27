@@ -39,7 +39,15 @@ python -m learning_pack.build --data ../../../data \
     --out build/learning_pack.db --version 1
 ```
 
-The same inputs always give the same file (same SHA-256).
+The same inputs always give the same file (same SHA-256). The build also writes
+`learning_pack-v1.db.gz`, the file to publish.
+
+## Publishing a new pack
+
+1. Build with the next `--version`.
+2. Publish the `.gz` as a release asset on the repository (tag `learning-pack-vN`).
+3. Update `LearningPackRelease.kt` in the app: URL, both sizes and both SHA-256 hashes
+   printed by the build. The app refuses any file that doesn't match them.
 
 ## What's in the pack
 

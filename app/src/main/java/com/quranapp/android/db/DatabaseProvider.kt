@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.quranapp.android.db.migrations.ExternalQuranDatabaseMigrations
 import com.quranapp.android.db.searchindex.SearchIndexDatabase
 import com.quranapp.android.db.translation.QuranTranslDBHelper
+import com.quranapp.android.learning.pack.LearningPackManager
 import com.quranapp.android.learning.progress.LearningProgressRepository
 import com.quranapp.android.repository.QuranRepository
 import com.quranapp.android.repository.TopicsRepository
@@ -165,6 +166,7 @@ object DatabaseProvider {
             externalQuranDatabase?.close(); externalQuranDatabase = null
             searchIndexDatabase?.close(); searchIndexDatabase = null
             topicsDatabase?.close(); topicsDatabase = null
+            LearningPackManager.close()
             userRepository = null
             learningProgressRepository = null
             quranRepository = null
