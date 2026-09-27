@@ -1,6 +1,7 @@
 # Learning mode: design
 
-> Status: proposal · Author: ae-dev-2025 · Last updated: 2026-09-26
+> Status: approved · Author: ae-dev-2025 · Last updated: 2026-09-27 ·
+> The build order and pinned data sources are in [PLAN.md](PLAN.md).
 
 This document explains how QuranApp can grow from a Quran *reader* into a place where
 someone who cannot read Arabic yet can go from zero to understanding the Quran directly.
@@ -106,7 +107,7 @@ works offline. That makes it the right first milestone.
 | [Quranic Arabic Corpus 0.4](https://corpus.quran.com/download/) (Kais Dukes) | Segment-level morphology: POS, root, lemma, verb form, person/gender/number, case/mood, prefixes/suffixes | GNU GPL, attribution link required. Its header also says "verbatim copies… changing it is not allowed", which needs clarification before we transform it. | `s:a:w:segment`, 1-based. `word_index = w − 1` (to verify per ayah). | Grammar concepts per word; lemmas; roots |
 | [mustafa0x/quran-morphology](https://github.com/mustafa0x/quran-morphology) | QAC 0.4 in Arabic script with many corrections (roots, lemmas, tags) | Not stated; derived from GPL QAC | Same as QAC | Preferred morphology source if licence is confirmed |
 | [QUL, Tarteel](https://qul.tarteel.ai/resources/morphology) | Word lemma/root/stem as SQLite (`word_location` = `s:a:w`) | Check QUL terms per resource | Same as QAC | Convenient packaging of the above |
-| [MASAQ](https://data.mendeley.com/datasets/9yvrzxktmr) (2024) | Full-Quran morphology **and iʿrāb** (syntactic role, case marker, iḍāfa, phrase function; 123k syntactic tags) | CC BY 3.0 | Tanzil *imlāʾī* text, so word boundaries differ in places (e.g. يَٰٓأَيُّهَا) and need an alignment step | Syntax concepts (mubtadaʾ/khabar, fāʿil, mafʿūl bihi, ḥāl …) |
+| [MASAQ](https://data.mendeley.com/datasets/9yvrzxktmr) (2024) | Full-Quran morphology **and iʿrāb** (syntactic role, case marker, iḍāfa, phrase function; 123k syntactic tags) | CC BY 4.0 in version 5, which we use; version 6 relabelled it CC BY-NC 3.0 | Tanzil *imlāʾī* text, so word boundaries differ in places (e.g. يَٰٓأَيُّهَا) and need an alignment step | Syntax concepts (mubtadaʾ/khabar, fāʿil, mafʿūl bihi, ḥāl …) |
 | [cpfair/quran-tajweed](https://github.com/cpfair/quran-tajweed) | 19 tajweed rules as character ranges | CC BY 4.0 (unmaintained) | Codepoint offsets into a specific 2017 Tanzil text; map offsets → words | Cross-check for our on-device tajweed detection; rules we can't derive from marks (e.g. rāʾ) |
 | [Quran-Tajweed-Engine](https://github.com/TheAbubakrAbu/Quran-Tajweed-Engine) | 113k precomputed tajweed spans, 17 rules | MIT | Own text | Second cross-check only (provenance less established) |
 
