@@ -466,4 +466,5 @@
     <string name="learning_q_letter_shape">Which is %1$s at the %2$s of a word?</string>
     <string name="learning_q_letter_first">Listen: which letter does this word start with?</string>
     <string name="learning_q_show_word">Show the word</string>
+    <string name="learning_track_grammar">Grammar</string>
 </resources>

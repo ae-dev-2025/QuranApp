@@ -12,6 +12,9 @@ enum class Track {
 
     /** Rules of recitation. */
     TAJWEED,
+
+    /** How words are built and how they fit together (ṣarf, naḥw, iʿrāb). */
+    GRAMMAR,
 }
 
 /**
@@ -29,4 +32,6 @@ data class Concept(
     @StringRes val titleRes: Int,
     @StringRes val summaryRes: Int,
     val prerequisites: List<String> = emptyList(),
+    /** The Arabic term shown next to the English name, for grammar (decision 6). */
+    val arabicTerm: String? = null,
 )

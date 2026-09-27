@@ -239,7 +239,7 @@ object ConceptCatalog {
             MADD_LAZIM, R.string.concept_madd_lazim_title, R.string.concept_madd_lazim_summary,
             MADD_SIGN, SHADDA,
         ),
-    )
+    ) + GrammarCatalog.all
 
     /**
      * Concepts that group several rules and never occur in the text themselves. Their page
