@@ -7,7 +7,8 @@ from learning_pack.corpus import group_words, parse_segments
 def words_from(stems):
     """One-segment words from (buckwalter form, features) pairs, one ayah, in order."""
     lines = [
-        f"(1:1:{index}:1)\t{form}\tV\tSTEM|{features}\r\n"
+        # The tag column repeats the POS feature, as in the corpus.
+        f"(1:1:{index}:1)\t{form}\t{features.split('|')[0].split(':')[1]}\tSTEM|{features}\r\n"
         for index, (form, features) in enumerate(stems, start=1)
     ]
     return group_words(parse_segments(lines))
@@ -84,3 +85,25 @@ class LexiconTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class HeadwordCleanupTest(unittest.TestCase):
+    def test_a_doubled_first_letter_loses_its_shadda(self):
+        # نَّاس (from ٱلنَّاس) is written نَاس in a dictionary.
+        self.assertEqual(lexicon.display("n~aAs"), lexicon.display("naAs"))
+
+    def test_nouns_ending_in_short_at_get_a_taa_marbuta(self):
+        self.assertEqual(lexicon.headword_of("EibaAdat", "N"), "EibaAdap")
+        self.assertEqual(lexicon.headword_of("Sa`liHa`t", "N"), "Sa`liHa`t")  # a real plural in -aat
+        self.assertEqual(lexicon.headword_of("Eanat", "N"), "Eanat")  # hardship really ends in taa
+        self.assertEqual(lexicon.headword_of("xalaqat", "V"), "xalaqat")  # only nouns change
+
+    def test_a_bare_pronoun_gets_a_lemma_by_person(self):
+        roots, lemmas = lexicon.build(words_from([
+            ("huwa", "POS:PRON|3MS"),
+            ("hu,", "POS:PRON|3MS"),
+        ]))
+        pronoun = lemma(lemmas, "PRON:3MS")
+        self.assertEqual(pronoun.occurrences, 2)
+        self.assertEqual(pronoun.headword_source, "pronoun")
+        self.assertEqual(pronoun.headword, lexicon.display("huwa"))

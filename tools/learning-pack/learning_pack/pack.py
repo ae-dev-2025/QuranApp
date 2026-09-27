@@ -12,6 +12,8 @@ give the same pack.
 import sqlite3
 from pathlib import Path
 
+from . import lexicon
+
 SCHEMA_VERSION = 1
 
 SCHEMA = [
@@ -114,7 +116,8 @@ def write(path: Path, aligned: list, roots: list, lemmas: list, credits: list, m
         connection.executemany(
             "INSERT INTO segments VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
             [(word.ayah_id, word.word_index, segment.index - 1, to_arabic(segment.form), segment.kind,
-              segment.tag, lemma_ids.get(segment.lemma) if segment.kind == "STEM" else None, features(segment))
+              segment.tag, lemma_ids.get(lexicon.lemma_key(segment)) if segment.kind == "STEM" else None,
+              features(segment))
              for word in aligned for segment in word.corpus_word.segments],
         )
         if masaq_words:
