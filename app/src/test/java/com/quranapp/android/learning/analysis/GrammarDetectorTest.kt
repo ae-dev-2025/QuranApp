@@ -90,6 +90,9 @@ class GrammarDetectorTest {
         // 110:2 أَفۡوَاجًا is P: a plural, gender not given.
         val afwaj = listOf(seg("STEM", "N", "P|INDEF|ACC", "أَفۡوَاجًا", "fawoj", "fwj"))
         assertTrue(GrammarIds.BROKEN_PLURAL in conceptsOf(afwaj))
+        // 1:1 ٱللَّهِ: a proper noun in jarr.
+        val allahi = listOf(seg("STEM", "PN", "GEN", "ٱللَّهِ", "{ll~ah", "Alh"))
+        assertTrue(GrammarIds.CASES in conceptsOf(allahi))
         // 111:1 أَبِى, with the pack's final ى.
         val abi = listOf(seg("STEM", "N", "MS|GEN", "أَبِى", ">abN", "Abw"))
         assertTrue(GrammarIds.FIVE_NOUNS in conceptsOf(abi))
