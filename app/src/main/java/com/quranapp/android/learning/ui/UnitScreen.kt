@@ -187,9 +187,9 @@ private fun UnitContent(unit: UnitHeader, known: Set<String>, packState: Learnin
 
 /** Decision 9: one bar per layer, so the learner sees where the gap is. */
 @Composable
-internal fun ReadinessBars(progress: Map<Layer, LayerProgress?>) {
+internal fun ReadinessBars(progress: Map<Layer, LayerProgress?>, title: String? = stringResource(R.string.learning_unit_readiness)) {
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        Text(stringResource(R.string.learning_unit_readiness), style = typography.titleSmall)
+        title?.let { Text(it, style = typography.titleSmall) }
         progress.forEach { (layer, layerProgress) ->
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text(stringResource(layer.labelRes), style = typography.bodyMedium, modifier = Modifier.width(64.dp))
