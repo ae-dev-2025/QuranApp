@@ -53,7 +53,11 @@ class WordRepository(private val dao: LearningPackDao) {
 
     /** Every grammar concept found in a surah. */
     suspend fun grammarOfSurah(surahNo: Int): Set<String> =
-        grammarByAyah(dao.grammarSegmentsBetween(surahNo * 1000, surahNo * 1000 + 999)).values.flatMapTo(LinkedHashSet()) { it.keys }
+        grammarByAyahOfSurah(surahNo).values.flatMapTo(LinkedHashSet()) { it.keys }
+
+    /** For each ayah of a surah, its grammar concepts and the words they're in. */
+    suspend fun grammarByAyahOfSurah(surahNo: Int): Map<Int, Map<String, List<Int>>> =
+        grammarByAyah(dao.grammarSegmentsBetween(surahNo * 1000, surahNo * 1000 + 999))
 
     /** A dictionary word by its stable key. */
     suspend fun lemma(lemmaKey: String): LemmaEntity? = dao.lemmaByKey(lemmaKey)
