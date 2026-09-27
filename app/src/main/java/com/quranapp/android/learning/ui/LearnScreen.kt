@@ -109,7 +109,8 @@ fun LearnScreen(viewModel: LearnViewModel) {
             path?.let { loaded ->
                 item { ContinueCard(loaded) }
                 // Started past the letters: offer to tick the basics they already know.
-                val checkable = loaded.unknownBasics.filter { Letters[it] == null } // letters get questions in #59
+                // Letters are left out: a reader knows them, and 29 more questions wouldn't be a 2-minute check.
+                val checkable = loaded.unknownBasics.filter { Letters[it] == null }
                 if (loaded.start > 0 && checkable.isNotEmpty()) item { PlacementCheckCard(checkable) }
                 item { YourPathCard(loaded) }
             }

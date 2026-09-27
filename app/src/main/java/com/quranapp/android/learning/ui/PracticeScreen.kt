@@ -6,6 +6,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,9 +25,13 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,6 +46,7 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.quranapp.android.R
@@ -49,6 +56,9 @@ import com.quranapp.android.learning.concepts.ConceptCatalog
 import com.quranapp.android.learning.practice.ChoiceKind
 import com.quranapp.android.learning.practice.ChoiceQuestion
 import com.quranapp.android.learning.practice.RuleQuestion
+import com.quranapp.android.learning.practice.LetterQuestion
+import com.quranapp.android.learning.practice.LetterQuestionKind
+import com.quranapp.android.learning.practice.ShapePosition
 import com.quranapp.android.learning.practice.TapWordQuestion
 import com.quranapp.android.learning.practice.WordIntroduction
 import com.quranapp.android.learning.progress.ReviewRating
@@ -119,6 +129,9 @@ private fun Asking(state: PracticeUiState.Asking, arabicFont: FontFamily, viewMo
                     viewModel.answer(it, question.isRight(it))
                 }
                 is WordIntroduction -> IntroductionView(question, arabicFont)
+                is LetterQuestion -> LetterQuestionView(question, state.answer, arabicFont) {
+                    viewModel.answer(it, question.isRight(it))
+                }
             }
         }
         if (state.question is WordIntroduction) {
@@ -151,6 +164,49 @@ private fun ChoiceView(question: ChoiceQuestion, answer: Int?, arabicFont: FontF
         OptionRow(
             text = option,
             arabicFont = if (question.optionsAreArabic) arabicFont else null,
+            look = optionLook(index, answer, question.answerIndex),
+            onClick = { onAnswer(index) },
+        )
+    }
+}
+
+/** Letters are drawn in the letter font (see the letter pages); words from the Quran in the Quran font. */
+@Composable
+private fun LetterQuestionView(question: LetterQuestion, answer: Int?, quranFont: FontFamily, onAnswer: (Int) -> Unit) {
+    val letterFont = remember { FontFamily(Font(R.font.scheherazadenew_regular)) }
+    when (question.kind) {
+        LetterQuestionKind.NAME_OF_LETTER -> {
+            Prompt(stringResource(R.string.learning_q_letter_name))
+            Text(question.prompt, fontFamily = letterFont, style = typography.displayLarge, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
+        }
+        LetterQuestionKind.LETTER_FOR_NAME -> Prompt(stringResource(R.string.learning_q_letter_for_name, question.prompt))
+        LetterQuestionKind.SHAPE -> {
+            val position = when (question.position) {
+                ShapePosition.START -> R.string.learning_letter_start
+                ShapePosition.MIDDLE -> R.string.learning_letter_middle
+                else -> R.string.learning_letter_end
+            }
+            Prompt(stringResource(R.string.learning_q_letter_shape, question.prompt, stringResource(position)))
+        }
+        LetterQuestionKind.FIRST_LETTER_OF_WORD -> {
+            Prompt(stringResource(R.string.learning_q_letter_first))
+            val word = question.word!!
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+                HearWordButton(word.surahNo, word.ayahNo, word.wordIndex, Modifier.size(64.dp))
+                // Shown once answered, or on request if the audio can't play: reading it gives the answer away.
+                var shown by remember(question) { mutableStateOf(false) }
+                if (answer != null || shown) {
+                    Text(word.word, fontFamily = quranFont, style = typography.headlineLarge)
+                } else {
+                    TextButton(onClick = { shown = true }) { Text(stringResource(R.string.learning_q_show_word)) }
+                }
+            }
+        }
+    }
+    question.options.forEachIndexed { index, option ->
+        OptionRow(
+            text = option,
+            arabicFont = if (question.optionsAreLetters) letterFont else null,
             look = optionLook(index, answer, question.answerIndex),
             onClick = { onAnswer(index) },
         )
@@ -332,7 +388,8 @@ private fun OptionRow(text: String, arabicFont: FontFamily?, look: OptionLook, o
         Text(
             text = text,
             fontFamily = arabicFont,
-            style = if (arabicFont != null) typography.headlineSmall else typography.bodyLarge,
+            // Arabic is laid out right to left, so a letter with a joiner takes its joined shape.
+            style = if (arabicFont != null) typography.headlineSmall.copy(textDirection = TextDirection.Rtl) else typography.bodyLarge,
             color = if (look == OptionLook.Faded) colorScheme.onSurface.alpha(0.5f) else colorScheme.onSurface,
             modifier = Modifier.padding(end = 24.dp),
         )
@@ -356,6 +413,7 @@ private fun Feedback(state: PracticeUiState.Asking, onContinue: () -> Unit) {
         is TapWordQuestion -> question.isRight(state.answer!!)
         is RuleQuestion -> question.isRight(state.answer!!)
         is WordIntroduction -> true // never answered: it has "Got it" instead
+        is LetterQuestion -> question.isRight(state.answer!!)
     }
     Column(
         modifier = Modifier
