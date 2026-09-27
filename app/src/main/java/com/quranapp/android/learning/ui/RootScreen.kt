@@ -2,6 +2,7 @@ package com.quranapp.android.learning.ui
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
@@ -22,9 +22,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -32,7 +35,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
@@ -40,11 +42,14 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranapp.android.R
 import com.quranapp.android.compose.components.common.AppBar
+import com.quranapp.android.compose.theme.alpha
 import com.quranapp.android.db.DatabaseProvider
+import com.quranapp.android.learning.examples.LemmaExampleFinder
 import com.quranapp.android.learning.pack.LemmaEntity
 import com.quranapp.android.learning.words.RootWithLemmas
 import com.quranapp.android.learning.words.WordItems
 import com.quranapp.android.learning.words.WordRepository
+import com.quranapp.android.utils.reader.QuranScriptUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -69,6 +74,7 @@ fun RootScreen(rootKey: String) {
     }
 
     val loaded = (page as? RootPage.Loaded)?.content
+    var openLemmaId by rememberSaveable(rootKey) { mutableStateOf<Int?>(null) }
     Scaffold(
         topBar = { AppBar(title = stringResource(R.string.learning_root_title, loaded?.root?.letters.orEmpty())) },
     ) { padding ->
@@ -118,12 +124,19 @@ fun RootScreen(rootKey: String) {
 
             items(loaded.lemmas, key = { it.lemmaId }) { lemma ->
                 val itemId = WordItems.idOf(lemma.lemmaKey)
-                RootLemmaRow(
-                    lemma = lemma,
-                    isKnown = itemId in known,
-                    onKnownChange = { scope.launch { progress.setKnown(itemId, it) } },
-                    arabicFont = arabicFont,
-                )
+                // Open at most one word's examples at a time; the most frequent one to start with.
+                val isOpen = openLemmaId == lemma.lemmaId
+                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    RootLemmaRow(
+                        lemma = lemma,
+                        isKnown = itemId in known,
+                        isOpen = isOpen,
+                        onKnownChange = { scope.launch { progress.setKnown(itemId, it) } },
+                        onToggleOpen = { openLemmaId = if (isOpen) null else lemma.lemmaId },
+                        arabicFont = arabicFont,
+                    )
+                    if (isOpen) LemmaExamples(lemma.lemmaId)
+                }
             }
 
             item {
@@ -146,22 +159,40 @@ private sealed interface RootPage {
 }
 
 @Composable
+private fun LemmaExamples(lemmaId: Int) {
+    val context = LocalContext.current
+    val repository = remember { DatabaseProvider.getQuranRepository(context) }
+    val finder = remember {
+        LemmaExampleFinder(
+            occurrences = { id -> WordRepository.open(context)?.occurrences(id).orEmpty() },
+            loadAyah = { ayahId ->
+                repository.getWordsForAyahById(ayahId, QuranScriptUtils.SCRIPT_UTHMANI).map { it.text }
+            },
+        )
+    }
+    ExamplesSection(key = "lemma-$lemmaId") { limit -> finder.find(lemmaId, limit) }
+}
+
+@Composable
 private fun RootLemmaRow(
     lemma: LemmaEntity,
     isKnown: Boolean,
+    isOpen: Boolean,
     onKnownChange: (Boolean) -> Unit,
+    onToggleOpen: () -> Unit,
     arabicFont: FontFamily,
 ) {
+    // Two tap targets: the row shows or hides the word's examples, the checkbox marks it known.
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
-            .background(colorScheme.surface)
-            .toggleable(value = isKnown, role = Role.Checkbox, onValueChange = onKnownChange)
+            .background(if (isOpen) colorScheme.primary.alpha(0.08f) else colorScheme.surface)
+            .clickable(onClickLabel = stringResource(R.string.learning_show_examples), onClick = onToggleOpen)
             .padding(horizontal = 8.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Checkbox(checked = isKnown, onCheckedChange = null, modifier = Modifier.padding(8.dp))
+        Checkbox(checked = isKnown, onCheckedChange = onKnownChange, modifier = Modifier.padding(4.dp))
         Column(
             modifier = Modifier
                 .weight(1f)

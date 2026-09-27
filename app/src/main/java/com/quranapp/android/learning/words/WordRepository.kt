@@ -8,6 +8,7 @@ import com.quranapp.android.learning.pack.RootEntity
 import com.quranapp.android.learning.pack.SegmentEntity
 import com.quranapp.android.learning.pack.SyntaxEntity
 import com.quranapp.android.learning.pack.WordGlossEntity
+import com.quranapp.android.learning.pack.WordLocation
 
 /** Reads words from the learning pack and puts each one's pieces together. */
 class WordRepository(private val dao: LearningPackDao) {
@@ -20,6 +21,9 @@ class WordRepository(private val dao: LearningPackDao) {
         val roots = if (rootIds.isEmpty()) emptyList() else dao.roots(rootIds)
         return assemble(ayahId, segments, lemmas, roots, dao.glossesOfAyah(ayahId), dao.syntaxOfAyah(ayahId))
     }
+
+    /** Every place a dictionary word occurs, in Quran order. */
+    suspend fun occurrences(lemmaId: Int): List<WordLocation> = dao.occurrencesOfLemma(lemmaId, Int.MAX_VALUE)
 
     /** A root by its stable key (`Ebd`), with its dictionary words; null if the pack has no such root. */
     suspend fun root(rootKey: String): RootWithLemmas? {
