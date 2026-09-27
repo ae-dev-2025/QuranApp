@@ -200,4 +200,41 @@
     <string name="learning_stage_5_goal">Understand Juz Tabārak and a surah you choose</string>
     <string name="learning_stage_6">Hero</string>
     <string name="learning_stage_6_goal">Understand any ayah with the odd lookup</string>
+    <!-- A surah unit -->
+    <plurals name="learning_unit_ayahs">
+        <item quantity="one">%d ayah</item>
+        <item quantity="other">%d ayahs</item>
+    </plurals>
+    <string name="learning_unit_listen">Listen in the reader</string>
+    <!-- TalkBack: what tapping a step's header does -->
+    <string name="learning_unit_open_step">show what to learn</string>
+    <string name="learning_unit_close_step">hide what to learn</string>
+    <string name="learning_unit_readiness">How ready you are</string>
+    <!-- %1$d: a percentage of words known -->
+    <string name="learning_readiness_percent">%1$d%%</string>
+    <string name="learning_unit_read_done">You know everything needed to read it</string>
+    <string name="learning_unit_recite_done">You know every rule in it</string>
+    <string name="learning_unit_words_done">You know every word in it</string>
+    <string name="learning_unit_words_need_pack">Needs the learning data</string>
+    <plurals name="learning_unit_read_left">
+        <item quantity="one">%d thing to learn to read it</item>
+        <item quantity="other">%d things to learn to read it</item>
+    </plurals>
+    <plurals name="learning_unit_recite_left">
+        <item quantity="one">%d rule to learn</item>
+        <item quantity="other">%d rules to learn</item>
+    </plurals>
+    <plurals name="learning_unit_words_left">
+        <item quantity="one">%d new word</item>
+        <item quantity="other">%d new words</item>
+    </plurals>
+    <plurals name="learning_unit_more_words">
+        <item quantity="one">%d more after these</item>
+        <item quantity="other">%d more after these</item>
+    </plurals>
+    <!-- No number: a word without fair wrong options is left out of the questions. -->
+    <plurals name="learning_unit_check_words">
+        <item quantity="one">Check yourself on this word</item>
+        <item quantity="other">Check yourself on these words</item>
+    </plurals>
 </resources>
