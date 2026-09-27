@@ -35,6 +35,7 @@ import com.quranapp.android.R
 import com.quranapp.android.activities.ActivityReaderIndexPage
 import com.quranapp.android.activities.ActivitySearch
 import com.quranapp.android.compose.theme.alpha
+import com.quranapp.android.learning.ui.ActivityLearn
 
 val MainBottomNavBarHeight = 70.dp
 
@@ -63,6 +64,10 @@ fun MainBottomNavigationBar() {
 
             BottomItem(R.string.strLabelNavHome, R.drawable.dr_icon_home, true) {
                 // noop
+            }
+
+            BottomItem(R.string.learning_nav_learn, R.drawable.ic_graduation_cap, false) {
+                context.startActivity(Intent(context, ActivityLearn::class.java))
             }
 
             Box(

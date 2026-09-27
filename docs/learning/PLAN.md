@@ -104,16 +104,16 @@ PR numbers are planned; the list is updated as PRs open.
 | 37 | FSRS scheduler |
 | 38 | Question model and word questions |
 | 39 | Reading and tajweed "tap the word" questions |
-| 40 | Practice screen |
-| 41 | Checks on concept pages |
-| 42 | Daily review session |
+| 40 | Practice session and question factory |
+| 41 | Practice screen and "Check yourself" |
+| 42 | Learn tab with the daily review |
 | 43 | Learning progress in Export/Import |
 
 **M6 · Learn tab and path**
 
 | PR | What it adds |
 |---|---|
-| 44 | Learn tab and screen |
+| 44 | Learn screen: where you left off and what's next |
 | 45 | Curriculum: stages and surah units |
 | 46 | Unit screen |
 | 47 | Readiness bars |
