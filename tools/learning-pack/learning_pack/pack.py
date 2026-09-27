@@ -30,7 +30,19 @@ SCHEMA = [
     "`segment_index` INTEGER NOT NULL, `form` TEXT NOT NULL, `kind` TEXT NOT NULL, `tag` TEXT NOT NULL, "
     "`lemma_id` INTEGER, `features` TEXT NOT NULL, PRIMARY KEY(`ayah_id`, `word_index`, `segment_index`))",
     "CREATE INDEX IF NOT EXISTS `index_segments_lemma_id` ON `segments` (`lemma_id`)",
+    "CREATE TABLE IF NOT EXISTS `syntax` (`ayah_id` INTEGER NOT NULL, `word_index` INTEGER NOT NULL, "
+    "`segment_index` INTEGER NOT NULL, `text` TEXT NOT NULL, `morph_tag` TEXT NOT NULL, `morph_type` TEXT NOT NULL, "
+    "`declinability` TEXT, `role` TEXT, `construct` TEXT, `case_mood` TEXT, `case_marker` TEXT, `phrase` TEXT, "
+    "`phrase_function` TEXT, PRIMARY KEY(`ayah_id`, `word_index`, `segment_index`))",
+    "CREATE TABLE IF NOT EXISTS `word_glosses` (`ayah_id` INTEGER NOT NULL, `word_index` INTEGER NOT NULL, "
+    "`gloss` TEXT NOT NULL, PRIMARY KEY(`ayah_id`, `word_index`))",
 ]
+
+# MASAQ columns in the order of the syntax table's columns after `text`.
+_SYNTAX_COLUMNS = (
+    "Morph_Tag", "Morph_Type", "Invariable_Declinable", "Syntactic_Role", "Possessive_Construct",
+    "Case_Mood", "Case_Mood_Marker", "Phrase", "Phrasal_Function",
+)
 
 _VALUE_KEYS = ("PRON", "SP", "MOOD")
 
@@ -45,8 +57,31 @@ def features(segment) -> str:
     return "|".join(parts)
 
 
-def write(path: Path, aligned: list, roots: list, lemmas: list, credits: list, meta: dict, to_arabic) -> None:
-    """Writes a new pack at `path` (which must not exist yet)."""
+def gloss(masaq_words: list) -> str:
+    """MASAQ writes glosses with hyphens for spaces ("in-(the)-name"); "#N/A" means none."""
+    return " ".join(word.gloss.replace("-", " ") for word in masaq_words if word.gloss and word.gloss != "#N/A")
+
+
+def syntax_rows(masaq_words: dict) -> list:
+    """One row per MASAQ segment, numbered within the app word they were aligned to."""
+    rows = []
+    for (ayah_id, word_index), words in sorted(masaq_words.items()):
+        segments = [segment for word in words for segment in word.segments]
+        for index, segment in enumerate(segments):
+            values = [segment[column] or None for column in _SYNTAX_COLUMNS]
+            values[0] = values[0] or ""  # morph_tag and morph_type are always there
+            values[1] = values[1] or ""
+            rows.append((ayah_id, word_index, index, segment["Segmented_Word"], *values))
+    return rows
+
+
+def write(path: Path, aligned: list, roots: list, lemmas: list, credits: list, meta: dict, to_arabic,
+          masaq_words: dict = None, gloss_ayahs: set = frozenset()) -> None:
+    """Writes a new pack at `path` (which must not exist yet).
+
+    masaq_words maps (ayah_id, word_index) to the MASAQ words aligned to that app word.
+    Glosses are written only for the ayahs in gloss_ayahs.
+    """
     if path.exists():
         raise FileExistsError(path)
     root_ids = {root.key: root.root_id for root in roots}
@@ -79,6 +114,15 @@ def write(path: Path, aligned: list, roots: list, lemmas: list, credits: list, m
               segment.tag, lemma_ids.get(segment.lemma) if segment.kind == "STEM" else None, features(segment))
              for word in aligned for segment in word.corpus_word.segments],
         )
+        if masaq_words:
+            connection.executemany(
+                "INSERT INTO syntax VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", syntax_rows(masaq_words)
+            )
+            connection.executemany(
+                "INSERT INTO word_glosses VALUES (?, ?, ?)",
+                [(ayah_id, word_index, gloss(words)) for (ayah_id, word_index), words in sorted(masaq_words.items())
+                 if ayah_id in gloss_ayahs and gloss(words)],
+            )
         connection.execute(f"PRAGMA user_version = {SCHEMA_VERSION}")
         connection.commit()
         connection.execute("VACUUM")
