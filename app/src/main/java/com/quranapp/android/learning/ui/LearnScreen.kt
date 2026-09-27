@@ -1,6 +1,5 @@
 package com.quranapp.android.learning.ui
 
-import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,10 +13,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.MaterialTheme.typography
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -29,9 +28,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranapp.android.R
-import com.quranapp.android.activities.ActivityReaderIndexPage
 import com.quranapp.android.compose.components.common.AppBar
 import com.quranapp.android.db.DatabaseProvider
+import com.quranapp.android.learning.pack.LearningPackManager
 import com.quranapp.android.learning.practice.DailyReview
 import com.quranapp.android.learning.practice.ReviewSummary
 import kotlinx.coroutines.Dispatchers
@@ -42,16 +41,15 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-/**
- * The Learn tab (decision 1). For now it holds today's review; the path, where you left
- * off and your goal follow in the next milestone.
- */
+/** The Learn tab (decision 1): today's review, where you left off and your path. */
 @Composable
-fun LearnScreen() {
+fun LearnScreen(viewModel: LearnViewModel) {
     val context = LocalContext.current
     val reviews = remember { DatabaseProvider.getUserDatabase(context).reviewDao() }
+    val path by viewModel.summary.collectAsStateWithLifecycle()
+    LaunchedEffect(Unit) { LearningPackManager.refresh(context) }
     // Recomputed when a card changes and every minute, so items become due while the screen is open.
-    val summary by remember {
+    val reviewSummary by remember {
         combine(reviews.observeCards(), everyMinute()) { cards, now -> DailyReview.summarize(cards, now) }
     }.collectAsStateWithLifecycle(initialValue = null)
     val scope = rememberCoroutineScope()
@@ -66,7 +64,7 @@ fun LearnScreen() {
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            summary?.let { loaded ->
+            reviewSummary?.let { loaded ->
                 item {
                     TodayCard(loaded) {
                         scope.launch {
@@ -80,7 +78,18 @@ fun LearnScreen() {
                     }
                 }
             }
-            item { StartFromAnAyahCard() }
+            path?.let { loaded ->
+                item { ContinueCard(loaded) }
+                item { YourPathCard(loaded) }
+            }
+            item {
+                Text(
+                    text = stringResource(R.string.learning_understand_tip),
+                    style = typography.bodySmall,
+                    color = colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(horizontal = 4.dp),
+                )
+            }
         }
     }
 }
@@ -145,26 +154,8 @@ private fun TodayCard(summary: ReviewSummary, onStart: () -> Unit) {
     }
 }
 
-/** Until the path arrives, point to where learning already happens: an ayah's Understand sheet. */
 @Composable
-private fun StartFromAnAyahCard() {
-    val context = LocalContext.current
-    LearnCard(label = stringResource(R.string.learning_start_from_ayah)) {
-        Text(
-            text = stringResource(R.string.learning_start_from_ayah_text),
-            style = typography.bodyMedium,
-        )
-        OutlinedButton(
-            onClick = { context.startActivity(Intent(context, ActivityReaderIndexPage::class.java)) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(min = 48.dp),
-        ) { Text(stringResource(R.string.learning_open_quran)) }
-    }
-}
-
-@Composable
-private fun LearnCard(label: String, content: @Composable () -> Unit) {
+internal fun LearnCard(label: String, content: @Composable () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()

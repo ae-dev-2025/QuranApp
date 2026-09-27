@@ -119,8 +119,8 @@ and overrides for the 258 verb headwords still marked "unchecked".
 |---|---|
 | 44 | Curriculum: stages, surah units and readiness |
 | 45 | Unit screen |
-| 46 | Learn screen: where you left off and your path |
-| 47 | Readiness bars |
+| 46 | Learn screen: where you left off and your path (readiness bars shipped in #45) |
+| 47 | The whole path: every stage and unit |
 | 48 | Placement |
 | 49 | Goals |
 | 50 | Progress and weekly summary |
