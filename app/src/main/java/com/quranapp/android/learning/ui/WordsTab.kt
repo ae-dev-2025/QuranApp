@@ -1,6 +1,7 @@
 package com.quranapp.android.learning.ui
 
 import android.text.format.Formatter
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -154,15 +155,26 @@ internal fun WordRow(
     onKnownChange: (Boolean) -> Unit,
     arabicFont: FontFamily,
 ) {
+    val context = LocalContext.current
     val lemma = entry.lemma.lemma
+    val root = entry.lemma.root
+    // Two tap targets, like the concept rows: the row opens the root's page (words without a
+    // root, such as مِن, just toggle), the checkbox marks the word known.
+    val rowAction = if (root != null) {
+        Modifier.clickable(onClickLabel = stringResource(R.string.learning_open_root)) {
+            context.startActivity(ActivityRoot.intent(context, root.rootKey))
+        }
+    } else {
+        Modifier.toggleable(value = isKnown, role = Role.Checkbox, onValueChange = onKnownChange)
+    }
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .toggleable(value = isKnown, role = Role.Checkbox, onValueChange = onKnownChange)
+            .then(rowAction)
             .padding(start = 4.dp, end = 16.dp, top = 6.dp, bottom = 6.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Checkbox(checked = isKnown, onCheckedChange = null, modifier = Modifier.padding(12.dp))
+        Checkbox(checked = isKnown, onCheckedChange = onKnownChange, modifier = Modifier.padding(4.dp))
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -174,8 +186,9 @@ internal fun WordRow(
             }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text(lemma.headword, fontFamily = arabicFont, style = typography.titleMedium)
-                entry.lemma.root?.let { root ->
-                    Text(root.letters, fontFamily = arabicFont, style = typography.bodyMedium, color = colorScheme.primary)
+                root?.let {
+                    Text(it.letters, fontFamily = arabicFont, style = typography.bodyMedium, color = colorScheme.primary)
+                    OpenChevron()
                 }
             }
             Text(

@@ -21,6 +21,12 @@ class WordRepository(private val dao: LearningPackDao) {
         return assemble(ayahId, segments, lemmas, roots, dao.glossesOfAyah(ayahId), dao.syntaxOfAyah(ayahId))
     }
 
+    /** A root by its stable key (`Ebd`), with its dictionary words; null if the pack has no such root. */
+    suspend fun root(rootKey: String): RootWithLemmas? {
+        val root = dao.rootByKey(rootKey) ?: return null
+        return RootWithLemmas(root, dao.lemmasOfRoot(root.rootId))
+    }
+
     companion object {
         /** The repository, or null when the learning pack isn't downloaded. */
         suspend fun open(context: Context): WordRepository? =

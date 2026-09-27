@@ -91,6 +91,7 @@
         <activity android:name=".activities.ActivityBookmark" />
         <activity android:name=".activities.ActivityReadHistory" />
         <activity android:name=".learning.ui.ActivityConcept" />
+        <activity android:name=".learning.ui.ActivityRoot" />
         <activity
             android:name=".activities.reference.ActivityReference"
             android:exported="true">

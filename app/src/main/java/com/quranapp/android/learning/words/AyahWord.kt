@@ -31,6 +31,12 @@ data class AyahWord(
     val syntax: List<SyntaxEntity>,
 )
 
+/** A root and all its dictionary words, most frequent first. */
+data class RootWithLemmas(
+    val root: RootEntity,
+    val lemmas: List<LemmaEntity>,
+)
+
 /** Ids for vocabulary items in the learner's progress, next to concept ids like `tajweed.ikhfa`. */
 object WordItems {
     private const val PREFIX = "word."
