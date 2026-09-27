@@ -479,6 +479,50 @@ object LessonCatalog {
             sayIt = R.array.lesson_madd_sila_how,
             confusedWith = ConfusedWith(ConceptIds.SMALL_MADD_LETTERS, R.string.lesson_madd_sila_confused),
         ),
+
+        // ---- The muṣḥaf's own spellings and marks ----
+        Lesson(
+            conceptId = ConceptIds.DISJOINTED_LETTERS,
+            keyExample = KeyExample(2, 1, 0..0, R.string.lesson_disjointed_letters_say, R.string.lesson_disjointed_letters_not_say),
+            spotIt = R.array.lesson_disjointed_letters_spot,
+            sayIt = R.array.lesson_disjointed_letters_how,
+            confusedWith = ConfusedWith(ConceptIds.LETTERS, R.string.lesson_disjointed_letters_confused),
+        ),
+        Lesson(
+            conceptId = ConceptIds.WASL_START,
+            keyExample = KeyExample(1, 6, 0..0, R.string.lesson_wasl_start_say, R.string.lesson_wasl_start_not_say),
+            spotIt = R.array.lesson_wasl_start_spot,
+            sayIt = R.array.lesson_wasl_start_how,
+            confusedWith = ConfusedWith(ConceptIds.HAMZAT_WASL, R.string.lesson_wasl_start_confused),
+        ),
+        Lesson(
+            conceptId = ConceptIds.SPECIAL_SPELLINGS,
+            keyExample = KeyExample(98, 5, 10..10, R.string.lesson_special_spellings_say, R.string.lesson_special_spellings_not_say),
+            spotIt = R.array.lesson_special_spellings_spot,
+            sayIt = R.array.lesson_special_spellings_how,
+            confusedWith = ConfusedWith(ConceptIds.SILENT_LETTERS, R.string.lesson_special_spellings_confused),
+        ),
+        Lesson(
+            conceptId = ConceptIds.MADD_MUQATTAAT,
+            keyExample = KeyExample(68, 1, 0..0, R.string.lesson_madd_muqattaat_say, R.string.lesson_madd_muqattaat_not_say),
+            spotIt = R.array.lesson_madd_muqattaat_spot,
+            sayIt = R.array.lesson_madd_muqattaat_how,
+            confusedWith = ConfusedWith(ConceptIds.MADD_LAZIM, R.string.lesson_madd_muqattaat_confused),
+        ),
+        Lesson(
+            conceptId = ConceptIds.SAKTA,
+            keyExample = KeyExample(75, 27, 1..2, R.string.lesson_sakta_say, R.string.lesson_sakta_not_say),
+            spotIt = R.array.lesson_sakta_spot,
+            sayIt = R.array.lesson_sakta_how,
+            confusedWith = ConfusedWith(ConceptIds.STOP_SIGNS, R.string.lesson_sakta_confused),
+        ),
+        Lesson(
+            conceptId = ConceptIds.HAFS_WORDS,
+            keyExample = KeyExample(11, 41, 5..5, R.string.lesson_hafs_words_say, R.string.lesson_hafs_words_not_say),
+            spotIt = R.array.lesson_hafs_words_spot,
+            sayIt = R.array.lesson_hafs_words_how,
+            confusedWith = ConfusedWith(ConceptIds.SILENT_LETTERS, R.string.lesson_hafs_words_confused),
+        ),
     ) + GrammarLessons.all
 
     private val byConceptId: Map<String, Lesson> = all.associateBy { it.conceptId }

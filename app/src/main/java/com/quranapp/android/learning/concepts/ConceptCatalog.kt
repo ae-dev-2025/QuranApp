@@ -268,6 +268,20 @@ object ConceptCatalog {
         tajweed(ConceptIds.MADD_IWAD, R.string.concept_madd_iwad_title, R.string.concept_madd_iwad_summary, ConceptIds.STOPPING, MADD_SIGN),
         tajweed(ConceptIds.MADD_BADAL, R.string.concept_madd_badal_title, R.string.concept_madd_badal_summary, HAMZA, LONG_VOWELS),
         tajweed(ConceptIds.MADD_SILA, R.string.concept_madd_sila_title, R.string.concept_madd_sila_summary, SMALL_MADD_LETTERS),
+
+        // The muṣḥaf's own spellings and marks
+        reading(ConceptIds.DISJOINTED_LETTERS, R.string.concept_disjointed_letters_title, R.string.concept_disjointed_letters_summary, LETTERS, LONG_VOWELS),
+        reading(ConceptIds.WASL_START, R.string.concept_wasl_start_title, R.string.concept_wasl_start_summary, HAMZAT_WASL),
+        reading(
+            ConceptIds.SPECIAL_SPELLINGS, R.string.concept_special_spellings_title, R.string.concept_special_spellings_summary,
+            DAGGER_ALIF, SILENT_LETTERS,
+        ),
+        tajweed(
+            ConceptIds.MADD_MUQATTAAT, R.string.concept_madd_muqattaat_title, R.string.concept_madd_muqattaat_summary,
+            ConceptIds.DISJOINTED_LETTERS, MADD_LAZIM,
+        ),
+        tajweed(ConceptIds.SAKTA, R.string.concept_sakta_title, R.string.concept_sakta_summary, STOP_SIGNS),
+        tajweed(ConceptIds.HAFS_WORDS, R.string.concept_hafs_words_title, R.string.concept_hafs_words_summary, MADD_SIGN, HAMZA),
     ) + GrammarCatalog.all
 
     /**
