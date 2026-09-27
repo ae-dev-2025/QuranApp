@@ -350,4 +350,12 @@
     <string name="learning_settings_reset_done">Learning progress reset.</string>
     <string name="learning_settings_keep">Keep</string>
     <string name="learning_settings_reset_action">Reset</string>
+    <!-- The opt-in reminder -->
+    <string name="learning_reminder_setting">Reminder</string>
+    <string name="learning_reminder_switch">Remind me when reviews are due</string>
+    <string name="learning_reminder_setting_text">Once a day at most, and only when something is due. No streaks, nothing to lose.</string>
+    <string name="learning_reminder_blocked">Notifications are off for this app. You can allow them in your phone’s settings.</string>
+    <string name="learning_reminder_channel">Learning reminders</string>
+    <string name="learning_reminder_channel_text">A daily note when reviews are due</string>
+    <string name="learning_reminder_title">Reviews are ready</string>
 </resources>

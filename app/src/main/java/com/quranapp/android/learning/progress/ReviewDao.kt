@@ -16,6 +16,9 @@ interface ReviewDao {
     @Query("SELECT * FROM review_cards")
     fun observeCards(): Flow<List<ReviewCardEntity>>
 
+    @Query("SELECT COUNT(*) FROM review_cards WHERE due_at <= :now")
+    suspend fun dueCount(now: Long): Int
+
     /** Cards due at [now], the most overdue first. */
     @Query("SELECT * FROM review_cards WHERE due_at <= :now ORDER BY due_at LIMIT :limit")
     suspend fun due(now: Long, limit: Int): List<ReviewCardEntity>

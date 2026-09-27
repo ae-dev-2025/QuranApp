@@ -18,6 +18,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.work.ForegroundInfo
 import com.quranapp.android.R
+import com.quranapp.android.learning.reminder.LearningReminder
 import com.quranapp.android.utils.receivers.CrashReceiver
 
 object NotificationUtils {
@@ -52,6 +53,7 @@ object NotificationUtils {
                 createNotificationChannel(createDownloadsChannel())
                 createNotificationChannel(createRecitationChannel())
             }
+            LearningReminder.createChannel(ctx)
         }
     }
 
