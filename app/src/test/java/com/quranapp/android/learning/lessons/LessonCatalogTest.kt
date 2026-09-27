@@ -1,8 +1,6 @@
 package com.quranapp.android.learning.lessons
 
 import com.quranapp.android.learning.concepts.ConceptCatalog
-import com.quranapp.android.learning.concepts.GrammarIds
-import com.quranapp.android.learning.concepts.Track
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNotNull
@@ -11,37 +9,6 @@ import org.junit.Test
 
 class LessonCatalogTest {
     private val lessons = LessonCatalog.all
-
-    /** The grammar concepts whose units have their lessons so far. */
-    private val GRAMMAR_UNITS_WRITTEN = setOf(
-        // Unit 1 · Word types
-        GrammarIds.ISM, GrammarIds.FIL, GrammarIds.HARF,
-        // Unit 2 · Gender, number, definiteness
-        GrammarIds.GENDER, GrammarIds.DUAL, GrammarIds.SOUND_MASC_PLURAL, GrammarIds.SOUND_FEM_PLURAL,
-        GrammarIds.BROKEN_PLURAL, GrammarIds.DEFINITENESS,
-        // Unit 3 · Case endings (partly declining nouns come with the sentence roles, M9)
-        GrammarIds.CASES, GrammarIds.DUAL_PLURAL_ENDINGS, GrammarIds.FIVE_NOUNS,
-        // Unit 6 · Pronouns and relatives
-        GrammarIds.DETACHED_PRONOUN, GrammarIds.ATTACHED_PRONOUN, GrammarIds.IYYA, GrammarIds.DEMONSTRATIVE, GrammarIds.RELATIVE,
-        // Units 4 and 5 · the word-form parts (iḍāfa and comparatives come with M9)
-        GrammarIds.PREPOSITION, GrammarIds.PRONOUN_POSSESSOR, GrammarIds.ADJECTIVE,
-        // Units 7–10 · Roots and patterns, past, present and moods, command and passive
-        GrammarIds.ROOT, GrammarIds.PATTERN, GrammarIds.PAST, GrammarIds.DOER_IN_VERB,
-        GrammarIds.PRESENT, GrammarIds.SUBJUNCTIVE, GrammarIds.JUSSIVE, GrammarIds.QAD_SA,
-        GrammarIds.COMMAND, GrammarIds.PROHIBITION, GrammarIds.PASSIVE,
-        // Unit 14 · Inna, kāna and sisters
-        GrammarIds.INNA, GrammarIds.KANA, GrammarIds.LA_GENERIC,
-        // Units 11–12 · Verb forms and weak verbs, participles and verbal nouns (nouns of place, time and intensity come with M9)
-        GrammarIds.FORMS_2_4, GrammarIds.FORMS_5_6, GrammarIds.FORMS_7_10, GrammarIds.HOLLOW, GrammarIds.DEFECTIVE, GrammarIds.OTHER_WEAK,
-        GrammarIds.ACTIVE_PARTICIPLE, GrammarIds.PASSIVE_PARTICIPLE, GrammarIds.VERBAL_NOUN,
-        // Units 17–18 · Conditions and questions, particles and emphasis
-        GrammarIds.CONDITIONS, GrammarIds.LAW, GrammarIds.QUESTIONS, GrammarIds.EXCEPTION, GrammarIds.VOCATIVE,
-        GrammarIds.WA_FA_THUMMA, GrammarIds.MA, GrammarIds.LA, GrammarIds.IN_AN, GrammarIds.LAM_PARTICLES,
-        GrammarIds.EMPHASIS, GrammarIds.RESTRICTION,
-        // Sentence roles (M9): iḍāfa, the nominal and the verbal sentence
-        GrammarIds.IDAFA, GrammarIds.MUBTADA_KHABAR, GrammarIds.KHABAR_PHRASE, GrammarIds.KHABAR_FIRST,
-        GrammarIds.VERB_DOER_OBJECT, GrammarIds.VERB_AGREEMENT, GrammarIds.HIDDEN_DOER,
-    )
 
     @Test
     fun `every lesson belongs to a known concept`() {
@@ -55,8 +22,6 @@ class LessonCatalogTest {
         // Umbrella concepts get a rule overview instead of a lesson (design decision 5).
         val missing = ConceptCatalog.all.map { it.id }
             .filter { it !in ConceptCatalog.umbrellaIds && LessonCatalog[it] == null }
-            // Grammar lessons are added unit by unit (#64, #66–#69, #72–#73).
-            .filter { ConceptCatalog[it]?.track != Track.GRAMMAR || it in GRAMMAR_UNITS_WRITTEN }
 
         assertTrue("Concepts without a lesson: $missing", missing.isEmpty())
     }
