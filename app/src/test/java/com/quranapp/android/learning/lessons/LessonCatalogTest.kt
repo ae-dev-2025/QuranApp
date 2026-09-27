@@ -34,6 +34,10 @@ class LessonCatalogTest {
         // Units 11–12 · Verb forms and weak verbs, participles and verbal nouns (nouns of place, time and intensity come with M9)
         GrammarIds.FORMS_2_4, GrammarIds.FORMS_5_6, GrammarIds.FORMS_7_10, GrammarIds.HOLLOW, GrammarIds.DEFECTIVE, GrammarIds.OTHER_WEAK,
         GrammarIds.ACTIVE_PARTICIPLE, GrammarIds.PASSIVE_PARTICIPLE, GrammarIds.VERBAL_NOUN,
+        // Units 17–18 · Conditions and questions, particles and emphasis
+        GrammarIds.CONDITIONS, GrammarIds.LAW, GrammarIds.QUESTIONS, GrammarIds.EXCEPTION, GrammarIds.VOCATIVE,
+        GrammarIds.WA_FA_THUMMA, GrammarIds.MA, GrammarIds.LA, GrammarIds.IN_AN, GrammarIds.LAM_PARTICLES,
+        GrammarIds.EMPHASIS, GrammarIds.RESTRICTION,
     )
 
     @Test
