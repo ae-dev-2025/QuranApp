@@ -33,6 +33,8 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.dp
 import com.quranapp.android.R
 import com.quranapp.android.compose.theme.alpha
+import com.quranapp.android.learning.concepts.ConceptCatalog
+import com.quranapp.android.learning.letters.Letters
 import com.quranapp.android.learning.path.Dot
 import com.quranapp.android.learning.path.Layer
 
@@ -44,13 +46,22 @@ internal fun ContinueCard(summary: PathSummary) {
     LearnCard(label = stringResource(R.string.learning_continue_label, stage.number, stringResource(stage.titleRes))) {
         when (val next = summary.next) {
             is NextStep.Basic -> {
-                Text(stringResource(next.concept.titleRes), style = typography.titleMedium)
+                val letter = Letters[next.itemId]
+                Text(
+                    text = letter?.let { stringResource(R.string.learning_next_letter, it.char.toString(), it.name) }
+                        ?: ConceptCatalog[next.itemId]?.let { stringResource(it.titleRes) }.orEmpty(),
+                    style = typography.titleMedium,
+                )
                 Text(
                     text = stringResource(R.string.learning_basics_progress, next.known, next.total),
                     style = typography.bodyMedium,
                     color = colorScheme.onSurfaceVariant,
                 )
-                ContinueButton { context.startActivity(ActivityConcept.intent(context, next.concept.id)) }
+                ContinueButton {
+                    context.startActivity(
+                        if (letter != null) ActivityLetter.intent(context, letter.id) else ActivityConcept.intent(context, next.itemId),
+                    )
+                }
             }
 
             is NextStep.Unit -> {

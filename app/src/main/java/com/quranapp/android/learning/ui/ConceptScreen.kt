@@ -1,5 +1,6 @@
 package com.quranapp.android.learning.ui
 
+import android.content.Intent
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -22,6 +23,7 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.MaterialTheme.typography
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -48,6 +50,7 @@ import com.quranapp.android.db.DatabaseProvider
 import com.quranapp.android.learning.concepts.Concept
 import com.quranapp.android.learning.concepts.ConceptCatalog
 import com.quranapp.android.learning.concepts.ConceptGraph
+import com.quranapp.android.learning.concepts.ConceptIds
 import com.quranapp.android.learning.concepts.Track
 import com.quranapp.android.learning.lessons.LessonCatalog
 import kotlinx.coroutines.launch
@@ -121,6 +124,16 @@ fun ConceptScreen(concept: Concept) {
 
             if (isUmbrella) {
                 item { RuleOverview(unlocks, openConcept) }
+            }
+
+            // The letters are items of their own now: the concept points to them.
+            if (concept.id == ConceptIds.LETTERS) {
+                item {
+                    OutlinedButton(
+                        onClick = { context.startActivity(Intent(context, ActivityLetters::class.java)) },
+                        modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+                    ) { Text(stringResource(R.string.learning_letters_see_all)) }
+                }
             }
 
             item { ConceptExamplesSection(concept.id) }

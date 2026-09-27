@@ -1,5 +1,6 @@
 package com.quranapp.android.learning.ui
 
+import android.content.Intent
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -40,6 +41,7 @@ import com.quranapp.android.compose.components.common.AppBar
 import com.quranapp.android.compose.theme.alpha
 import com.quranapp.android.db.DatabaseProvider
 import com.quranapp.android.learning.concepts.ConceptCatalog
+import com.quranapp.android.learning.letters.Letters
 import com.quranapp.android.learning.path.Curriculum
 import com.quranapp.android.learning.path.Layer
 
@@ -162,13 +164,17 @@ private fun UnitRow(unit: UnitDots) {
     }
 }
 
-/** Stage 0's basics, until the letters arrive (milestone 7). */
+/** Stage 0: the letters, then the basic marks as chips. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun BasicsChips() {
     val context = LocalContext.current
     val progress = remember { DatabaseProvider.getLearningProgressRepository(context) }
     val known by progress.knownConceptIds.collectAsStateWithLifecycle(initialValue = emptySet())
+    OutlinedButton(
+        onClick = { context.startActivity(Intent(context, ActivityLetters::class.java)) },
+        modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+    ) { Text(stringResource(R.string.learning_letters_known, Letters.all.count { it.id in known }, Letters.all.size)) }
     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Curriculum.BASICS.mapNotNull(ConceptCatalog::get).forEach { concept ->
             ConceptChip(concept, isKnown = concept.id in known) {

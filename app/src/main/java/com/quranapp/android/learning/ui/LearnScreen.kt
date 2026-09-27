@@ -34,7 +34,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranapp.android.R
 import com.quranapp.android.compose.components.common.AppBar
 import com.quranapp.android.db.DatabaseProvider
-import com.quranapp.android.learning.concepts.ConceptIds
+import com.quranapp.android.learning.letters.Letters
 import com.quranapp.android.learning.pack.LearningPackManager
 import com.quranapp.android.learning.path.LearningPreferences
 import com.quranapp.android.learning.practice.DailyReview
@@ -109,7 +109,7 @@ fun LearnScreen(viewModel: LearnViewModel) {
             path?.let { loaded ->
                 item { ContinueCard(loaded) }
                 // Started past the letters: offer to tick the basics they already know.
-                val checkable = loaded.unknownBasics.filter { it != ConceptIds.LETTERS } // letters get questions in M7
+                val checkable = loaded.unknownBasics.filter { Letters[it] == null } // letters get questions in #59
                 if (loaded.start > 0 && checkable.isNotEmpty()) item { PlacementCheckCard(checkable) }
                 item { YourPathCard(loaded) }
             }

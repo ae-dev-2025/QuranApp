@@ -388,4 +388,26 @@
     <string name="letter_sound_mim">m as in moon</string>
     <string name="letter_sound_ha">h as in hat, even at the end of a word</string>
     <string name="letter_sound_hamza">the catch in the middle of uh-oh</string>
+    <!-- The letters: grid and pages -->
+    <string name="learning_letters_title">Letters</string>
+    <!-- %1$d: letters known, %2$d: all of them -->
+    <string name="learning_letters_known">%1$d of %2$d letters known</string>
+    <string name="learning_letters_next">Next letter</string>
+    <string name="learning_letters_learn">Learn it</string>
+    <!-- %1$d: the group's number -->
+    <string name="learning_letters_group">Group %1$d</string>
+    <string name="learning_letters_see_all">See the letters one by one</string>
+    <!-- %1$s: the letter, %2$s: its name, such as "bāʾ" -->
+    <string name="learning_next_letter">%1$s · %2$s</string>
+    <string name="learning_not_known">not known yet</string>
+    <string name="learning_letter_shapes">Its shapes</string>
+    <string name="learning_letter_alone">alone</string>
+    <string name="learning_letter_start">start</string>
+    <string name="learning_letter_middle">middle</string>
+    <string name="learning_letter_end">end</string>
+    <string name="learning_letter_no_join">It never joins the letter after it, so a word breaks after it.</string>
+    <string name="learning_letter_alif_note">Alif takes no vowel of its own: after a fatḥa it makes a long ā, and it can carry a hamza, as in أَ.</string>
+    <string name="learning_letter_in_quran">Where you’ll meet it</string>
+    <string name="learning_letter_i_know">I know this letter</string>
+    <string name="learning_letter_known">Known ✓</string>
 </resources>

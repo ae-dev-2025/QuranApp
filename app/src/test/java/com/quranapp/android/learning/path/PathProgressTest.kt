@@ -2,6 +2,7 @@ package com.quranapp.android.learning.path
 
 import com.quranapp.android.learning.concepts.ConceptCatalog
 import com.quranapp.android.learning.concepts.ConceptIds
+import com.quranapp.android.learning.letters.Letters
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -78,8 +79,9 @@ class PathProgressTest {
     @Test
     fun nextConcept_isTheFirstUnknownBasic() {
         val stage = Curriculum.stages[0]
-        assertEquals(ConceptIds.LETTERS, PathProgress.nextConcept(stage, emptySet()))
-        assertEquals(ConceptIds.SHORT_VOWELS, PathProgress.nextConcept(stage, setOf(ConceptIds.LETTERS)))
+        assertEquals("the letters come first", "letter.alif", PathProgress.nextConcept(stage, emptySet()))
+        val letters = Letters.all.map { it.id }.toSet()
+        assertEquals(ConceptIds.SHORT_VOWELS, PathProgress.nextConcept(stage, letters))
         assertNull(PathProgress.nextConcept(stage, Curriculum.BASICS.toSet()))
     }
 }

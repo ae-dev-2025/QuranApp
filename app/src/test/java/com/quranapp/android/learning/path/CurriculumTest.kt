@@ -1,6 +1,7 @@
 package com.quranapp.android.learning.path
 
 import com.quranapp.android.learning.concepts.ConceptCatalog
+import com.quranapp.android.learning.letters.Letters
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
@@ -33,7 +34,7 @@ class CurriculumTest {
     fun goalsNameRealSurahsAndConcepts() {
         Curriculum.stages.flatMap { it.goals }.forEach { goal ->
             when (goal) {
-                is StageGoal.Concepts -> goal.conceptIds.forEach { assertNotNull(it, ConceptCatalog[it]) }
+                is StageGoal.Concepts -> goal.conceptIds.forEach { assertNotNull(it, ConceptCatalog[it] ?: Letters[it]) }
                 is StageGoal.Surahs -> {
                     assertTrue(goal.surahs.isNotEmpty() && goal.surahs.all { it in 1..114 })
                     assertTrue(goal.percent in 1..100)

@@ -3,6 +3,7 @@ package com.quranapp.android.learning.path
 import androidx.annotation.StringRes
 import com.quranapp.android.R
 import com.quranapp.android.learning.concepts.ConceptIds
+import com.quranapp.android.learning.letters.Letters
 
 /** What finishing a stage means. */
 sealed interface StageGoal {
@@ -48,9 +49,11 @@ object Curriculum {
 
     val WHOLE_QURAN = (1..114).toList()
 
-    /** The basics before the first surah: letters, vowel marks and where letters are made. */
-    val BASICS = listOf(
-        ConceptIds.LETTERS,
+    /**
+     * Stage 0's goal: the 29 letters, then the vowel marks and the heavy letters. Knowing the
+     * letters also completes the "Arabic letters" concept, which other concepts build on.
+     */
+    val BASICS = Letters.all.map { it.id } + listOf(
         ConceptIds.SHORT_VOWELS,
         ConceptIds.SUKUN,
         ConceptIds.SHADDA,
