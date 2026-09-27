@@ -22,6 +22,13 @@ class WordRepository(private val dao: LearningPackDao) {
         return assemble(ayahId, segments, lemmas, roots, dao.glossesOfAyah(ayahId), dao.syntaxOfAyah(ayahId))
     }
 
+    /** Candidates for the wrong options of a question about [lemma]: similar frequency, with a meaning. */
+    suspend fun questionPool(lemma: LemmaEntity): List<LemmaEntity> =
+        dao.lemmasNearFrequency(lemma.occurrences, lemma.lemmaId, limit = 80)
+
+    /** A dictionary word by its stable key. */
+    suspend fun lemma(lemmaKey: String): LemmaEntity? = dao.lemmaByKey(lemmaKey)
+
     /** Every place a dictionary word occurs, in Quran order. */
     suspend fun occurrences(lemmaId: Int): List<WordLocation> = dao.occurrencesOfLemma(lemmaId, Int.MAX_VALUE)
 

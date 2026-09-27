@@ -46,6 +46,13 @@ interface LearningPackDao {
     @Query("SELECT * FROM lemmas WHERE root_id = :rootId ORDER BY occurrences DESC, lemma_id")
     suspend fun lemmasOfRoot(rootId: Int): List<LemmaEntity>
 
+    /** Dictionary words with a meaning, closest in frequency to [occurrences] first: wrong options for questions. */
+    @Query(
+        "SELECT * FROM lemmas WHERE gloss IS NOT NULL AND lemma_id != :excludeId " +
+            "ORDER BY ABS(occurrences - :occurrences), lemma_id LIMIT :limit",
+    )
+    suspend fun lemmasNearFrequency(occurrences: Int, excludeId: Int, limit: Int): List<LemmaEntity>
+
     /** Where a lemma occurs, in Quran order. */
     @Query(
         "SELECT DISTINCT ayah_id, word_index FROM segments WHERE lemma_id = :lemmaId " +
