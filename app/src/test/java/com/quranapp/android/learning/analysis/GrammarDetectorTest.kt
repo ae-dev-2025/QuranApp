@@ -82,6 +82,20 @@ class GrammarDetectorTest {
     }
 
     @Test
+    fun theQuransSpellingAndPluralsWithoutAGender() {
+        // 103:3 ٱلصَّٰلِحَٰتِ: the ā of ـَٰت is a dagger alif.
+        val salihat = listOf(seg("PREFIX", "DET", "Al+", "ٱل"), seg("STEM", "N", "ACT|PCPL|FP|ACC", "صَّٰلِحَٰتِ", "S~a`liHa`t", "SlH"))
+        assertTrue(GrammarIds.SOUND_FEM_PLURAL in conceptsOf(salihat))
+        assertFalse(GrammarIds.BROKEN_PLURAL in conceptsOf(salihat))
+        // 110:2 أَفۡوَاجًا is P: a plural, gender not given.
+        val afwaj = listOf(seg("STEM", "N", "P|INDEF|ACC", "أَفۡوَاجًا", "fawoj", "fwj"))
+        assertTrue(GrammarIds.BROKEN_PLURAL in conceptsOf(afwaj))
+        // 111:1 أَبِى, with the pack's final ى.
+        val abi = listOf(seg("STEM", "N", "MS|GEN", "أَبِى", ">abN", "Abw"))
+        assertTrue(GrammarIds.FIVE_NOUNS in conceptsOf(abi))
+    }
+
+    @Test
     fun laDenyingAWholeKind() {
         // 2:2 … لَا رَيۡبَۛ فِيهِۛ: لَا, then رَيۡبَ in naṣb with neither ال nor tanwīn.
         val la = listOf(seg("STEM", "NEG", "", "لَا", "laA"))

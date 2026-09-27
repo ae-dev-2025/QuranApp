@@ -2,10 +2,13 @@ package com.quranapp.android.learning.lessons
 
 import androidx.annotation.ArrayRes
 import androidx.annotation.StringRes
+import com.quranapp.android.learning.concepts.ConceptCatalog
+import com.quranapp.android.learning.concepts.Track
 
 /**
  * The short lesson shown on a concept's page, in the fixed format decided for all concepts:
- * a key example, "How to spot it", "How to say it" and "Don't mix it up with".
+ * a key example, "How to spot it", "How to say it" and "Don't mix it up with". For grammar,
+ * [KeyExample.youSay] is what the example means and [sayIt] is "How it works".
  *
  * All text is in string resources (res/values/learning_lessons.xml) so it can be translated.
  */
@@ -17,7 +20,10 @@ data class Lesson(
     /** Bullet points (a string-array resource). */
     @ArrayRes val sayIt: Int,
     val confusedWith: ConfusedWith? = null,
-)
+) {
+    /** Grammar lessons say what the example means and how the grammar works, not how it sounds. */
+    val isGrammar: Boolean get() = ConceptCatalog[conceptId]?.track == Track.GRAMMAR
+}
 
 /**
  * The words that best show a concept, and how they sound.

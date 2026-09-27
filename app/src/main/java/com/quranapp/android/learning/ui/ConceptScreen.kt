@@ -108,7 +108,7 @@ fun ConceptScreen(concept: Concept) {
             }
 
             if (lesson != null) {
-                item { KeyExampleCard(lesson.keyExample) }
+                item { KeyExampleCard(lesson.keyExample, lesson.isGrammar) }
             }
 
             concept.arabicTerm?.let { term ->
@@ -232,7 +232,8 @@ private fun ConceptChipGroup(
 /** Known concepts are filled green with a tick; the others are outlined with a ">". */
 @Composable
 internal fun ConceptChip(concept: Concept, isKnown: Boolean, onClick: () -> Unit) {
-    val shape = RoundedCornerShape(50)
+    // A fixed radius rather than 50%: a long title wraps, and a tall pill would clip its corners.
+    val shape = RoundedCornerShape(20.dp)
     val look = if (isKnown) {
         Modifier.background(colorScheme.primary.alpha(0.12f))
     } else {
@@ -245,7 +246,7 @@ internal fun ConceptChip(concept: Concept, isKnown: Boolean, onClick: () -> Unit
             .clip(shape)
             .then(look)
             .clickable(onClickLabel = stringResource(R.string.learning_open_lesson), onClick = onClick)
-            .padding(horizontal = 12.dp),
+            .padding(horizontal = 12.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(6.dp),
     ) {
@@ -261,6 +262,8 @@ internal fun ConceptChip(concept: Concept, isKnown: Boolean, onClick: () -> Unit
             text = conceptTitle(concept),
             style = typography.labelLarge,
             color = if (isKnown) colorScheme.primary else colorScheme.onSurface,
+            // Leaves room for the chevron when the title wraps.
+            modifier = Modifier.weight(1f, fill = false),
         )
         if (!isKnown) OpenChevron()
     }

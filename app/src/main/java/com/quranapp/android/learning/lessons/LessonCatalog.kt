@@ -382,7 +382,7 @@ object LessonCatalog {
                 ConceptIds.MADD_MUTTASIL, R.string.lesson_madd_lazim_confused,
             ),
         ),
-    )
+    ) + GrammarLessons.all
 
     private val byConceptId: Map<String, Lesson> = all.associateBy { it.conceptId }
 
