@@ -125,6 +125,86 @@ object GrammarLessons {
             R.array.grammar_lesson_adjective_spot, R.array.grammar_lesson_adjective_how,
             ConfusedWith(GrammarIds.IDAFA, R.string.grammar_lesson_adjective_confused),
         ),
+
+        // ---- Unit 7 · Roots and patterns ----
+        grammar(
+            GrammarIds.ROOT, KeyExample(96, 5, 0..4, R.string.grammar_lesson_root_means),
+            R.array.grammar_lesson_root_spot, R.array.grammar_lesson_root_how,
+            ConfusedWith(GrammarIds.PATTERN, R.string.grammar_lesson_root_confused),
+        ),
+        grammar(
+            GrammarIds.PATTERN, KeyExample(1, 4, 0..0, R.string.grammar_lesson_pattern_means),
+            R.array.grammar_lesson_pattern_spot, R.array.grammar_lesson_pattern_how,
+            ConfusedWith(GrammarIds.ROOT, R.string.grammar_lesson_pattern_confused),
+        ),
+
+        // ---- Unit 8 · Past tense ----
+        grammar(
+            GrammarIds.PAST, KeyExample(105, 1, 2..4, R.string.grammar_lesson_past_means),
+            R.array.grammar_lesson_past_spot, R.array.grammar_lesson_past_how,
+            ConfusedWith(GrammarIds.PRESENT, R.string.grammar_lesson_past_confused),
+        ),
+        grammar(
+            GrammarIds.DOER_IN_VERB, KeyExample(1, 7, 2..2, R.string.grammar_lesson_doer_in_verb_means),
+            R.array.grammar_lesson_doer_in_verb_spot, R.array.grammar_lesson_doer_in_verb_how,
+            ConfusedWith(GrammarIds.ATTACHED_PRONOUN, R.string.grammar_lesson_doer_in_verb_confused),
+        ),
+
+        // ---- Unit 9 · Present tense and moods ----
+        grammar(
+            GrammarIds.PRESENT, KeyExample(109, 2, 0..3, R.string.grammar_lesson_present_means),
+            R.array.grammar_lesson_present_spot, R.array.grammar_lesson_present_how,
+            ConfusedWith(GrammarIds.PAST, R.string.grammar_lesson_present_confused),
+        ),
+        grammar(
+            GrammarIds.SUBJUNCTIVE, KeyExample(90, 5, 2..5, R.string.grammar_lesson_subjunctive_means),
+            R.array.grammar_lesson_subjunctive_spot, R.array.grammar_lesson_subjunctive_how,
+            ConfusedWith(GrammarIds.IN_AN, R.string.grammar_lesson_subjunctive_confused),
+        ),
+        grammar(
+            GrammarIds.JUSSIVE, KeyExample(94, 1, 0..1, R.string.grammar_lesson_jussive_means),
+            R.array.grammar_lesson_jussive_spot, R.array.grammar_lesson_jussive_how,
+            ConfusedWith(ConceptIds.SUKUN, R.string.grammar_lesson_jussive_confused),
+        ),
+        grammar(
+            GrammarIds.QAD_SA, KeyExample(87, 14, 0..1, R.string.grammar_lesson_qad_sa_means),
+            R.array.grammar_lesson_qad_sa_spot, R.array.grammar_lesson_qad_sa_how,
+            ConfusedWith(GrammarIds.PRESENT, R.string.grammar_lesson_qad_sa_confused),
+        ),
+
+        // ---- Unit 10 · Command, forbidding, passive ----
+        grammar(
+            GrammarIds.COMMAND, KeyExample(96, 1, 0..0, R.string.grammar_lesson_command_means),
+            R.array.grammar_lesson_command_spot, R.array.grammar_lesson_command_how,
+            ConfusedWith(GrammarIds.PROHIBITION, R.string.grammar_lesson_command_confused),
+        ),
+        grammar(
+            GrammarIds.PROHIBITION, KeyExample(93, 9, 0..3, R.string.grammar_lesson_prohibition_means),
+            R.array.grammar_lesson_prohibition_spot, R.array.grammar_lesson_prohibition_how,
+            ConfusedWith(GrammarIds.LA, R.string.grammar_lesson_prohibition_confused),
+        ),
+        grammar(
+            GrammarIds.PASSIVE, KeyExample(112, 3, 2..3, R.string.grammar_lesson_passive_means),
+            R.array.grammar_lesson_passive_spot, R.array.grammar_lesson_passive_how,
+            ConfusedWith(GrammarIds.PASSIVE_PARTICIPLE, R.string.grammar_lesson_passive_confused),
+        ),
+
+        // ---- Unit 14 · Inna, kāna and sisters ----
+        grammar(
+            GrammarIds.INNA, KeyExample(103, 2, 0..3, R.string.grammar_lesson_inna_means),
+            R.array.grammar_lesson_inna_spot, R.array.grammar_lesson_inna_how,
+            ConfusedWith(GrammarIds.KANA, R.string.grammar_lesson_inna_confused),
+        ),
+        grammar(
+            GrammarIds.KANA, KeyExample(112, 4, 0..4, R.string.grammar_lesson_kana_means),
+            R.array.grammar_lesson_kana_spot, R.array.grammar_lesson_kana_how,
+            ConfusedWith(GrammarIds.INNA, R.string.grammar_lesson_kana_confused),
+        ),
+        grammar(
+            GrammarIds.LA_GENERIC, KeyExample(2, 2, 2..4, R.string.grammar_lesson_la_generic_means),
+            R.array.grammar_lesson_la_generic_spot, R.array.grammar_lesson_la_generic_how,
+            ConfusedWith(GrammarIds.LA, R.string.grammar_lesson_la_generic_confused),
+        ),
     )
 
     private fun grammar(conceptId: String, keyExample: KeyExample, @ArrayRes spot: Int, @ArrayRes how: Int, confused: ConfusedWith) =
