@@ -23,6 +23,7 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,6 +41,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranapp.android.R
 import com.quranapp.android.compose.components.reader.LocalReaderViewModel
 import com.quranapp.android.compose.theme.alpha
@@ -50,6 +52,11 @@ import com.quranapp.android.learning.concepts.Concept
 import com.quranapp.android.learning.concepts.ConceptGraph
 import com.quranapp.android.learning.concepts.ConceptIds
 import com.quranapp.android.learning.concepts.Track
+import com.quranapp.android.learning.pack.LearningPackManager
+import com.quranapp.android.learning.pack.LearningPackState
+import com.quranapp.android.learning.words.AyahWord
+import com.quranapp.android.learning.words.WordCoverage
+import com.quranapp.android.learning.words.WordRepository
 import com.quranapp.android.repository.QuranRepository
 import com.quranapp.android.utils.reader.QuranScriptUtils
 import kotlinx.coroutines.Dispatchers
@@ -69,6 +76,8 @@ private data class ConceptItem(
 /** Everything the sheet shows for one ayah. */
 private data class UnderstandAyahState(
     val ayahText: String,
+    /** The ayah's words in the Uthmani script, without the ayah number. */
+    val words: List<String>,
     val items: List<ConceptItem>,
 )
 
@@ -137,17 +146,22 @@ private suspend fun loadState(repository: QuranRepository, ayahId: Int): Underst
         )
     }
 
-    return UnderstandAyahState(ayahText = words.joinToString(" "), items = items)
+    return UnderstandAyahState(ayahText = words.joinToString(" "), words = words.dropLast(1), items = items)
 }
 
 /**
  * The layers of understanding an ayah (decision 3): one tab each. Read and Recite list the
- * concepts found in the text; Words and Grammar are added in the next PRs.
+ * concepts found in the text; Words lists its dictionary words from the learning pack.
+ * Grammar is added in milestone 8.
  */
-private enum class Layer(val labelRes: Int, val track: Track) {
+private enum class Layer(val labelRes: Int, val track: Track?) {
     READ(R.string.learning_layer_read, Track.READING),
     RECITE(R.string.learning_layer_recite, Track.TAJWEED),
+    WORDS(R.string.learning_layer_words, null),
 }
+
+/** How many of a layer's items the learner knows. */
+private data class LayerCount(val known: Int, val total: Int)
 
 @Composable
 private fun SheetContent(verse: VerseWithDetails, state: UnderstandAyahState) {
@@ -166,43 +180,87 @@ private fun SheetContent(verse: VerseWithDetails, state: UnderstandAyahState) {
         Layer.entries.associateWith { layer -> state.items.filter { it.concept.track == layer.track } }
     }
 
+    // The ayah's words from the learning pack, or null if it isn't downloaded (yet).
+    val packState by LearningPackManager.state.collectAsStateWithLifecycle()
+    LaunchedEffect(Unit) { LearningPackManager.refresh(context) }
+    val installed = packState == LearningPackState.Installed
+    val packWords by produceState<List<AyahWord>?>(initialValue = null, verse.id, installed) {
+        value = if (installed) {
+            withContext(Dispatchers.IO) { WordRepository.open(context)?.wordsOfAyah(verse.id) }
+        } else {
+            null
+        }
+    }
+    val coverage = packWords?.let { WordCoverage.of(it, known) }
+    val entries = remember(packWords, state) { packWords?.let { wordEntries(it, state.words) }.orEmpty() }
+
+    // Null for Words while the pack isn't there: the tab then shows a dash.
+    val counts = Layer.entries.associateWith { layer ->
+        if (layer == Layer.WORDS) {
+            coverage?.let { LayerCount(it.knownWords, it.countedWords) }
+        } else {
+            val items = itemsByLayer.getValue(layer)
+            LayerCount(items.count { it.concept.id in known }, items.size)
+        }
+    }
+
     // Opens on the first layer with something left to learn; rememberSaveable keeps the
     // learner's choice when the screen rotates.
     var selected by rememberSaveable(verse.id) {
         mutableStateOf(
-            Layer.entries.firstOrNull { layer -> itemsByLayer.getValue(layer).any { it.concept.id !in known } }
-                ?: Layer.READ,
+            Layer.entries.firstOrNull { layer -> counts[layer]?.let { it.known < it.total } == true } ?: Layer.READ,
         )
     }
 
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         item {
-            Header(verse, state, arabicFont)
+            Header(verse, state, packWords, known, arabicFont)
         }
 
         item {
-            LayerTabs(selected, itemsByLayer, known, onSelect = { selected = it })
+            LayerTabs(selected, counts, onSelect = { selected = it })
         }
 
-        for (conceptItem in itemsByLayer.getValue(selected)) {
-            item(key = conceptItem.concept.id) {
-                ConceptRow(
-                    item = conceptItem,
-                    isKnown = conceptItem.concept.id in known,
-                    onKnownChange = { isKnown ->
-                        scope.launch { progress.setKnown(conceptItem.concept.id, isKnown) }
-                    },
-                    onOpen = {
-                        context.startActivity(ActivityConcept.intent(context, conceptItem.concept.id))
-                    },
-                    arabicFont = arabicFont,
-                )
+        if (selected == Layer.WORDS) {
+            if (coverage == null) {
+                item { WordsNeedPack(packState) }
+            } else {
+                item { WordCoverageLine(coverage) }
+                for (entry in entries) {
+                    item(key = "word-${entry.lemma.lemma.lemmaId}") {
+                        WordRow(
+                            entry = entry,
+                            isKnown = entry.lemma.itemId in known,
+                            onKnownChange = { isKnown -> scope.launch { progress.setKnown(entry.lemma.itemId, isKnown) } },
+                            arabicFont = arabicFont,
+                        )
+                    }
+                }
+            }
+        } else {
+            for (conceptItem in itemsByLayer.getValue(selected)) {
+                item(key = conceptItem.concept.id) {
+                    ConceptRow(
+                        item = conceptItem,
+                        isKnown = conceptItem.concept.id in known,
+                        onKnownChange = { isKnown ->
+                            scope.launch { progress.setKnown(conceptItem.concept.id, isKnown) }
+                        },
+                        onOpen = {
+                            context.startActivity(ActivityConcept.intent(context, conceptItem.concept.id))
+                        },
+                        arabicFont = arabicFont,
+                    )
+                }
             }
         }
 
         item {
             Text(
-                text = stringResource(R.string.learning_analysis_disclaimer),
+                // Reading and tajweed come from the marks in the text; words from the pack's sources.
+                text = stringResource(
+                    if (selected == Layer.WORDS) R.string.learning_words_disclaimer else R.string.learning_analysis_disclaimer,
+                ),
                 style = typography.labelSmall,
                 color = colorScheme.onSurface.alpha(0.6f),
                 textAlign = TextAlign.Center,
@@ -218,14 +276,12 @@ private fun SheetContent(verse: VerseWithDetails, state: UnderstandAyahState) {
 @Composable
 private fun LayerTabs(
     selected: Layer,
-    itemsByLayer: Map<Layer, List<ConceptItem>>,
-    known: Set<String>,
+    counts: Map<Layer, LayerCount?>,
     onSelect: (Layer) -> Unit,
 ) {
     PrimaryTabRow(selectedTabIndex = selected.ordinal, containerColor = colorScheme.surface) {
         Layer.entries.forEach { layer ->
-            val items = itemsByLayer.getValue(layer)
-            val knownCount = items.count { it.concept.id in known }
+            val count = counts[layer]
             Tab(
                 selected = layer == selected,
                 onClick = { onSelect(layer) },
@@ -233,11 +289,12 @@ private fun LayerTabs(
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(stringResource(layer.labelRes), style = typography.labelLarge)
                         Text(
-                            text = stringResource(
-                                if (knownCount == items.size) R.string.learning_layer_done else R.string.learning_layer_count,
-                                knownCount,
-                                items.size,
-                            ),
+                            text = when {
+                                count == null -> "–"
+                                count.known == count.total ->
+                                    stringResource(R.string.learning_layer_done, count.known, count.total)
+                                else -> stringResource(R.string.learning_layer_count, count.known, count.total)
+                            },
                             style = typography.labelSmall,
                         )
                     }
@@ -252,6 +309,8 @@ private fun LayerTabs(
 private fun Header(
     verse: VerseWithDetails,
     state: UnderstandAyahState,
+    packWords: List<AyahWord>?,
+    known: Set<String>,
     arabicFont: FontFamily,
 ) {
     Column(
@@ -276,13 +335,20 @@ private fun Header(
             style = typography.labelMedium,
             color = colorScheme.onSurface.alpha(0.8f),
         )
-        Text(
-            text = state.ayahText,
-            fontFamily = arabicFont,
-            style = typography.titleLarge,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(top = 8.dp),
-        )
+        if (packWords != null) {
+            // Word by word, with meanings, once the learning pack is there.
+            Box(Modifier.padding(top = 8.dp)) {
+                InterlinearAyah(state.words, packWords, known, arabicFont)
+            }
+        } else {
+            Text(
+                text = state.ayahText,
+                fontFamily = arabicFont,
+                style = typography.titleLarge,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(top = 8.dp),
+            )
+        }
     }
 }
 

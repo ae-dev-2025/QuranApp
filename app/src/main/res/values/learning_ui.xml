@@ -15,6 +15,17 @@
     <!-- Same, when all are known: "4/4 ✓" -->
     <string name="learning_layer_done">%1$d/%2$d ✓</string>
 
+    <!-- Words tab. %1$d known words, %2$d words, %3$d percent: "You know 3 of 4 words (75%)." -->
+    <string name="learning_words_you_know">You know %1$d of %2$d words (%3$d%%).</string>
+    <string name="learning_words_all_known">You know every word of this ayah.</string>
+    <string name="learning_words_disclaimer">Meanings and roots from the Quranic Arabic Corpus and MASAQ (Settings → Learning data). Please confirm with a qualified teacher.</string>
+    <plurals name="learning_words_times">
+        <item quantity="one">%d time in the Quran</item>
+        <item quantity="other">%d times in the Quran</item>
+    </plurals>
+    <!-- %1$s: download size, such as "8 MB" -->
+    <string name="learning_words_need_pack">Word meanings and roots come with the learning data (%1$s download, once).</string>
+
     <!-- Concept learning page -->
     <string name="learning_open_lesson">open lesson</string>
     <string name="learning_i_know_this">I know this</string>
