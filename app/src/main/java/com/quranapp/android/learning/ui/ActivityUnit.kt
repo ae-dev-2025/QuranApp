@@ -7,6 +7,7 @@ import android.view.View
 import androidx.activity.compose.setContent
 import com.quranapp.android.activities.base.BaseActivity
 import com.quranapp.android.compose.theme.QuranAppTheme
+import com.quranapp.android.learning.path.Layer
 
 /** A surah unit of the path. Open it with [intent]. */
 class ActivityUnit : BaseActivity() {
@@ -19,17 +20,23 @@ class ActivityUnit : BaseActivity() {
             return
         }
 
+        val focus = intent.getStringExtra(EXTRA_FOCUS)?.let { name -> Layer.entries.firstOrNull { it.name == name } }
+
         setContent {
             QuranAppTheme {
-                UnitScreen(surahNo)
+                UnitScreen(surahNo, focus)
             }
         }
     }
 
     companion object {
         private const val EXTRA_SURAH_NO = "surah_no"
+        private const val EXTRA_FOCUS = "focus"
 
-        fun intent(context: Context, surahNo: Int): Intent =
-            Intent(context, ActivityUnit::class.java).putExtra(EXTRA_SURAH_NO, surahNo)
+        /** [focus] opens that layer's step first, e.g. Words from a goal. */
+        fun intent(context: Context, surahNo: Int, focus: Layer? = null): Intent =
+            Intent(context, ActivityUnit::class.java)
+                .putExtra(EXTRA_SURAH_NO, surahNo)
+                .putExtra(EXTRA_FOCUS, focus?.name)
     }
 }

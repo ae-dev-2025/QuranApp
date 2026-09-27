@@ -282,4 +282,17 @@
         <item quantity="one">%d is left to learn on your path.</item>
         <item quantity="other">%d are left to learn on your path.</item>
     </plurals>
+    <!-- Goal: aim at a surah -->
+    <string name="learning_goal">Goal</string>
+    <string name="learning_goal_none">Aim at a surah</string>
+    <string name="learning_goal_none_text">Pick a surah you want to understand. You’ll see how much of it you can already read, and which words to learn first.</string>
+    <string name="learning_goal_choose">Choose a surah</string>
+    <string name="learning_goal_change">Change goal</string>
+    <string name="learning_goal_pick_title">Which surah do you want to understand?</string>
+    <!-- %1$d: a percentage -->
+    <string name="learning_goal_words">%1$d%% of its words</string>
+    <string name="learning_goal_aim">At 95% you can read it with the odd look-up.</string>
+    <string name="learning_goal_reached">You can read it with the odd look-up. Keep going to 98% to read it unaided.</string>
+    <string name="learning_goal_next_words">Next words:</string>
+    <string name="learning_goal_learn">Learn the next words</string>
 </resources>

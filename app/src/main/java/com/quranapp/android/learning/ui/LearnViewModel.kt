@@ -10,6 +10,7 @@ import com.quranapp.android.learning.pack.LearningPackManager
 import com.quranapp.android.learning.path.Curriculum
 import com.quranapp.android.learning.path.Dot
 import com.quranapp.android.learning.path.Layer
+import com.quranapp.android.learning.path.LayerProgress
 import com.quranapp.android.learning.path.PathProgress
 import com.quranapp.android.learning.path.LearningPreferences
 import com.quranapp.android.learning.path.PathRepository
@@ -17,6 +18,8 @@ import com.quranapp.android.learning.path.Placement
 import com.quranapp.android.learning.path.Readiness
 import com.quranapp.android.learning.path.Stage
 import com.quranapp.android.learning.path.SurahNeeds
+import com.quranapp.android.learning.words.WordItems
+import com.quranapp.android.learning.words.WordRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
@@ -53,6 +56,20 @@ data class PathSummary(
     val unknownBasics: List<String>,
 )
 
+/** The learner's goal (journey 4): a surah to understand, and how close they are. */
+sealed interface GoalState {
+    data object None : GoalState
+
+    data class Chosen(
+        val surahNo: Int,
+        val name: String,
+        /** Null without the learning pack. */
+        val words: LayerProgress?,
+        /** The next dictionary words to learn, most frequent in the surah first. */
+        val nextWords: List<String>,
+    ) : GoalState
+}
+
 /** Works out the learner's place on the path whenever their progress or the pack changes. */
 class LearnViewModel(application: Application) : AndroidViewModel(application) {
     private val path = PathRepository.get(application)
@@ -72,6 +89,29 @@ class LearnViewModel(application: Application) : AndroidViewModel(application) {
             .mapLatest { (known, start) -> summarize(known, start) } // a newer tick cancels unfinished work
             .flowOn(Dispatchers.IO)
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+
+    /** Null while loading. */
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val goal: StateFlow<GoalState?> =
+        combine(
+            DatabaseProvider.getLearningProgressRepository(application).knownConceptIds,
+            LearningPackManager.state,
+            LearningPreferences.goalSurah(),
+        ) { known, _, surah -> known to surah }
+            .mapLatest { (known, surah) -> if (surah in 1..114) goalOf(surah, known) else GoalState.None }
+            .flowOn(Dispatchers.IO)
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+
+    fun setGoal(surahNo: Int) {
+        viewModelScope.launch { LearningPreferences.setGoalSurah(surahNo) }
+    }
+
+    private suspend fun goalOf(surahNo: Int, known: Set<String>): GoalState.Chosen {
+        val needs = path.needs(surahNo)
+        val nextKeys = Readiness.unknownWords(needs, known).take(NEXT_WORDS).mapNotNull(WordItems::lemmaKeyOf)
+        val nextWords = WordRepository.open(getApplication())?.wordLemmas(nextKeys)?.map { it.lemma.headword }.orEmpty()
+        return GoalState.Chosen(surahNo, quran.getChapterName(surahNo), Readiness.of(listOf(needs), Layer.WORDS, known), nextWords)
+    }
 
     fun choose(placement: Placement) {
         viewModelScope.launch { LearningPreferences.setStartStage(placement.stage) }
@@ -116,5 +156,6 @@ class LearnViewModel(application: Application) : AndroidViewModel(application) {
 
     private companion object {
         const val PATH_PREVIEW = 4
+        const val NEXT_WORDS = 3
     }
 }

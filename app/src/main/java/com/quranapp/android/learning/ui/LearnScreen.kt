@@ -18,6 +18,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -50,6 +53,17 @@ fun LearnScreen(viewModel: LearnViewModel) {
     val reviews = remember { DatabaseProvider.getUserDatabase(context).reviewDao() }
     val path by viewModel.summary.collectAsStateWithLifecycle()
     val start by viewModel.startStage.collectAsStateWithLifecycle()
+    val goal by viewModel.goal.collectAsStateWithLifecycle()
+    var pickingGoal by rememberSaveable { mutableStateOf(false) }
+    if (pickingGoal) {
+        GoalPickerSheet(
+            onPick = { surah ->
+                viewModel.setGoal(surah)
+                pickingGoal = false
+            },
+            onDismiss = { pickingGoal = false },
+        )
+    }
     LaunchedEffect(Unit) { LearningPackManager.refresh(context) }
     // Recomputed when a card changes and every minute, so items become due while the screen is open.
     val reviewSummary by remember {
@@ -95,6 +109,7 @@ fun LearnScreen(viewModel: LearnViewModel) {
                 if (loaded.start > 0 && checkable.isNotEmpty()) item { PlacementCheckCard(checkable) }
                 item { YourPathCard(loaded) }
             }
+            goal?.let { loaded -> item { GoalCard(loaded, onChooseSurah = { pickingGoal = true }) } }
             item {
                 Text(
                     text = stringResource(R.string.learning_understand_tip),
