@@ -24,10 +24,12 @@ data class SurahNeeds(
 ) {
     companion object {
         /** [ayahs] are the Uthmani words of each ayah, as the app stores them. */
-        fun conceptsOf(ayahs: List<List<String>>, graph: ConceptGraph = ConceptGraph()): List<Concept> {
-            val found = ayahs.flatMapTo(HashSet()) { AyahAnalyzer.analyze(it).conceptIds }
-            return graph.inLearningOrder(graph.withPrerequisites(found))
-        }
+        fun conceptsOf(ayahs: List<List<String>>, graph: ConceptGraph = ConceptGraph()): List<Concept> =
+            conceptsFound(ayahs.flatMapTo(HashSet()) { AyahAnalyzer.analyze(it).conceptIds }, graph)
+
+        /** Concepts [found] in a surah's text (by the detectors or [ConceptIndex]), with their prerequisites, in learning order. */
+        fun conceptsFound(found: Set<String>, graph: ConceptGraph = ConceptGraph()): List<Concept> =
+            graph.inLearningOrder(graph.withPrerequisites(found))
 
         /** Grammar concepts [found] in a surah, with the grammar they build on, in learning order. */
         fun grammarOf(found: Set<String>, graph: ConceptGraph = ConceptGraph()): List<Concept> =

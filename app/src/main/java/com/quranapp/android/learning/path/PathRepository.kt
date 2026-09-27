@@ -2,6 +2,7 @@ package com.quranapp.android.learning.path
 
 import android.content.Context
 import com.quranapp.android.db.DatabaseProvider
+import com.quranapp.android.learning.analysis.ConceptIndex
 import com.quranapp.android.learning.concepts.Concept
 import com.quranapp.android.learning.words.WordRepository
 import com.quranapp.android.repository.QuranRepository
@@ -11,11 +12,13 @@ import kotlinx.coroutines.sync.withLock
 
 /**
  * Loads what each surah needs, once per app run: the Quran text never changes, and the
- * words only change when the learning pack is downloaded or deleted.
+ * words only change when the learning pack is downloaded or deleted. A surah's reading and
+ * recitation concepts come from the shipped [ConceptIndex], so no ayah has to be analysed.
  */
 class PathRepository(
     private val quran: QuranRepository,
     private val openWords: suspend () -> WordRepository?,
+    private val index: suspend () -> ConceptIndex? = { null },
 ) {
     private val mutex = Mutex()
     private val concepts = HashMap<Int, List<Concept>>()
@@ -24,7 +27,9 @@ class PathRepository(
 
     suspend fun needs(surahNo: Int): SurahNeeds = mutex.withLock {
         val surahConcepts = concepts.getOrPut(surahNo) {
-            // Always the Unicode text: the other scripts store font glyph codes, not letters.
+            index()?.let { return@getOrPut SurahNeeds.conceptsFound(it.conceptsOf(surahNo)) }
+            // Without the index, analyse the text. Always the Unicode text: the other scripts
+            // store font glyph codes, not letters.
             val ayahs = quran.getWordsForSurah(surahNo, QuranScriptUtils.SCRIPT_UTHMANI).values.map { ayah -> ayah.map { it.text } }
             SurahNeeds.conceptsOf(ayahs)
         }
@@ -61,8 +66,11 @@ class PathRepository(
         fun get(context: Context): PathRepository {
             val app = context.applicationContext
             return instance ?: synchronized(this) {
-                instance ?: PathRepository(DatabaseProvider.getQuranRepository(app)) { WordRepository.open(app) }
-                    .also { instance = it }
+                instance ?: PathRepository(
+                    quran = DatabaseProvider.getQuranRepository(app),
+                    openWords = { WordRepository.open(app) },
+                    index = { ConceptIndex.get(app) },
+                ).also { instance = it }
             }
         }
     }

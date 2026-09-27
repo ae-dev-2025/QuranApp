@@ -39,6 +39,7 @@ import com.quranapp.android.compose.components.reader.dialogs.QuickReference
 import com.quranapp.android.compose.components.reader.dialogs.QuickReferenceData
 import com.quranapp.android.compose.theme.alpha
 import com.quranapp.android.db.DatabaseProvider
+import com.quranapp.android.learning.analysis.ConceptIndex
 import com.quranapp.android.learning.concepts.ConceptCatalog
 import com.quranapp.android.learning.concepts.Track
 import com.quranapp.android.learning.examples.AyahWords
@@ -67,7 +68,7 @@ fun ConceptExamplesSection(conceptId: String) {
     val context = LocalContext.current
     val repository = remember { DatabaseProvider.getQuranRepository(context) }
     val finder = remember {
-        ConceptExampleFinder { surahNo ->
+        ConceptExampleFinder(ayahsWith = { ConceptIndex.get(context)?.ayahsOf(it) }) { surahNo ->
             repository.getWordsForSurah(surahNo, QuranScriptUtils.SCRIPT_UTHMANI)
                 .map { (ayahId, words) -> AyahWords(surahNo, ayahId % 1000, words.map { it.text }) }
         }

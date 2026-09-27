@@ -1,5 +1,6 @@
 package com.quranapp.android.learning.examples
 
+import com.quranapp.android.learning.analysis.ConceptIndex
 import com.quranapp.android.learning.analysis.TestAyahs.AYAH_112_1
 import com.quranapp.android.learning.analysis.TestAyahs.AYAH_112_4
 import com.quranapp.android.learning.analysis.TestAyahs.AYAH_1_1
@@ -39,6 +40,22 @@ class ConceptExampleFinderTest {
     fun `short surahs come before Al-Baqarah`() {
         // Idgham without ghunnah occurs in 2:2 and 112:4. Juz 'Amma is searched first.
         assertEquals(listOf("112:4", "2:2"), refs(find(IDGHAM_NO_GHUNNAH, limit = 5)))
+    }
+
+    @Test
+    fun `with the index, only surahs that have the concept are read`() {
+        val index = ConceptIndex.of(fakeQuran.values.flatten().associate { it.surahNo * 1000 + it.ayahNo to it.words })
+        val indexed = ConceptExampleFinder(ayahsWith = { index.ayahsOf(it) }) { surahNo ->
+            loadedSurahs += surahNo
+            fakeQuran[surahNo].orEmpty()
+        }
+
+        val examples = runBlocking { indexed.find(IDGHAM_NO_GHUNNAH, limit = 5) }
+
+        assertEquals(refs(find(IDGHAM_NO_GHUNNAH, limit = 5)), refs(examples)) // the same examples, in the same order
+        loadedSurahs.clear()
+        runBlocking { indexed.find(IDGHAM_NO_GHUNNAH, limit = 5) }
+        assertEquals(listOf(112, 2), loadedSurahs) // not Al-Fatihah, nor the ~110 surahs without it
     }
 
     @Test
