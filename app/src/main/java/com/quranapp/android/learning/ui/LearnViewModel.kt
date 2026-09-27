@@ -132,17 +132,20 @@ class LearnViewModel(application: Application) : AndroidViewModel(application) {
             DatabaseProvider.getLearningProgressRepository(application).knownConceptIds,
             reviews.observeCards(),
             LearningPackManager.state,
-            LearningPreferences.goalSurah(),
-            LearningPreferences.startStage(),
-        ) { known, _, _, goal, start -> Triple(known, goal, start.coerceAtLeast(0)) }
-            .mapLatest { (known, goal, start) -> planNewWords(known, goal, start) }
+            combine(LearningPreferences.goalSurah(), LearningPreferences.startStage(), LearningPreferences.newWordsPerDay(), ::Triple),
+        ) { known, _, _, (goal, start, perDay) -> NewWordsInput(known, goal, start.coerceAtLeast(0), perDay) }
+            .mapLatest(::planNewWords)
             .flowOn(Dispatchers.IO)
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
     }
 
-    private suspend fun planNewWords(known: Set<String>, goal: Int, start: Int): NewWordsPlan? {
+    private data class NewWordsInput(val known: Set<String>, val goal: Int, val start: Int, val perDay: Int)
+
+    private suspend fun planNewWords(input: NewWordsInput): NewWordsPlan? {
+        val (known, goal, start, perDay) = input
         val reviews = DatabaseProvider.getUserDatabase(getApplication()).reviewDao()
-        val left = DailyReview.newWordsLeft(reviews.wordsStartedSince(DailyReview.startOfDay(System.currentTimeMillis())))
+        val startedToday = reviews.wordsStartedSince(DailyReview.startOfDay(System.currentTimeMillis()))
+        val left = DailyReview.newWordsLeft(startedToday, perDay)
         if (left == 0) return null
         val words = WordRepository.open(getApplication()) ?: return null
         val surah = if (goal in 1..114) {

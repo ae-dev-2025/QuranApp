@@ -125,52 +125,53 @@ and overrides for the 258 verb headwords still marked "unchecked".
 | 49 | Goals |
 | 50 | Progress and weekly summary |
 | 51 | Today's new words: introduced, then checked (the design's daily load) |
-| 52 | Learning settings |
+| 52 | Learning settings: new words a day, where you start, reset; settings in Export/Import |
+| 53 | Opt-in reminder when reviews are due |
 
 **M7 · Letters and sounds**
 
 | PR | What it adds |
 |---|---|
-| 53 | Letters track |
-| 54 | Letter grid and letter pages |
-| 55 | Audio for words and examples ("Hear it") |
-| 56–57 | Where letters are made (makhārij) and letter qualities (ṣifāt) |
-| 58 | Letter questions |
+| 54 | Letters track |
+| 55 | Letter grid and letter pages |
+| 56 | Audio for words and examples ("Hear it") |
+| 57–58 | Where letters are made (makhārij) and letter qualities (ṣifāt) |
+| 59 | Letter questions |
 
 **M8 · Grammar I: word forms**
 
 | PR | What it adds |
 |---|---|
-| 59 | Grammar track: 70 concepts and their prerequisites |
-| 60 | Grammar detector: word features to concepts |
-| 61 | Grammar tab |
-| 62–66 | Lessons for word-form concepts |
+| 60 | Grammar track: 70 concepts and their prerequisites |
+| 61 | Grammar detector: word features to concepts |
+| 62 | Grammar tab |
+| 63–67 | Lessons for word-form concepts |
 
 **M9 · Grammar II: sentences**
 
 | PR | What it adds |
 |---|---|
-| 67 | Sentence roles to concepts |
-| 68 | Sentence roles in the Grammar tab |
-| 69–72 | Lessons for sentence concepts |
-| 73 | Grammar questions |
+| 68 | Sentence roles to concepts |
+| 69 | Sentence roles in the Grammar tab |
+| 70–73 | Lessons for sentence concepts |
+| 74 | Grammar questions |
 
 **M10 · Complete recitation**
 
 | PR | What it adds |
 |---|---|
-| 74 | Heavy and light rāʾ |
-| 75 | Idghām of two letters, lām of verbs and particles, tanwīn before hamzat al-waṣl |
-| 76 | Madds: ʿāriḍ, līn, ʿiwaḍ, badal, ṣila, disjointed letters |
-| 77 | Saktas, Ḥafṣ's special words, stopping and starting, special spellings |
-| 78–80 | Lessons for the new concepts |
+| 75 | Heavy and light rāʾ |
+| 76 | Idghām of two letters, lām of verbs and particles, tanwīn before hamzat al-waṣl |
+| 77 | Madds: ʿāriḍ, līn, ʿiwaḍ, badal, ṣila, disjointed letters |
+| 78 | Saktas, Ḥafṣ's special words, stopping and starting, special spellings |
+| 79–81 | Lessons for the new concepts |
 
 **M11 · Polish**
 
 | PR | What it adds |
 |---|---|
-| 81 | Show learning screens in the reader's script (Indo-Pak) |
-| 82 | Dark theme and right-to-left fixes |
-| 83 | Accessibility |
-| 84 | Speed: caching |
-| 85 | Security and licence review, including: Export/Import crashes on a file that isn't JSON (found in #43; the parse in `ActivityExportImport.importData` isn't caught) |
+| 82 | Show learning screens in the reader's script (Indo-Pak) |
+| 83 | Dark theme and right-to-left fixes |
+| 84 | Accessibility |
+| 85 | Speed: caching |
+| 86 | Security and licence review, including: Export/Import crashes on a file that isn't JSON (found in #43; the parse in `ActivityExportImport.importData` isn't caught) |

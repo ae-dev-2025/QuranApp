@@ -2,6 +2,7 @@ package com.quranapp.android.learning.progress
 
 import androidx.room.withTransaction
 import com.quranapp.android.db.UserDatabase
+import com.quranapp.android.learning.path.LearningPreferences
 
 /** What an import changed, for the message shown afterwards. */
 data class ImportResult(val items: Int, val skipped: Int)
@@ -11,7 +12,18 @@ class LearningBackupRepository(private val database: UserDatabase) {
     private val progress = database.conceptProgressDao()
     private val reviews = database.reviewDao()
 
-    suspend fun export(): LearningBackup = LearningBackups.of(progress.known(), reviews.allCards(), reviews.allLogs())
+    suspend fun export(): LearningBackup =
+        LearningBackups.of(progress.known(), reviews.allCards(), reviews.allLogs()).copy(settings = LearningSettingsEntry.current())
+
+    /** Deletes all learning progress: known items, review cards and the log, together. The pack stays. */
+    suspend fun resetAll() {
+        database.withTransaction {
+            progress.deleteAll()
+            reviews.deleteAllCards()
+            reviews.deleteAllLogs()
+        }
+        LearningPreferences.reset()
+    }
 
     /**
      * Adds [backup] to this phone's progress in one transaction: either all of it is saved or
@@ -31,5 +43,5 @@ class LearningBackupRepository(private val database: UserDatabase) {
 
         val items = (backup.known.map { it.conceptId } + backup.cards.map { it.itemId }).toSet().size
         ImportResult(items = items, skipped = backup.skipped)
-    }
+    }.also { backup.settings?.apply() }
 }

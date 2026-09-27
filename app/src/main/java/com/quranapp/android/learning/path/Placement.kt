@@ -37,4 +37,20 @@ object LearningPreferences {
     fun goalSurah(): Flow<Int> = DataStoreManager.flow(KEY_GOAL_SURAH)
 
     suspend fun setGoalSurah(surahNo: Int) = DataStoreManager.write(KEY_GOAL_SURAH, surahNo)
+
+    /** The choices for new words a day; 0 turns them off. The design's default is 10. */
+    val NEW_WORDS_CHOICES = listOf(0, 5, 10, 20)
+
+    private val KEY_NEW_WORDS_PER_DAY = PrefKey(intPreferencesKey("learning_new_words_per_day"), 10)
+
+    fun newWordsPerDay(): Flow<Int> = DataStoreManager.flow(KEY_NEW_WORDS_PER_DAY)
+
+    suspend fun setNewWordsPerDay(count: Int) = DataStoreManager.write(KEY_NEW_WORDS_PER_DAY, count)
+
+    /** Forgets the start, goal and daily words, as if learning mode was never opened. */
+    suspend fun reset() {
+        setStartStage(NOT_CHOSEN)
+        setGoalSurah(NO_GOAL)
+        DataStoreManager.remove(KEY_NEW_WORDS_PER_DAY)
+    }
 }

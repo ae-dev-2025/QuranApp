@@ -26,6 +26,9 @@ interface ConceptProgressDao {
     @Query("SELECT * FROM concept_progress WHERE status = 'KNOWN' AND updated_at >= :since")
     suspend fun knownSince(since: Long): List<ConceptProgressEntity>
 
+    @Query("DELETE FROM concept_progress")
+    suspend fun deleteAll()
+
     /** Every known item, for Export. */
     @Query("SELECT * FROM concept_progress WHERE status = 'KNOWN'")
     suspend fun known(): List<ConceptProgressEntity>

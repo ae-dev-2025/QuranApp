@@ -29,5 +29,6 @@ object SettingRoutes {
     const val WWB = "settings.wbw"
     const val RECITATION_DOWNLOAD = "settings.recitation_download"
     const val APP_LOGS = "settings.app_logs"
+    const val LEARNING = "settings.learning"
     const val LEARNING_DATA = "settings.learning_data"
 }
