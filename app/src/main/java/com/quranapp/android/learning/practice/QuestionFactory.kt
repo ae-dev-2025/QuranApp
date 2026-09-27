@@ -1,6 +1,8 @@
 package com.quranapp.android.learning.practice
 
+import com.quranapp.android.learning.analysis.AyahAnalyzer
 import com.quranapp.android.learning.concepts.ConceptCatalog
+import com.quranapp.android.learning.concepts.Track
 import com.quranapp.android.learning.examples.AyahWords
 import com.quranapp.android.learning.letters.Letter
 import com.quranapp.android.learning.letters.LetterExample
@@ -24,6 +26,8 @@ class QuestionFactory(
     private val firstPlace: suspend (lemma: LemmaEntity) -> WordLocation? = { null },
     /** A word where a letter is heard first, for the listening question. */
     private val letterExample: suspend (Letter) -> LetterExample? = { null },
+    /** Ayahs where a grammar concept occurs, with all their grammar; none without the pack. */
+    private val grammarAyahs: suspend (conceptId: String, limit: Int) -> List<GrammarAyah> = { _, _ -> emptyList() },
 ) {
     /** Up to [count] questions about [itemId]; fewer (or none) if fair ones can't be made. */
     suspend fun questionsFor(itemId: String, count: Int): List<Question> {
@@ -33,7 +37,7 @@ class QuestionFactory(
             lemmaKey != null -> wordQuestions(lemmaKey, count)
             letter != null -> letterQuestions(letter, count)
             ConceptCatalog[itemId] != null -> conceptQuestions(itemId, count)
-            else -> emptyList() // grammar gets its questions in a later milestone
+            else -> emptyList()
         }
     }
 
@@ -75,16 +79,19 @@ class QuestionFactory(
 
     private suspend fun conceptQuestions(conceptId: String, count: Int): List<Question> {
         // A fresh ayah for every question, taken at random from the first few dozen examples.
-        val ayahs = ayahsWithConcept(conceptId, count * AYAHS_PER_QUESTION).shuffled(random)
+        // Grammar is found in the pack; reading and tajweed in the text's marks.
+        val limit = count * AYAHS_PER_QUESTION
+        val ayahs = if (ConceptCatalog[conceptId]?.track == Track.GRAMMAR) {
+            grammarAyahs(conceptId, limit).map { it.ayah to it.wordsByConcept }
+        } else {
+            ayahsWithConcept(conceptId, limit).map { it to AyahAnalyzer.analyze(it.words).wordsByConcept }
+        }.shuffled(random)
         val questions = mutableListOf<Question>()
-        for (ayah in ayahs) {
+        for ((ayah, found) in ayahs) {
             if (questions.size == count) break
-            val tapFirst = questions.size % 2 == 0
-            val question = if (tapFirst) {
-                ConceptQuestions.tapWord(conceptId, ayah) ?: ConceptQuestions.ruleOnWord(conceptId, ayah, random)
-            } else {
-                ConceptQuestions.ruleOnWord(conceptId, ayah, random) ?: ConceptQuestions.tapWord(conceptId, ayah)
-            }
+            val tap = { ConceptQuestions.tapWord(conceptId, ayah, found) }
+            val rule = { ConceptQuestions.ruleOnWord(conceptId, ayah, random, found) }
+            val question = if (questions.size % 2 == 0) tap() ?: rule() else rule() ?: tap()
             if (question != null) questions += question
         }
         return questions

@@ -3,8 +3,13 @@ package com.quranapp.android.learning.practice
 import com.quranapp.android.learning.analysis.AyahAnalyzer
 import com.quranapp.android.learning.concepts.Concept
 import com.quranapp.android.learning.concepts.ConceptCatalog
+import com.quranapp.android.learning.concepts.GrammarCatalog
+import com.quranapp.android.learning.concepts.Track
 import com.quranapp.android.learning.examples.AyahWords
 import kotlin.random.Random
+
+/** An ayah and the grammar concepts found in its words, from the learning pack. */
+data class GrammarAyah(val ayah: AyahWords, val wordsByConcept: Map<String, List<Int>>)
 
 /** "Tap the word where the noon is hidden": any word with the concept is a right answer. */
 data class TapWordQuestion(
@@ -32,17 +37,23 @@ data class RuleQuestion(
 }
 
 /**
- * Reading and tajweed questions, built from real ayahs and graded by the same detectors that
- * find concepts in the Understand sheet, so the app always knows the answer.
+ * Reading, tajweed and grammar questions, built from real ayahs and graded by the same
+ * detectors that find concepts in the Understand sheet, so the app always knows the answer.
+ * [wordsByConcept] is what those detectors found in the ayah: by default the reading and
+ * tajweed analysis of its text; for grammar, the learning pack's (see [GrammarAyah]).
  *
  * A concept is practised on a different ayah each time (the ayahs come from the caller), so
  * the learner learns the rule rather than the ayah.
  */
 object ConceptQuestions {
     /** Null when the ayah doesn't make a fair question: too short, or the rule is almost everywhere. */
-    fun tapWord(conceptId: String, ayah: AyahWords): TapWordQuestion? {
+    fun tapWord(
+        conceptId: String,
+        ayah: AyahWords,
+        wordsByConcept: Map<String, List<Int>> = AyahAnalyzer.analyze(ayah.words).wordsByConcept,
+    ): TapWordQuestion? {
         val words = withoutNumber(ayah.words)
-        val hits = AyahAnalyzer.analyze(ayah.words).wordsByConcept[conceptId].orEmpty().filter { it < words.size }
+        val hits = wordsByConcept[conceptId].orEmpty().filter { it < words.size }
         if (words.size < 3 || hits.isEmpty() || hits.size * 2 > words.size) return null
         return TapWordQuestion(conceptId, ayah.surahNo, ayah.ayahNo, words, hits.toSet())
     }
@@ -50,16 +61,22 @@ object ConceptQuestions {
     /**
      * Null when there aren't at least two wrong options. A rule that also applies to the
      * highlighted word is never offered as a wrong option, and neither is anything such a
-     * rule builds on: a dagger alif is also a long vowel.
+     * rule builds on: a dagger alif is also a long vowel. Grammar is different: a present
+     * verb builds on the past without being one, so only what is on the word is left out.
      */
-    fun ruleOnWord(conceptId: String, ayah: AyahWords, random: Random): RuleQuestion? {
+    fun ruleOnWord(
+        conceptId: String,
+        ayah: AyahWords,
+        random: Random,
+        wordsByConcept: Map<String, List<Int>> = AyahAnalyzer.analyze(ayah.words).wordsByConcept,
+    ): RuleQuestion? {
         val words = withoutNumber(ayah.words)
-        val analysis = AyahAnalyzer.analyze(ayah.words)
-        val hits = analysis.wordsByConcept[conceptId].orEmpty().filter { it < words.size }
+        val hits = wordsByConcept[conceptId].orEmpty().filter { it < words.size }
         if (hits.isEmpty()) return null
         val word = hits.random(random)
-        val onThatWord = analysis.wordsByConcept.filterValues { word in it }.keys
-        val alsoRight = onThatWord + onThatWord.flatMap(::foundationsOf)
+        val onThatWord = wordsByConcept.filterValues { word in it }.keys
+        val isGrammar = ConceptCatalog[conceptId]?.track == Track.GRAMMAR
+        val alsoRight = if (isGrammar) onThatWord else onThatWord + onThatWord.flatMap(::foundationsOf)
         val wrong = siblings(conceptId).filter { it !in alsoRight }.shuffled(random).take(3)
         if (wrong.size < 2) return null
         val options = (wrong + conceptId).shuffled(random)
@@ -73,9 +90,13 @@ object ConceptQuestions {
      */
     fun siblings(conceptId: String): List<String> {
         val target: Concept = ConceptCatalog[conceptId] ?: return emptyList()
+        // Grammar concepts of the same stage are also look-alikes: past, present and command.
+        val stage = GrammarCatalog.stageOf(conceptId)
         return ConceptCatalog.all
             .filter { it.id != conceptId && it.track == target.track && it.id !in ConceptCatalog.umbrellaIds }
-            .filter { other -> other.prerequisites.any { it in target.prerequisites } }
+            .filter { other ->
+                other.prerequisites.any { it in target.prerequisites } || (stage != null && GrammarCatalog.stageOf(other.id) == stage)
+            }
             .map { it.id }
     }
 

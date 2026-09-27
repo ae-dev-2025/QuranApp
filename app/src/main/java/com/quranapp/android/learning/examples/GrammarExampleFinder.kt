@@ -1,5 +1,6 @@
 package com.quranapp.android.learning.examples
 
+import com.quranapp.android.learning.practice.GrammarAyah
 import java.util.concurrent.ConcurrentHashMap
 
 /**
@@ -19,17 +20,21 @@ class GrammarExampleFinder(
     // Concurrent: "Show more" can start a search before a cancelled one has stopped.
     private val surahs = ConcurrentHashMap<Int, Map<Int, Map<String, List<Int>>>>()
 
-    suspend fun find(conceptId: String, limit: Int): List<ConceptExample> {
-        val examples = mutableListOf<ConceptExample>()
+    suspend fun find(conceptId: String, limit: Int): List<ConceptExample> =
+        ayahs(conceptId, limit).map { ConceptExample(it.ayah, it.wordsByConcept.getValue(conceptId).toSet()) }
+
+    /** The first [limit] ayahs with [conceptId], each with all the grammar found in it (for questions). */
+    suspend fun ayahs(conceptId: String, limit: Int): List<GrammarAyah> {
+        val found = mutableListOf<GrammarAyah>()
         for (surahNo in ConceptExampleFinder.SEARCH_ORDER) {
-            val byAyah = surahs[surahNo] ?: (grammarOfSurah(surahNo) ?: return examples).also { surahs[surahNo] = it }
+            val byAyah = surahs[surahNo] ?: (grammarOfSurah(surahNo) ?: return found).also { surahs[surahNo] = it }
             for (ayahId in byAyah.keys.sorted()) {
-                val words = byAyah.getValue(ayahId)[conceptId]
-                if (words.isNullOrEmpty()) continue
-                examples += ConceptExample(AyahWords(surahNo, ayahId % 1000, loadAyah(ayahId)), words.toSet())
-                if (examples.size == limit) return examples
+                val grammar = byAyah.getValue(ayahId)
+                if (grammar[conceptId].isNullOrEmpty()) continue
+                found += GrammarAyah(AyahWords(surahNo, ayahId % 1000, loadAyah(ayahId)), grammar)
+                if (found.size == limit) return found
             }
         }
-        return examples
+        return found
     }
 }

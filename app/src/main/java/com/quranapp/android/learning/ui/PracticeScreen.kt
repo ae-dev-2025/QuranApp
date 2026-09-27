@@ -53,6 +53,7 @@ import com.quranapp.android.R
 import com.quranapp.android.compose.components.common.AppBar
 import com.quranapp.android.compose.theme.alpha
 import com.quranapp.android.learning.concepts.ConceptCatalog
+import com.quranapp.android.learning.concepts.Track
 import com.quranapp.android.learning.practice.ChoiceKind
 import com.quranapp.android.learning.practice.ChoiceQuestion
 import com.quranapp.android.learning.practice.RuleQuestion
@@ -215,7 +216,8 @@ private fun LetterQuestionView(question: LetterQuestion, answer: Int?, quranFont
 
 @Composable
 private fun RuleView(question: RuleQuestion, answer: Int?, arabicFont: FontFamily, onAnswer: (Int) -> Unit) {
-    Prompt(stringResource(R.string.learning_q_rule))
+    val isGrammar = ConceptCatalog[question.itemId]?.track == Track.GRAMMAR
+    Prompt(stringResource(if (isGrammar) R.string.learning_q_grammar else R.string.learning_q_rule))
     AyahWordsCard(question.words, question.surahNo, question.ayahNo, arabicFont) { index ->
         if (index == question.highlighted) WordLook.Highlighted else WordLook.Plain
     }
