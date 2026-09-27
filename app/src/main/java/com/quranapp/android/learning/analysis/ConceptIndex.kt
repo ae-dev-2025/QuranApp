@@ -33,8 +33,8 @@ class ConceptIndex(private val ayahsByConcept: Map<String, IntArray>) {
      * or `reading.short_vowels 1001-1007,2001-2286`. Concepts in id order, so the file only
      * changes where the findings do.
      */
-    fun write(out: Appendable) {
-        out.append(HEADER)
+    fun write(out: Appendable, header: String = HEADER) {
+        out.append(header)
         for (conceptId in ayahsByConcept.keys.sorted()) {
             out.append(conceptId).append(' ')
             val ayahs = ayahsByConcept.getValue(conceptId)
@@ -66,14 +66,16 @@ class ConceptIndex(private val ayahsByConcept: Map<String, IntArray>) {
                 "# Made by ShippedConceptIndexTest from the app's Quran text; don't edit by hand.\n"
 
         /** Runs the detectors over [ayahs] (each ayah id with its Uthmani words). */
-        fun of(ayahs: Map<Int, List<String>>): ConceptIndex {
-            val found = HashMap<String, MutableList<Int>>()
-            for (ayahId in ayahs.keys.sorted()) {
-                for (conceptId in AyahAnalyzer.analyze(ayahs.getValue(ayahId)).conceptIds) {
-                    found.getOrPut(conceptId) { mutableListOf() } += ayahId
-                }
+        fun of(ayahs: Map<Int, List<String>>): ConceptIndex =
+            from(ayahs.mapValues { (_, words) -> AyahAnalyzer.analyze(words).conceptIds })
+
+        /** The index of what was [found]: each ayah id with its concepts. */
+        fun from(found: Map<Int, Set<String>>): ConceptIndex {
+            val byConcept = HashMap<String, MutableList<Int>>()
+            for (ayahId in found.keys.sorted()) {
+                for (conceptId in found.getValue(ayahId)) byConcept.getOrPut(conceptId) { mutableListOf() } += ayahId
             }
-            return ConceptIndex(found.mapValues { (_, ids) -> ids.toIntArray() })
+            return ConceptIndex(byConcept.mapValues { (_, ids) -> ids.toIntArray() })
         }
 
         /**

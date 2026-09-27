@@ -1,5 +1,6 @@
 package com.quranapp.android.learning.examples
 
+import com.quranapp.android.learning.analysis.ConceptIndex
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -31,6 +32,25 @@ class GrammarExampleFinderTest {
         val before = asked.size
         assertEquals(3, finder.find("grammar.present", limit = 3).size) // goes on to Al-Baqarah
         assertEquals("only the surahs after Al-Ikhlāṣ are new", listOf(113, 114, 2), asked.drop(before))
+    }
+
+    @Test
+    fun withTheIndexOnlyItsAyahsAreAskedForInTheSameOrder() = runBlocking {
+        val byAyah = grammar.values.fold(emptyMap<Int, Map<String, List<Int>>>()) { all, surah -> all + surah }
+        val index = ConceptIndex.from(byAyah.mapValues { (_, concepts) -> concepts.keys })
+        val askedAyahs = mutableListOf<Int>()
+        val indexed = GrammarExampleFinder(
+            grammarOfSurah = { error("the index should be used") },
+            loadAyah = { ayahId -> listOf("word of $ayahId") },
+            ayahsWith = { index.ayahsOf(it) },
+            grammarOfAyah = { ayahId -> askedAyahs += ayahId; byAyah[ayahId] },
+        )
+
+        val found = indexed.find("grammar.present", limit = 3)
+
+        assertEquals(finder.find("grammar.present", limit = 3).map { it.ayah }, found.map { it.ayah })
+        assertEquals(setOf(1, 3), found.first().highlightedWordIndexes)
+        assertEquals(listOf(1005, 112003, 2002), askedAyahs) // not 1:4, which has no present-tense verb
     }
 
     @Test

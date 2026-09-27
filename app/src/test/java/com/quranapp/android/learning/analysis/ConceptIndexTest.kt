@@ -32,6 +32,21 @@ class ConceptIndexTest {
     }
 
     @Test
+    fun anIndexCanBeMadeFromWhatWasFoundElsewhere() {
+        // As the grammar index is made: each ayah with the concepts found in it.
+        val found = ConceptIndex.from(mapOf(2002 to setOf("grammar.present"), 1005 to setOf("grammar.present", "grammar.ism")))
+        assertArrayEquals(intArrayOf(1005, 2002), found.ayahsOf("grammar.present"))
+        assertEquals(setOf("grammar.present", "grammar.ism"), found.conceptsOf(1))
+    }
+
+    @Test
+    fun aHeaderCanBeGiven() {
+        val text = StringBuilder().also { index.write(it, header = "# made from: pack v2\n") }.toString()
+        assertEquals("# made from: pack v2", text.lines().first())
+        assertEquals(index, ConceptIndex.parse(text.lineSequence()))
+    }
+
+    @Test
     fun anUnknownConceptIsNowhere() {
         assertEquals(0, index.ayahsOf("reading.not_a_concept").size)
     }
