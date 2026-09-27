@@ -112,9 +112,50 @@ def root_letters(key: str) -> str:
     return " ".join("ء" if letter in _HAMZA_SPELLINGS else to_app(letter) for letter in key)
 
 
+# Detached pronouns by person, number and gender: the headword for words that are only a
+# pronoun, which the corpus gives no lemma (هُوَ, and بِهِۦ = bi + hi).
+_PRONOUNS = {
+    "1S": ">anaA", "1P": "naHonu",
+    "2MS": ">anta", "2FS": ">anti", "2D": ">antumaA", "2MP": ">antumo", "2FP": ">antun~a",
+    "3MS": "huwa", "3FS": "hiYa", "3D": "humaA", "3MP": "humo", "3FP": "hun~a",
+}
+_PRONOUN_KEY = "PRON:"
+
+# Nouns whose corpus lemma ends in a short -at written with ت where a dictionary writes ة
+# (عِبَادَت -> عِبَادَة). عَنَت "hardship" really ends in ت.
+_TAA_MARBUTA = re.compile(r"(?<=[^A`])at(?=\d*$)")
+_REAL_FINAL_TAA = {"Eanat"}
+
+
+def lemma_key(segment) -> Optional[str]:
+    """The segment's lemma: the corpus's, or for a bare pronoun "PRON:" + its person (PRON:3MS)."""
+    if segment.lemma:
+        return segment.lemma
+    if segment.tag == "PRON":
+        person = next((flag for flag in segment.flags if flag in _PRONOUNS), None)
+        return _PRONOUN_KEY + person if person else None
+    return None
+
+
 def display(buckwalter: str) -> str:
-    """A lemma in Arabic, without the digit that tells homographs apart or trailing marks."""
-    return to_app(re.sub(r"\d+$", "", buckwalter).rstrip(_TRAILING_MARKS))
+    """A lemma in Arabic, without the digit that tells homographs apart or trailing marks.
+
+    A doubled first letter (نَّاس, from ٱلنَّاس) loses its shadda: no dictionary word starts
+    with one.
+    """
+    text = re.sub(r"\d+$", "", buckwalter).rstrip(_TRAILING_MARKS)
+    if len(text) > 1 and text[1] == "~":
+        text = text[0] + text[2:]
+    return to_app(text)
+
+
+def headword_of(key: str, pos: str) -> str:
+    """The Buckwalter text to display for a lemma that isn't a verb."""
+    if key.startswith(_PRONOUN_KEY):
+        return _PRONOUNS[key[len(_PRONOUN_KEY):]]
+    if pos in ("N", "ADJ", "PN") and key not in _REAL_FINAL_TAA:
+        return _TAA_MARBUTA.sub("ap", key)
+    return key
 
 
 def _starts_with_radical(text: str, radical: str) -> bool:
@@ -197,7 +238,7 @@ def build(words: list) -> tuple:
 
     for word in words:
         for segment in word.stems:
-            lemma = segment.lemma
+            lemma = lemma_key(segment)
             if not lemma:
                 continue  # detached pronouns and the disjointed letters have no lemma
             occurrences[lemma] += 1
@@ -218,7 +259,9 @@ def build(words: list) -> tuple:
     for rank, key in enumerate(sorted(occurrences, key=lambda k: (-occurrences[k], k)), start=1):
         root = lemma_root.get(key)
         form = lemma_form.get(key)
-        headword, source = key, "corpus"
+        headword, source = headword_of(key, pos_counts[key].most_common(1)[0][0]), "corpus"
+        if key.startswith(_PRONOUN_KEY):
+            source = "pronoun"
         # A corpus lemma that is itself a "he did" form in the Quran is trusted even if it
         # doesn't fit its tagged verb form (تَعَٰلَىٰ is tagged form I).
         trusted = key.rstrip(_TRAILING_MARKS) in past_3ms[key]

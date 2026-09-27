@@ -17,6 +17,8 @@ import re
 from collections import Counter
 from pathlib import Path
 
+from .lexicon import lemma_key
+
 OVERRIDES = Path(__file__).resolve().parent.parent / "data" / "meaning_overrides.tsv"
 
 _BRACKETS = re.compile(r"\([^)]*\)|\[[^\]]*\]")
@@ -107,13 +109,13 @@ def collect(aligned: list, masaq_words: dict, regular_ayahs: set) -> dict:
     for word in aligned:
         if word.ayah_id not in regular_ayahs:
             continue
-        stems = [stem for stem in word.corpus_word.stems if stem.lemma]
+        stems = [stem for stem in word.corpus_word.stems if lemma_key(stem)]
         masaq = masaq_words.get((word.ayah_id, word.word_index))
         if len(stems) != 1 or not masaq:
             continue
         gloss = " ".join(part.gloss for part in masaq if part.gloss and part.gloss != "#N/A")
         if gloss:
-            collected.setdefault(stems[0].lemma, Counter())[gloss] += 1
+            collected.setdefault(lemma_key(stems[0]), Counter())[gloss] += 1
     return collected
 
 
