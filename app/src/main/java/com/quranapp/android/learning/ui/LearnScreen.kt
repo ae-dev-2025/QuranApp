@@ -56,6 +56,7 @@ fun LearnScreen(viewModel: LearnViewModel) {
     val start by viewModel.startStage.collectAsStateWithLifecycle()
     val goal by viewModel.goal.collectAsStateWithLifecycle()
     val week by viewModel.week.collectAsStateWithLifecycle()
+    val newWords by viewModel.newWords.collectAsStateWithLifecycle()
     var pickingGoal by rememberSaveable { mutableStateOf(false) }
     if (pickingGoal) {
         GoalPickerSheet(
@@ -92,13 +93,14 @@ fun LearnScreen(viewModel: LearnViewModel) {
         ) {
             reviewSummary?.let { loaded ->
                 item {
-                    TodayCard(loaded) {
+                    TodayCard(loaded, newWords) {
                         scope.launch {
                             val itemIds = withContext(Dispatchers.IO) {
                                 DailyReview.sessionItems(reviews.due(System.currentTimeMillis(), DailyReview.SESSION_SIZE))
                             }
-                            if (itemIds.isNotEmpty()) {
-                                context.startActivity(ActivityPractice.intent(context, itemIds, PracticeMode.REVIEW))
+                            val newIds = newWords?.itemIds.orEmpty()
+                            if (itemIds.isNotEmpty() || newIds.isNotEmpty()) {
+                                context.startActivity(ActivityPractice.intent(context, itemIds, PracticeMode.REVIEW, newIds))
                             }
                         }
                     }
@@ -135,20 +137,23 @@ private fun everyMinute(): Flow<Long> = flow {
 }
 
 @Composable
-private fun TodayCard(summary: ReviewSummary, onStart: () -> Unit) {
+private fun TodayCard(summary: ReviewSummary, newWords: NewWordsPlan?, onStart: () -> Unit) {
+    val newCount = newWords?.itemIds?.size ?: 0
     LearnCard(label = stringResource(R.string.learning_today)) {
         when {
-            summary.dueNow > 0 -> {
-                Text(
-                    text = pluralStringResource(R.plurals.learning_reviews_due, summary.dueNow, summary.dueNow) +
-                        " · " + stringResource(R.string.learning_about_minutes, summary.minutes),
-                    style = typography.titleMedium,
+            summary.dueNow > 0 || newCount > 0 -> {
+                val parts = listOfNotNull(
+                    summary.dueNow.takeIf { it > 0 }?.let { pluralStringResource(R.plurals.learning_reviews_due, it, it) },
+                    newCount.takeIf { it > 0 }?.let { pluralStringResource(R.plurals.learning_new_words, it, it) },
+                    stringResource(R.string.learning_about_minutes, DailyReview.minutesFor(summary.sessionSize, newCount)),
                 )
+                Text(parts.joinToString(" · "), style = typography.titleMedium)
                 Text(
-                    text = if (summary.dueNow > summary.sessionSize) {
-                        stringResource(R.string.learning_review_more_later, summary.sessionSize)
-                    } else {
-                        stringResource(R.string.learning_review_what)
+                    text = when {
+                        summary.dueNow > summary.sessionSize -> stringResource(R.string.learning_review_more_later, summary.sessionSize)
+                        newWords != null && summary.dueNow > 0 -> stringResource(R.string.learning_reviews_then_new, newWords.surahName)
+                        newWords != null -> stringResource(R.string.learning_new_words_from, newWords.surahName)
+                        else -> stringResource(R.string.learning_review_what)
                     },
                     style = typography.bodyMedium,
                     color = colorScheme.onSurfaceVariant,

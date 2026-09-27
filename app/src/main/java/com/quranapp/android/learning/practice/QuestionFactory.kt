@@ -27,6 +27,14 @@ class QuestionFactory(
         }
     }
 
+    /** The introduction shown before a new word's questions, or null if it has no meaning to show. */
+    suspend fun introductionFor(itemId: String): WordIntroduction? {
+        val lemmaKey = WordItems.lemmaKeyOf(itemId) ?: return null
+        val (lemma, _) = lemmaWithPool(lemmaKey) ?: return null
+        val meaning = lemma.gloss ?: return null
+        return WordIntroduction(itemId, lemma.headword, meaning, lemma.occurrences)
+    }
+
     private suspend fun wordQuestions(lemmaKey: String, count: Int): List<Question> {
         val (lemma, pool) = lemmaWithPool(lemmaKey) ?: return emptyList()
         // Alternate the two directions: meaning of the word, then the word for the meaning.

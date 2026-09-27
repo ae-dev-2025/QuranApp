@@ -37,6 +37,10 @@ interface ReviewDao {
     @Query("SELECT * FROM review_cards")
     suspend fun allCards(): List<ReviewCardEntity>
 
+    /** Words answered for the first time at or after [since]: the new words started today. */
+    @Query("SELECT COUNT(DISTINCT item_id) FROM review_log WHERE state_before IS NULL AND item_id LIKE 'word.%' AND reviewed_at >= :since")
+    suspend fun wordsStartedSince(since: Long): Int
+
     /** Reviews answered at or after [since]. */
     @Query("SELECT * FROM review_log WHERE reviewed_at >= :since")
     suspend fun logSince(since: Long): List<ReviewLogEntity>

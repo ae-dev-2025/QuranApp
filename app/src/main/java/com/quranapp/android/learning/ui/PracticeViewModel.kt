@@ -15,6 +15,7 @@ import com.quranapp.android.learning.practice.PracticeSession
 import com.quranapp.android.learning.practice.Question
 import com.quranapp.android.learning.practice.QuestionFactory
 import com.quranapp.android.learning.practice.ReviewScheduler
+import com.quranapp.android.learning.practice.WordIntroduction
 import com.quranapp.android.learning.progress.ReviewRating
 import com.quranapp.android.learning.words.WordRepository
 import com.quranapp.android.utils.reader.QuranScriptUtils
@@ -72,13 +73,14 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
     private val progress = DatabaseProvider.getLearningProgressRepository(application)
     private val scheduler = ReviewScheduler()
 
-    fun start(itemIds: List<String>, mode: PracticeMode) {
+    /** [newIds] are new words: each is introduced, then checked, after the [itemIds]. */
+    fun start(itemIds: List<String>, mode: PracticeMode, newIds: List<String> = emptyList()) {
         if (session != null) return // already started (e.g. after rotating the screen)
         this.mode = mode
         viewModelScope.launch {
-            val items = withContext(Dispatchers.IO) { buildItems(itemIds, mode) }
+            val items = withContext(Dispatchers.IO) { buildItems(itemIds, mode) + buildNewItems(newIds) }
             val started = PracticeSession(items).also { session = it }
-            state = started.current?.let { PracticeUiState.Asking(it, 1, started.size) } ?: PracticeUiState.Empty
+            state = started.current?.let { PracticeUiState.Asking(it, 1, started.gradedCount) } ?: PracticeUiState.Empty
         }
     }
 
@@ -92,13 +94,21 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
         viewModelScope.launch(Dispatchers.IO) { save(result) }
     }
 
+    /** The learner has read a new word's introduction. */
+    fun acknowledge() {
+        val started = session ?: return
+        if (started.current !is WordIntroduction) return
+        started.acknowledge()
+        next()
+    }
+
     fun next() {
         val started = session ?: return
         val question = started.current
         state = if (question == null) {
-            PracticeUiState.Finished(started.rightCount, started.size, results.toList(), mode)
+            PracticeUiState.Finished(started.rightCount, started.gradedCount, results.toList(), mode)
         } else {
-            PracticeUiState.Asking(question, started.index + 1, started.size)
+            PracticeUiState.Asking(question, started.gradedBefore + 1, started.gradedCount)
         }
     }
 
@@ -110,7 +120,23 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
         if (result.rating != ReviewRating.AGAIN) progress.setKnown(result.itemId, true)
     }
 
+    private suspend fun buildNewItems(newIds: List<String>): List<PracticeItem> {
+        val factory = factory()
+        return newIds.mapNotNull { itemId ->
+            val introduction = factory.introductionFor(itemId) ?: return@mapNotNull null
+            val questions = factory.questionsFor(itemId, PracticeMode.CHECK.questionsPerItem)
+            if (questions.isEmpty()) null else PracticeItem(itemId, listOf(introduction) + questions)
+        }
+    }
+
     private suspend fun buildItems(itemIds: List<String>, mode: PracticeMode): List<PracticeItem> {
+        val factory = factory()
+        return itemIds
+            .map { PracticeItem(it, factory.questionsFor(it, mode.questionsPerItem)) }
+            .filter { it.questions.isNotEmpty() }
+    }
+
+    private suspend fun factory(): QuestionFactory {
         val context = getApplication<Application>()
         val quran = DatabaseProvider.getQuranRepository(context)
         val words = WordRepository.open(context)
@@ -118,12 +144,9 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
             quran.getWordsForSurah(surahNo, QuranScriptUtils.SCRIPT_UTHMANI)
                 .map { (ayahId, ayahWords) -> AyahWords(surahNo, ayahId % 1000, ayahWords.map { it.text }) }
         }
-        val factory = QuestionFactory(
+        return QuestionFactory(
             lemmaWithPool = { key -> words?.lemma(key)?.let { it to words.questionPool(it) } },
             ayahsWithConcept = { conceptId, limit -> finder.find(conceptId, limit).map { it.ayah } },
         )
-        return itemIds
-            .map { PracticeItem(it, factory.questionsFor(it, mode.questionsPerItem)) }
-            .filter { it.questions.isNotEmpty() }
     }
 }

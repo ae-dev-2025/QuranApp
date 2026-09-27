@@ -323,4 +323,16 @@
     <string name="learning_progress_map_legend">Each square is a surah, darker the more of its words you know. Tap one to learn its words.</string>
     <!-- TalkBack for a square: %1$s: the surah's name, %2$d: a percentage -->
     <string name="learning_progress_cell">%1$s, %2$d%% of its words</string>
+    <!-- Today's new words -->
+    <plurals name="learning_new_words">
+        <item quantity="one">%d new word</item>
+        <item quantity="other">%d new words</item>
+    </plurals>
+    <!-- %1$s: a surah's name -->
+    <string name="learning_new_words_from">New words from %1$s, most frequent first.</string>
+    <!-- %1$s: a surah's name -->
+    <string name="learning_reviews_then_new">Reviews first, then new words from %1$s.</string>
+    <string name="learning_new_word">New word</string>
+    <string name="learning_new_word_hint">Read it and its meaning. Three quick questions follow.</string>
+    <string name="learning_got_it">Got it</string>
 </resources>

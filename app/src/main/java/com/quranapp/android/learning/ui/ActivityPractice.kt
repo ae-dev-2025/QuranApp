@@ -17,12 +17,13 @@ class ActivityPractice : BaseActivity() {
 
     override fun onActivityInflated(activityView: View, savedInstanceState: Bundle?) {
         val itemIds = intent.getStringArrayListExtra(EXTRA_ITEM_IDS).orEmpty()
+        val newIds = intent.getStringArrayListExtra(EXTRA_NEW_IDS).orEmpty()
         val mode = intent.getStringExtra(EXTRA_MODE)?.let { runCatching { PracticeMode.valueOf(it) }.getOrNull() }
-        if (itemIds.isEmpty() || mode == null) {
+        if ((itemIds.isEmpty() && newIds.isEmpty()) || mode == null) {
             finish()
             return
         }
-        viewModel.start(itemIds, mode)
+        viewModel.start(itemIds, mode, newIds)
 
         setContent {
             QuranAppTheme {
@@ -34,10 +35,13 @@ class ActivityPractice : BaseActivity() {
     companion object {
         private const val EXTRA_ITEM_IDS = "item_ids"
         private const val EXTRA_MODE = "mode"
+        private const val EXTRA_NEW_IDS = "new_ids"
 
-        fun intent(context: Context, itemIds: List<String>, mode: PracticeMode): Intent =
+        /** [newIds] are new words, introduced and then checked after the [itemIds]. */
+        fun intent(context: Context, itemIds: List<String>, mode: PracticeMode, newIds: List<String> = emptyList()): Intent =
             Intent(context, ActivityPractice::class.java)
                 .putStringArrayListExtra(EXTRA_ITEM_IDS, ArrayList(itemIds))
+                .putStringArrayListExtra(EXTRA_NEW_IDS, ArrayList(newIds))
                 .putExtra(EXTRA_MODE, mode.name)
     }
 }

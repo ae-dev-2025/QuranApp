@@ -9,6 +9,18 @@ sealed interface Question {
     val itemId: String
 }
 
+/**
+ * A new word, shown before it is asked about: its dictionary form, meaning and how often it
+ * occurs. Not a question really: nothing is graded, the learner taps "Got it". Quizzing a
+ * word the learner has never seen wouldn't be fair.
+ */
+data class WordIntroduction(
+    override val itemId: String,
+    val headword: String,
+    val meaning: String,
+    val occurrences: Int,
+) : Question
+
 /** What a multiple-choice question asks. The UI turns each kind into its own sentence. */
 enum class ChoiceKind {
     /** "What does this word mean?" The prompt is Arabic, the options are meanings. */

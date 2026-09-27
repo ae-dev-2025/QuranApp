@@ -18,6 +18,7 @@ import com.quranapp.android.learning.path.Placement
 import com.quranapp.android.learning.path.Readiness
 import com.quranapp.android.learning.path.Stage
 import com.quranapp.android.learning.path.SurahNeeds
+import com.quranapp.android.learning.practice.DailyReview
 import com.quranapp.android.learning.progress.WeekSummary
 import com.quranapp.android.learning.words.WordItems
 import com.quranapp.android.learning.words.WordRepository
@@ -71,6 +72,9 @@ sealed interface GoalState {
     ) : GoalState
 }
 
+/** Today's new words and where they come from. */
+data class NewWordsPlan(val surahName: String, val itemIds: List<String>)
+
 /** Works out the learner's place on the path whenever their progress or the pack changes. */
 class LearnViewModel(application: Application) : AndroidViewModel(application) {
     private val path = PathRepository.get(application)
@@ -114,6 +118,45 @@ class LearnViewModel(application: Application) : AndroidViewModel(application) {
             }
             .flowOn(Dispatchers.IO)
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+    }
+
+    /**
+     * Up to [DailyReview.NEW_WORDS_PER_DAY] new words for today's session: from the goal
+     * surah, or else the next unit, most frequent there first. Words that already have a
+     * review card are left to the reviews. Null without the pack or when today's are done.
+     */
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val newWords: StateFlow<NewWordsPlan?> = run {
+        val reviews = DatabaseProvider.getUserDatabase(application).reviewDao()
+        combine(
+            DatabaseProvider.getLearningProgressRepository(application).knownConceptIds,
+            reviews.observeCards(),
+            LearningPackManager.state,
+            LearningPreferences.goalSurah(),
+            LearningPreferences.startStage(),
+        ) { known, _, _, goal, start -> Triple(known, goal, start.coerceAtLeast(0)) }
+            .mapLatest { (known, goal, start) -> planNewWords(known, goal, start) }
+            .flowOn(Dispatchers.IO)
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+    }
+
+    private suspend fun planNewWords(known: Set<String>, goal: Int, start: Int): NewWordsPlan? {
+        val reviews = DatabaseProvider.getUserDatabase(getApplication()).reviewDao()
+        val left = DailyReview.newWordsLeft(reviews.wordsStartedSince(DailyReview.startOfDay(System.currentTimeMillis())))
+        if (left == 0) return null
+        val words = WordRepository.open(getApplication()) ?: return null
+        val surah = if (goal in 1..114) {
+            goal
+        } else {
+            val stage = PathProgress.currentStage(known, path::needs, startAt = start)
+            PathProgress.nextUnit(stage, path.needs(PathProgress.goalSurahs(stage)), known) ?: 1
+        }
+        val candidates = Readiness.unknownWords(path.needs(surah), known)
+            .filter { reviews.card(it) == null }
+            .take(left * 3) // enough to skip the few without a meaning
+            .mapNotNull(WordItems::lemmaKeyOf)
+        val chosen = words.wordLemmas(candidates).filter { it.lemma.gloss != null }.take(left).map { it.itemId }
+        return if (chosen.isEmpty()) null else NewWordsPlan(quran.getChapterName(surah), chosen)
     }
 
     fun setGoal(surahNo: Int) {
