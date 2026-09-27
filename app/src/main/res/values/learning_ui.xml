@@ -49,4 +49,28 @@
     <string name="learning_in_every_word">In every word of this ayah</string>
     <string name="learning_needed_as_foundation">Not written in this ayah, but needed for the rules that are.</string>
     <string name="learning_analysis_disclaimer">Found automatically from the marks in the text. Please confirm with a qualified teacher.</string>
+    <!-- Settings → Learning data: the downloadable learning pack -->
+    <string name="learning_data_title">Learning data</string>
+    <string name="learning_data_summary_installed">Word meanings and grammar: downloaded</string>
+    <string name="learning_data_summary_not_installed">Word meanings and grammar: not downloaded</string>
+    <string name="learning_data_what">Adds the dictionary form, root and grammar of every word of the Quran, each word’s role in its sentence, and English word meanings. The Words and Grammar tabs need it.</string>
+    <!-- %1$s: download size, %2$s: size on the phone, such as "8 MB" -->
+    <string name="learning_data_size">%1$s download · %2$s on your phone</string>
+    <string name="learning_data_download">Download</string>
+    <!-- %1$s: downloaded so far, %2$s: total, such as "3.1 MB of 8 MB" -->
+    <string name="learning_data_downloading">%1$s of %2$s</string>
+    <string name="learning_data_cancel">Cancel</string>
+    <string name="learning_data_installing">Checking and installing…</string>
+    <string name="learning_data_installed">Downloaded and checked</string>
+    <!-- %1$s: the technical reason -->
+    <string name="learning_data_failed">The download didn’t finish: %1$s</string>
+    <string name="learning_data_retry">Try again</string>
+    <string name="learning_data_delete">Delete</string>
+    <string name="learning_data_keep">Keep</string>
+    <string name="learning_data_delete_title">Delete the learning data?</string>
+    <string name="learning_data_delete_text">Word meanings and grammar will be hidden until you download it again. Your progress is kept.</string>
+    <string name="learning_data_sources">Sources</string>
+    <string name="learning_data_source_corpus">Quranic Arabic Corpus 0.4 · GNU General Public License · corpus.quran.com</string>
+    <string name="learning_data_source_masaq">MASAQ, version 5 · CC BY 4.0 · doi.org/10.17632/9yvrzxktmr.5</string>
+    <string name="learning_data_security">Downloaded from github.com over a secure connection, and checked against a fingerprint built into the app before it is used.</string>
 </resources>

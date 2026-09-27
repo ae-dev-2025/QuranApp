@@ -37,6 +37,7 @@ import com.quranapp.android.compose.utils.formatString
 import com.quranapp.android.compose.utils.formattedStringResource
 import com.quranapp.android.compose.utils.preferences.ReaderPreferences
 import com.quranapp.android.compose.utils.preferences.VersePreferences
+import com.quranapp.android.learning.ui.LearningDataSettingsItem
 import com.quranapp.android.utils.app.DownloadSourceUtils
 import com.quranapp.android.utils.extensions.getStringArray
 import com.quranapp.android.utils.reader.ReaderTextSizeUtils
@@ -194,6 +195,8 @@ fun SettingsMainScreen(
 
             if (!showReaderSettingsOnly) {
                 ListItemCategoryLabel(title = stringResource(R.string.titleOtherSettings))
+
+                LearningDataSettingsItem { navController.navigate(SettingRoutes.LEARNING_DATA) }
 
                 SettingsItem(
                     title = R.string.downloadRecitations,
