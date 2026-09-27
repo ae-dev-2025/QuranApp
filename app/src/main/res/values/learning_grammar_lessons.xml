@@ -780,4 +780,103 @@
         <item>With مَا … إِلَّا, the word after إِلَّا keeps the case of its own job in the sentence.</item>
     </string-array>
     <string name="grammar_lesson_restriction_confused">In a positive sentence, إِلَّا only takes something out: “all …, except …”. After a negative, it means “only”.</string>
+
+    <!-- Unit 4 · Iḍāfa -->
+
+    <!-- Possessive phrase (iḍāfa) -->
+    <string name="grammar_lesson_idafa_means">Lord of the worlds (rabbi l-ʿālamīn)</string>
+    <string-array name="grammar_lesson_idafa_spot">
+        <item>Two nouns side by side that mean “X of Y”: رَبِّ ٱلۡعَٰلَمِينَ.</item>
+        <item>The first has no ال and no tanwīn: رَبِّ.</item>
+        <item>The second is always in jarr: ٱلۡعَٰلَمِينَ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_idafa_how">
+        <item>The first noun (muḍāf) is the thing; the second (muḍāf ilayh) is what it belongs to, or is part of.</item>
+        <item>The first noun takes whatever case its own job needs; the second always stays in jarr.</item>
+        <item>If the second is definite, so is the whole phrase: “the Lord of the worlds”. Iḍāfas can chain: مَٰلِكِ يَوۡمِ ٱلدِّينِ (1:4).</item>
+    </string-array>
+    <string name="grammar_lesson_idafa_confused">An adjective also follows its noun, but copies it: ٱلصِّرَٰطَ ٱلۡمُسۡتَقِيمَ. In an iḍāfa the second noun is in jarr, whatever case the first is in.</string>
+
+    <!-- Unit 13 · Nominal sentence -->
+
+    <!-- Subject and predicate -->
+    <string name="grammar_lesson_mubtada_khabar_means">and the Hereafter is better for you than the first life (wa la-l-ākhiratu khayrun lak)</string>
+    <string-array name="grammar_lesson_mubtada_khabar_spot">
+        <item>A sentence that starts with a noun: ٱلۡأٓخِرَةُ خَيۡرٞ.</item>
+        <item>Both parts are in rafʿ.</item>
+        <item>There is no word for “is”: Arabic leaves it out.</item>
+    </string-array>
+    <string-array name="grammar_lesson_mubtada_khabar_how">
+        <item>The subject (mubtadaʾ) is what the sentence is about: ٱلۡأٓخِرَةُ “the Hereafter”.</item>
+        <item>The predicate (khabar) says something about it: خَيۡرٞ “better”.</item>
+        <item>The subject is usually definite, and the predicate matches it in number and gender.</item>
+    </string-array>
+    <string name="grammar_lesson_mubtada_khabar_confused">An adjective copies its noun, ال included: ٱلصِّرَٰطَ ٱلۡمُسۡتَقِيمَ “the straight path”, a phrase. After a definite subject, an indefinite word usually makes a sentence: ٱلۡأٓخِرَةُ خَيۡرٞ “the Hereafter is better”.</string>
+
+    <!-- A predicate that is a phrase or a sentence -->
+    <string name="grammar_lesson_khabar_phrase_means">All praise is for Allah (al-ḥamdu li-llāh)</string>
+    <string-array name="grammar_lesson_khabar_phrase_spot">
+        <item>The predicate is a preposition with its noun: لِلَّهِ; or a place word with its noun: عِندَ رَبِّهِمۡ “with their Lord”.</item>
+        <item>Or it is a whole sentence: ٱللَّهُ يَعۡلَمُ “Allah knows”.</item>
+    </string-array>
+    <string-array name="grammar_lesson_khabar_phrase_how">
+        <item>The phrase says where, whose or with whom the subject is: ٱلۡحَمۡدُ لِلَّهِ “praise belongs to Allah”.</item>
+        <item>A predicate sentence has a pronoun that points back to the subject: the “he” hidden in يَعۡلَمُ is Allah.</item>
+        <item>The phrase as a whole takes the predicate’s place, so its own words keep their own cases.</item>
+    </string-array>
+    <string name="grammar_lesson_khabar_phrase_confused">The phrase can also come first, before the subject: لَكُمۡ دِينُكُمۡ (109:6).</string>
+
+    <!-- The predicate placed first -->
+    <string name="grammar_lesson_khabar_first_means">For you is your religion, and for me is mine (lakum dīnukum wa liya dīn)</string>
+    <string-array name="grammar_lesson_khabar_first_spot">
+        <item>The sentence starts with a preposition phrase, and the subject comes after it: لَكُمۡ دِينُكُمۡ.</item>
+        <item>The subject after it is in rafʿ: دِينُكُمۡ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_khabar_first_how">
+        <item>The predicate must come first when the subject is indefinite: وَلَهُمۡ عَذَابٌ عَظِيمٞ “and for them is a great punishment” (2:7).</item>
+        <item>It can also come first to stress it: لَكُمۡ دِينُكُمۡ, yours and no one else’s.</item>
+        <item>Read it as “to you belongs …” or “in it is …”.</item>
+    </string-array>
+    <string name="grammar_lesson_khabar_first_confused">The phrase is still the predicate: only its place has changed.</string>
+
+    <!-- Unit 15 · Verbal sentence -->
+
+    <!-- Verb, doer and object -->
+    <string name="grammar_lesson_verb_doer_object_means">and the earth brings out its burdens (wa akhrajati l-arḍu athqālahā)</string>
+    <string-array name="grammar_lesson_verb_doer_object_spot">
+        <item>A verb first, then its doer in rafʿ: ٱلۡأَرۡضُ.</item>
+        <item>Then the object in naṣb: أَثۡقَالَهَا.</item>
+    </string-array>
+    <string-array name="grammar_lesson_verb_doer_object_how">
+        <item>The doer (fāʿil) is who or what does the action; the object (mafʿūl bihi) is what it is done to.</item>
+        <item>The endings, not the order, tell them apart: the object can even come first, as in إِيَّاكَ نَعۡبُدُ.</item>
+        <item>The doer can be a noun, an ending (أَنۡعَمۡتَ), or hidden in the verb (نَعۡبُدُ).</item>
+    </string-array>
+    <string name="grammar_lesson_verb_doer_object_confused">With the noun first, as in ٱلۡأَرۡضُ أَخۡرَجَتۡ, it would be a nominal sentence: the noun is then its subject, not the verb’s doer.</string>
+
+    <!-- Verb agreement -->
+    <string name="grammar_lesson_verb_agreement_means">the people will come out (yaṣduru n-nās)</string>
+    <string-array name="grammar_lesson_verb_agreement_spot">
+        <item>A verb before its noun doer stays singular: يَصۡدُرُ ٱلنَّاسُ, not يَصۡدُرُونَ.</item>
+        <item>It matches the doer’s gender: يَوۡمَ تَرۡجُفُ ٱلرَّاجِفَةُ (79:6), a feminine verb for a feminine doer.</item>
+    </string-array>
+    <string-array name="grammar_lesson_verb_agreement_how">
+        <item>Before its doer, the verb is singular even for many: يَصۡدُرُ ٱلنَّاسُ.</item>
+        <item>After its subject, it matches the number too: ٱلنَّاسُ يَصۡدُرُونَ.</item>
+        <item>A broken plural can take a feminine verb: تَنَزَّلُ ٱلۡمَلَٰٓئِكَةُ (97:4).</item>
+    </string-array>
+    <string name="grammar_lesson_verb_agreement_confused">The ـُونَ of يَصۡدُرُونَ would itself be the doer, “they”. Before a noun doer, the verb doesn’t add it.</string>
+
+    <!-- The hidden doer -->
+    <string name="grammar_lesson_hidden_doer_means">He created man (khalaqa l-insān)</string>
+    <string-array name="grammar_lesson_hidden_doer_spot">
+        <item>A verb with no doer written after it, and no doer ending: خَلَقَ.</item>
+        <item>It is always hidden for “I”, “we” and one “you” in the present and the command: أَعۡبُدُ, نَعۡبُدُ, قُلۡ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_hidden_doer_how">
+        <item>The doer is understood from the verb’s form: خَلَقَ is “he created”, and the “he” is hidden in it.</item>
+        <item>Who “he” is comes from before: here your Lord, from 96:1.</item>
+        <item>A hidden doer is still the doer, in rafʿ: it just isn’t written.</item>
+    </string-array>
+    <string name="grammar_lesson_hidden_doer_confused">In أَنۡعَمۡتَ the doer is written, as the ending ـتَ. In خَلَقَ it isn’t written at all.</string>
 </resources>

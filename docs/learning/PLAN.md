@@ -161,27 +161,28 @@ and overrides for the 258 verb headwords still marked "unchecked".
 
 | PR | What it adds |
 |---|---|
-| 70 | Sentence roles to concepts |
-| 71 | Sentence roles in the Grammar tab |
-| 72–75 | Lessons for sentence concepts |
-| 76 | Grammar questions |
+| 70 | Sentence roles to concepts (MASAQ) |
+| 71 | Each word's role in the Grammar tab (iʿrāb) |
+| 72 | Lessons: iḍāfa, the nominal and the verbal sentence |
+| 73 | Lessons: the other objects, ḥāl, tamyīz, and word shapes |
+| 74 | Grammar questions |
 
 **M10 · Complete recitation**
 
 | PR | What it adds |
 |---|---|
-| 77 | Heavy and light rāʾ |
-| 78 | Idghām of two letters, lām of verbs and particles, tanwīn before hamzat al-waṣl |
-| 79 | Madds: ʿāriḍ, līn, ʿiwaḍ, badal, ṣila, disjointed letters |
-| 80 | Saktas, Ḥafṣ's special words, stopping and starting, special spellings |
-| 81–83 | Lessons for the new concepts |
+| 75 | Heavy and light rāʾ |
+| 76 | Idghām of two letters, lām of verbs and particles, tanwīn before hamzat al-waṣl |
+| 77 | Madds: ʿāriḍ, līn, ʿiwaḍ, badal, ṣila, disjointed letters |
+| 78 | Saktas, Ḥafṣ's special words, stopping and starting, special spellings |
+| 79–81 | Lessons for the new concepts |
 
 **M11 · Polish**
 
 | PR | What it adds |
 |---|---|
-| 84 | Show learning screens in the reader's script (Indo-Pak) |
-| 85 | Dark theme and right-to-left fixes |
-| 86 | Accessibility |
-| 87 | Speed: caching |
-| 88 | Security and licence review, including: Export/Import crashes on a file that isn't JSON (found in #43; the parse in `ActivityExportImport.importData` isn't caught) |
+| 82 | Show learning screens in the reader's script (Indo-Pak) |
+| 83 | Dark theme and right-to-left fixes |
+| 84 | Accessibility |
+| 85 | Speed: caching |
+| 86 | Security and licence review, including: Export/Import crashes on a file that isn't JSON (found in #43; the parse in `ActivityExportImport.importData` isn't caught) |
