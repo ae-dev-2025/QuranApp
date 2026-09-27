@@ -1,0 +1,114 @@
+# Checked English meanings that replace the derived ones (glosses.py) for these lemmas.
+# lemma_key is the corpus's own key (see the pack's lemmas.lemma_key). Tab-separated.
+# Kept to what a dictionary lists: the singular for nouns, the plain verb for verbs, and a
+# short sense for particles. Prophets and places also get their usual English names.
+# Written for learning mode, GPL-3.0. Please have a qualified teacher check changes.
+lemma_key	meaning
+kaAna	to be, was
+{l~a*iY	who, which (the one who)
+Ean	from, about
+A^taY	give
+$aA^'a	will, wish
+mu&omin	believer
+{t~aqaY`	be mindful (of Allah), fear
+Ealiym	all-knowing
+baEoD	some, part
+>ay~uhaA	O (you)
+gayor	other than, not
+jan~ap	garden, paradise
+>araAda	want, intend
+qalob	heart
+Eabod	servant, slave
+ZaAlim	wrongdoer
+laEal~	so that, perhaps
+yad	hand
+d~unoyaA	this world
+hal	(question) is it…?
+gafuwr	oft-forgiving
+l~ayosa	is not
+$ayoTa`n	Satan (Shaytan)
+malak	angel
+Zalama	wrong, do wrong
+waliY~	protector, ally
+>akovar	most, more
+zawoj	spouse, pair
+>aHad	one, anyone
+firoEawon	Pharaoh
+jazaY`	reward, repay
+wajoh	face
+<insa`n	human being
+>a$oraka	associate partners (with Allah)
+Eamal	deed, work
+bay~inap	clear proof
+bayot	house
+yamiyn	right hand, oath
+>aDal~a	lead astray
+>aSaAba	befall, strike
+kasaba	earn
+razaqa	provide
+qaDaY`^	decree, judge
+Sabara	be patient
+Eayon	eye, spring
+nahaAr	daytime
+r~aHoma`n	the Most Gracious
+mas~a	touch
+walad	child, son
+Daraba	strike, set forth (an example)
+nahar	river
+xaraja	go out, come out
+mujorim	criminal
+>aHoyaA	give life
+>aholaka	destroy
+baSiyr	all-seeing
+Eaduw~	enemy
+mut~aqiyn	the mindful (of Allah)
+Zan~a	think, assume
+samiyE	all-hearing
+$akara	thank, be grateful
+>uwliY	possessors of, people of
+Sador	breast, chest
+malakato	own, possess
+mu$orik	polytheist
+naAdaY`	call out
+sawof	will (soon)
+{sotaTaAEa	be able
+$ariyk	partner
+bi}osa	how wretched!
+taraka	leave
+tawak~alo	put one's trust
+{hotadaY`	be guided
+{sotakobara	be arrogant
+>alaA^	surely, behold
+Har~ama	forbid
+jabal	mountain
+musolim	Muslim
+muHosin	good-doer
+r~aDiYa	be pleased
+*anb	sin
+>amara	command, order
+quro'aAn	Quran, recitation
+muwsaY`	Musa (Moses)
+<iboraAhiym	Ibrahim (Abraham)
+nuwH	Nuh (Noah)
+maroyam	Maryam (Mary)
+luwT	Lut (Lot)
+yuwsuf	Yusuf (Joseph)
+A^dam	Adam
+EiysaY	Isa (Jesus)
+ha`ruwn	Harun (Aaron)
+t~aworaY`p	Torah
+<isoHaAq	Ishaq (Isaac)
+sulayoma`n	Sulayman (Solomon)
+daAwud	Dawud (David)
+yaEoquwb	Yaqub (Jacob)
+<injiyl	Gospel (Injil)
+<isomaAEiyl	Ismail (Ishmael)
+$uEayob	Shuayb
+<iboliys	Iblis
+masiyH	the Messiah
+>ay~uwb	Ayyub (Job)
+yuwnus	Yunus (Jonah)
+yaHoyaY`	Yahya (John)
+zakariy~aA	Zakariya (Zechariah)
+<iloyaAs	Ilyas (Elijah)
+miSor	Egypt

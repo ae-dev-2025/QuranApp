@@ -42,6 +42,7 @@ def main(argv=None) -> int:
         glosses.collect(aligned, sentence.words, sentence.regular_ayahs),
         {lemma.key: lemma.pos for lemma in lemmas},
     )
+    meanings = glosses.apply_overrides(meanings, glosses.read_overrides(), {lemma.key for lemma in lemmas})
 
     meta = {
         "pack_version": str(args.version),
