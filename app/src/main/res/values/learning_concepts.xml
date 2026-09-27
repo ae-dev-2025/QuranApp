@@ -149,4 +149,17 @@
     <string name="concept_lam_sakinah_summary">A lām with sukūn in a verb, a particle or a noun (قُلۡ, هَلۡ, جَعَلۡنَا) is always pronounced, unlike the lām of ال. Before ل or ر it merges: قُل رَّبِّ.</string>
     <string name="concept_tanween_before_wasl_title">Tanwīn before hamzat al-waṣl</string>
     <string name="concept_tanween_before_wasl_summary">When tanwīn meets a word starting with ٱ, its n takes a kasra to join them: خَيۡرًا ٱلۡوَصِيَّةُ is khayrani l-waṣiyyah.</string>
+    <!-- Stopping, and the madds of stage 3 -->
+    <string name="concept_stopping_title">Stopping on a word</string>
+    <string name="concept_stopping_summary">When you stop, the last vowel drops, -an becomes ā, and ة becomes h: ٱلۡفَجۡرِ is al-fajr, كَبِيرٗا is kabīrā, رَحۡمَةٌ is raḥmah.</string>
+    <string name="concept_madd_arid_title">Madd ʿāriḍ (when stopping)</string>
+    <string name="concept_madd_arid_summary">Stopping after a long vowel makes the last letter silent, so the vowel may be stretched 2, 4 or 6 counts: نَسۡتَعِينُ, ٱلۡعَٰلَمِينَ.</string>
+    <string name="concept_madd_leen_title">Madd līn (when stopping)</string>
+    <string name="concept_madd_leen_summary">A wāw or yāʾ with sukūn after a fatḥa, just before the last letter, may be stretched when you stop: ٱلۡبَيۡتِ, خَوۡفٍ.</string>
+    <string name="concept_madd_iwad_title">Madd ʿiwaḍ (when stopping)</string>
+    <string name="concept_madd_iwad_summary">Stopping on tanwīn fatḥ, -an becomes a two-count ā: أَفۡوَاجٗا is afwājā.</string>
+    <string name="concept_madd_badal_title">Madd badal</string>
+    <string name="concept_madd_badal_summary">A hamza followed by its long vowel is stretched two counts: ءَامَنُواْ, إِيمَٰن, أُوتُواْ.</string>
+    <string name="concept_madd_sila_title">Madd ṣila, small and big</string>
+    <string name="concept_madd_sila_summary">The hāʾ of “him” between two vowels is lengthened, shown by a small wāw or yāʾ: لَهُۥ, بِهِۦ. Before a hamza it is stretched 4 or 5 counts.</string>
 </resources>

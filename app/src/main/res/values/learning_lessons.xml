@@ -656,4 +656,80 @@
         <item>If you stop on the first word, the tanwīn follows the stopping rules instead.</item>
     </string-array>
     <string name="lesson_tanween_before_wasl_confused">Starting on a word with ٱ, you say a vowel for the ٱ itself. Joining it to a word with tanwīn, the ٱ is silent and the tanwīn gets the kasra.</string>
+
+    <!-- Stopping on a word -->
+    <string name="lesson_stopping_say">al-fajr</string>
+    <string name="lesson_stopping_not_say">al-faj-ri</string>
+    <string-array name="lesson_stopping_spot">
+        <item>The last word of an ayah, or a word before a stop sign.</item>
+        <item>Its last letter has a vowel or tanwīn, or it ends in ة.</item>
+    </string-array>
+    <string-array name="lesson_stopping_how">
+        <item>Drop the last vowel and end on a sukūn: ٱلۡفَجۡرِ is al-fajr, أَحَدٌ is aḥad.</item>
+        <item>Tanwīn fatḥ becomes a long ā: كَبِيرٗا is kabīrā.</item>
+        <item>ة becomes h: رَحۡمَةٌ is raḥmah.</item>
+    </string-array>
+    <string name="lesson_stopping_confused">Stop signs tell you where you may stop. This is how you end the word when you do.</string>
+
+    <!-- Madd ʿāriḍ -->
+    <string name="lesson_madd_arid_say">nas-ta-ʿīīīn</string>
+    <string name="lesson_madd_arid_not_say">nas-ta-ʿī-nu</string>
+    <string-array name="lesson_madd_arid_spot">
+        <item>The last word before a stop, with a long vowel just before its last letter: نَسۡتَعِينُ, ٱلۡعَٰلَمِينَ, ٱلرَّحِيمِ.</item>
+    </string-array>
+    <string-array name="lesson_madd_arid_how">
+        <item>Stopping makes the last letter silent, so a long vowel meets a sukūn: stretch it 2, 4 or 6 counts.</item>
+        <item>Choose one length and keep it for every such stop in the same recitation.</item>
+        <item>Carrying on to the next ayah, it is an ordinary two-count vowel.</item>
+    </string-array>
+    <string name="lesson_madd_arid_confused">In madd lāzim the sukūn or shadda is always there, so it is always 6 counts. Here the sukūn only comes from stopping, so you may choose 2, 4 or 6.</string>
+
+    <!-- Madd līn -->
+    <string name="lesson_madd_leen_say">al-bayt</string>
+    <string-array name="lesson_madd_leen_spot">
+        <item>A wāw or yāʾ with sukūn after a fatḥa, just before the last letter, when you stop: ٱلۡبَيۡتِ, خَوۡفٍ, قُرَيۡشٍ.</item>
+    </string-array>
+    <string-array name="lesson_madd_leen_how">
+        <item>Stopping, the -ay or -aw may be stretched 2, 4 or 6 counts: al-baaayt.</item>
+        <item>Carrying on, it isn’t stretched at all.</item>
+    </string-array>
+    <string name="lesson_madd_leen_confused">In madd ʿāriḍ the letter before the stop is a long vowel (ī in نَسۡتَعِين). In līn it is a diphthong, -ay or -aw.</string>
+
+    <!-- Madd ʿiwaḍ -->
+    <string name="lesson_madd_iwad_say">af-wā-jā</string>
+    <string name="lesson_madd_iwad_not_say">af-wā-jan</string>
+    <string-array name="lesson_madd_iwad_spot">
+        <item>The last word before a stop, ending in tanwīn fatḥ, usually with an alif after it: أَفۡوَاجٗا, كَبِيرٗا.</item>
+    </string-array>
+    <string-array name="lesson_madd_iwad_how">
+        <item>Drop the n and say a two-count ā: afwājā.</item>
+        <item>Not on ة: رَحۡمَةً stops as raḥmah.</item>
+    </string-array>
+    <string name="lesson_madd_iwad_confused">Carrying on, the tanwīn is said: afwājan. Only when you stop does it become ā.</string>
+
+    <!-- Madd badal -->
+    <string name="lesson_madd_badal_say">ʾā-ma-nū</string>
+    <string-array name="lesson_madd_badal_spot">
+        <item>A hamza followed by its long vowel: ءَامَنُواْ, إِيمَٰن, أُوتُواْ.</item>
+        <item>أٓ with a wavy line, as in ٱلۡأٓخِرَةِ, is the same: a hamza, then ā.</item>
+    </string-array>
+    <string-array name="lesson_madd_badal_how">
+        <item>Stretch it two counts, like any natural long vowel.</item>
+        <item>It is called badal, “replacement”, because the long vowel replaced a second hamza: ءَامَنَ was أَأۡمَنَ.</item>
+    </string-array>
+    <string name="lesson_madd_badal_confused">In muttaṣil the hamza comes after the long vowel: جَآءَ, 4 or 5 counts. In badal it comes before it: ءَامَنَ, 2 counts.</string>
+
+    <!-- Madd ṣila -->
+    <string name="lesson_madd_sila_say">la-hū ku-fu-wan</string>
+    <string name="lesson_madd_sila_not_say">la-hu ku-fu-wan</string>
+    <string-array name="lesson_madd_sila_spot">
+        <item>The hāʾ of “him”, ـهُ or ـهِ, between two vowels, written with a small wāw or yāʾ: لَّهُۥ, بِهِۦ.</item>
+        <item>Before a hamza it also has a wavy line: مَالَهُۥٓ أَخۡلَدَهُۥ.</item>
+    </string-array>
+    <string-array name="lesson_madd_sila_how">
+        <item>Small ṣila: lengthen its vowel two counts: lahū, bihī.</item>
+        <item>Big ṣila, before a hamza: stretch it 4 or 5 counts, like madd munfaṣil.</item>
+        <item>Stopping on it, the ṣila drops: أَخۡلَدَهُۥ ends akhladah.</item>
+    </string-array>
+    <string name="lesson_madd_sila_confused">The small wāw and yāʾ show a long vowel in other words too. Here it is the hāʾ of a pronoun, and it drops when you stop.</string>
 </resources>

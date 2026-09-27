@@ -43,7 +43,7 @@ import com.quranapp.android.learning.concepts.ConceptIds.STOP_SIGNS
 object ConceptStages {
     private val STAGE_1 = setOf(
         DAGGER_ALIF, SMALL_MADD_LETTERS, HAMZAT_WASL, SILENT_LETTERS, STOP_SIGNS, SAJDAH,
-        LAM_SHAMSIYYA, LAM_QAMARIYYA, LAM_OF_ALLAH, GHUNNAH, QALQALAH,
+        LAM_SHAMSIYYA, LAM_QAMARIYYA, LAM_OF_ALLAH, GHUNNAH, QALQALAH, ConceptIds.STOPPING,
     )
     private val STAGE_2 = setOf(
         NOON_SAKINAH, IZHAR, IDGHAM_GHUNNAH, IDGHAM_NO_GHUNNAH, IQLAB, IKHFA,
@@ -53,6 +53,9 @@ object ConceptStages {
         SIFA_HAMS, SIFA_SHIDDA, SIFA_ISTILA, SIFA_ITBAQ, SIFA_SAFIR, SIFA_TAKRIR, SIFA_TAFASHSHI,
     )
 
+    private val STAGE_3 = setOf(
+        ConceptIds.MADD_ARID, ConceptIds.MADD_LEEN, ConceptIds.MADD_IWAD, ConceptIds.MADD_BADAL, ConceptIds.MADD_SILA,
+    )
     private val STAGE_4 = setOf(
         ConceptIds.IDGHAM_MITHLAYN, ConceptIds.IDGHAM_MUTAJANISAYN, ConceptIds.IDGHAM_MUTAQARIBAYN,
         ConceptIds.LAM_SAKINAH, ConceptIds.TANWEEN_BEFORE_WASL,
@@ -60,6 +63,7 @@ object ConceptStages {
 
     fun of(conceptId: String): Int = GrammarCatalog.stageOf(conceptId) ?: when (conceptId) {
         in STAGE_4 -> 4
+        in STAGE_3 -> 3
         in STAGE_2 -> 2
         in STAGE_1 -> 1
         else -> 0

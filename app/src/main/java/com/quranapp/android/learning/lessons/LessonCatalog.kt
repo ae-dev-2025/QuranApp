@@ -435,6 +435,50 @@ object LessonCatalog {
             sayIt = R.array.lesson_tanween_before_wasl_how,
             confusedWith = ConfusedWith(ConceptIds.HAMZAT_WASL, R.string.lesson_tanween_before_wasl_confused),
         ),
+
+        // ---- Stopping, and the madds of stage 3 ----
+        Lesson(
+            conceptId = ConceptIds.STOPPING,
+            keyExample = KeyExample(97, 5, 4..4, R.string.lesson_stopping_say, R.string.lesson_stopping_not_say),
+            spotIt = R.array.lesson_stopping_spot,
+            sayIt = R.array.lesson_stopping_how,
+            confusedWith = ConfusedWith(ConceptIds.STOP_SIGNS, R.string.lesson_stopping_confused),
+        ),
+        Lesson(
+            conceptId = ConceptIds.MADD_ARID,
+            keyExample = KeyExample(1, 5, 3..3, R.string.lesson_madd_arid_say, R.string.lesson_madd_arid_not_say),
+            spotIt = R.array.lesson_madd_arid_spot,
+            sayIt = R.array.lesson_madd_arid_how,
+            confusedWith = ConfusedWith(ConceptIds.MADD_LAZIM, R.string.lesson_madd_arid_confused),
+        ),
+        Lesson(
+            conceptId = ConceptIds.MADD_LEEN,
+            keyExample = KeyExample(106, 3, 3..3, R.string.lesson_madd_leen_say),
+            spotIt = R.array.lesson_madd_leen_spot,
+            sayIt = R.array.lesson_madd_leen_how,
+            confusedWith = ConfusedWith(ConceptIds.MADD_ARID, R.string.lesson_madd_leen_confused),
+        ),
+        Lesson(
+            conceptId = ConceptIds.MADD_IWAD,
+            keyExample = KeyExample(110, 2, 6..6, R.string.lesson_madd_iwad_say, R.string.lesson_madd_iwad_not_say),
+            spotIt = R.array.lesson_madd_iwad_spot,
+            sayIt = R.array.lesson_madd_iwad_how,
+            confusedWith = ConfusedWith(ConceptIds.TANWEEN, R.string.lesson_madd_iwad_confused),
+        ),
+        Lesson(
+            conceptId = ConceptIds.MADD_BADAL,
+            keyExample = KeyExample(103, 3, 2..2, R.string.lesson_madd_badal_say),
+            spotIt = R.array.lesson_madd_badal_spot,
+            sayIt = R.array.lesson_madd_badal_how,
+            confusedWith = ConfusedWith(ConceptIds.MADD_MUTTASIL, R.string.lesson_madd_badal_confused),
+        ),
+        Lesson(
+            conceptId = ConceptIds.MADD_SILA,
+            keyExample = KeyExample(112, 4, 2..3, R.string.lesson_madd_sila_say, R.string.lesson_madd_sila_not_say),
+            spotIt = R.array.lesson_madd_sila_spot,
+            sayIt = R.array.lesson_madd_sila_how,
+            confusedWith = ConfusedWith(ConceptIds.SMALL_MADD_LETTERS, R.string.lesson_madd_sila_confused),
+        ),
     ) + GrammarLessons.all
 
     private val byConceptId: Map<String, Lesson> = all.associateBy { it.conceptId }

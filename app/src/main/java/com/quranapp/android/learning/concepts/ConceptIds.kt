@@ -22,6 +22,7 @@ object ConceptIds {
     const val SILENT_LETTERS = "reading.silent_letters"
     const val STOP_SIGNS = "reading.stop_signs"
     const val SAJDAH = "reading.sajdah"
+    const val STOPPING = "reading.stopping"
 
     // Tajweed: where letters are made (makhārij)
     const val MAKHRAJ_JAWF = "tajweed.makhraj_jawf"
@@ -58,6 +59,13 @@ object ConceptIds {
     const val IDGHAM_MUTAQARIBAYN = "tajweed.idgham_mutaqaribayn"
     const val LAM_SAKINAH = "tajweed.lam_sakinah"
     const val TANWEEN_BEFORE_WASL = "tajweed.tanween_before_wasl"
+
+    // Madds of stage 3
+    const val MADD_ARID = "tajweed.madd_arid"
+    const val MADD_LEEN = "tajweed.madd_leen"
+    const val MADD_IWAD = "tajweed.madd_iwad"
+    const val MADD_BADAL = "tajweed.madd_badal"
+    const val MADD_SILA = "tajweed.madd_sila"
     const val NOON_SAKINAH = "tajweed.noon_sakinah"
     const val IZHAR = "tajweed.izhar"
     const val IDGHAM_GHUNNAH = "tajweed.idgham_ghunnah"
