@@ -487,4 +487,130 @@
         <item>The testimony of faith uses it: لَآ إِلَٰهَ إِلَّا ٱللَّهُ “there is no god but Allah” (47:19).</item>
     </string-array>
     <string name="grammar_lesson_la_generic_confused">With tanwīn it is an ordinary “no”: لَّا بَيۡعٞ فِيهِ “no trading in it” (2:254).</string>
+
+    <!-- Unit 11 · Verb forms and weak verbs -->
+
+    <!-- Verb forms II–IV -->
+    <string name="grammar_lesson_forms_2_4_means">who taught by the pen (alladhī ʿallama bi-l-qalam)</string>
+    <string-array name="grammar_lesson_forms_2_4_spot">
+        <item>Form II doubles the middle letter: عَلَّمَ “taught”, from عَلِمَ “knew”.</item>
+        <item>Form III adds an alif after the first letter: قَٰتَلَ “fought against”.</item>
+        <item>Form IV adds أَ in front: أَنزَلَ “sent down”, أَعۡطَىٰ “gave”.</item>
+    </string-array>
+    <string-array name="grammar_lesson_forms_2_4_how">
+        <item>The same root gets a new shade of meaning: II often “make someone do” (عَلَّمَ “made to know, taught”), III “do with or against someone”, IV often “cause”.</item>
+        <item>In the present, forms II to IV start with a ḍamma: يُعَلِّمُ, يُنزِلُ.</item>
+        <item>These meanings are tendencies, not rules: learn each verb’s meaning too.</item>
+    </string-array>
+    <string name="grammar_lesson_forms_2_4_confused">The doubled middle letter of form II is written with a shadda: عَلَّمَ. Not every shadda means form II: in تَبَّ it joins two root letters that are the same.</string>
+
+    <!-- Verb forms V–VI -->
+    <string name="grammar_lesson_forms_5_6_means">About what are they asking one another? (ʿamma yatasāʾalūn)</string>
+    <string-array name="grammar_lesson_forms_5_6_spot">
+        <item>Form V is تَـ plus form II: تَفَعَّلَ, as in تَزَكَّىٰ “purified himself”.</item>
+        <item>Form VI is تَـ plus form III: تَفَاعَلَ, as in تَسَآءَلَ “asked one another”.</item>
+        <item>The present starts with يَتَـ: يَتَسَآءَلُونَ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_forms_5_6_how">
+        <item>The added تَـ turns the action back on the doers: V often “make oneself …”, VI “do … to each other”.</item>
+        <item>يَتَسَآءَلُونَ is “they ask one another”: several people, each asking the others.</item>
+        <item>V is often the result of II: عَلَّمَ “taught”, تَعَلَّمَ “learned”.</item>
+    </string-array>
+    <string name="grammar_lesson_forms_5_6_confused">Form II has no تَـ in front: عَلَّمَ “taught”. Form V has it: تَعَلَّمَ “learned”.</string>
+
+    <!-- Verb forms VII–X -->
+    <string name="grammar_lesson_forms_7_10_means">When the sky splits open (idhā s-samāʾu nshaqqat)</string>
+    <string-array name="grammar_lesson_forms_7_10_spot">
+        <item>VII starts with ٱنۡـ: ٱنشَقَّتۡ “split open”.</item>
+        <item>VIII puts a تَ after the first root letter: ٱقۡتَرَبَتِ “drew near” (54:1), from ق ر ب.</item>
+        <item>X starts with ٱسۡتَـ: ٱسۡتَعَانَ “sought help”, and in the present نَسۡتَعِينُ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_forms_7_10_how">
+        <item>VII is often something that happens to the doer: ٱنشَقَّتۡ “it split open”.</item>
+        <item>VIII often means doing something for oneself, or with effort: ٱكۡتَسَبَتۡ “it earned” (2:286).</item>
+        <item>X often means asking for or seeking: ٱسۡتَغۡفَرَ “asked forgiveness”, نَسۡتَعِينُ “we ask for help”.</item>
+    </string-array>
+    <string name="grammar_lesson_forms_7_10_confused">The ٱ at the start of these verbs is hamzat al-waṣl: you say it only when you start with the word.</string>
+
+    <!-- Hollow verbs -->
+    <string name="grammar_lesson_hollow_means">Say (qul)</string>
+    <string-array name="grammar_lesson_hollow_spot">
+        <item>The root has و or ي in the middle: ق و ل, ك و ن.</item>
+        <item>In the past it shows as a long ā: قَالَ, كَانَ.</item>
+        <item>When the last letter has a sukūn, the long vowel drops: قُلۡ, لَمۡ يَكُن.</item>
+    </string-array>
+    <string-array name="grammar_lesson_hollow_how">
+        <item>The middle letter is weak, so it becomes a long vowel or drops: قَالَ “he said”, يَقُولُ “he says”, قُلۡ “say!”.</item>
+        <item>A long vowel can’t come before a sukūn, so it drops: يَقُولُ, but قُلۡ.</item>
+        <item>To find the root of قُلۡ, put the و back: ق و ل.</item>
+    </string-array>
+    <string name="grammar_lesson_hollow_confused">In a defective verb the weak letter is last: هَدَىٰ, ٱهۡدِ. In a hollow verb it is in the middle: قَالَ, قُلۡ.</string>
+
+    <!-- Defective verbs -->
+    <string name="grammar_lesson_defective_means">Guide us (ihdinā)</string>
+    <string-array name="grammar_lesson_defective_spot">
+        <item>The root ends in و or ي: ه د ي, د ع و.</item>
+        <item>The end changes: هَدَىٰ “he guided”, يَهۡدِي “he guides”, ٱهۡدِ “guide!”.</item>
+    </string-array>
+    <string-array name="grammar_lesson_defective_how">
+        <item>The last root letter is weak, so it becomes a long vowel or drops.</item>
+        <item>In the command, and in jazm, it drops: ٱهۡدِنَا is ٱهۡدِ with نَا “us”.</item>
+        <item>ىٰ at the end of a past verb is often this weak letter: أَعۡطَىٰ “gave”, تَزَكَّىٰ “purified himself”.</item>
+    </string-array>
+    <string name="grammar_lesson_defective_confused">In a hollow verb the weak letter is in the middle: قَالَ, قُلۡ. In a defective verb it is last: هَدَىٰ, ٱهۡدِ.</string>
+
+    <!-- Assimilated, doubled and hamzated verbs -->
+    <string name="grammar_lesson_other_weak_means">may the hands perish (tabbat yadā)</string>
+    <string-array name="grammar_lesson_other_weak_spot">
+        <item>Doubled: the last two root letters are the same, written once with a shadda: تَبَّتۡ, from ت ب ب.</item>
+        <item>Assimilated: the root starts with و, which drops in the present: وَلَدَ, يَلِدُ.</item>
+        <item>Hamzated: the root has a hamza: أَخَذَ, سَأَلَ, قَرَأَ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_other_weak_how">
+        <item>These roots change a little where the pattern would put two same letters side by side, or a و at the start.</item>
+        <item>Doubled roots write their two letters as one: تَبَّ, رَدَّ.</item>
+        <item>Hamzated roots are regular, but the hamza’s seat changes: قَرَأَ, يَقۡرَأُ, ٱقۡرَأۡ.</item>
+    </string-array>
+    <string name="grammar_lesson_other_weak_confused">The shadda in تَبَّتۡ joins two same root letters. The shadda in عَلَّمَ doubles the middle letter to make form II.</string>
+
+    <!-- Unit 12 · Participles and verbal nouns -->
+
+    <!-- The doer noun -->
+    <string name="grammar_lesson_active_participle_means">Nor am I a worshipper of what you worship (wa lā ana ʿābidun mā ʿabadtum)</string>
+    <string-array name="grammar_lesson_active_participle_spot">
+        <item>From a simple verb it is on فَاعِل: عَابِد “worshipper”, كَافِر, مَٰلِك.</item>
+        <item>From longer forms it starts with مُـ and has a kasra before the last letter: مُؤۡمِن “believer”, مُسۡتَقِيم.</item>
+    </string-array>
+    <string-array name="grammar_lesson_active_participle_how">
+        <item>It names the one who does the action: عَابِد is “one who worships”.</item>
+        <item>It is a noun, so it takes ال, tanwīn and cases: عَابِدٞ here is in rafʿ.</item>
+        <item>It can describe a lasting state rather than one act: مُؤۡمِن “a believer”.</item>
+    </string-array>
+    <string name="grammar_lesson_active_participle_confused">The done-to noun is the one the action is done to: مَغۡضُوب. From longer forms the two differ in one vowel: مُّكۡرِمٍ “one who honours” (22:18), ٱلۡمُكۡرَمِينَ “the honoured” (36:27).</string>
+
+    <!-- The done-to noun -->
+    <string name="grammar_lesson_passive_participle_means">not of those who earned anger (ghayri l-maghḍūbi ʿalayhim)</string>
+    <string-array name="grammar_lesson_passive_participle_spot">
+        <item>From a simple verb it is on مَفۡعُول: مَغۡضُوب, مَّرۡفُوعَة.</item>
+        <item>From longer forms it starts with مُـ and has a fatḥa before the last letter: مُّطَهَّرَة “purified”, ٱلۡمُقَدَّس “holy”.</item>
+    </string-array>
+    <string-array name="grammar_lesson_passive_participle_how">
+        <item>It names the one the action is done to: مَغۡضُوب “the one angered at”.</item>
+        <item>A preposition can carry who it is done to: ٱلۡمَغۡضُوبِ عَلَيۡهِمۡ “those at whom there is anger”.</item>
+        <item>It takes ال, tanwīn and cases like any noun.</item>
+    </string-array>
+    <string name="grammar_lesson_passive_participle_confused">The doer noun is the one who does it: عَابِد. From longer forms the two differ in one vowel: مُّكۡرِمٍ “one who honours”, ٱلۡمُكۡرَمِينَ “the honoured”.</string>
+
+    <!-- The verbal noun -->
+    <string name="grammar_lesson_verbal_noun_means">and We raised high for you your mention (wa rafaʿnā laka dhikrak)</string>
+    <string-array name="grammar_lesson_verbal_noun_spot">
+        <item>A noun from the same root as a verb that names the action: ذِكۡر “mentioning, remembrance”, from ذَكَرَ.</item>
+        <item>Longer forms have fixed shapes: تَفۡعِيل for II (تَكۡذِيبٖ), إِفۡعَال for IV (إِطۡعَٰمٞ), ٱسۡتِفۡعَال for X.</item>
+    </string-array>
+    <string-array name="grammar_lesson_verbal_noun_how">
+        <item>It names the action with no time and no doer: ذِكۡر is “remembering”, not “he remembered”.</item>
+        <item>Simple verbs have many shapes, learned one by one: ذِكۡر, قَوۡل, حِسَاب.</item>
+        <item>It is a noun, so it can take a pronoun owner: ذِكۡرَكَ “your mention”.</item>
+    </string-array>
+    <string name="grammar_lesson_verbal_noun_confused">The verbal noun is the action: ذِكۡر “remembrance”. The doer noun is the one doing it: ذَاكِر “one who remembers”.</string>
 </resources>

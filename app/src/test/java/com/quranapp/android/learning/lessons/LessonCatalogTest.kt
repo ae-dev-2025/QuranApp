@@ -31,6 +31,9 @@ class LessonCatalogTest {
         GrammarIds.COMMAND, GrammarIds.PROHIBITION, GrammarIds.PASSIVE,
         // Unit 14 · Inna, kāna and sisters
         GrammarIds.INNA, GrammarIds.KANA, GrammarIds.LA_GENERIC,
+        // Units 11–12 · Verb forms and weak verbs, participles and verbal nouns (nouns of place, time and intensity come with M9)
+        GrammarIds.FORMS_2_4, GrammarIds.FORMS_5_6, GrammarIds.FORMS_7_10, GrammarIds.HOLLOW, GrammarIds.DEFECTIVE, GrammarIds.OTHER_WEAK,
+        GrammarIds.ACTIVE_PARTICIPLE, GrammarIds.PASSIVE_PARTICIPLE, GrammarIds.VERBAL_NOUN,
     )
 
     @Test
