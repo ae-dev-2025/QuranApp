@@ -21,6 +21,7 @@
     <!-- Root page. %1$s: the root's letters, such as "ع ب د" -->
     <string name="learning_root_title">Root %1$s</string>
     <string name="learning_root_label">Root</string>
+    <string name="learning_show_examples">show examples from the Quran</string>
     <string name="learning_open_root">open the root’s page</string>
     <plurals name="learning_root_lemma_count">
         <item quantity="one">%d word from this root</item>

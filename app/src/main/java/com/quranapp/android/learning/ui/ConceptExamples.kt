@@ -67,6 +67,18 @@ fun ConceptExamplesSection(conceptId: String) {
                 .map { (ayahId, words) -> AyahWords(surahNo, ayahId % 1000, words.map { it.text }) }
         }
     }
+    ExamplesSection(key = conceptId) { limit -> finder.find(conceptId, limit) }
+}
+
+/**
+ * The examples list itself, shared by concepts and dictionary words: [find] returns the first
+ * `limit` examples, and is called again with a bigger limit for "Show more". [key] identifies
+ * what the examples are of, so a new key starts from the first page again.
+ */
+@Composable
+internal fun ExamplesSection(key: String, find: suspend (limit: Int) -> List<ConceptExample>) {
+    val context = LocalContext.current
+    val repository = remember { DatabaseProvider.getQuranRepository(context) }
 
     // The ayah shown in the quick-view sheet; null = sheet closed.
     var quickView by remember { mutableStateOf<QuickReferenceData?>(null) }
@@ -81,12 +93,12 @@ fun ConceptExamplesSection(conceptId: String) {
     )
 
     // How many to show. "Show more" raises it; rememberSaveable keeps it across rotation.
-    var limit by rememberSaveable(conceptId) { mutableIntStateOf(PAGE_SIZE) }
+    var limit by rememberSaveable(key) { mutableIntStateOf(PAGE_SIZE) }
 
     // Re-runs when `limit` changes. The previous list stays visible until the new one is ready.
-    val items by produceState<List<ExampleItem>?>(initialValue = null, conceptId, limit) {
+    val items by produceState<List<ExampleItem>?>(initialValue = null, key, limit) {
         value = withContext(Dispatchers.Default) {
-            finder.find(conceptId, limit).map { example ->
+            find(limit).map { example ->
                 val surah = repository.getSurahWithLocalizations(example.ayah.surahNo)
                 ExampleItem(surah?.getCurrentName().orEmpty(), example)
             }
