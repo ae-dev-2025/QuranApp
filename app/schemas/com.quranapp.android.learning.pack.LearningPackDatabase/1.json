@@ -1,0 +1,397 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "6ef8d999c40eff34786aa4fe0e18e4cd",
+    "entities": [
+      {
+        "tableName": "meta",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`key` TEXT NOT NULL, `value` TEXT NOT NULL, PRIMARY KEY(`key`))",
+        "fields": [
+          {
+            "fieldPath": "key",
+            "columnName": "key",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "value",
+            "columnName": "value",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "key"
+          ]
+        }
+      },
+      {
+        "tableName": "credits",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`credit_id` INTEGER NOT NULL, `name` TEXT NOT NULL, `licence` TEXT NOT NULL, `url` TEXT NOT NULL, `notice` TEXT NOT NULL, PRIMARY KEY(`credit_id`))",
+        "fields": [
+          {
+            "fieldPath": "creditId",
+            "columnName": "credit_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "licence",
+            "columnName": "licence",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "url",
+            "columnName": "url",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "notice",
+            "columnName": "notice",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "credit_id"
+          ]
+        }
+      },
+      {
+        "tableName": "roots",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`root_id` INTEGER NOT NULL, `root_key` TEXT NOT NULL, `letters` TEXT NOT NULL, `occurrences` INTEGER NOT NULL, PRIMARY KEY(`root_id`))",
+        "fields": [
+          {
+            "fieldPath": "rootId",
+            "columnName": "root_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rootKey",
+            "columnName": "root_key",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "letters",
+            "columnName": "letters",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "occurrences",
+            "columnName": "occurrences",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "root_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_roots_root_key",
+            "unique": true,
+            "columnNames": [
+              "root_key"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_roots_root_key` ON `${TABLE_NAME}` (`root_key`)"
+          }
+        ]
+      },
+      {
+        "tableName": "lemmas",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`lemma_id` INTEGER NOT NULL, `lemma_key` TEXT NOT NULL, `headword` TEXT NOT NULL, `headword_source` TEXT NOT NULL, `pos` TEXT NOT NULL, `root_id` INTEGER, `verb_form` TEXT, `occurrences` INTEGER NOT NULL, `gloss` TEXT, PRIMARY KEY(`lemma_id`))",
+        "fields": [
+          {
+            "fieldPath": "lemmaId",
+            "columnName": "lemma_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lemmaKey",
+            "columnName": "lemma_key",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "headword",
+            "columnName": "headword",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "headwordSource",
+            "columnName": "headword_source",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pos",
+            "columnName": "pos",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rootId",
+            "columnName": "root_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "verbForm",
+            "columnName": "verb_form",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "occurrences",
+            "columnName": "occurrences",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gloss",
+            "columnName": "gloss",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "lemma_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_lemmas_lemma_key",
+            "unique": true,
+            "columnNames": [
+              "lemma_key"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_lemmas_lemma_key` ON `${TABLE_NAME}` (`lemma_key`)"
+          },
+          {
+            "name": "index_lemmas_root_id",
+            "unique": false,
+            "columnNames": [
+              "root_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_lemmas_root_id` ON `${TABLE_NAME}` (`root_id`)"
+          }
+        ]
+      },
+      {
+        "tableName": "segments",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ayah_id` INTEGER NOT NULL, `word_index` INTEGER NOT NULL, `segment_index` INTEGER NOT NULL, `form` TEXT NOT NULL, `kind` TEXT NOT NULL, `tag` TEXT NOT NULL, `lemma_id` INTEGER, `features` TEXT NOT NULL, PRIMARY KEY(`ayah_id`, `word_index`, `segment_index`))",
+        "fields": [
+          {
+            "fieldPath": "ayahId",
+            "columnName": "ayah_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wordIndex",
+            "columnName": "word_index",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "segmentIndex",
+            "columnName": "segment_index",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "form",
+            "columnName": "form",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kind",
+            "columnName": "kind",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tag",
+            "columnName": "tag",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lemmaId",
+            "columnName": "lemma_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "features",
+            "columnName": "features",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "ayah_id",
+            "word_index",
+            "segment_index"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_segments_lemma_id",
+            "unique": false,
+            "columnNames": [
+              "lemma_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_segments_lemma_id` ON `${TABLE_NAME}` (`lemma_id`)"
+          }
+        ]
+      },
+      {
+        "tableName": "syntax",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ayah_id` INTEGER NOT NULL, `word_index` INTEGER NOT NULL, `segment_index` INTEGER NOT NULL, `text` TEXT NOT NULL, `morph_tag` TEXT NOT NULL, `morph_type` TEXT NOT NULL, `declinability` TEXT, `role` TEXT, `construct` TEXT, `case_mood` TEXT, `case_marker` TEXT, `phrase` TEXT, `phrase_function` TEXT, PRIMARY KEY(`ayah_id`, `word_index`, `segment_index`))",
+        "fields": [
+          {
+            "fieldPath": "ayahId",
+            "columnName": "ayah_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wordIndex",
+            "columnName": "word_index",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "segmentIndex",
+            "columnName": "segment_index",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "text",
+            "columnName": "text",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "morphTag",
+            "columnName": "morph_tag",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "morphType",
+            "columnName": "morph_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "declinability",
+            "columnName": "declinability",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "role",
+            "columnName": "role",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "construct",
+            "columnName": "construct",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "caseMood",
+            "columnName": "case_mood",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "caseMarker",
+            "columnName": "case_marker",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "phrase",
+            "columnName": "phrase",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "phraseFunction",
+            "columnName": "phrase_function",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "ayah_id",
+            "word_index",
+            "segment_index"
+          ]
+        }
+      },
+      {
+        "tableName": "word_glosses",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ayah_id` INTEGER NOT NULL, `word_index` INTEGER NOT NULL, `gloss` TEXT NOT NULL, PRIMARY KEY(`ayah_id`, `word_index`))",
+        "fields": [
+          {
+            "fieldPath": "ayahId",
+            "columnName": "ayah_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wordIndex",
+            "columnName": "word_index",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gloss",
+            "columnName": "gloss",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "ayah_id",
+            "word_index"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6ef8d999c40eff34786aa4fe0e18e4cd')"
+    ]
+  }
+}
