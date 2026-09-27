@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Texts of the learning mode screens. Concept names are in learning_concepts.xml. -->
 <resources>
+    <!-- The language code of these learning strings: a translation sets its own ("ar", "ur", "id"…).
+         Learning screens are laid out in this language's direction, so untranslated English stays
+         left to right when the app's language is right to left. -->
+    <string name="learning_strings_language">en</string>
     <!-- Label under the button in the verse options sheet. Keep it short. -->
     <string name="learning_understand_ayah">Understand</string>
     <string name="learning_understand_title">What this ayah needs</string>

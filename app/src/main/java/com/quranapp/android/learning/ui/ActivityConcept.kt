@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.compose.setContent
 import com.quranapp.android.activities.base.BaseActivity
-import com.quranapp.android.compose.theme.QuranAppTheme
 import com.quranapp.android.learning.concepts.ConceptCatalog
 
 /**
@@ -26,7 +25,7 @@ class ActivityConcept : BaseActivity() {
         }
 
         setContent {
-            QuranAppTheme {
+            LearningTheme {
                 ConceptScreen(concept)
             }
         }

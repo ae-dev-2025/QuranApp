@@ -7,7 +7,6 @@ import android.view.View
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import com.quranapp.android.activities.base.BaseActivity
-import com.quranapp.android.compose.theme.QuranAppTheme
 
 /** A practice session: a check of some items, or the daily review. Open with [intent]. */
 class ActivityPractice : BaseActivity() {
@@ -26,7 +25,7 @@ class ActivityPractice : BaseActivity() {
         viewModel.start(itemIds, mode, newIds)
 
         setContent {
-            QuranAppTheme {
+            LearningTheme {
                 PracticeScreen(viewModel, onClose = ::finish)
             }
         }

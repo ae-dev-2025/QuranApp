@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.compose.setContent
 import com.quranapp.android.activities.base.BaseActivity
-import com.quranapp.android.compose.theme.QuranAppTheme
 
 /** The page of one root, such as ع ب د. Open it with [ActivityRoot.intent]. */
 class ActivityRoot : BaseActivity() {
@@ -20,7 +19,7 @@ class ActivityRoot : BaseActivity() {
         }
 
         setContent {
-            QuranAppTheme {
+            LearningTheme {
                 RootScreen(rootKey)
             }
         }

@@ -5,7 +5,6 @@ import android.view.View
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import com.quranapp.android.activities.base.BaseActivity
-import com.quranapp.android.compose.theme.QuranAppTheme
 
 /** The Learn tab, opened from the bottom bar like Search. */
 class ActivityLearn : BaseActivity() {
@@ -15,7 +14,7 @@ class ActivityLearn : BaseActivity() {
 
     override fun onActivityInflated(activityView: View, savedInstanceState: Bundle?) {
         setContent {
-            QuranAppTheme {
+            LearningTheme {
                 LearnScreen(viewModel)
             }
         }

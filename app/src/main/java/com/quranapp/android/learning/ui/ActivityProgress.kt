@@ -5,7 +5,6 @@ import android.view.View
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import com.quranapp.android.activities.base.BaseActivity
-import com.quranapp.android.compose.theme.QuranAppTheme
 
 /** The learner's progress across the Quran, opened from the Learn tab's week card. */
 class ActivityProgress : BaseActivity() {
@@ -15,7 +14,7 @@ class ActivityProgress : BaseActivity() {
 
     override fun onActivityInflated(activityView: View, savedInstanceState: Bundle?) {
         setContent {
-            QuranAppTheme {
+            LearningTheme {
                 ProgressScreen(viewModel)
             }
         }

@@ -5,7 +5,6 @@ import android.view.View
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import com.quranapp.android.activities.base.BaseActivity
-import com.quranapp.android.compose.theme.QuranAppTheme
 
 /** The whole path, opened from the Learn tab's "Your path" card. */
 class ActivityPath : BaseActivity() {
@@ -15,7 +14,7 @@ class ActivityPath : BaseActivity() {
 
     override fun onActivityInflated(activityView: View, savedInstanceState: Bundle?) {
         setContent {
-            QuranAppTheme {
+            LearningTheme {
                 // Back to the Learn tab, which shows the choices again.
                 PathScreen(viewModel, onChangeStart = { viewModel.changeStart(onSaved = ::finish) })
             }

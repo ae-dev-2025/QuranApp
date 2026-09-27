@@ -26,6 +26,7 @@ import androidx.navigation.navArgument
 import com.quranapp.android.compose.navigation.SettingRoutes
 import com.quranapp.android.learning.ui.LearningDataScreen
 import com.quranapp.android.learning.ui.LearningSettingsScreen
+import com.quranapp.android.learning.ui.LearningDirection
 import com.quranapp.android.utils.univ.Keys
 
 
@@ -114,9 +115,11 @@ fun SettingsScreen(intent: Intent?, isNewIntent: Boolean) {
                 route(SettingRoutes.RECITATION_DOWNLOAD) { RecitationDownloadScreen() }
                 route(SettingRoutes.APP_LOGS) { AppLogsScreen() }
                 route(SettingRoutes.LEARNING) {
-                    LearningSettingsScreen(onOpenLearningData = { navController.navigate(SettingRoutes.LEARNING_DATA) })
+                    LearningDirection {
+                        LearningSettingsScreen(onOpenLearningData = { navController.navigate(SettingRoutes.LEARNING_DATA) })
+                    }
                 }
-                route(SettingRoutes.LEARNING_DATA) { LearningDataScreen() }
+                route(SettingRoutes.LEARNING_DATA) { LearningDirection { LearningDataScreen() } }
             }
         }
     }
