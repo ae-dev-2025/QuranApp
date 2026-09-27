@@ -76,12 +76,14 @@ def syntax_rows(masaq_words: dict) -> list:
 
 
 def write(path: Path, aligned: list, roots: list, lemmas: list, credits: list, meta: dict, to_arabic,
-          masaq_words: dict = None, gloss_ayahs: set = frozenset()) -> None:
+          masaq_words: dict = None, gloss_ayahs: set = frozenset(), lemma_glosses: dict = None) -> None:
     """Writes a new pack at `path` (which must not exist yet).
 
     masaq_words maps (ayah_id, word_index) to the MASAQ words aligned to that app word.
-    Glosses are written only for the ayahs in gloss_ayahs.
+    Word glosses are written only for the ayahs in gloss_ayahs. lemma_glosses maps a lemma
+    key to its English meaning.
     """
+    lemma_glosses = lemma_glosses or {}
     if path.exists():
         raise FileExistsError(path)
     root_ids = {root.key: root.root_id for root in roots}
@@ -104,9 +106,10 @@ def write(path: Path, aligned: list, roots: list, lemmas: list, credits: list, m
             [(root.root_id, root.key, root.letters, root.occurrences) for root in roots],
         )
         connection.executemany(
-            "INSERT INTO lemmas VALUES (?, ?, ?, ?, ?, ?, ?, ?, NULL)",
+            "INSERT INTO lemmas VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
             [(lemma.lemma_id, lemma.key, lemma.headword, lemma.headword_source, lemma.pos,
-              root_ids.get(lemma.root_key), lemma.verb_form, lemma.occurrences) for lemma in lemmas],
+              root_ids.get(lemma.root_key), lemma.verb_form, lemma.occurrences, lemma_glosses.get(lemma.key))
+             for lemma in lemmas],
         )
         connection.executemany(
             "INSERT INTO segments VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
