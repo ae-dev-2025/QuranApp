@@ -33,4 +33,6 @@ data class ChoiceQuestion(
 
     /** Arabic options are shown in the Quran font. */
     val optionsAreArabic: Boolean get() = kind == ChoiceKind.WORD_FOR_MEANING
+
+    fun isRight(optionIndex: Int) = optionIndex == answerIndex
 }
