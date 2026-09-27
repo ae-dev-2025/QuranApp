@@ -1,6 +1,9 @@
 package com.quranapp.android.learning.words
 
 import android.content.Context
+import com.quranapp.android.learning.analysis.GrammarDetector
+import com.quranapp.android.learning.analysis.GrammarSegment
+import com.quranapp.android.learning.pack.GrammarSegmentRow
 import com.quranapp.android.learning.pack.LearningPackDao
 import com.quranapp.android.learning.pack.LearningPackManager
 import com.quranapp.android.learning.pack.LemmaEntity
@@ -44,6 +47,14 @@ class WordRepository(private val dao: LearningPackDao) {
         return lemmas.map { WordLemma(it, it.rootId?.let(roots::get)) }
     }
 
+    /** The grammar concepts of an ayah and the words they're in, from the corpus's analysis. */
+    suspend fun grammarOfAyah(ayahId: Int): Map<String, List<Int>> =
+        grammarByAyah(dao.grammarSegmentsBetween(ayahId, ayahId))[ayahId].orEmpty()
+
+    /** Every grammar concept found in a surah. */
+    suspend fun grammarOfSurah(surahNo: Int): Set<String> =
+        grammarByAyah(dao.grammarSegmentsBetween(surahNo * 1000, surahNo * 1000 + 999)).values.flatMapTo(LinkedHashSet()) { it.keys }
+
     /** A dictionary word by its stable key. */
     suspend fun lemma(lemmaKey: String): LemmaEntity? = dao.lemmaByKey(lemmaKey)
 
@@ -57,6 +68,18 @@ class WordRepository(private val dao: LearningPackDao) {
     }
 
     companion object {
+        /** Runs the grammar detector over each ayah's words; the list index is the app's word index. */
+        fun grammarByAyah(rows: List<GrammarSegmentRow>): Map<Int, Map<String, List<Int>>> =
+            rows.groupBy { it.ayahId }.mapValues { (_, ayah) ->
+                val byWord = ayah.groupBy { it.wordIndex }
+                val words = (0..(byWord.keys.maxOrNull() ?: -1)).map { index ->
+                    byWord[index].orEmpty().map { row ->
+                        GrammarSegment(row.kind, row.tag, row.features.split('|').filter { it.isNotEmpty() }, row.form, row.lemmaKey, row.rootKey)
+                    }
+                }
+                GrammarDetector.detect(words)
+            }
+
         /** The repository, or null when the learning pack isn't downloaded. */
         suspend fun open(context: Context): WordRepository? =
             LearningPackManager.database(context)?.let { WordRepository(it.dao()) }
