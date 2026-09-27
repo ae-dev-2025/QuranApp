@@ -136,4 +136,158 @@
         <item>It carries meaning: many scholars noted that ٱلۡعُسۡرِ in 94:5–6 is the same hardship both times, while يُسۡرًا, without ال, is a new ease each time.</item>
     </string-array>
     <string name="grammar_lesson_definiteness_confused">As a reading point, tanwīn is the n sound at the end of a word. Here it matters as the usual sign of an indefinite noun.</string>
+
+    <!-- Unit 3 · Case endings -->
+
+    <!-- The three cases -->
+    <string name="grammar_lesson_cases_means">and the earth brings out its burdens (wa akhrajati l-arḍu athqālahā)</string>
+    <string-array name="grammar_lesson_cases_spot">
+        <item>Rafʿ usually ends in a ḍamma: ٱلۡأَرۡضُ.</item>
+        <item>Naṣb usually ends in a fatḥa: أَثۡقَالَهَا.</item>
+        <item>Jarr usually ends in a kasra: فِي ٱلۡأَرۡضِ.</item>
+        <item>With tanwīn the mark is doubled: أَحَدٌ, كُفُوًا, لَهَبٍ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_cases_how">
+        <item>A noun’s ending shows its job in the sentence, not its meaning: here ٱلۡأَرۡضُ is the one bringing out, so it is in rafʿ.</item>
+        <item>Rafʿ is for the doer, the subject and what is said about it; naṣb for the object and many others; jarr after a preposition, or as the second noun of an iḍāfa.</item>
+        <item>So words can change places and you still know who did what: the endings tell you.</item>
+    </string-array>
+    <string name="grammar_lesson_cases_confused">These are the same three marks as the short vowels. On the last letter of a noun they also show its case; inside a word they are only its sounds.</string>
+
+    <!-- Dual and plural endings -->
+    <string name="grammar_lesson_dual_plural_endings_means">and We showed him the two ways (wa hadaynāhu n-najdayn)</string>
+    <string-array name="grammar_lesson_dual_plural_endings_spot">
+        <item>The dual: ـَانِ in rafʿ, ـَيۡنِ in naṣb and jarr. Here ٱلنَّجۡدَيۡنِ is in naṣb.</item>
+        <item>The sound masculine plural: ـُونَ in rafʿ, ـِينَ in naṣb and jarr.</item>
+    </string-array>
+    <string-array name="grammar_lesson_dual_plural_endings_how">
+        <item>These nouns show their case with a letter: ا or و for rafʿ, ي for naṣb and jarr.</item>
+        <item>Naṣb and jarr look the same, so the word’s job tells you which one it is.</item>
+        <item>The ن at the end doesn’t change with the case, and it drops before another noun.</item>
+    </string-array>
+    <string name="grammar_lesson_dual_plural_endings_confused">The sound feminine plural keeps vowel endings: a ḍamma in rafʿ, and a kasra in both naṣb and jarr.</string>
+
+    <!-- The five nouns -->
+    <string name="grammar_lesson_five_nouns_means">Abū Lahab (abī lahab)</string>
+    <string-array name="grammar_lesson_five_nouns_spot">
+        <item>أَب “father”, أَخ “brother” and ذُو “owner of” (and the rare حَم and فُو), followed by another word.</item>
+        <item>Their case is a long vowel: و in rafʿ (أَبُو), ا in naṣb (أَبَا), ي in jarr (أَبِي).</item>
+    </string-array>
+    <string-array name="grammar_lesson_five_nouns_how">
+        <item>The name Abū Lahab is written أَبِي لَهَبٖ in 111:1, because it is in jarr: “the hands of Abū Lahab”.</item>
+        <item>This happens only when another word follows. On its own, أَب takes ordinary vowels.</item>
+        <item>ذُو shows it often: ذُو ٱلۡعَرۡشِ “Owner of the Throne” (85:15) is in rafʿ.</item>
+    </string-array>
+    <string name="grammar_lesson_five_nouns_confused">Duals and sound plurals also show their case with a letter, but they add an ending. The five nouns only lengthen their last vowel.</string>
+
+    <!-- Unit 6 · Pronouns and relatives -->
+
+    <!-- Detached pronouns -->
+    <string name="grammar_lesson_detached_pronoun_means">He is Allah (huwa llāh)</string>
+    <string-array name="grammar_lesson_detached_pronoun_spot">
+        <item>A pronoun written as a word of its own: هُوَ “he”, هِيَ “she”, هُمۡ “they”, أَنتَ “you”, نَحۡنُ “we”, أَنَا “I”.</item>
+        <item>It is often the subject at the start of a sentence: هُوَ ٱللَّهُ أَحَدٌ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_detached_pronoun_how">
+        <item>It stands for someone already known: the speaker, the one spoken to, or someone absent.</item>
+        <item>It changes with person, gender and number: أَنتَ “you (a man)”, أَنتِ “you (a woman)”, أَنتُمۡ “you all”.</item>
+        <item>Every pronoun is definite, and its ending never changes.</item>
+    </string-array>
+    <string name="grammar_lesson_detached_pronoun_confused">An attached pronoun is joined to the end of another word: رَبُّهُۥ “his Lord”. A detached one stands alone: هُوَ.</string>
+
+    <!-- Attached pronouns -->
+    <string name="grammar_lesson_attached_pronoun_means">We have given you (aʿṭaynāka)</string>
+    <string-array name="grammar_lesson_attached_pronoun_spot">
+        <item>A short ending joined to a word: ـهُ “him, his”, ـهَا “her”, ـكَ “you, your”, ـنَا “us, our”, ـهُمۡ “them, their”, ـي “me, my”.</item>
+        <item>It can join a noun (رَبُّكَ), a verb (أَعۡطَيۡنَٰكَ) or a particle (عَلَيۡهِمۡ).</item>
+    </string-array>
+    <string-array name="grammar_lesson_attached_pronoun_how">
+        <item>On a noun it is the owner: لِرَبِّكَ “to your Lord”.</item>
+        <item>On a verb it can be the doer or the object: in أَعۡطَيۡنَٰكَ, نَا is “We” who gave, and كَ is “you”, the one given to.</item>
+        <item>On a preposition it is what the preposition is about: عَلَيۡهِمۡ “upon them”.</item>
+    </string-array>
+    <string name="grammar_lesson_attached_pronoun_confused">A detached pronoun stands alone as its own word: هُوَ “he”. An attached one can’t: ـهُ always joins another word.</string>
+
+    <!-- إِيَّا -->
+    <string name="grammar_lesson_iyya_means">You alone we worship (iyyāka naʿbudu)</string>
+    <string-array name="grammar_lesson_iyya_spot">
+        <item>إِيَّا with an attached pronoun: إِيَّاكَ, إِيَّاهُ, إِيَّانَا.</item>
+        <item>It comes before its verb, as the verb’s object.</item>
+    </string-array>
+    <string-array name="grammar_lesson_iyya_how">
+        <item>An object pronoun is usually joined to its verb: نَعۡبُدُكَ “we worship You”.</item>
+        <item>To put the object first, the pronoun needs a word to carry it: that is إِيَّا.</item>
+        <item>Putting it first adds “alone”: we worship You and no one else.</item>
+    </string-array>
+    <string name="grammar_lesson_iyya_confused">هُوَ and أَنتَ stand alone as the subject. إِيَّاكَ stands alone too, but as the object.</string>
+
+    <!-- Demonstratives -->
+    <string name="grammar_lesson_demonstrative_means">and this city (wa hādhā l-balad)</string>
+    <string-array name="grammar_lesson_demonstrative_spot">
+        <item>Near: هَٰذَا “this” (masculine), هَٰذِهِۦ (feminine), هَٰٓؤُلَآءِ “these”.</item>
+        <item>Far: ذَٰلِكَ “that” (masculine), تِلۡكَ (feminine), أُوْلَٰٓئِكَ “those”.</item>
+    </string-array>
+    <string-array name="grammar_lesson_demonstrative_how">
+        <item>Before a noun with ال it means “this …”: هَٰذَا ٱلۡبَلَدِ “this city”.</item>
+        <item>Before a noun without ال it makes a sentence: هَٰذَا بَلَدٌ “this is a city”.</item>
+        <item>ذَٰلِكَ “that” can point to something near to show its greatness: ذَٰلِكَ ٱلۡكِتَٰبُ (2:2).</item>
+    </string-array>
+    <string name="grammar_lesson_demonstrative_confused">هَٰذَا points by itself. ٱلَّذِي “the one who” also points to someone, but needs a sentence after it to complete it.</string>
+
+    <!-- Relative nouns -->
+    <string name="grammar_lesson_relative_means">those whom You have blessed (alladhīna anʿamta ʿalayhim)</string>
+    <string-array name="grammar_lesson_relative_spot">
+        <item>ٱلَّذِي (masculine), ٱلَّتِي (feminine), ٱلَّذِينَ (masculine plural); مَنۡ for people and مَا for things.</item>
+        <item>A sentence follows it and completes it: ٱلَّذِينَ أَنۡعَمۡتَ عَلَيۡهِمۡ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_relative_how">
+        <item>On its own it isn’t complete: “those who …” needs the sentence after it (the ṣila).</item>
+        <item>That sentence often has a pronoun pointing back to it: the ـهِمۡ of عَلَيۡهِمۡ is “those”.</item>
+        <item>Together they work as one noun: “the ones You have blessed”.</item>
+    </string-array>
+    <string name="grammar_lesson_relative_confused">هَٰذَا “this” points by itself. ٱلَّذِي “the one who” needs the sentence after it.</string>
+
+    <!-- Unit 4 · Prepositions -->
+
+    <!-- Preposition and its noun -->
+    <string name="grammar_lesson_preposition_means">I seek refuge in the Lord of mankind (aʿūdhu bi-rabbi n-nās)</string>
+    <string-array name="grammar_lesson_preposition_spot">
+        <item>Words of their own: فِي “in”, مِنۡ “from”, إِلَىٰ “to”, عَلَىٰ “on”, عَنۡ “about, away from”.</item>
+        <item>One letter joined to the next word: بِـ “with, by, in”, لِـ “for, to”, كَـ “like”.</item>
+        <item>The noun after it ends in jarr: بِرَبِّ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_preposition_how">
+        <item>A preposition and its noun make a phrase that adds where, when, how or to whom: بِرَبِّ ٱلنَّاسِ “in the Lord of mankind”.</item>
+        <item>It can take an attached pronoun instead of a noun: بِهِۦ “with it”, عَلَيۡهِمۡ “upon them”.</item>
+        <item>A phrase like this can say something about a subject: ٱلۡحَمۡدُ لِلَّهِ “praise is for Allah”.</item>
+    </string-array>
+    <string name="grammar_lesson_preposition_confused">مِنۡ with a kasra is “from”, a preposition. مَنۡ with a fatḥa is “who”, a noun.</string>
+
+    <!-- A pronoun as the possessor -->
+    <string name="grammar_lesson_pronoun_possessor_means">to your Lord (li-rabbika)</string>
+    <string-array name="grammar_lesson_pronoun_possessor_spot">
+        <item>A noun with an attached pronoun at its end: رَبِّكَ, دِينِكُمۡ.</item>
+        <item>The noun has no ال and no tanwīn.</item>
+    </string-array>
+    <string-array name="grammar_lesson_pronoun_possessor_how">
+        <item>The pronoun is the owner, like the second noun of an iḍāfa: رَبِّكَ is “the Lord of you”.</item>
+        <item>The pronoun makes the noun definite: “your Lord”, not “a lord”.</item>
+        <item>The noun keeps its own case: in لِرَبِّكَ it is in jarr after لِـ.</item>
+    </string-array>
+    <string name="grammar_lesson_pronoun_possessor_confused">In an iḍāfa the owner is a noun: رَبِّ ٱلۡعَٰلَمِينَ. Here it is a pronoun: رَبِّكَ.</string>
+
+    <!-- Unit 5 · Adjectives -->
+
+    <!-- Adjective and agreement -->
+    <string name="grammar_lesson_adjective_means">the straight path (aṣ-ṣirāṭa l-mustaqīm)</string>
+    <string-array name="grammar_lesson_adjective_spot">
+        <item>It comes after the noun it describes: ٱلصِّرَٰطَ ٱلۡمُسۡتَقِيمَ.</item>
+        <item>It has the same ending as its noun: both end in a fatḥa here.</item>
+    </string-array>
+    <string-array name="grammar_lesson_adjective_how">
+        <item>It matches its noun in four things: case, definite or not, number and gender.</item>
+        <item>A plural of things takes a feminine singular adjective: وَفُرُشٖ مَّرۡفُوعَةٍ “and raised couches” (56:34).</item>
+        <item>An adjective is itself a noun, so it takes ال and tanwīn like one.</item>
+    </string-array>
+    <string name="grammar_lesson_adjective_confused">Two nouns side by side can also be an iḍāfa: رَبِّ ٱلۡعَٰلَمِينَ. There the first has no ال and the second is in jarr; an adjective copies its noun instead.</string>
 </resources>

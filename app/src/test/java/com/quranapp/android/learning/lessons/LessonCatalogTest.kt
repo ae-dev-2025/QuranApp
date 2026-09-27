@@ -19,6 +19,12 @@ class LessonCatalogTest {
         // Unit 2 · Gender, number, definiteness
         GrammarIds.GENDER, GrammarIds.DUAL, GrammarIds.SOUND_MASC_PLURAL, GrammarIds.SOUND_FEM_PLURAL,
         GrammarIds.BROKEN_PLURAL, GrammarIds.DEFINITENESS,
+        // Unit 3 · Case endings (partly declining nouns come with the sentence roles, M9)
+        GrammarIds.CASES, GrammarIds.DUAL_PLURAL_ENDINGS, GrammarIds.FIVE_NOUNS,
+        // Unit 6 · Pronouns and relatives
+        GrammarIds.DETACHED_PRONOUN, GrammarIds.ATTACHED_PRONOUN, GrammarIds.IYYA, GrammarIds.DEMONSTRATIVE, GrammarIds.RELATIVE,
+        // Units 4 and 5 · the word-form parts (iḍāfa and comparatives come with M9)
+        GrammarIds.PREPOSITION, GrammarIds.PRONOUN_POSSESSOR, GrammarIds.ADJECTIVE,
     )
 
     @Test
@@ -33,7 +39,7 @@ class LessonCatalogTest {
         // Umbrella concepts get a rule overview instead of a lesson (design decision 5).
         val missing = ConceptCatalog.all.map { it.id }
             .filter { it !in ConceptCatalog.umbrellaIds && LessonCatalog[it] == null }
-            // Grammar lessons are added unit by unit (#64–#68, #71–#74).
+            // Grammar lessons are added unit by unit (#64, #66–#69, #72–#75).
             .filter { ConceptCatalog[it]?.track != Track.GRAMMAR || it in GRAMMAR_UNITS_WRITTEN }
 
         assertTrue("Concepts without a lesson: $missing", missing.isEmpty())

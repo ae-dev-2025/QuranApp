@@ -68,7 +68,8 @@ object GrammarDetector {
                 s.tag == "V" -> found += GrammarIds.FIL
                 else -> found += GrammarIds.HARF
             }
-            if (s.tag == "N" || s.tag == "ADJ") nounConcepts(s, f, found)
+            // Proper nouns have cases too: ٱللَّهُ, ٱللَّهَ, ٱللَّهِ.
+            if (s.tag == "N" || s.tag == "ADJ" || s.tag == "PN") nounConcepts(s, f, found)
             if (s.tag == "V") verbConcepts(s, f, segments, found)
             if ("PCPL" in f && "ACT" in f) found += GrammarIds.ACTIVE_PARTICIPLE
             if ("PCPL" in f && "PASS" in f) found += GrammarIds.PASSIVE_PARTICIPLE

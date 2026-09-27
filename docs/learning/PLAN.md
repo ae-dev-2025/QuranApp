@@ -152,33 +152,36 @@ and overrides for the 258 verb headwords still marked "unchecked".
 | 63 | Grammar tab: the fourth layer (sheet tab, unit step, path dot, stage goals); Arabic examples kept in order in English text |
 | 64 | Grammar lessons, units 1–2 (word types; gender, number, definiteness); detector fixes for Uthmani spelling |
 | 65 | Grammar examples in the Quran, from the pack |
-| 66–68 | Lessons for the other word-form concepts |
+| 66 | Lessons: cases, pronouns and relatives, prepositions, adjectives; proper nouns have cases |
+| 67 | Lessons: roots and patterns, past, present and moods, command and passive, inna and kāna |
+| 68 | Lessons: verb forms and weak verbs, participles and verbal nouns |
+| 69 | Lessons: conditions, questions and particles |
 
 **M9 · Grammar II: sentences**
 
 | PR | What it adds |
 |---|---|
-| 69 | Sentence roles to concepts |
-| 70 | Sentence roles in the Grammar tab |
-| 71–74 | Lessons for sentence concepts |
-| 75 | Grammar questions |
+| 70 | Sentence roles to concepts |
+| 71 | Sentence roles in the Grammar tab |
+| 72–75 | Lessons for sentence concepts |
+| 76 | Grammar questions |
 
 **M10 · Complete recitation**
 
 | PR | What it adds |
 |---|---|
-| 76 | Heavy and light rāʾ |
-| 77 | Idghām of two letters, lām of verbs and particles, tanwīn before hamzat al-waṣl |
-| 78 | Madds: ʿāriḍ, līn, ʿiwaḍ, badal, ṣila, disjointed letters |
-| 79 | Saktas, Ḥafṣ's special words, stopping and starting, special spellings |
-| 80–82 | Lessons for the new concepts |
+| 77 | Heavy and light rāʾ |
+| 78 | Idghām of two letters, lām of verbs and particles, tanwīn before hamzat al-waṣl |
+| 79 | Madds: ʿāriḍ, līn, ʿiwaḍ, badal, ṣila, disjointed letters |
+| 80 | Saktas, Ḥafṣ's special words, stopping and starting, special spellings |
+| 81–83 | Lessons for the new concepts |
 
 **M11 · Polish**
 
 | PR | What it adds |
 |---|---|
-| 83 | Show learning screens in the reader's script (Indo-Pak) |
-| 84 | Dark theme and right-to-left fixes |
-| 85 | Accessibility |
-| 86 | Speed: caching |
-| 87 | Security and licence review, including: Export/Import crashes on a file that isn't JSON (found in #43; the parse in `ActivityExportImport.importData` isn't caught) |
+| 84 | Show learning screens in the reader's script (Indo-Pak) |
+| 85 | Dark theme and right-to-left fixes |
+| 86 | Accessibility |
+| 87 | Speed: caching |
+| 88 | Security and licence review, including: Export/Import crashes on a file that isn't JSON (found in #43; the parse in `ActivityExportImport.importData` isn't caught) |
