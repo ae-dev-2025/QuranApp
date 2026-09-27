@@ -63,6 +63,7 @@ import com.quranapp.android.learning.words.WordCoverage
 import com.quranapp.android.learning.words.WordRepository
 import com.quranapp.android.repository.QuranRepository
 import com.quranapp.android.utils.reader.QuranScriptUtils
+import com.quranapp.android.utils.reader.factory.ReaderFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -231,6 +232,9 @@ private fun SheetContent(verse: VerseWithDetails, state: UnderstandAyahState) {
         )
     }
 
+    // The Grammar tab's view: its concepts, or each word's role.
+    var grammarByWord by rememberSaveable(verse.id) { mutableStateOf(false) }
+
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         item {
             Header(verse, state, packWords, known, arabicFont)
@@ -258,7 +262,15 @@ private fun SheetContent(verse: VerseWithDetails, state: UnderstandAyahState) {
             }
         } else if (selected == Layer.GRAMMAR && grammarItems == null) {
             item { WordsNeedPack(packState, R.string.learning_grammar_need_pack) }
+        } else if (selected == Layer.GRAMMAR && grammarByWord) {
+            item(key = "grammar-view") { GrammarViewSwitch(byWord = true) { grammarByWord = it } }
+            wordRoleItems(packWords.orEmpty(), state.words, arabicFont) {
+                ReaderFactory.startTafsir(context, verse.chapterNo, verse.verseNo)
+            }
         } else {
+            if (selected == Layer.GRAMMAR) {
+                item(key = "grammar-view") { GrammarViewSwitch(byWord = false) { grammarByWord = it } }
+            }
             for (conceptItem in itemsByLayer.getValue(selected)) {
                 item(key = conceptItem.concept.id) {
                     ConceptRow(
