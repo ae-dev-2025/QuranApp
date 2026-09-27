@@ -131,4 +131,11 @@
 
     <string name="concept_madd_lazim_title">Madd lāzim (necessary)</string>
     <string name="concept_madd_lazim_summary">A long vowel followed by a shadda or a fixed sukūn is always stretched 6 counts.</string>
+    <!-- Rāʾ -->
+    <string name="concept_ra_title">Rāʾ: heavy or light</string>
+    <string name="concept_ra_summary">The letter ر is sometimes heavy and sometimes light. Its own vowel decides, or, when it has no vowel, the vowel before it.</string>
+    <string name="concept_ra_heavy_title">Heavy rāʾ (tafkhīm)</string>
+    <string name="concept_ra_heavy_summary">ر is heavy with a fatḥa or ḍamma, or with a sukūn after one: رَبِّ, مَرۡيَمَ, وَٱنۡحَرۡ.</string>
+    <string name="concept_ra_light_title">Light rāʾ (tarqīq)</string>
+    <string name="concept_ra_light_summary">ر is light with a kasra, or with a sukūn after one: رِزۡقٗا, فِرۡعَوۡنَ.</string>
 </resources>

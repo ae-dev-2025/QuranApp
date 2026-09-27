@@ -345,6 +345,22 @@ object LessonCatalog {
             sayIt = R.array.lesson_qalqalah_how,
         ),
 
+        // ---- Tajweed: rāʾ ----
+        Lesson(
+            conceptId = ConceptIds.RA_HEAVY,
+            keyExample = KeyExample(1, 2, 2..2, R.string.lesson_ra_heavy_say),
+            spotIt = R.array.lesson_ra_heavy_spot,
+            sayIt = R.array.lesson_ra_heavy_how,
+            confusedWith = ConfusedWith(ConceptIds.HEAVY_LETTERS, R.string.lesson_ra_heavy_confused),
+        ),
+        Lesson(
+            conceptId = ConceptIds.RA_LIGHT,
+            keyExample = KeyExample(1, 7, 4..4, R.string.lesson_ra_light_say),
+            spotIt = R.array.lesson_ra_light_spot,
+            sayIt = R.array.lesson_ra_light_how,
+            confusedWith = ConfusedWith(ConceptIds.RA_HEAVY, R.string.lesson_ra_light_confused),
+        ),
+
         // ---- Tajweed: madd ----
         Lesson(
             conceptId = ConceptIds.MADD_SIGN,

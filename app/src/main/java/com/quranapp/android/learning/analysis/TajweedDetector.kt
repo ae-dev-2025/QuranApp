@@ -26,6 +26,17 @@ object TajweedDetector {
     private val IKHFA_LETTERS =
         setOf('ت', 'ث', 'ج', 'د', 'ذ', 'ز', 'س', 'ش', 'ص', 'ض', 'ط', 'ظ', 'ف', 'ق', 'ك')
 
+    /** Marks that give a letter an open vowel: fatḥa or ḍamma, and their tanwīn. */
+    private val OPEN_VOWELS = setOf(
+        Arabic.FATHA, Arabic.DAMMA, Arabic.FATHATAN, Arabic.DAMMATAN, Arabic.OPEN_FATHATAN, Arabic.OPEN_DAMMATAN,
+        Arabic.DAGGER_ALIF,
+    )
+    private val KASRAS = setOf(Arabic.KASRA, Arabic.KASRATAN, Arabic.OPEN_KASRATAN)
+    private val FATHATAN = setOf(Arabic.FATHATAN, Arabic.OPEN_FATHATAN)
+
+    /** Words where a yāʾ was dropped after the rāʾ: stopping on them, it may be heavy or light. */
+    private val RA_EITHER_WHEN_STOPPING = setOf("ونذر", "يسر")
+
     /** A letter plus where it sits in the ayah. */
     private data class Letter(
         val cluster: LetterCluster,
@@ -99,7 +110,62 @@ object TajweedDetector {
             maddRule(letter, next)?.let { rules += Rule(it, joinsNextLetter = true) }
         }
 
+        raRule(letters, index, stopped = isLastOfAyah)?.let { rules += Rule(it) }
+
         return rules
+    }
+
+    /**
+     * Heavy or light rāʾ, for Ḥafṣ. Its own vowel decides: fatḥa or ḍamma heavy, kasra light.
+     * With a sukūn, or when we stop on it, the vowel before it decides the same way; after the
+     * ٱ of hamzat al-waṣl it is heavy (ٱرۡكَعُواْ), after a yāʾ light (خَيۡر, قَدِير), and after
+     * a kasra a heavy letter right after it keeps it heavy (قِرۡطَاس).
+     *
+     * Null where either is allowed (فِرۡقٖ; stopping on مِصۡرَ, وَنُذُرِ, يَسۡرِ), for a rāʾ merged
+     * into the next one (وَٱذۡكُر رَّبَّكَ) and for one read as a letter name (الٓرۚ).
+     */
+    private fun raRule(letters: List<Letter>, index: Int, stopped: Boolean): String? {
+        val letter = letters[index]
+        val c = letter.cluster
+        if (c.letter != Arabic.RA || c.hasAny(Arabic.SILENT_MARKS)) return null
+        if (c.hasAny(FATHATAN)) return ConceptIds.RA_HEAVY // stopping on -ran gives -rā
+        if (!stopped) {
+            when {
+                c.hasAny(OPEN_VOWELS) -> return ConceptIds.RA_HEAVY
+                c.hasAny(KASRAS) -> return ConceptIds.RA_LIGHT
+                !c.has(Arabic.SUKUN) -> return null
+            }
+        }
+
+        // A rāʾ with a sukūn, or one we stop on: the letters before it in its word decide.
+        val start = index - letter.indexInWord
+        val word = letters.subList(start, letters.size).takeWhile { it.wordIndex == letter.wordIndex }.map { it.cluster }
+        val at = letter.indexInWord
+        if (at == 0) return null
+        if (stopped && c.has(Arabic.KASRA) && word.joinToString("") { it.letter.toString() } in RA_EITHER_WHEN_STOPPING) return null
+
+        val previous = word[at - 1]
+        if (previous.letter == Arabic.ALIF_WASLA) return ConceptIds.RA_HEAVY
+        if (stopped && previous.letter == Arabic.YA && (previous.has(Arabic.SUKUN) || previous.isBare)) return ConceptIds.RA_LIGHT
+
+        // The nearest letter before it with a vowel; the ones skipped have a sukūn or carry a long vowel.
+        var j = at - 1
+        while (j >= 0 && !word[j].hasAny(OPEN_VOWELS) && !word[j].hasAny(KASRAS)) {
+            if (word[j].letter == Arabic.ALIF_WASLA) return ConceptIds.RA_HEAVY
+            j--
+        }
+        if (j < 0) return null
+        if (word[j].hasAny(OPEN_VOWELS)) return ConceptIds.RA_HEAVY
+
+        // After a kasra it is light, unless a heavy letter changes it: one with a sukūn in between
+        // when stopping (مِصۡر, ٱلۡقِطۡر) allows both; one right after it keeps it heavy (قِرۡطَاس),
+        // or allows both if that letter has a kasra (فِرۡقٖ).
+        if (stopped && (j + 1 until at).any { word[it].letter in HEAVY_LETTERS && word[it].has(Arabic.SUKUN) }) return null
+        val after = word.getOrNull(at + 1)
+        if (!stopped && after != null && after.letter in HEAVY_LETTERS) {
+            return if (after.hasAny(KASRAS)) null else ConceptIds.RA_HEAVY
+        }
+        return ConceptIds.RA_LIGHT
     }
 
     /** Noon sakinah and tanween: iẓhār, idghām, iqlāb or ikhfāʾ. */

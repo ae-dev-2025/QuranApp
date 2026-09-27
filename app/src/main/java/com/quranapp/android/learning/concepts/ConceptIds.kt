@@ -46,6 +46,11 @@ object ConceptIds {
     const val LAM_OF_ALLAH = "tajweed.lam_of_allah"
     const val GHUNNAH = "tajweed.ghunnah"
     const val QALQALAH = "tajweed.qalqalah"
+
+    // Rāʾ: an umbrella concept and its two rules
+    const val RA = "tajweed.ra"
+    const val RA_HEAVY = "tajweed.ra_heavy"
+    const val RA_LIGHT = "tajweed.ra_light"
     const val NOON_SAKINAH = "tajweed.noon_sakinah"
     const val IZHAR = "tajweed.izhar"
     const val IDGHAM_GHUNNAH = "tajweed.idgham_ghunnah"
