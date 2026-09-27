@@ -879,4 +879,113 @@
         <item>A hidden doer is still the doer, in rafʿ: it just isn’t written.</item>
     </string-array>
     <string name="grammar_lesson_hidden_doer_confused">In أَنۡعَمۡتَ the doer is written, as the ending ـتَ. In خَلَقَ it isn’t written at all.</string>
+
+    <!-- Unit 16 · Objects, ḥāl, tamyīz -->
+
+    <!-- Absolute object -->
+    <string name="grammar_lesson_absolute_object_means">and they utterly denied Our signs (wa kadhdhabū bi-āyātinā kidhdhābā)</string>
+    <string-array name="grammar_lesson_absolute_object_spot">
+        <item>A verbal noun from the same root as the verb, in naṣb: كَذَّبُواْ … كِذَّابٗا.</item>
+        <item>It adds nothing new to the action: it is the action again, as a noun.</item>
+    </string-array>
+    <string-array name="grammar_lesson_absolute_object_how">
+        <item>It stresses the action: “they denied, a real denying”.</item>
+        <item>Or it says how, or how many times: دَكّٗا دَكّٗا “crushed, pounding after pounding” (89:21).</item>
+        <item>Another: وَتَبَتَّلۡ إِلَيۡهِ تَبۡتِيلٗا “and devote yourself to Him wholly” (73:8).</item>
+    </string-array>
+    <string name="grammar_lesson_absolute_object_confused">The object is what the action is done to: خَلَقَ ٱلۡإِنسَٰنَ. The absolute object is the action itself: كِذَّابٗا.</string>
+
+    <!-- Object of reason -->
+    <string name="grammar_lesson_object_of_reason_means">for fear of death (ḥadhara l-mawt)</string>
+    <string-array name="grammar_lesson_object_of_reason_spot">
+        <item>A verbal noun in naṣb that answers “why?”: حَذَرَ ٱلۡمَوۡتِ “for fear of death”.</item>
+        <item>It is usually a feeling or an intention: fear, wish, seeking.</item>
+    </string-array>
+    <string-array name="grammar_lesson_object_of_reason_how">
+        <item>In 2:19 they put their fingers in their ears: why? For fear of death.</item>
+        <item>It could be said with لِـ: لِلۡحَذَرِ, “for fear”; the naṣb says the same without it.</item>
+        <item>Another: ٱبۡتِغَآءَ مَرۡضَاتِ ٱللَّهِ “seeking the pleasure of Allah” (2:207).</item>
+    </string-array>
+    <string name="grammar_lesson_object_of_reason_confused">The absolute object repeats the action (كِذَّابٗا). This object gives its reason (حَذَرَ).</string>
+
+    <!-- Object of time or place -->
+    <string name="grammar_lesson_time_place_means">That Day, it will report its news (yawmaʾidhin tuḥaddithu akhbārahā)</string>
+    <string-array name="grammar_lesson_time_place_spot">
+        <item>A word for when, in naṣb: يَوۡمَ “on the day”, لَيۡلٗا “by night”, إِذَا “when”.</item>
+        <item>A word for where, in naṣb: عِندَ “with”, بَيۡنَ “between”, فَوۡقَ “above”, تَحۡتَ “below”.</item>
+    </string-array>
+    <string-array name="grammar_lesson_time_place_how">
+        <item>It carries the meaning of “in” or “on” inside it: يَوۡمَئِذٖ “on that day”, with no preposition.</item>
+        <item>Place words usually join a noun after them as an iḍāfa: عِندَ رَبِّهِمۡ “with their Lord”.</item>
+        <item>The same word can have other jobs: يَوۡمُ ٱلدِّينِ with a ḍamma is a noun in rafʿ, not a time word.</item>
+    </string-array>
+    <string name="grammar_lesson_time_place_confused">A preposition says “in” with a word of its own: فِي لَيۡلَةِ. A time word needs none: لَيۡلٗا “by night”.</string>
+
+    <!-- Ḥāl -->
+    <string name="grammar_lesson_hal_means">and We created you in pairs (wa khalaqnākum azwājā)</string>
+    <string-array name="grammar_lesson_hal_spot">
+        <item>An indefinite word in naṣb that describes someone’s state: أَزۡوَٰجٗا “in pairs”.</item>
+        <item>It answers “how?” or “in what state?”.</item>
+    </string-array>
+    <string-array name="grammar_lesson_hal_how">
+        <item>It describes a definite noun or pronoun, here the كُمۡ “you” of خَلَقۡنَٰكُمۡ, at the time of the action.</item>
+        <item>It stays indefinite even when the one it describes is definite.</item>
+        <item>It can be a whole sentence too: يَدۡخُلُونَ in وَرَأَيۡتَ ٱلنَّاسَ يَدۡخُلُونَ “you see the people entering” (110:2).</item>
+    </string-array>
+    <string name="grammar_lesson_hal_confused">An adjective copies its noun’s ال and case, and describes a lasting quality. A ḥāl is indefinite, in naṣb, and describes a state during the action.</string>
+
+    <!-- Tamyīz -->
+    <string name="grammar_lesson_tamyiz_means">an atom’s weight of good (mithqāla dharratin khayrā)</string>
+    <string-array name="grammar_lesson_tamyiz_spot">
+        <item>An indefinite noun in naṣb after a vague amount: مِثۡقَالَ ذَرَّةٍ خَيۡرٗا.</item>
+        <item>It answers “of what?” or “in respect of what?”.</item>
+    </string-array>
+    <string-array name="grammar_lesson_tamyiz_how">
+        <item>“An atom’s weight”, of what? Of good: خَيۡرٗا.</item>
+        <item>It often follows a number: أَحَدَ عَشَرَ كَوۡكَبٗا “eleven stars” (12:4).</item>
+        <item>Or it makes a whole statement clear: وَٱشۡتَعَلَ ٱلرَّأۡسُ شَيۡبٗا “and the head is aflame with grey hair” (19:4).</item>
+    </string-array>
+    <string name="grammar_lesson_tamyiz_confused">A ḥāl answers “in what state?”. A tamyīz answers “in respect of what?”. Both are indefinite and in naṣb.</string>
+
+    <!-- Word shapes MASAQ names -->
+
+    <!-- Partly declining nouns -->
+    <string name="grammar_lesson_diptote_means">the scriptures of Abraham and Moses (ṣuḥufi ibrāhīma wa mūsā)</string>
+    <string-array name="grammar_lesson_diptote_spot">
+        <item>A noun that never takes tanwīn: إِبۡرَٰهِيمُ, not إِبۡرَٰهِيمٌ.</item>
+        <item>In jarr it takes a fatḥa instead of a kasra: صُحُفِ إِبۡرَٰهِيمَ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_diptote_how">
+        <item>It shows only two endings: ḍamma in rafʿ, and fatḥa for both naṣb and jarr.</item>
+        <item>Most foreign names are like this (إِبۡرَٰهِيم, فِرۡعَوۡن), and so are feminine names, the أَفۡعَل pattern (أَكۡبَر) and plurals like مَسَٰجِد.</item>
+        <item>With ال, or before the noun it belongs to, the kasra comes back: فِيٓ أَحۡسَنِ تَقۡوِيمٖ (95:4).</item>
+    </string-array>
+    <string name="grammar_lesson_diptote_confused">The three cases: most nouns have three endings, and tanwīn when indefinite. These have two, and no tanwīn.</string>
+
+    <!-- Comparatives and superlatives -->
+    <string name="grammar_lesson_elative_means">Glorify the name of your Lord, the Most High (sabbiḥi sma rabbika l-aʿlā)</string>
+    <string-array name="grammar_lesson_elative_spot">
+        <item>The pattern أَفۡعَل: ٱلۡأَعۡلَى “the Most High”, أَكۡبَر “greater”, أَعۡلَم “knows best”.</item>
+        <item>The feminine is فُعۡلَىٰ: ٱلۡكُبۡرَىٰ “the greatest”.</item>
+        <item>خَيۡر “better” and شَرّ “worse” are comparatives without the أَ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_elative_how">
+        <item>With مِنۡ it compares two things: خَيۡرٞ لَّكَ مِنَ ٱلۡأُولَىٰ “better for you than the first” (93:4).</item>
+        <item>With ال, or before a noun, it means “the most”: ٱلۡأَعۡلَى “the Most High”.</item>
+        <item>Said of Allah, it often has no “than” at all: ٱللَّهُ أَكۡبَرُ, greater than everything.</item>
+    </string-array>
+    <string name="grammar_lesson_elative_confused">أَفۡعَلَ is also verb form IV: أَنزَلَ “sent down”. A comparative is a noun: it takes ال or a case ending, and often مِنۡ.</string>
+
+    <!-- Nouns of place, time and intensity -->
+    <string name="grammar_lesson_place_time_intensive_means">until the rising of the dawn (ḥattā maṭlaʿi l-fajr)</string>
+    <string-array name="grammar_lesson_place_time_intensive_spot">
+        <item>مَفۡعَل or مَفۡعِل for where or when something happens: مَطۡلَع “the rising”, مَسۡجِد “place of prostration”.</item>
+        <item>فَعَّال, فَعُول or فَعِيل for someone who does something very much: غَفَّار, غَفُور “ever forgiving”.</item>
+    </string-array>
+    <string-array name="grammar_lesson_place_time_intensive_how">
+        <item>The مَـ pattern names the place or time of the action: طَلَعَ “rose”, مَطۡلَع “the place or time of rising”.</item>
+        <item>The intensive patterns say “very” or “again and again”: وَهَّاج “blazing” (78:13), خَبِير “fully aware”.</item>
+        <item>Many of Allah’s names use them: ٱلرَّحِيم, ٱلۡغَفُور, ٱلۡوَهَّاب.</item>
+    </string-array>
+    <string name="grammar_lesson_place_time_intensive_confused">The doer noun is on فَاعِل: غَافِر “forgiving”. غَفَّار and غَفُور say more: “forgiving again and again”.</string>
 </resources>

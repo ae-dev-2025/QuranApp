@@ -6,7 +6,7 @@ import com.quranapp.android.learning.concepts.ConceptIds
 import com.quranapp.android.learning.concepts.GrammarIds
 
 /**
- * The grammar lessons, added unit by unit (#64, #66–#69, #72–#73). Text is in
+ * The grammar lessons, one for each of the 70 grammar concepts. Text is in
  * res/values/learning_grammar_lessons.xml.
  *
  * Key examples come from Al-Fātiḥah and Juz ʿAmma where possible. GrammarLessonExamplesTest
@@ -358,6 +358,50 @@ object GrammarLessons {
             GrammarIds.HIDDEN_DOER, KeyExample(96, 2, 0..1, R.string.grammar_lesson_hidden_doer_means),
             R.array.grammar_lesson_hidden_doer_spot, R.array.grammar_lesson_hidden_doer_how,
             ConfusedWith(GrammarIds.DOER_IN_VERB, R.string.grammar_lesson_hidden_doer_confused),
+        ),
+
+        // ---- Unit 16 · Objects, ḥāl, tamyīz ----
+        grammar(
+            GrammarIds.ABSOLUTE_OBJECT, KeyExample(78, 28, 0..2, R.string.grammar_lesson_absolute_object_means),
+            R.array.grammar_lesson_absolute_object_spot, R.array.grammar_lesson_absolute_object_how,
+            ConfusedWith(GrammarIds.VERB_DOER_OBJECT, R.string.grammar_lesson_absolute_object_confused),
+        ),
+        grammar(
+            GrammarIds.OBJECT_OF_REASON, KeyExample(2, 19, 14..15, R.string.grammar_lesson_object_of_reason_means),
+            R.array.grammar_lesson_object_of_reason_spot, R.array.grammar_lesson_object_of_reason_how,
+            ConfusedWith(GrammarIds.ABSOLUTE_OBJECT, R.string.grammar_lesson_object_of_reason_confused),
+        ),
+        grammar(
+            GrammarIds.TIME_PLACE, KeyExample(99, 4, 0..1, R.string.grammar_lesson_time_place_means),
+            R.array.grammar_lesson_time_place_spot, R.array.grammar_lesson_time_place_how,
+            ConfusedWith(GrammarIds.PREPOSITION, R.string.grammar_lesson_time_place_confused),
+        ),
+        grammar(
+            GrammarIds.HAL, KeyExample(78, 8, 0..1, R.string.grammar_lesson_hal_means),
+            R.array.grammar_lesson_hal_spot, R.array.grammar_lesson_hal_how,
+            ConfusedWith(GrammarIds.ADJECTIVE, R.string.grammar_lesson_hal_confused),
+        ),
+        grammar(
+            GrammarIds.TAMYIZ, KeyExample(99, 7, 2..4, R.string.grammar_lesson_tamyiz_means),
+            R.array.grammar_lesson_tamyiz_spot, R.array.grammar_lesson_tamyiz_how,
+            ConfusedWith(GrammarIds.HAL, R.string.grammar_lesson_tamyiz_confused),
+        ),
+
+        // ---- Word shapes MASAQ names ----
+        grammar(
+            GrammarIds.DIPTOTE, KeyExample(87, 19, 0..1, R.string.grammar_lesson_diptote_means),
+            R.array.grammar_lesson_diptote_spot, R.array.grammar_lesson_diptote_how,
+            ConfusedWith(GrammarIds.CASES, R.string.grammar_lesson_diptote_confused),
+        ),
+        grammar(
+            GrammarIds.ELATIVE, KeyExample(87, 1, 0..3, R.string.grammar_lesson_elative_means),
+            R.array.grammar_lesson_elative_spot, R.array.grammar_lesson_elative_how,
+            ConfusedWith(GrammarIds.FORMS_2_4, R.string.grammar_lesson_elative_confused),
+        ),
+        grammar(
+            GrammarIds.PLACE_TIME_INTENSIVE, KeyExample(97, 5, 2..4, R.string.grammar_lesson_place_time_intensive_means),
+            R.array.grammar_lesson_place_time_intensive_spot, R.array.grammar_lesson_place_time_intensive_how,
+            ConfusedWith(GrammarIds.ACTIVE_PARTICIPLE, R.string.grammar_lesson_place_time_intensive_confused),
         ),
     )
 
