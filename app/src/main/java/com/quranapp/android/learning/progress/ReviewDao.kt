@@ -55,6 +55,12 @@ interface ReviewDao {
     @Insert
     suspend fun insertLogs(logs: List<ReviewLogEntity>)
 
+    @Query("DELETE FROM review_cards")
+    suspend fun deleteAllCards()
+
+    @Query("DELETE FROM review_log")
+    suspend fun deleteAllLogs()
+
     @Query("DELETE FROM review_cards WHERE item_id = :itemId")
     suspend fun deleteCard(itemId: String)
 }

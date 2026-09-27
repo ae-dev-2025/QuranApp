@@ -1,7 +1,9 @@
 package com.quranapp.android.learning.progress
 
 import com.quranapp.android.learning.concepts.ConceptCatalog
+import com.quranapp.android.learning.path.LearningPreferences
 import com.quranapp.android.learning.words.WordItems
+import kotlinx.coroutines.flow.first
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
@@ -18,6 +20,8 @@ data class LearningBackup(
     val known: List<KnownEntry> = emptyList(),
     val cards: List<CardEntry> = emptyList(),
     val log: List<LogEntry> = emptyList(),
+    /** Added after format 1 shipped; older files simply don't have it. */
+    val settings: LearningSettingsEntry? = null,
 ) {
     companion object {
         /** Raise when the layout changes; older apps then refuse files they can't read. */
@@ -42,6 +46,39 @@ data class CardEntry(
     val lapses: Int,
 )
 
+/**
+ * Where the learner started, their goal surah and new words a day. On import, the start and
+ * goal are only taken when this phone has none, so an import never moves someone's path.
+ */
+@Serializable
+data class LearningSettingsEntry(val start: Int = LearningPreferences.NOT_CHOSEN, val goal: Int = LearningPreferences.NO_GOAL, val newWordsPerDay: Int? = null) {
+    /** Values this version understands, or null for any that aren't. */
+    fun checked() = LearningSettingsEntry(
+        start = start.takeIf { it == LearningPreferences.NOT_CHOSEN || it in 0..6 } ?: LearningPreferences.NOT_CHOSEN,
+        goal = goal.takeIf { it in 0..114 } ?: LearningPreferences.NO_GOAL,
+        newWordsPerDay = newWordsPerDay?.takeIf { it in LearningPreferences.NEW_WORDS_CHOICES },
+    )
+
+    suspend fun apply() {
+        val valid = checked()
+        if (valid.start != LearningPreferences.NOT_CHOSEN && LearningPreferences.startStage().first() == LearningPreferences.NOT_CHOSEN) {
+            LearningPreferences.setStartStage(valid.start)
+        }
+        if (valid.goal != LearningPreferences.NO_GOAL && LearningPreferences.goalSurah().first() == LearningPreferences.NO_GOAL) {
+            LearningPreferences.setGoalSurah(valid.goal)
+        }
+        valid.newWordsPerDay?.let { LearningPreferences.setNewWordsPerDay(it) }
+    }
+
+    companion object {
+        suspend fun current() = LearningSettingsEntry(
+            start = LearningPreferences.startStage().first(),
+            goal = LearningPreferences.goalSurah().first(),
+            newWordsPerDay = LearningPreferences.newWordsPerDay().first(),
+        )
+    }
+}
+
 /** One answered review: see [ReviewLogEntity]. */
 @Serializable
 data class LogEntry(val id: String, val rating: String, val at: Long, val before: String? = null)
@@ -53,6 +90,7 @@ data class CheckedBackup(
     val log: List<ReviewLogEntity>,
     /** Entries that were left out because they were broken or unknown to this version. */
     val skipped: Int,
+    val settings: LearningSettingsEntry? = null,
 )
 
 /** Why a whole learning section was refused. */
@@ -132,6 +170,7 @@ object LearningBackups {
             cards = cards.groupBy { it.itemId }.values.map { same -> same.maxBy { it.lastReviewAt } },
             log = log.distinctBy { Triple(it.itemId, it.reviewedAt, it.rating) },
             skipped = skipped,
+            settings = backup.settings?.checked(),
         )
     }
 

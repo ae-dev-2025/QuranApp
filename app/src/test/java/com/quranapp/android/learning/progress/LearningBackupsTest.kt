@@ -45,6 +45,15 @@ class LearningBackupsTest {
     }
 
     @Test
+    fun settingsTheAppDoesNotKnowAreDropped() {
+        val settings = LearningSettingsEntry(start = 9, goal = 115, newWordsPerDay = 7).checked()
+        assertEquals(LearningSettingsEntry(start = -1, goal = 0, newWordsPerDay = null), settings)
+        assertEquals(LearningSettingsEntry(1, 18, 5), LearningSettingsEntry(1, 18, 5).checked())
+        // A file from before settings were exported has none.
+        assertEquals(null, checked(LearningBackup()).settings)
+    }
+
+    @Test
     fun onlyKnownItemsAreExported() {
         val learning = ConceptProgressEntity(ConceptIds.SHADDA, ConceptStatus.LEARNING, now)
         assertTrue(LearningBackups.of(listOf(learning), emptyList(), emptyList()).known.isEmpty())

@@ -335,4 +335,19 @@
     <string name="learning_new_word">New word</string>
     <string name="learning_new_word_hint">Read it and its meaning. Three quick questions follow.</string>
     <string name="learning_got_it">Got it</string>
+    <!-- Settings → Learning -->
+    <string name="learning_settings_title">Learning</string>
+    <string name="learning_settings_summary">New words a day, where you start, learning data</string>
+    <string name="learning_settings_new_words">New words a day</string>
+    <string name="learning_settings_new_words_text">Introduced in Today’s session, from your goal or your next unit. Reviews always come first.</string>
+    <string name="learning_settings_new_words_off">Off</string>
+    <string name="learning_settings_start">Where you start</string>
+    <string name="learning_settings_start_not_chosen">Not chosen yet</string>
+    <string name="learning_settings_reset">Reset learning progress</string>
+    <string name="learning_settings_reset_text">Forget what you know, your reviews, your start and your goal. The learning data stays downloaded.</string>
+    <string name="learning_settings_reset_confirm_title">Reset learning progress?</string>
+    <string name="learning_settings_reset_confirm_text">This can’t be undone. To keep a copy, export your learning progress first from Export &amp; Import.</string>
+    <string name="learning_settings_reset_done">Learning progress reset.</string>
+    <string name="learning_settings_keep">Keep</string>
+    <string name="learning_settings_reset_action">Reset</string>
 </resources>
