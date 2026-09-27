@@ -18,6 +18,25 @@
     <!-- Words tab. %1$d known words, %2$d words, %3$d percent: "You know 3 of 4 words (75%)." -->
     <string name="learning_words_you_know">You know %1$d of %2$d words (%3$d%%).</string>
     <string name="learning_words_all_known">You know every word of this ayah.</string>
+    <!-- Root page. %1$s: the root's letters, such as "ع ب د" -->
+    <string name="learning_root_title">Root %1$s</string>
+    <string name="learning_root_label">Root</string>
+    <string name="learning_open_root">open the root’s page</string>
+    <plurals name="learning_root_lemma_count">
+        <item quantity="one">%d word from this root</item>
+        <item quantity="other">%d words from this root</item>
+    </plurals>
+    <!-- What kind of word a dictionary word is. %1$s: a verb form such as "X" -->
+    <string name="learning_pos_verb">Verb</string>
+    <string name="learning_pos_verb_form">Verb, form %1$s</string>
+    <string name="learning_pos_noun">Noun</string>
+    <string name="learning_pos_adjective">Adjective</string>
+    <string name="learning_pos_name">Name</string>
+    <string name="learning_pos_time">Word of time</string>
+    <string name="learning_pos_place">Word of place</string>
+    <string name="learning_pos_pronoun">Pronoun</string>
+    <string name="learning_pos_particle">Particle</string>
+
     <!-- Word-by-word popup in the reader -->
     <string name="learning_learn_this_word">Learn this word</string>
     <string name="learning_word_in_this_ayah">Here</string>

@@ -1,6 +1,7 @@
 package com.quranapp.android.learning.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -135,13 +136,20 @@ private fun LemmaRow(lemma: WordLemma) {
                 Text(lemma.lemma.headword, fontFamily = arabicFont, style = typography.titleLarge)
             }
             lemma.root?.let { root ->
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Row(
+                    modifier = Modifier.clickable(onClickLabel = stringResource(R.string.learning_open_root)) {
+                        context.startActivity(ActivityRoot.intent(context, root.rootKey))
+                    },
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
                     Text(
                         text = stringResource(R.string.learning_word_root),
                         style = typography.bodyMedium,
                         color = colorScheme.onSurfaceVariant,
                     )
                     Text(root.letters, fontFamily = arabicFont, style = typography.titleMedium, color = colorScheme.primary)
+                    OpenChevron()
                 }
             }
             Text(
