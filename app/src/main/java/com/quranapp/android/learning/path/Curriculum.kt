@@ -50,7 +50,7 @@ object Curriculum {
     val WHOLE_QURAN = (1..114).toList()
 
     /**
-     * Stage 0's goal: the 29 letters, then the vowel marks and the heavy letters. Knowing the
+     * Stage 0's goal: the 29 letters, then the vowel marks, where letters are made and the heavy letters. Knowing the
      * letters also completes the "Arabic letters" concept, which other concepts build on.
      */
     val BASICS = Letters.all.map { it.id } + listOf(
@@ -59,6 +59,11 @@ object Curriculum {
         ConceptIds.SHADDA,
         ConceptIds.TANWEEN,
         ConceptIds.LONG_VOWELS,
+        ConceptIds.MAKHRAJ_THROAT,
+        ConceptIds.MAKHRAJ_TONGUE,
+        ConceptIds.MAKHRAJ_LIPS,
+        ConceptIds.MAKHRAJ_JAWF,
+        ConceptIds.MAKHRAJ_NOSE,
         ConceptIds.HEAVY_LETTERS,
     )
 

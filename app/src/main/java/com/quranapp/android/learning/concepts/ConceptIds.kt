@@ -23,6 +23,13 @@ object ConceptIds {
     const val STOP_SIGNS = "reading.stop_signs"
     const val SAJDAH = "reading.sajdah"
 
+    // Tajweed: where letters are made (makhārij)
+    const val MAKHRAJ_JAWF = "tajweed.makhraj_jawf"
+    const val MAKHRAJ_THROAT = "tajweed.makhraj_throat"
+    const val MAKHRAJ_TONGUE = "tajweed.makhraj_tongue"
+    const val MAKHRAJ_LIPS = "tajweed.makhraj_lips"
+    const val MAKHRAJ_NOSE = "tajweed.makhraj_nose"
+
     // Tajweed
     const val HEAVY_LETTERS = "tajweed.heavy_letters"
     const val LAM_SHAMSIYYA = "tajweed.lam_shamsiyya"

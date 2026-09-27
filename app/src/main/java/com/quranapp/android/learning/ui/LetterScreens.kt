@@ -54,6 +54,7 @@ import com.quranapp.android.compose.components.common.AppBar
 import com.quranapp.android.compose.theme.QuranAppTheme
 import com.quranapp.android.compose.theme.alpha
 import com.quranapp.android.db.DatabaseProvider
+import com.quranapp.android.learning.concepts.ConceptCatalog
 import com.quranapp.android.learning.concepts.ConceptIds
 import com.quranapp.android.learning.examples.AyahWords
 import com.quranapp.android.learning.letters.Letter
@@ -246,6 +247,16 @@ private fun LetterScreen(letter: Letter) {
                     }
                     if (!letter.joinsNext && letter.id != "letter.hamza") {
                         Text(stringResource(R.string.learning_letter_no_join), style = typography.bodySmall, color = colorScheme.onSurfaceVariant)
+                    }
+                }
+            }
+            item {
+                LearnCard(label = stringResource(R.string.learning_letter_place)) {
+                    Text(stringResource(letter.placeRes), style = typography.bodyLarge)
+                    ConceptCatalog[letter.place.conceptId]?.let { concept ->
+                        ConceptChip(concept, isKnown = known?.contains(concept.id) == true) {
+                            context.startActivity(ActivityConcept.intent(context, concept.id))
+                        }
                     }
                 }
             }

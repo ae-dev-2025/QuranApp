@@ -207,6 +207,39 @@ object LessonCatalog {
             confusedWith = ConfusedWith(ConceptIds.IQLAB, R.string.lesson_ikhfa_shafawi_confused),
         ),
 
+        // ---- Tajweed: where letters are made ----
+        Lesson(
+            conceptId = ConceptIds.MAKHRAJ_JAWF,
+            keyExample = KeyExample(1, 2, 3..3, R.string.lesson_makhraj_jawf_say, R.string.lesson_makhraj_jawf_not_say),
+            spotIt = R.array.lesson_makhraj_jawf_spot,
+            sayIt = R.array.lesson_makhraj_jawf_how,
+        ),
+        Lesson(
+            conceptId = ConceptIds.MAKHRAJ_THROAT,
+            keyExample = KeyExample(1, 2, 0..0, R.string.lesson_makhraj_throat_say, R.string.lesson_makhraj_throat_not_say),
+            spotIt = R.array.lesson_makhraj_throat_spot,
+            sayIt = R.array.lesson_makhraj_throat_how,
+        ),
+        Lesson(
+            conceptId = ConceptIds.MAKHRAJ_TONGUE,
+            keyExample = KeyExample(112, 1, 0..0, R.string.lesson_makhraj_tongue_say, R.string.lesson_makhraj_tongue_not_say),
+            spotIt = R.array.lesson_makhraj_tongue_spot,
+            sayIt = R.array.lesson_makhraj_tongue_how,
+        ),
+        Lesson(
+            conceptId = ConceptIds.MAKHRAJ_LIPS,
+            keyExample = KeyExample(1, 1, 0..0, R.string.lesson_makhraj_lips_say),
+            spotIt = R.array.lesson_makhraj_lips_spot,
+            sayIt = R.array.lesson_makhraj_lips_how,
+        ),
+        Lesson(
+            conceptId = ConceptIds.MAKHRAJ_NOSE,
+            keyExample = KeyExample(78, 1, 0..0, R.string.lesson_makhraj_nose_say, R.string.lesson_makhraj_nose_not_say),
+            spotIt = R.array.lesson_makhraj_nose_spot,
+            sayIt = R.array.lesson_makhraj_nose_how,
+            confusedWith = ConfusedWith(ConceptIds.GHUNNAH, R.string.lesson_makhraj_nose_confused),
+        ),
+
         // ---- Tajweed: letters and lām ----
         Lesson(
             conceptId = ConceptIds.HEAVY_LETTERS,
