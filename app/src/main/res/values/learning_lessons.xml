@@ -458,6 +458,7 @@
     <string-array name="lesson_lam_shamsiyya_spot">
         <item>After ال the lām has no mark, and the next letter has a shadda: ٱلرَّ.</item>
         <item>The 14 sun letters: ت ث د ذ ر ز س ش ص ض ط ظ ل ن.</item>
+        <item>Only the sound changes: the lām is still written, and the word is just as definite as with a moon letter.</item>
     </string-array>
     <string-array name="lesson_lam_shamsiyya_how">
         <item>Don’t say the lām.</item>

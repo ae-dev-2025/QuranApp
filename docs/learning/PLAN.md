@@ -61,6 +61,9 @@ runs on the Uthmani text and its results are shown on any script by word positio
   learner's own Export/Import file, which is validated on import.
 - The pipeline is reproducible: the same inputs give the same pack.
 - Lessons and analysis are flagged for a qualified teacher's review.
+- Arabic review reference: [ILMHUB.org](https://www.ilmhub.org) (Ustadh Muhammad Arjan Ali). Grammar terms,
+  definitions and examples (M8, M9) are checked against its Grammar Guide, written in our own words. It has no
+  tajweed pages, so letter, makhārij, ṣifāt and tajweed texts still need a qualified teacher.
 
 ---
 

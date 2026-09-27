@@ -17,6 +17,7 @@ import com.quranapp.android.learning.practice.QuestionFactory
 import com.quranapp.android.learning.practice.ReviewScheduler
 import com.quranapp.android.learning.practice.WordIntroduction
 import com.quranapp.android.learning.progress.ReviewRating
+import com.quranapp.android.learning.letters.LetterFinder
 import com.quranapp.android.learning.pack.LemmaEntity
 import com.quranapp.android.learning.pack.WordLocation
 import com.quranapp.android.learning.words.WordForms
@@ -157,6 +158,16 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
         } ?: places.firstOrNull()
     }
 
+    /** Al-Fātiḥah and Juz ʿAmma, loaded once per session for the letters' listening questions. */
+    private var shortSurahs: List<AyahWords>? = null
+
+    private suspend fun shortSurahs(quran: QuranRepository): List<AyahWords> = shortSurahs ?: (listOf(1) + (114 downTo 78))
+        .flatMap { surah ->
+            quran.getWordsForSurah(surah, QuranScriptUtils.SCRIPT_UTHMANI)
+                .map { (ayahId, ayahWords) -> AyahWords(surah, ayahId % 1000, ayahWords.map { it.text }) }
+        }
+        .also { shortSurahs = it }
+
     private suspend fun factory(): QuestionFactory {
         val context = getApplication<Application>()
         val quran = DatabaseProvider.getQuranRepository(context)
@@ -169,6 +180,7 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
             lemmaWithPool = { key -> words?.lemma(key)?.let { it to words.questionPool(it) } },
             ayahsWithConcept = { conceptId, limit -> finder.find(conceptId, limit).map { it.ayah } },
             firstPlace = { lemma -> placeToHear(lemma, words, quran) },
+            letterExample = { letter -> LetterFinder.exampleOf(letter, shortSurahs(quran)) },
         )
     }
 }

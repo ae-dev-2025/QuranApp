@@ -2,6 +2,9 @@ package com.quranapp.android.learning.practice
 
 import com.quranapp.android.learning.concepts.ConceptCatalog
 import com.quranapp.android.learning.examples.AyahWords
+import com.quranapp.android.learning.letters.Letter
+import com.quranapp.android.learning.letters.LetterExample
+import com.quranapp.android.learning.letters.Letters
 import com.quranapp.android.learning.pack.LemmaEntity
 import com.quranapp.android.learning.pack.WordLocation
 import com.quranapp.android.learning.words.WordItems
@@ -19,14 +22,18 @@ class QuestionFactory(
     private val random: Random = Random.Default,
     /** Where to hear a dictionary word, for "Hear it" on its introduction. */
     private val firstPlace: suspend (lemma: LemmaEntity) -> WordLocation? = { null },
+    /** A word where a letter is heard first, for the listening question. */
+    private val letterExample: suspend (Letter) -> LetterExample? = { null },
 ) {
     /** Up to [count] questions about [itemId]; fewer (or none) if fair ones can't be made. */
     suspend fun questionsFor(itemId: String, count: Int): List<Question> {
         val lemmaKey = WordItems.lemmaKeyOf(itemId)
+        val letter = Letters[itemId]
         return when {
             lemmaKey != null -> wordQuestions(lemmaKey, count)
+            letter != null -> letterQuestions(letter, count)
             ConceptCatalog[itemId] != null -> conceptQuestions(itemId, count)
-            else -> emptyList() // letters and grammar get their questions in later milestones
+            else -> emptyList() // grammar gets its questions in a later milestone
         }
     }
 
@@ -48,6 +55,22 @@ class QuestionFactory(
                 WordQuestions.wordForMeaning(lemma, pool, random)
             }
         }
+    }
+
+    /** The kinds take turns, starting from a random one, so reviews don't always ask the same. */
+    private suspend fun letterQuestions(letter: Letter, count: Int): List<Question> {
+        val example = letterExample(letter)
+        val makers: List<() -> Question?> = listOf(
+            { LetterQuestions.nameOfLetter(letter, random) },
+            { LetterQuestions.letterForName(letter, random) },
+            { LetterQuestions.shape(letter, ShapePosition.entries.random(random), random) },
+            { LetterQuestions.firstLetterOfWord(letter, example, random) },
+        )
+        val start = random.nextInt(makers.size)
+        return makers.indices.asSequence()
+            .mapNotNull { makers[(start + it) % makers.size]() }
+            .take(count)
+            .toList()
     }
 
     private suspend fun conceptQuestions(conceptId: String, count: Int): List<Question> {

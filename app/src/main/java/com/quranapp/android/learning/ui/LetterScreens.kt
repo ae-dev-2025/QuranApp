@@ -294,6 +294,7 @@ private fun LetterScreen(letter: Letter) {
                         modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
                     ) { Text(stringResource(if (isKnown) R.string.learning_letter_known else R.string.learning_letter_i_know)) }
                 }
+                item { CheckYourselfButton(letter.id) }
             }
         }
     }

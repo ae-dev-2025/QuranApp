@@ -458,4 +458,12 @@
     <string name="learning_sifa_lengthening">lengthening</string>
     <string name="learning_sifa_bouncing">bouncing (qalqalah)</string>
     <string name="learning_letter_qualities">Its qualities</string>
+    <!-- Letter questions -->
+    <string name="learning_q_letter_name">Which letter is this?</string>
+    <!-- %1$s: a letter's name, such as "bāʾ" -->
+    <string name="learning_q_letter_for_name">Which letter is %1$s?</string>
+    <!-- %1$s: a letter's name, %2$s: "start", "middle" or "end" -->
+    <string name="learning_q_letter_shape">Which is %1$s at the %2$s of a word?</string>
+    <string name="learning_q_letter_first">Listen: which letter does this word start with?</string>
+    <string name="learning_q_show_word">Show the word</string>
 </resources>
