@@ -134,6 +134,7 @@ private fun LemmaRow(lemma: WordLemma) {
                     color = colorScheme.onSurfaceVariant,
                 )
                 Text(lemma.lemma.headword, fontFamily = arabicFont, style = typography.titleLarge)
+                lemma.lemma.gloss?.let { Text(it, style = typography.bodyMedium, modifier = Modifier.weight(1f, fill = false)) }
             }
             lemma.root?.let { root ->
                 Row(

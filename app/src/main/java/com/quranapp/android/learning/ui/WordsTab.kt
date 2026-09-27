@@ -192,7 +192,10 @@ internal fun WordRow(
                 }
             }
             Text(
-                text = pluralStringResource(R.plurals.learning_words_times, lemma.occurrences, lemma.occurrences),
+                text = listOfNotNull(
+                    lemma.gloss,
+                    pluralStringResource(R.plurals.learning_words_times, lemma.occurrences, lemma.occurrences),
+                ).joinToString(" · "),
                 style = typography.labelSmall,
                 color = colorScheme.onSurfaceVariant,
             )

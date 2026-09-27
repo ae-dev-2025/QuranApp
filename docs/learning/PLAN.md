@@ -91,7 +91,10 @@ PR numbers are planned; the list is updated as PRs open.
 | 29 | Word popup: "Learn this word" |
 | 30 | Root page |
 | 31 | Word examples in the Quran |
-| 32–35 | English glosses for lemmas, most frequent first |
+| 32 | Pipeline: English meanings for lemmas, from MASAQ's word glosses |
+| 33 | Pipeline: checked meanings for the most frequent words |
+| 34 | Pipeline: cleaner headwords; lemmas for bare pronouns |
+| 35 | Pack v2 in the app, with meanings on screen |
 
 **M5 · Practice and review**
 
