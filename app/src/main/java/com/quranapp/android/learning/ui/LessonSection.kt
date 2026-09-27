@@ -46,8 +46,8 @@ import com.quranapp.android.utils.reader.QuranScriptUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-/** The key example's Arabic words and surah name, loaded from the database. */
-private data class LoadedExample(val arabic: String, val surahName: String)
+/** The key example's Arabic words (and the whole ayah's, by index) and surah name, loaded from the database. */
+private data class LoadedExample(val arabic: String, val surahName: String, val ayahWords: List<String>)
 
 /**
  * The big example at the top of a lesson: the Arabic, how it sounds (or, for grammar, what it
@@ -65,11 +65,14 @@ fun KeyExampleCard(example: KeyExample, isGrammar: Boolean = false) {
                 surahName = repository.getSurahWithLocalizations(example.surahNo)
                     ?.getCurrentName()
                     .orEmpty(),
+                ayahWords = repository.getWordsForAyahById(example.surahNo * 1000 + example.ayahNo, QuranScriptUtils.SCRIPT_UTHMANI)
+                    .map { it.text },
             )
         }
     }
 
     val arabicFont = remember { FontFamily(Font(R.font.uthmanic_hafs)) }
+    val script = rememberScriptAyah(example.surahNo, example.ayahNo)
     val youSayLabel = stringResource(if (isGrammar) R.string.learning_it_means else R.string.learning_you_say)
     val notLabel = stringResource(R.string.learning_not)
     val youSay = stringResource(example.youSay)
@@ -88,12 +91,17 @@ fun KeyExampleCard(example: KeyExample, isGrammar: Boolean = false) {
     ) {
         val current = loaded ?: return@Column
 
-        Text(
-            text = current.arabic,
-            fontFamily = arabicFont,
-            style = typography.displaySmall,
-            textAlign = TextAlign.Center,
-        )
+        if (script == null) {
+            Text(
+                text = current.arabic,
+                fontFamily = arabicFont,
+                style = typography.displaySmall,
+                textAlign = TextAlign.Center,
+            )
+        } else {
+            val color = colorScheme.onSurface
+            LearningWords(script, current.ayahWords, example.wordIndexes, arabicFont, typography.displaySmall, color = { color })
+        }
         Text(
             text = buildAnnotatedString {
                 append("$youSayLabel ")

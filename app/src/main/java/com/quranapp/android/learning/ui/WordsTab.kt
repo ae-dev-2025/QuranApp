@@ -15,6 +15,7 @@ import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Text
@@ -81,6 +82,7 @@ internal fun InterlinearAyah(
     words: List<AyahWord>,
     knownItemIds: Set<String>,
     arabicFont: FontFamily,
+    script: ScriptAyah? = null,
 ) {
     val byIndex = words.associateBy { it.wordIndex }
     val dotted = colorScheme.error
@@ -99,10 +101,13 @@ internal fun InterlinearAyah(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.widthIn(max = 120.dp),
                 ) {
-                    Text(
+                    LearningWord(
+                        script = script,
+                        index = index,
                         text = text,
-                        fontFamily = arabicFont,
+                        arabicFont = arabicFont,
                         style = typography.titleLarge,
+                        color = LocalContentColor.current,
                         modifier = if (isNew) Modifier.dottedUnderline(dotted) else Modifier,
                     )
                     val gloss = word?.gloss

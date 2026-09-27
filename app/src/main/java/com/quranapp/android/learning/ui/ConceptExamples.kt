@@ -212,12 +212,31 @@ private fun ExampleCard(item: ExampleItem, arabicFont: FontFamily, onOpen: () ->
                 color = colorScheme.primary,
             )
         }
-        // Arabic text is detected as right-to-left, so it lines up on the right.
-        Text(
-            text = text,
-            fontFamily = arabicFont,
-            style = typography.titleLarge,
-            modifier = Modifier.fillMaxWidth(),
-        )
+        val script = rememberScriptAyah(ayah.surahNo, ayah.ayahNo)
+        if (script == null) {
+            // Arabic text is detected as right-to-left, so it lines up on the right.
+            Text(
+                text = text,
+                fontFamily = arabicFont,
+                style = typography.titleLarge,
+                modifier = Modifier.fillMaxWidth(),
+            )
+        } else {
+            // In the reader's script, word by word, with the same words highlighted.
+            val highlighted = item.example.highlightedWordIndexes
+            val primary = colorScheme.primary
+            val plain = colorScheme.onSurface
+            val background = primary.alpha(0.12f)
+            LearningWords(
+                script = script,
+                words = ayah.words,
+                indexes = ayah.words.indices,
+                arabicFont = arabicFont,
+                style = typography.titleLarge,
+                color = { if (it in highlighted) primary else plain },
+                modifier = Modifier.fillMaxWidth(),
+                wordModifier = { if (it in highlighted) Modifier.background(background) else Modifier },
+            )
+        }
     }
 }
