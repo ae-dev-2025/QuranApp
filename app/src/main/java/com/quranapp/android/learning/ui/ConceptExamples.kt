@@ -46,6 +46,7 @@ import com.quranapp.android.learning.examples.AyahWords
 import com.quranapp.android.learning.examples.ConceptExample
 import com.quranapp.android.learning.examples.ConceptExampleFinder
 import com.quranapp.android.learning.examples.GrammarExampleFinder
+import com.quranapp.android.learning.words.GrammarIndex
 import com.quranapp.android.learning.words.WordRepository
 import com.quranapp.android.utils.reader.QuranScriptUtils
 import com.quranapp.android.utils.reader.factory.ReaderFactory
@@ -78,6 +79,8 @@ fun ConceptExamplesSection(conceptId: String) {
         GrammarExampleFinder(
             grammarOfSurah = { surahNo -> WordRepository.open(context)?.grammarByAyahOfSurah(surahNo) },
             loadAyah = { ayahId -> repository.getWordsForAyahById(ayahId, QuranScriptUtils.SCRIPT_UTHMANI).map { it.text } },
+            ayahsWith = { GrammarIndex.get(context)?.ayahsOf(it) },
+            grammarOfAyah = { ayahId -> WordRepository.open(context)?.grammarOfAyah(ayahId) },
         )
     }
     val isGrammar = ConceptCatalog[conceptId]?.track == Track.GRAMMAR

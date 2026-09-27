@@ -4,6 +4,7 @@ import android.content.Context
 import com.quranapp.android.db.DatabaseProvider
 import com.quranapp.android.learning.analysis.ConceptIndex
 import com.quranapp.android.learning.concepts.Concept
+import com.quranapp.android.learning.words.GrammarIndex
 import com.quranapp.android.learning.words.WordRepository
 import com.quranapp.android.repository.QuranRepository
 import com.quranapp.android.utils.reader.QuranScriptUtils
@@ -13,12 +14,14 @@ import kotlinx.coroutines.sync.withLock
 /**
  * Loads what each surah needs, once per app run: the Quran text never changes, and the
  * words only change when the learning pack is downloaded or deleted. A surah's reading and
- * recitation concepts come from the shipped [ConceptIndex], so no ayah has to be analysed.
+ * recitation concepts come from the shipped [ConceptIndex], and its grammar from the
+ * [GrammarIndex] once that's made, so no ayah has to be analysed.
  */
 class PathRepository(
     private val quran: QuranRepository,
     private val openWords: suspend () -> WordRepository?,
     private val index: suspend () -> ConceptIndex? = { null },
+    private val grammarIndex: suspend () -> ConceptIndex? = { null },
 ) {
     private val mutex = Mutex()
     private val concepts = HashMap<Int, List<Concept>>()
@@ -42,7 +45,9 @@ class PathRepository(
             grammar.clear()
             return null
         }
-        return grammar.getOrPut(surahNo) { SurahNeeds.grammarOf(repository.grammarOfSurah(surahNo)) }
+        return grammar.getOrPut(surahNo) {
+            SurahNeeds.grammarOf(grammarIndex()?.conceptsOf(surahNo) ?: repository.grammarOfSurah(surahNo))
+        }
     }
 
     /** Just a surah's words, without analysing its text; null without the pack. */
@@ -70,6 +75,7 @@ class PathRepository(
                     quran = DatabaseProvider.getQuranRepository(app),
                     openWords = { WordRepository.open(app) },
                     index = { ConceptIndex.get(app) },
+                    grammarIndex = { GrammarIndex.get(app) },
                 ).also { instance = it }
             }
         }

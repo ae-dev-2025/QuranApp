@@ -23,6 +23,7 @@ import com.quranapp.android.learning.letters.LetterFinder
 import com.quranapp.android.learning.pack.LemmaEntity
 import com.quranapp.android.learning.pack.WordLocation
 import com.quranapp.android.learning.words.WordForms
+import com.quranapp.android.learning.words.GrammarIndex
 import com.quranapp.android.learning.words.WordRepository
 import com.quranapp.android.repository.QuranRepository
 import com.quranapp.android.utils.reader.QuranScriptUtils
@@ -181,6 +182,8 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
         val grammarFinder = GrammarExampleFinder(
             grammarOfSurah = { surahNo -> words?.grammarByAyahOfSurah(surahNo) },
             loadAyah = { ayahId -> quran.getWordsForAyahById(ayahId, QuranScriptUtils.SCRIPT_UTHMANI).map { it.text } },
+            ayahsWith = { GrammarIndex.get(context)?.ayahsOf(it) },
+            grammarOfAyah = { ayahId -> words?.grammarOfAyah(ayahId) },
         )
         return QuestionFactory(
             lemmaWithPool = { key -> words?.lemma(key)?.let { it to words.questionPool(it) } },
