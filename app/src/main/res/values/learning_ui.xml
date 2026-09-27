@@ -170,4 +170,19 @@
     <string name="learning_start_from_ayah">Start from an ayah</string>
     <string name="learning_start_from_ayah_text">Open any ayah’s menu and choose Understand. It shows the letters, rules and words that ayah needs, and which of them you already know.</string>
     <string name="learning_open_quran">Open the Quran</string>
+    <!-- Settings → Export/Import: learning progress ("Keep it") -->
+    <string name="learning_backup_title">Import/Export Learning Progress</string>
+    <string name="learning_backup_text">What you know and when each item is due for review. Importing adds to the progress on this phone. Nothing is removed.</string>
+    <!-- Shown in a toast, which Android cuts after two lines: keep these short. -->
+    <plurals name="learning_backup_imported">
+        <item quantity="one">Imported %d learning item.</item>
+        <item quantity="other">Imported %d learning items.</item>
+    </plurals>
+    <plurals name="learning_backup_skipped">
+        <item quantity="one">Skipped %d unusable entry.</item>
+        <item quantity="other">Skipped %d unusable entries.</item>
+    </plurals>
+    <string name="learning_backup_missing">This file has no learning progress.</string>
+    <string name="learning_backup_newer">Made by a newer app version. Update the app to import it.</string>
+    <string name="learning_backup_invalid">Couldn’t read the learning progress. Nothing was changed.</string>
 </resources>

@@ -44,7 +44,8 @@ fun ExportImportScreen(
             ExportImportCard(
                 mapOf(
                     ExportKeys.SETTINGS to true,
-                    ExportKeys.BOOKMARKS to true
+                    ExportKeys.BOOKMARKS to true,
+                    ExportKeys.LEARNING to true,
                 ),
                 R.string.labelImportExportEverything,
                 R.string.warnImportSettings,
@@ -66,6 +67,15 @@ fun ExportImportScreen(
                 ),
                 R.string.labelImportExportBookmarks,
                 R.string.msgExportImportBookmarks,
+                importCallback,
+                exportCallback,
+            )
+            ExportImportCard(
+                mapOf(
+                    ExportKeys.LEARNING to true
+                ),
+                R.string.learning_backup_title,
+                R.string.learning_backup_text,
                 importCallback,
                 exportCallback,
             )

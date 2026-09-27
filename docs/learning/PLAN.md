@@ -168,4 +168,4 @@ PR numbers are planned; the list is updated as PRs open.
 | 81 | Dark theme and right-to-left fixes |
 | 82 | Accessibility |
 | 83 | Speed: caching |
-| 84 | Security and licence review |
+| 84 | Security and licence review, including: Export/Import crashes on a file that isn't JSON (found in #43; the parse in `ActivityExportImport.importData` isn't caught) |

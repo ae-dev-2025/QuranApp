@@ -29,18 +29,23 @@ import com.quranapp.android.compose.utils.preferences.AppPreferences
 import com.quranapp.android.compose.utils.preferences.ReaderPreferences
 import com.quranapp.android.compose.utils.preferences.RecitationPreferences
 import com.quranapp.android.db.DatabaseProvider
+import com.quranapp.android.learning.progress.BackupRefusedException
+import com.quranapp.android.learning.progress.LearningBackupRepository
+import com.quranapp.android.learning.progress.LearningBackups
 import com.quranapp.android.utils.Log
 import com.quranapp.android.utils.Logger
 import com.quranapp.android.utils.app.ResourceDownloadProxy
 import com.quranapp.android.utils.reader.QuranScriptVariant
 import com.quranapp.android.utils.sharedPrefs.SPAppConfigs
 import com.quranapp.android.utils.univ.MessageUtils
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonObject
@@ -52,6 +57,7 @@ import java.io.InputStreamReader
 
 class ActivityExportImport : BaseActivity() {
     private val userRepository = DatabaseProvider.getUserRepository(this)
+    private val learningBackups by lazy { LearningBackupRepository(DatabaseProvider.getUserDatabase(this)) }
     private val exportLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -166,6 +172,51 @@ class ActivityExportImport : BaseActivity() {
             jsonObject.safeJsonObject(ExportKeys.SETTINGS)?.let { settings ->
                 importSettings(settings)
             }
+        }
+
+        if (scopes.get(ExportKeys.LEARNING) == true) {
+            importLearning(jsonObject[ExportKeys.LEARNING])
+        }
+    }
+
+    /**
+     * Checks the learning section entry by entry, adds it to this phone's progress, and says
+     * what happened: unlike settings, nothing restarts to show that it worked.
+     */
+    private suspend fun importLearning(section: JsonElement?) {
+        val message = if (section == null) {
+            getString(R.string.learning_backup_missing)
+        } else {
+            try {
+                val checked = LearningBackups.check(LearningBackups.fromJson(section), System.currentTimeMillis())
+                val result = learningBackups.import(checked)
+                buildString {
+                    append(resources.getQuantityString(R.plurals.learning_backup_imported, result.items, result.items))
+                    if (result.skipped > 0) {
+                        append(' ')
+                        append(resources.getQuantityString(R.plurals.learning_backup_skipped, result.skipped, result.skipped))
+                    }
+                }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: BackupRefusedException) {
+                importFailuresMap[ExportKeys.LEARNING] = e.reason.name
+                getString(
+                    if (e.reason == BackupRefusedException.Reason.NEWER_FORMAT) {
+                        R.string.learning_backup_newer
+                    } else {
+                        R.string.learning_backup_invalid
+                    }
+                )
+            } catch (e: Exception) {
+                // Not shaped like a backup: a hand-edited or damaged file.
+                importFailuresMap[ExportKeys.LEARNING] = e.message ?: "Unknown error"
+                getString(R.string.learning_backup_invalid)
+            }
+        }
+
+        withContext(Dispatchers.Main) {
+            Toast.makeText(this@ActivityExportImport, message, Toast.LENGTH_LONG).show()
         }
     }
 
@@ -301,6 +352,11 @@ class ActivityExportImport : BaseActivity() {
             obj.put(ExportKeys.SETTINGS, settings)
         }
 
+        // learning progress
+        if (scopes.get(ExportKeys.LEARNING) == true) {
+            obj.put(ExportKeys.LEARNING, JSONObject(LearningBackups.toJson(learningBackups.export())))
+        }
+
         // version
         obj.put(ExportKeys.VERSION, 1)
 
@@ -404,6 +460,7 @@ class ExportKeys {
         const val VERSION = "version"
         const val BOOKMARKS = "bookmarks"
         const val SETTINGS = "settings"
+        const val LEARNING = "learning"
 
         // item keys
         const val LOCALE = "config.lang"
