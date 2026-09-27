@@ -123,13 +123,14 @@
     <string name="learning_practice_title">Practice</string>
     <!-- %1$d: this question's number, %2$d: how many questions -->
     <string name="learning_practice_progress">Question %1$d of %2$d</string>
-    <string name="learning_practice_empty">There aren’t enough examples to make fair questions about this yet. Word questions need the learning data from Settings.</string>
+    <string name="learning_practice_empty">There aren’t enough examples to make fair questions about this yet. Word and grammar questions need the learning data from Settings.</string>
     <string name="learning_q_meaning">What does this word mean?</string>
     <!-- %1$s: an English meaning, such as "worship" -->
     <string name="learning_q_word_for">Which word means “%1$s”?</string>
     <!-- %1$s: the name of a rule or mark, such as "Ikhfa" -->
     <string name="learning_q_tap">Tap a word with: %1$s</string>
     <string name="learning_q_rule">Which rule is on the highlighted word?</string>
+    <string name="learning_q_grammar">What does the highlighted word show?</string>
     <string name="learning_right">Right</string>
     <string name="learning_not_quite">Not quite. The right answer is marked.</string>
     <string name="learning_continue">Continue</string>

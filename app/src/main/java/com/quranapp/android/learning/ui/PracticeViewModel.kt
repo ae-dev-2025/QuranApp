@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.quranapp.android.db.DatabaseProvider
 import com.quranapp.android.learning.examples.AyahWords
 import com.quranapp.android.learning.examples.ConceptExampleFinder
+import com.quranapp.android.learning.examples.GrammarExampleFinder
 import com.quranapp.android.learning.practice.ItemResult
 import com.quranapp.android.learning.practice.PracticeItem
 import com.quranapp.android.learning.practice.PracticeSession
@@ -176,11 +177,16 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
             quran.getWordsForSurah(surahNo, QuranScriptUtils.SCRIPT_UTHMANI)
                 .map { (ayahId, ayahWords) -> AyahWords(surahNo, ayahId % 1000, ayahWords.map { it.text }) }
         }
+        val grammarFinder = GrammarExampleFinder(
+            grammarOfSurah = { surahNo -> words?.grammarByAyahOfSurah(surahNo) },
+            loadAyah = { ayahId -> quran.getWordsForAyahById(ayahId, QuranScriptUtils.SCRIPT_UTHMANI).map { it.text } },
+        )
         return QuestionFactory(
             lemmaWithPool = { key -> words?.lemma(key)?.let { it to words.questionPool(it) } },
             ayahsWithConcept = { conceptId, limit -> finder.find(conceptId, limit).map { it.ayah } },
             firstPlace = { lemma -> placeToHear(lemma, words, quran) },
             letterExample = { letter -> LetterFinder.exampleOf(letter, shortSurahs(quran)) },
+            grammarAyahs = grammarFinder::ayahs,
         )
     }
 }

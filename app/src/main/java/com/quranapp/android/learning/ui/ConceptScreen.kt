@@ -151,8 +151,7 @@ fun ConceptScreen(concept: Concept) {
                 )
             }
 
-            // Grammar questions come with the sentence roles (milestone 9).
-            if (concept.track != Track.GRAMMAR) item { CheckYourselfButton(concept.id) }
+            item { CheckYourselfButton(concept.id) }
 
             // An umbrella concept already lists what it unlocks: its rules, above.
             if (unlocks.isNotEmpty() && !isUmbrella) {
