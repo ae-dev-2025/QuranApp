@@ -49,7 +49,8 @@ object ConceptQuestions {
 
     /**
      * Null when there aren't at least two wrong options. A rule that also applies to the
-     * highlighted word is never offered as a wrong option.
+     * highlighted word is never offered as a wrong option, and neither is anything such a
+     * rule builds on: a dagger alif is also a long vowel.
      */
     fun ruleOnWord(conceptId: String, ayah: AyahWords, random: Random): RuleQuestion? {
         val words = withoutNumber(ayah.words)
@@ -58,7 +59,8 @@ object ConceptQuestions {
         if (hits.isEmpty()) return null
         val word = hits.random(random)
         val onThatWord = analysis.wordsByConcept.filterValues { word in it }.keys
-        val wrong = siblings(conceptId).filter { it !in onThatWord }.shuffled(random).take(3)
+        val alsoRight = onThatWord + onThatWord.flatMap(::foundationsOf)
+        val wrong = siblings(conceptId).filter { it !in alsoRight }.shuffled(random).take(3)
         if (wrong.size < 2) return null
         val options = (wrong + conceptId).shuffled(random)
         return RuleQuestion(conceptId, ayah.surahNo, ayah.ayahNo, words, word, options, options.indexOf(conceptId))
@@ -75,6 +77,17 @@ object ConceptQuestions {
             .filter { it.id != conceptId && it.track == target.track && it.id !in ConceptCatalog.umbrellaIds }
             .filter { other -> other.prerequisites.any { it in target.prerequisites } }
             .map { it.id }
+    }
+
+    /** Every concept [conceptId] builds on, directly or through others. */
+    fun foundationsOf(conceptId: String): Set<String> {
+        val found = mutableSetOf<String>()
+        val queue = ArrayDeque(ConceptCatalog[conceptId]?.prerequisites.orEmpty())
+        while (queue.isNotEmpty()) {
+            val id = queue.removeFirst()
+            if (found.add(id)) queue += ConceptCatalog[id]?.prerequisites.orEmpty()
+        }
+        return found
     }
 
     /** The app stores the ayah number as a last "word"; questions leave it out. */

@@ -134,6 +134,8 @@ fun ConceptScreen(concept: Concept) {
                 )
             }
 
+            item { CheckYourselfButton(concept.id) }
+
             // An umbrella concept already lists what it unlocks: its rules, above.
             if (unlocks.isNotEmpty() && !isUmbrella) {
                 item { ConceptChipGroup(R.string.learning_unlocks, unlocks, known, openConcept) }

@@ -116,4 +116,33 @@
     <string name="learning_data_source_corpus">Quranic Arabic Corpus 0.4 · GNU General Public License · corpus.quran.com</string>
     <string name="learning_data_source_masaq">MASAQ, version 5 · CC BY 4.0 · doi.org/10.17632/9yvrzxktmr.5</string>
     <string name="learning_data_security">Downloaded from github.com over a secure connection, and checked against a fingerprint built into the app before it is used.</string>
+    <!-- Practice: questions the app grades itself -->
+    <string name="learning_check_yourself">Check yourself</string>
+    <string name="learning_practice_title">Practice</string>
+    <!-- %1$d: this question's number, %2$d: how many questions -->
+    <string name="learning_practice_progress">Question %1$d of %2$d</string>
+    <string name="learning_practice_empty">There aren’t enough examples to make fair questions about this yet. Word questions need the learning data from Settings.</string>
+    <string name="learning_q_meaning">What does this word mean?</string>
+    <!-- %1$s: an English meaning, such as "worship" -->
+    <string name="learning_q_word_for">Which word means “%1$s”?</string>
+    <!-- %1$s: the name of a rule or mark, such as "Ikhfa" -->
+    <string name="learning_q_tap">Tap a word with: %1$s</string>
+    <string name="learning_q_rule">Which rule is on the highlighted word?</string>
+    <string name="learning_right">Right</string>
+    <string name="learning_not_quite">Not quite. The right answer is marked.</string>
+    <string name="learning_continue">Continue</string>
+    <!-- Read by TalkBack after an answer -->
+    <string name="learning_a11y_right_answer">Right answer</string>
+    <string name="learning_a11y_your_answer">Your answer, not right</string>
+    <string name="learning_practice_done">Practice finished</string>
+    <!-- %1$d: right answers, %2$d: questions -->
+    <string name="learning_practice_score">%1$d of %2$d right</string>
+    <plurals name="learning_practice_passed">
+        <item quantity="one">%d item passed. It counts as known and comes back for review later.</item>
+        <item quantity="other">%d items passed. They count as known and come back for review later.</item>
+    </plurals>
+    <plurals name="learning_practice_failed">
+        <item quantity="one">%d item needs more practice. It comes back soon.</item>
+        <item quantity="other">%d items need more practice. They come back soon.</item>
+    </plurals>
 </resources>
