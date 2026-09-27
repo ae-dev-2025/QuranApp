@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.quranapp.android.db.DatabaseProvider
 import com.quranapp.android.learning.examples.AyahWords
+import com.quranapp.android.learning.analysis.ConceptIndex
 import com.quranapp.android.learning.examples.ConceptExampleFinder
 import com.quranapp.android.learning.examples.GrammarExampleFinder
 import com.quranapp.android.learning.practice.ItemResult
@@ -173,7 +174,7 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
         val context = getApplication<Application>()
         val quran = DatabaseProvider.getQuranRepository(context)
         val words = WordRepository.open(context)
-        val finder = ConceptExampleFinder { surahNo ->
+        val finder = ConceptExampleFinder(ayahsWith = { ConceptIndex.get(context)?.ayahsOf(it) }) { surahNo ->
             quran.getWordsForSurah(surahNo, QuranScriptUtils.SCRIPT_UTHMANI)
                 .map { (ayahId, ayahWords) -> AyahWords(surahNo, ayahId % 1000, ayahWords.map { it.text }) }
         }

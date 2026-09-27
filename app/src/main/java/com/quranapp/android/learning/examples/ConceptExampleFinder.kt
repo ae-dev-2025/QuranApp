@@ -1,6 +1,7 @@
 package com.quranapp.android.learning.examples
 
 import com.quranapp.android.learning.analysis.AyahAnalyzer
+import com.quranapp.android.learning.analysis.ConceptIndex
 
 /** The Uthmani words of one ayah. */
 data class AyahWords(val surahNo: Int, val ayahNo: Int, val words: List<String>)
@@ -17,8 +18,12 @@ data class ConceptExample(val ayah: AyahWords, val highlightedWordIndexes: Set<I
  *
  * @param loadSurah returns the ayahs of a surah, in order. It is a parameter rather than a
  * database call so tests can pass in a few ayahs directly.
+ * @param ayahsWith the ayah ids where a concept occurs ([ConceptIndex.ayahsOf]), or null to
+ * search every ayah. With them, only those ayahs are analysed, and surahs without them aren't
+ * even loaded: a rare concept such as the saktas no longer means reading the whole Quran.
  */
 class ConceptExampleFinder(
+    private val ayahsWith: (suspend (conceptId: String) -> IntArray?)? = null,
     private val loadSurah: suspend (surahNo: Int) -> List<AyahWords>,
 ) {
     /**
@@ -27,9 +32,13 @@ class ConceptExampleFinder(
      */
     suspend fun find(conceptId: String, limit: Int): List<ConceptExample> {
         val examples = mutableListOf<ConceptExample>()
+        val indexed = ayahsWith?.invoke(conceptId)?.toHashSet()
+        val surahs = indexed?.mapTo(HashSet()) { it / 1000 }
 
         for (surahNo in SEARCH_ORDER) {
+            if (surahs != null && surahNo !in surahs) continue
             for (ayah in loadSurah(surahNo)) {
+                if (indexed != null && ayah.surahNo * 1000 + ayah.ayahNo !in indexed) continue
                 val wordIndexes = AyahAnalyzer.analyze(ayah.words).wordsByConcept[conceptId]
 
                 if (!wordIndexes.isNullOrEmpty()) {

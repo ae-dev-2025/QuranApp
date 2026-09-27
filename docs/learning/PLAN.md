@@ -185,5 +185,6 @@ Each PR ships its concepts' lessons too, so every concept keeps a lesson.
 | 79 | Show learning screens in the reader's script (Indo-Pak) |
 | 80 | Dark theme and right-to-left fixes: learning screens are laid out in their strings' language, ayahs and ayah references always read right to left |
 | 81 | Accessibility: labelled checkboxes, 48dp map targets, headings, announced results, step state, text readable in every theme (WCAG AA), boxes that grow with large text |
-| 82 | Speed: caching |
-| 83 | Security and licence review, including: Export/Import crashes on a file that isn't JSON (found in #43; the parse in `ActivityExportImport.importData` isn't caught) |
+| 82 | Speed: a shipped index of where each reading and recitation concept occurs (examples of rare rules, units, the path) |
+| 83 | Speed: grammar kept on the phone after it's worked out from the pack (units, the Learn screen, grammar examples) |
+| 84 | Security and licence review, including: Export/Import crashes on a file that isn't JSON (found in #43; the parse in `ActivityExportImport.importData` isn't caught) |
