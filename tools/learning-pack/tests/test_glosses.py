@@ -50,3 +50,18 @@ class DeriveTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class OverridesTest(unittest.TestCase):
+    def test_the_checked_file_parses(self):
+        overrides = glosses.read_overrides()
+        self.assertEqual(overrides["kaAna"], "to be, was")
+        self.assertNotIn("lemma_key", overrides)  # the header
+
+    def test_overrides_win(self):
+        meanings = glosses.apply_overrides({"kaAna": "is, were", "min": "from, of"}, {"kaAna": "to be"}, {"kaAna", "min"})
+        self.assertEqual(meanings, {"kaAna": "to be", "min": "from, of"})
+
+    def test_an_override_for_a_missing_lemma_fails(self):
+        with self.assertRaises(ValueError):
+            glosses.apply_overrides({}, {"typo": "x"}, {"kaAna"})

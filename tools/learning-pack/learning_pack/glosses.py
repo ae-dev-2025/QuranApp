@@ -15,6 +15,9 @@ The result is a starting point: overrides.tsv replaces it for words a person has
 
 import re
 from collections import Counter
+from pathlib import Path
+
+OVERRIDES = Path(__file__).resolve().parent.parent / "data" / "meaning_overrides.tsv"
 
 _BRACKETS = re.compile(r"\([^)]*\)|\[[^\]]*\]")
 
@@ -112,3 +115,25 @@ def collect(aligned: list, masaq_words: dict, regular_ayahs: set) -> dict:
         if gloss:
             collected.setdefault(stems[0].lemma, Counter())[gloss] += 1
     return collected
+
+
+def read_overrides(path: Path = OVERRIDES) -> dict:
+    """lemma key -> checked meaning, from a tab-separated file with a header and # comments."""
+    overrides = {}
+    with open(path, encoding="utf-8") as file:
+        rows = [line.rstrip("\n") for line in file if line.strip() and not line.startswith("#")]
+    for row in rows[1:]:  # skip the header
+        key, meaning = row.split("\t")
+        if key in overrides:
+            raise ValueError(f"{key} is overridden twice")
+        overrides[key] = meaning
+    return overrides
+
+
+def apply_overrides(meanings: dict, overrides: dict, lemma_keys: set) -> dict:
+    """The meanings with the checked ones in place. A key that isn't a lemma is an error, so a
+    typo or a changed corpus can't silently drop a checked meaning."""
+    unknown = sorted(set(overrides) - lemma_keys)
+    if unknown:
+        raise ValueError(f"overrides for lemmas that don't exist: {unknown}")
+    return {**meanings, **overrides}
