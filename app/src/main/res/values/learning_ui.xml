@@ -18,6 +18,15 @@
     <!-- Words tab. %1$d known words, %2$d words, %3$d percent: "You know 3 of 4 words (75%)." -->
     <string name="learning_words_you_know">You know %1$d of %2$d words (%3$d%%).</string>
     <string name="learning_words_all_known">You know every word of this ayah.</string>
+    <!-- Word-by-word popup in the reader -->
+    <string name="learning_learn_this_word">Learn this word</string>
+    <string name="learning_word_in_this_ayah">Here</string>
+    <string name="learning_word_dictionary_form">Dictionary form</string>
+    <string name="learning_word_root">Root</string>
+    <string name="learning_i_know_it">I know it</string>
+    <string name="learning_word_no_lemma">This word has no dictionary form in the learning data yet (detached pronouns and the disjointed letters).</string>
+    <string name="learning_word_needs_pack">Its dictionary form and root come with the learning data (a one-time download).</string>
+    <string name="learning_data_downloading_short">Downloading…</string>
     <string name="learning_words_disclaimer">Meanings and roots from the Quranic Arabic Corpus and MASAQ (Settings → Learning data). Please confirm with a qualified teacher.</string>
     <plurals name="learning_words_times">
         <item quantity="one">%d time in the Quran</item>
