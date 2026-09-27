@@ -33,9 +33,6 @@ abstract class LearningPackDatabase : RoomDatabase() {
         /** Must equal SCHEMA_VERSION in tools/learning-pack/learning_pack/pack.py. */
         const val SCHEMA_VERSION = 1
 
-        /** Where the installed pack lives: private to the app, so no other app can change it. */
-        fun file(context: Context): File = File(context.filesDir, "learning/learning_pack.db")
-
         /**
          * Opens the pack at [file]. Room checks on first open that every table matches the
          * entities, and throws if not. An absolute path makes Room open the file where it
