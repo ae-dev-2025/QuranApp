@@ -14,7 +14,9 @@ data class TapWordQuestion(
     /** The ayah's words, without its number. */
     val words: List<String>,
     val answers: Set<Int>,
-) : Question
+) : Question {
+    fun isRight(wordIndex: Int) = wordIndex in answers
+}
 
 /** "Which rule is on the highlighted word?" The options are concept ids. */
 data class RuleQuestion(
@@ -25,7 +27,9 @@ data class RuleQuestion(
     val highlighted: Int,
     val options: List<String>,
     val answerIndex: Int,
-) : Question
+) : Question {
+    fun isRight(optionIndex: Int) = optionIndex == answerIndex
+}
 
 /**
  * Reading and tajweed questions, built from real ayahs and graded by the same detectors that
