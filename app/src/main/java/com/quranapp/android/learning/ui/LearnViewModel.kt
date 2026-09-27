@@ -4,8 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.quranapp.android.db.DatabaseProvider
-import com.quranapp.android.learning.concepts.Concept
-import com.quranapp.android.learning.concepts.ConceptCatalog
 import com.quranapp.android.learning.pack.LearningPackManager
 import com.quranapp.android.learning.path.Curriculum
 import com.quranapp.android.learning.path.Dot
@@ -37,8 +35,8 @@ data class UnitDots(val surahNo: Int, val name: String, val dots: Map<Layer, Dot
 
 /** What to do next on the path. */
 sealed interface NextStep {
-    /** Stage 0: a basic concept, until the letters arrive (milestone 7). */
-    data class Basic(val concept: Concept, val known: Int, val total: Int) : NextStep
+    /** Stage 0: the next letter or basic concept, by its item id. */
+    data class Basic(val itemId: String, val known: Int, val total: Int) : NextStep
 
     /** A surah unit and the first layer with something left in it. */
     data class Unit(val unit: UnitDots, val layer: Layer?) : NextStep
@@ -195,7 +193,7 @@ class LearnViewModel(application: Application) : AndroidViewModel(application) {
         val next = when {
             stage.number == 0 -> {
                 val basics = Curriculum.BASICS
-                PathProgress.nextConcept(stage, known)?.let(ConceptCatalog::get)
+                PathProgress.nextConcept(stage, known)
                     ?.let { NextStep.Basic(it, basics.count { id -> id in known }, basics.size) }
                     ?: NextStep.Finished
             }
