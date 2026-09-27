@@ -51,7 +51,7 @@ import com.quranapp.android.learning.analysis.AyahAnalyzer
 import com.quranapp.android.learning.concepts.Concept
 import com.quranapp.android.learning.concepts.ConceptGraph
 import com.quranapp.android.learning.concepts.ConceptIds
-import com.quranapp.android.learning.concepts.Track
+import com.quranapp.android.learning.path.Layer
 import com.quranapp.android.learning.pack.LearningPackManager
 import com.quranapp.android.learning.pack.LearningPackState
 import com.quranapp.android.learning.words.AyahWord
@@ -147,17 +147,6 @@ private suspend fun loadState(repository: QuranRepository, ayahId: Int): Underst
     }
 
     return UnderstandAyahState(ayahText = words.joinToString(" "), words = words.dropLast(1), items = items)
-}
-
-/**
- * The layers of understanding an ayah (decision 3): one tab each. Read and Recite list the
- * concepts found in the text; Words lists its dictionary words from the learning pack.
- * Grammar is added in milestone 8.
- */
-private enum class Layer(val labelRes: Int, val track: Track?) {
-    READ(R.string.learning_layer_read, Track.READING),
-    RECITE(R.string.learning_layer_recite, Track.TAJWEED),
-    WORDS(R.string.learning_layer_words, null),
 }
 
 /** How many of a layer's items the learner knows. */

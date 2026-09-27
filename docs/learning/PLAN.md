@@ -113,9 +113,9 @@ PR numbers are planned; the list is updated as PRs open.
 
 | PR | What it adds |
 |---|---|
-| 44 | Learn screen: where you left off and what's next |
-| 45 | Curriculum: stages and surah units |
-| 46 | Unit screen |
+| 44 | Curriculum: stages, surah units and readiness |
+| 45 | Unit screen |
+| 46 | Learn screen: where you left off and your path |
 | 47 | Readiness bars |
 | 48 | Placement |
 | 49 | Goals |
