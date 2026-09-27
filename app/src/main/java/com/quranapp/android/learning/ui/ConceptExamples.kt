@@ -31,6 +31,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.quranapp.android.R
@@ -201,7 +202,7 @@ private fun ExampleCard(item: ExampleItem, arabicFont: FontFamily, onOpen: () ->
                     HearWordButton(ayah.surahNo, ayah.ayahNo, word, Modifier.size(40.dp))
                 }
                 Text(
-                    text = "${item.surahName} ${ayah.surahNo}:${ayah.ayahNo}",
+                    text = ayahReference(item.surahName, ayah.surahNo, ayah.ayahNo),
                     style = typography.labelMedium,
                     color = colorScheme.onSurfaceVariant,
                 )
@@ -214,11 +215,11 @@ private fun ExampleCard(item: ExampleItem, arabicFont: FontFamily, onOpen: () ->
         }
         val script = rememberScriptAyah(ayah.surahNo, ayah.ayahNo)
         if (script == null) {
-            // Arabic text is detected as right-to-left, so it lines up on the right.
+            // An ayah is right to left, so it lines up on the right.
             Text(
                 text = text,
                 fontFamily = arabicFont,
-                style = typography.titleLarge,
+                style = typography.titleLarge.copy(textDirection = TextDirection.Rtl),
                 modifier = Modifier.fillMaxWidth(),
             )
         } else {

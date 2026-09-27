@@ -49,6 +49,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranapp.android.R
@@ -147,12 +148,12 @@ private fun UnitContent(unit: UnitHeader, known: Set<String>, packState: Learnin
                 Text(
                     text = unit.firstAyah,
                     fontFamily = arabicFont,
-                    style = typography.headlineSmall,
+                    style = typography.headlineSmall.copy(textDirection = TextDirection.Rtl),
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth(),
                 )
                 Text(
-                    text = unit.name + " · " + pluralStringResource(R.plurals.learning_unit_ayahs, unit.ayahCount, unit.ayahCount),
+                    text = arabicExamplesInOrder(unit.name) + " · " + pluralStringResource(R.plurals.learning_unit_ayahs, unit.ayahCount, unit.ayahCount),
                     style = typography.bodyMedium,
                     color = colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center,

@@ -183,7 +183,7 @@ Each PR ships its concepts' lessons too, so every concept keeps a lesson.
 | PR | What it adds |
 |---|---|
 | 79 | Show learning screens in the reader's script (Indo-Pak) |
-| 80 | Dark theme and right-to-left fixes |
+| 80 | Dark theme and right-to-left fixes: learning screens are laid out in their strings' language, ayahs and ayah references always read right to left |
 | 81 | Accessibility |
 | 82 | Speed: caching |
 | 83 | Security and licence review, including: Export/Import crashes on a file that isn't JSON (found in #43; the parse in `ActivityExportImport.importData` isn't caught) |

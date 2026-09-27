@@ -20,7 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -33,7 +32,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.quranapp.android.R
 import com.quranapp.android.db.DatabaseProvider
@@ -95,7 +93,7 @@ fun KeyExampleCard(example: KeyExample, isGrammar: Boolean = false) {
             Text(
                 text = current.arabic,
                 fontFamily = arabicFont,
-                style = typography.displaySmall,
+                style = typography.displaySmall.copy(textDirection = TextDirection.Rtl),
                 textAlign = TextAlign.Center,
             )
         } else {
@@ -118,7 +116,7 @@ fun KeyExampleCard(example: KeyExample, isGrammar: Boolean = false) {
                     withStyle(SpanStyle(textDecoration = TextDecoration.LineThrough)) { append(notSay) }
                     append(" · ")
                 }
-                append("${current.surahName} ${example.surahNo}:${example.ayahNo}")
+                append(ayahReference(current.surahName, example.surahNo, example.ayahNo))
             },
             style = typography.bodySmall,
             color = colorScheme.onSurfaceVariant,
@@ -185,15 +183,9 @@ private fun Bullets(items: Array<String>) {
 }
 
 /**
- * Lesson text is written in the app's language but often starts with an Arabic example
- * ("قلى: you may continue…"). By default a paragraph takes its direction from its first
- * letter, which would lay such a line out right-to-left. Follow the app's layout instead.
+ * Lesson text often starts with an Arabic example ("قلى: you may continue…"). Taking its
+ * direction from its first letter would lay such a line out right to left, so it follows
+ * the learning strings' language, as the learning theme sets it (see LearningDirection).
  */
 @Composable
-private fun paragraphStyle(): TextStyle {
-    val direction = when (LocalLayoutDirection.current) {
-        LayoutDirection.Rtl -> TextDirection.Rtl
-        LayoutDirection.Ltr -> TextDirection.Ltr
-    }
-    return typography.bodyMedium.copy(textDirection = direction)
-}
+private fun paragraphStyle(): TextStyle = typography.bodyMedium

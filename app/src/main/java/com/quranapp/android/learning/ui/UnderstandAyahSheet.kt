@@ -42,6 +42,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -124,7 +125,7 @@ fun UnderstandAyahSheet(
                 CircularProgressIndicator()
             }
         } else {
-            SheetContent(verse, loaded)
+            LearningDirection { SheetContent(verse, loaded) }
         }
     }
 }
@@ -363,12 +364,7 @@ private fun Header(
             style = typography.titleMedium,
         )
         Text(
-            text = stringResource(
-                R.string.strLabelVerseWithChapNameAndNo,
-                verse.chapter.getCurrentName(),
-                verse.chapterNo,
-                verse.verseNo,
-            ),
+            text = ayahReference(verse.chapter.getCurrentName(), verse.chapterNo, verse.verseNo),
             style = typography.labelMedium,
             color = colorScheme.onSurface.alpha(0.8f),
         )
@@ -386,7 +382,7 @@ private fun Header(
             Text(
                 text = state.ayahText,
                 fontFamily = arabicFont,
-                style = typography.titleLarge,
+                style = typography.titleLarge.copy(textDirection = TextDirection.Rtl),
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(top = 8.dp),
             )

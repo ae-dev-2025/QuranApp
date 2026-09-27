@@ -51,7 +51,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranapp.android.R
 import com.quranapp.android.activities.base.BaseActivity
 import com.quranapp.android.compose.components.common.AppBar
-import com.quranapp.android.compose.theme.QuranAppTheme
 import com.quranapp.android.compose.theme.alpha
 import com.quranapp.android.db.DatabaseProvider
 import com.quranapp.android.learning.concepts.ConceptCatalog
@@ -73,7 +72,7 @@ class ActivityLetters : BaseActivity() {
     override fun getLayoutResource() = 0
 
     override fun onActivityInflated(activityView: View, savedInstanceState: Bundle?) {
-        setContent { QuranAppTheme { LettersScreen() } }
+        setContent { LearningTheme { LettersScreen() } }
     }
 }
 
@@ -87,7 +86,7 @@ class ActivityLetter : BaseActivity() {
             finish()
             return
         }
-        setContent { QuranAppTheme { LetterScreen(letter) } }
+        setContent { LearningTheme { LetterScreen(letter) } }
     }
 
     companion object {

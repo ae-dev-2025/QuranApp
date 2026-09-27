@@ -18,6 +18,13 @@ class ArabicInTextTest {
     }
 
     @Test
+    fun anAyahReferenceKeepsTheNameFirst() {
+        assertEquals("الفاتحة$lrm 1:7", ayahReference("الفاتحة", 1, 7))
+        assertEquals("Al-Fatihah 1:7", ayahReference("Al-Fatihah", 1, 7))
+        assertEquals("1:7", ayahReference("", 1, 7))
+    }
+
+    @Test
     fun englishIsLeftAlone() {
         assertEquals("No Arabic here.", arabicExamplesInOrder("No Arabic here."))
     }

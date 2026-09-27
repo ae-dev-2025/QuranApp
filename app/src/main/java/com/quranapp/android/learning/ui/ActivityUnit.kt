@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.compose.setContent
 import com.quranapp.android.activities.base.BaseActivity
-import com.quranapp.android.compose.theme.QuranAppTheme
 import com.quranapp.android.learning.path.Layer
 
 /** A surah unit of the path. Open it with [intent]. */
@@ -23,7 +22,7 @@ class ActivityUnit : BaseActivity() {
         val focus = intent.getStringExtra(EXTRA_FOCUS)?.let { name -> Layer.entries.firstOrNull { it.name == name } }
 
         setContent {
-            QuranAppTheme {
+            LearningTheme {
                 UnitScreen(surahNo, focus)
             }
         }

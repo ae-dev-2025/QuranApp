@@ -23,6 +23,13 @@ private const val LRM = "\u200E"
  */
 internal fun arabicExamplesInOrder(text: String): String = text.replace(ARABIC_EXAMPLE) { it.value + LRM }
 
+/**
+ * An ayah's reference, "الفاتحة 1:7". Numbers after Arabic letters would join them and show
+ * first ("1:7 الفاتحة"), so the surah's name keeps its place in any language.
+ */
+internal fun ayahReference(surahName: String, surahNo: Int, ayahNo: Int): String =
+    "${arabicExamplesInOrder(surahName)} $surahNo:$ayahNo".trim()
+
 /** A concept's title, with its Arabic examples in order ("وَ, فَـ and ثُمَّ"). */
 @Composable
 internal fun conceptTitle(concept: Concept): String = arabicExamplesInOrder(stringResource(concept.titleRes))
