@@ -11,7 +11,9 @@ import com.quranapp.android.learning.path.Curriculum
 import com.quranapp.android.learning.path.Dot
 import com.quranapp.android.learning.path.Layer
 import com.quranapp.android.learning.path.PathProgress
+import com.quranapp.android.learning.path.LearningPreferences
 import com.quranapp.android.learning.path.PathRepository
+import com.quranapp.android.learning.path.Placement
 import com.quranapp.android.learning.path.Readiness
 import com.quranapp.android.learning.path.Stage
 import com.quranapp.android.learning.path.SurahNeeds
@@ -23,6 +25,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 /** A surah on the Learn tab, with a dot per layer. */
 data class UnitDots(val surahNo: Int, val name: String, val dots: Map<Layer, Dot>)
@@ -40,22 +43,42 @@ sealed interface NextStep {
 }
 
 /** The path part of the Learn tab: where the learner is and what comes next. */
-data class PathSummary(val stage: Stage, val next: NextStep, val units: List<UnitDots>)
+data class PathSummary(
+    val stage: Stage,
+    val next: NextStep,
+    val units: List<UnitDots>,
+    /** Where placement started the learner. */
+    val start: Int,
+    /** Basics not known yet, for the placement check. */
+    val unknownBasics: List<String>,
+)
 
 /** Works out the learner's place on the path whenever their progress or the pack changes. */
 class LearnViewModel(application: Application) : AndroidViewModel(application) {
     private val path = PathRepository.get(application)
     private val quran = DatabaseProvider.getQuranRepository(application)
 
+    /** Null while loading; [LearningPreferences.NOT_CHOSEN] until placement is done. */
+    val startStage: StateFlow<Int?> = LearningPreferences.startStage()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+
     @OptIn(ExperimentalCoroutinesApi::class)
     val summary: StateFlow<PathSummary?> =
-        combine(DatabaseProvider.getLearningProgressRepository(application).knownConceptIds, LearningPackManager.state) { known, _ -> known }
-            .mapLatest(::summarize) // a newer tick cancels the unfinished work for an older one
+        combine(
+            DatabaseProvider.getLearningProgressRepository(application).knownConceptIds,
+            LearningPackManager.state,
+            LearningPreferences.startStage(),
+        ) { known, _, start -> known to start.coerceAtLeast(0) }
+            .mapLatest { (known, start) -> summarize(known, start) } // a newer tick cancels unfinished work
             .flowOn(Dispatchers.IO)
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
-    private suspend fun summarize(known: Set<String>): PathSummary {
-        val stage = PathProgress.currentStage(known, path::needs)
+    fun choose(placement: Placement) {
+        viewModelScope.launch { LearningPreferences.setStartStage(placement.stage) }
+    }
+
+    private suspend fun summarize(known: Set<String>, start: Int): PathSummary {
+        val stage = PathProgress.currentStage(known, path::needs, startAt = start)
 
         // Stage 0 has no surahs yet: show where the learner is heading, stage 1.
         val pathSurahs = stage.units.ifEmpty { PathProgress.goalSurahs(stage) }.ifEmpty { Curriculum.stages[1].units }
@@ -63,8 +86,8 @@ class LearnViewModel(application: Application) : AndroidViewModel(application) {
         val nextSurah = PathProgress.nextUnit(stage, path.needs(PathProgress.goalSurahs(stage)), known)
 
         // A short window of the path: one unit before the next one, and a few after.
-        val start = (pathSurahs.indexOf(nextSurah) - 1).coerceAtLeast(0)
-        val shown = pathSurahs.drop(start).take(PATH_PREVIEW)
+        val windowStart = (pathSurahs.indexOf(nextSurah) - 1).coerceAtLeast(0)
+        val shown = pathSurahs.drop(windowStart).take(PATH_PREVIEW)
         val names = quran.getChapterNames((shown + listOfNotNull(nextSurah)).distinct())
         fun unitDots(surah: Int, surahNeeds: SurahNeeds) =
             UnitDots(surah, names[surah].orEmpty(), Layer.entries.associateWith { PathProgress.dot(Readiness.of(listOf(surahNeeds), it, known), it) })
@@ -82,7 +105,13 @@ class LearnViewModel(application: Application) : AndroidViewModel(application) {
             }
             else -> NextStep.Finished
         }
-        return PathSummary(stage, next, shown.map { unitDots(it, needs.getValue(it)) })
+        return PathSummary(
+            stage = stage,
+            next = next,
+            units = shown.map { unitDots(it, needs.getValue(it)) },
+            start = start,
+            unknownBasics = Curriculum.BASICS.filter { it !in known },
+        )
     }
 
     private companion object {

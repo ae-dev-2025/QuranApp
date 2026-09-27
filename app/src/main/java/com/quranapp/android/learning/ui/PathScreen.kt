@@ -22,6 +22,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.MaterialTheme.typography
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -44,7 +45,7 @@ import com.quranapp.android.learning.path.Layer
 
 /** Every stage of the path, its goal, how far along it is, and its units. */
 @Composable
-fun PathScreen(viewModel: PathViewModel) {
+fun PathScreen(viewModel: PathViewModel, onChangeStart: () -> Unit) {
     val stages by viewModel.stages.collectAsStateWithLifecycle()
     Scaffold(topBar = { AppBar(title = stringResource(R.string.learning_your_path)) }) { padding ->
         val loaded = stages
@@ -66,6 +67,12 @@ fun PathScreen(viewModel: PathViewModel) {
                 )
             }
             items(loaded, key = { it.stage.number }) { StageCard(it) }
+            item {
+                OutlinedButton(
+                    onClick = onChangeStart,
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+                ) { Text(stringResource(R.string.learning_change_start)) }
+            }
         }
     }
 }
@@ -92,6 +99,7 @@ private fun StageCard(row: StageRow) {
             when (row.status) {
                 StageStatus.DONE -> StatusLabel(R.string.learning_stage_done)
                 StageStatus.CURRENT -> StatusLabel(R.string.learning_stage_current)
+                StageStatus.SKIPPED -> StatusLabel(R.string.learning_stage_skipped)
                 StageStatus.LATER -> Unit
             }
         }

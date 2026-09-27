@@ -16,7 +16,8 @@ class ActivityPath : BaseActivity() {
     override fun onActivityInflated(activityView: View, savedInstanceState: Bundle?) {
         setContent {
             QuranAppTheme {
-                PathScreen(viewModel)
+                // Back to the Learn tab, which shows the choices again.
+                PathScreen(viewModel, onChangeStart = { viewModel.changeStart(onSaved = ::finish) })
             }
         }
     }

@@ -39,7 +39,7 @@ sealed interface PracticeUiState {
         val answered: Boolean get() = answer != null
     }
 
-    data class Finished(val right: Int, val total: Int, val results: List<ItemResult>) : PracticeUiState
+    data class Finished(val right: Int, val total: Int, val results: List<ItemResult>, val mode: PracticeMode) : PracticeUiState
 }
 
 /** How many questions each item gets. */
@@ -49,6 +49,12 @@ enum class PracticeMode(val questionsPerItem: Int) {
 
     /** A daily review: one question per due item. */
     REVIEW(1),
+
+    /**
+     * Placement (decision 11): one question per basic. Only passes are saved, so a wrong
+     * guess about something never learned doesn't turn into a review.
+     */
+    PLACEMENT(1),
 }
 
 /**
@@ -60,6 +66,7 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
         private set
 
     private var session: PracticeSession? = null
+    private var mode = PracticeMode.CHECK
     private val results = mutableListOf<ItemResult>()
     private val reviews = DatabaseProvider.getUserDatabase(application).reviewDao()
     private val progress = DatabaseProvider.getLearningProgressRepository(application)
@@ -67,6 +74,7 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
 
     fun start(itemIds: List<String>, mode: PracticeMode) {
         if (session != null) return // already started (e.g. after rotating the screen)
+        this.mode = mode
         viewModelScope.launch {
             val items = withContext(Dispatchers.IO) { buildItems(itemIds, mode) }
             val started = PracticeSession(items).also { session = it }
@@ -88,13 +96,14 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
         val started = session ?: return
         val question = started.current
         state = if (question == null) {
-            PracticeUiState.Finished(started.rightCount, started.size, results.toList())
+            PracticeUiState.Finished(started.rightCount, started.size, results.toList(), mode)
         } else {
             PracticeUiState.Asking(question, started.index + 1, started.size)
         }
     }
 
     private suspend fun save(result: ItemResult) {
+        if (mode == PracticeMode.PLACEMENT && result.rating == ReviewRating.AGAIN) return
         val now = System.currentTimeMillis()
         val outcome = scheduler.review(result.itemId, reviews.card(result.itemId), result.rating, now)
         reviews.record(outcome.card, outcome.log)

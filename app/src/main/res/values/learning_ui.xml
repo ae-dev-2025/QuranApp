@@ -256,8 +256,30 @@
     <string name="learning_stage_title">Stage %1$d · %2$s</string>
     <string name="learning_stage_done">Done</string>
     <string name="learning_stage_current">You are here</string>
+    <string name="learning_stage_skipped">Skipped</string>
+    <string name="learning_change_start">Change where you start</string>
     <string name="learning_basics">Basics</string>
     <string name="learning_stage_3_note">Back to stage 1’s surahs, now for their meaning.</string>
     <string name="learning_stage_4_note">Back to all of Juz ʿAmma, now for its meaning.</string>
     <string name="learning_stage_6_note">The whole Quran, surah by surah.</string>
+    <!-- Placement: where a new learner starts -->
+    <string name="learning_place_title">Where are you starting?</string>
+    <string name="learning_place_subtitle">You can change this any time from your path.</string>
+    <string name="learning_place_new">I’m new to Arabic letters</string>
+    <string name="learning_place_new_text">Start with the letters and their sounds</string>
+    <string name="learning_place_reader">I can read the Quran slowly</string>
+    <string name="learning_place_reader_text">A 2-minute check, then reading marks and tajweed</string>
+    <string name="learning_place_reciter">I recite well and want the meaning</string>
+    <string name="learning_place_reciter_text">Start with words and their meanings</string>
+    <string name="learning_place_check_label">Already reading?</string>
+    <string name="learning_place_check_text">A quick question on each basic. What you get right is ticked, so your path skips it.</string>
+    <string name="learning_place_check_start">Check the basics</string>
+    <plurals name="learning_placement_passed">
+        <item quantity="one">%d basic you already know is ticked.</item>
+        <item quantity="other">%d basics you already know are ticked.</item>
+    </plurals>
+    <plurals name="learning_placement_failed">
+        <item quantity="one">%d is left to learn on your path.</item>
+        <item quantity="other">%d are left to learn on your path.</item>
+    </plurals>
 </resources>

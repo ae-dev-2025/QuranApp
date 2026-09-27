@@ -8,6 +8,7 @@ import com.quranapp.android.learning.pack.LearningPackManager
 import com.quranapp.android.learning.path.Curriculum
 import com.quranapp.android.learning.path.Layer
 import com.quranapp.android.learning.path.LayerProgress
+import com.quranapp.android.learning.path.LearningPreferences
 import com.quranapp.android.learning.path.PathProgress
 import com.quranapp.android.learning.path.PathRepository
 import com.quranapp.android.learning.path.Readiness
@@ -24,8 +25,16 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.transformLatest
+import kotlinx.coroutines.launch
 
-enum class StageStatus { DONE, CURRENT, LATER }
+enum class StageStatus {
+    DONE,
+    CURRENT,
+    LATER,
+
+    /** Before where placement started the learner, and not done: still open to them. */
+    SKIPPED,
+}
 
 /** One goal of a stage and how far along it is; null progress while unknown (no pack). */
 data class GoalProgress(val layer: Layer?, val progress: LayerProgress?)
@@ -46,18 +55,34 @@ class PathViewModel(application: Application) : AndroidViewModel(application) {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val stages: StateFlow<List<StageRow>?> =
-        combine(DatabaseProvider.getLearningProgressRepository(application).knownConceptIds, LearningPackManager.state) { known, _ -> known }
-            .transformLatest { known -> emitAll(rows(known)) }
+        combine(
+            DatabaseProvider.getLearningProgressRepository(application).knownConceptIds,
+            LearningPackManager.state,
+            LearningPreferences.startStage(),
+        ) { known, _, start -> known to start.coerceAtLeast(0) }
+            .transformLatest { (known, start) -> emitAll(rows(known, start)) }
             .flowOn(Dispatchers.IO)
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
-    private fun rows(known: Set<String>): Flow<List<StageRow>> = flow {
-        val current = PathProgress.currentStage(known, path::needs).number
+    /**
+     * Sends the learner back to placement; their progress is kept. [onSaved] runs once the
+     * choice is written, so closing the screen then can't cancel the write.
+     */
+    fun changeStart(onSaved: () -> Unit) {
+        viewModelScope.launch {
+            LearningPreferences.setStartStage(LearningPreferences.NOT_CHOSEN)
+            onSaved()
+        }
+    }
+
+    private fun rows(known: Set<String>, start: Int): Flow<List<StageRow>> = flow {
+        val current = PathProgress.currentStage(known, path::needs, startAt = start).number
         val rows = Curriculum.stages.map { stage ->
             val status = when {
-                stage.number < current -> StageStatus.DONE
+                stage.number > current -> StageStatus.LATER
                 stage.number == current -> StageStatus.CURRENT
-                else -> StageStatus.LATER
+                stage.number < start -> StageStatus.SKIPPED // until its goals are counted below
+                else -> StageStatus.DONE
             }
             StageRow(stage, status, goals = null, units = null)
         }.toMutableList()
@@ -66,10 +91,14 @@ class PathViewModel(application: Application) : AndroidViewModel(application) {
         val names = quran.getChapterNames(Curriculum.units)
         rows.forEachIndexed { index, row ->
             val stage = row.stage
+            var status = row.status
             val goals = if (row.status == StageStatus.LATER) {
                 null
             } else {
                 val needs = path.needs(PathProgress.goalSurahs(stage))
+                if (status == StageStatus.SKIPPED && stage.goals.all { Readiness.isReached(it, needs, known) }) {
+                    status = StageStatus.DONE
+                }
                 stage.goals.map { goal -> GoalProgress((goal as? StageGoal.Surahs)?.layer, Readiness.of(goal, needs, known)) }
             }
             val units = stage.units.map { surah ->
@@ -80,7 +109,7 @@ class PathViewModel(application: Application) : AndroidViewModel(application) {
                     dots = Layer.entries.associateWith { PathProgress.dot(Readiness.of(listOf(surahNeeds), it, known), it) },
                 )
             }
-            rows[index] = row.copy(goals = goals, units = units)
+            rows[index] = row.copy(status = status, goals = goals, units = units)
             emit(rows.toList())
         }
     }
