@@ -410,4 +410,35 @@
     <string name="learning_letter_in_quran">Where you’ll meet it</string>
     <string name="learning_letter_i_know">I know this letter</string>
     <string name="learning_letter_known">Known ✓</string>
+    <!-- Letters: where each is made -->
+    <string name="letter_place_alif">The empty space of the mouth and throat: alif is always a long ā.</string>
+    <string name="letter_place_ba">Both lips close, then open.</string>
+    <string name="letter_place_ta">The tip of the tongue on the roots of the upper front teeth.</string>
+    <string name="letter_place_tha">The tip of the tongue on the edges of the upper front teeth, slightly out.</string>
+    <string name="letter_place_nun">The tip of the tongue on the gum above the upper front teeth; its hum comes from the nose.</string>
+    <string name="letter_place_ya">The middle of the tongue towards the roof of the mouth; as a long ī, the empty space.</string>
+    <string name="letter_place_jim">The middle of the tongue against the roof of the mouth.</string>
+    <string name="letter_place_hha">The middle of the throat, breathed.</string>
+    <string name="letter_place_kha">The top of the throat, nearest the mouth.</string>
+    <string name="letter_place_dal">The tip of the tongue on the roots of the upper front teeth.</string>
+    <string name="letter_place_dhal">The tip of the tongue on the edges of the upper front teeth, slightly out.</string>
+    <string name="letter_place_ra">The tip of the tongue, just behind where nūn is made, tapping the gum.</string>
+    <string name="letter_place_zay">The tip of the tongue just behind the lower front teeth, the air whistling between.</string>
+    <string name="letter_place_waw">Both lips rounded, not closed; as a long ū, the empty space.</string>
+    <string name="letter_place_sin">The tip of the tongue just behind the lower front teeth, the air whistling between.</string>
+    <string name="letter_place_shin">The middle of the tongue towards the roof of the mouth, the air spreading.</string>
+    <string name="letter_place_sad">The tip of the tongue behind the lower front teeth, with the back of the tongue raised.</string>
+    <string name="letter_place_dad">One or both sides of the tongue against the upper back teeth, with the back raised.</string>
+    <string name="letter_place_tta">The tip of the tongue on the roots of the upper front teeth, with the back raised.</string>
+    <string name="letter_place_zza">The tip of the tongue on the edges of the upper front teeth, with the back raised.</string>
+    <string name="letter_place_ayn">The middle of the throat, voiced.</string>
+    <string name="letter_place_ghayn">The top of the throat, nearest the mouth, voiced.</string>
+    <string name="letter_place_fa">The inside of the lower lip against the edges of the upper front teeth.</string>
+    <string name="letter_place_qaf">The very back of the tongue against the soft palate.</string>
+    <string name="letter_place_kaf">The back of the tongue against the palate, a little in front of qāf.</string>
+    <string name="letter_place_lam">The front edge of the tongue on the gum behind the upper front teeth.</string>
+    <string name="letter_place_mim">Both lips closed; its hum comes from the nose.</string>
+    <string name="letter_place_ha">The deepest part of the throat, breathed.</string>
+    <string name="letter_place_hamza">The deepest part of the throat, closed for a moment.</string>
+    <string name="learning_letter_place">Where it’s made</string>
 </resources>

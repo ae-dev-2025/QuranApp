@@ -8,6 +8,10 @@ import com.quranapp.android.learning.concepts.ConceptIds.IQLAB
 import com.quranapp.android.learning.concepts.ConceptIds.IZHAR
 import com.quranapp.android.learning.concepts.ConceptIds.LETTERS
 import com.quranapp.android.learning.concepts.ConceptIds.MADD_LAZIM
+import com.quranapp.android.learning.concepts.ConceptIds.MAKHRAJ_LIPS
+import com.quranapp.android.learning.concepts.ConceptIds.MAKHRAJ_NOSE
+import com.quranapp.android.learning.concepts.ConceptIds.MAKHRAJ_THROAT
+import com.quranapp.android.learning.concepts.ConceptIds.MAKHRAJ_TONGUE
 import com.quranapp.android.learning.concepts.ConceptIds.NOON_SAKINAH
 import com.quranapp.android.learning.concepts.ConceptIds.SAJDAH
 import com.quranapp.android.learning.concepts.ConceptIds.SHADDA
@@ -50,8 +54,9 @@ class ConceptGraphTest {
 
     @Test
     fun `knowing the letters unlocks the next concepts`() {
+        // Where letters are made (except the empty space, which needs long vowels) comes with the letters.
         assertEquals(
-            listOf(SHORT_VOWELS, SAJDAH),
+            listOf(SHORT_VOWELS, SAJDAH, MAKHRAJ_THROAT, MAKHRAJ_TONGUE, MAKHRAJ_LIPS, MAKHRAJ_NOSE),
             graph.readyToLearn(known = setOf(LETTERS)).map { it.id },
         )
     }

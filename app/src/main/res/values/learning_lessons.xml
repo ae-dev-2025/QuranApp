@@ -311,6 +311,66 @@
         <item>A fatḥa or alif after a heavy letter sounds deeper too: ṣā, not sā.</item>
     </string-array>
 
+    <!-- Where letters are made: the empty space -->
+    <string name="lesson_makhraj_jawf_say">al-ʿā-la-mī-na</string>
+    <string name="lesson_makhraj_jawf_not_say">al-ʿa-la-mi-na</string>
+    <string-array name="lesson_makhraj_jawf_spot">
+        <item>The long vowels: alif after a fatḥa, wāw after a ḍamma, yāʾ after a kasra, and the small alif, wāw and yāʾ.</item>
+        <item>They touch no part of the mouth: the sound flows from the empty space of the mouth and throat until the breath stops.</item>
+    </string-array>
+    <string-array name="lesson_makhraj_jawf_how">
+        <item>Open the mouth for ā, round the lips for ū, spread them for ī, and let the voice run.</item>
+        <item>Hold each for two counts, so ʿā and mī in this word are longer than the short vowels around them.</item>
+    </string-array>
+
+    <!-- Where letters are made: the throat -->
+    <string name="lesson_makhraj_throat_say">al-ḥam-du</string>
+    <string name="lesson_makhraj_throat_not_say">al-ham-du</string>
+    <string-array name="lesson_makhraj_throat_spot">
+        <item>Six letters: ء and ه from the deepest part of the throat, ع and ح from the middle, غ and خ from the top, nearest the mouth.</item>
+        <item>A hamza on a seat (أ إ ؤ ئ) is a throat letter too.</item>
+    </string-array>
+    <string-array name="lesson_makhraj_throat_how">
+        <item>Feel these in your throat, not your mouth.</item>
+        <item>ح is a breathy h with the middle of the throat narrowed; ع is the same place with the voice on.</item>
+        <item>Don’t soften ح into the ه of “hat”: they come from different parts of the throat.</item>
+    </string-array>
+
+    <!-- Where letters are made: the tongue -->
+    <string name="lesson_makhraj_tongue_say">qul</string>
+    <string name="lesson_makhraj_tongue_not_say">kul</string>
+    <string-array name="lesson_makhraj_tongue_spot">
+        <item>Eighteen letters, from the back of the tongue to its tip: ق ك, then ج ش ي, ض, ل ن ر, ط د ت, ص س ز, and ظ ذ ث.</item>
+        <item>Yāʾ is a tongue letter when it has a vowel, sukūn or shadda; as a long ī it flows from the empty space.</item>
+    </string-array>
+    <string-array name="lesson_makhraj_tongue_how">
+        <item>ق is made at the very back of the tongue, deeper than ك.</item>
+        <item>ت د ط touch the roots of the upper front teeth; ث ذ ظ touch the edges of the teeth with the tongue slightly out.</item>
+        <item>ض uses the side of the tongue against the upper back teeth.</item>
+    </string-array>
+
+    <!-- Where letters are made: the lips -->
+    <string name="lesson_makhraj_lips_say">bis-mi</string>
+    <string-array name="lesson_makhraj_lips_spot">
+        <item>Four letters: ب, م and wāw with a vowel or sukūn use both lips; ف uses the lower lip and the upper teeth.</item>
+    </string-array>
+    <string-array name="lesson_makhraj_lips_how">
+        <item>ب and م close the lips fully; و rounds them without closing.</item>
+        <item>For ف, rest the edges of the upper front teeth lightly on the inside of the lower lip.</item>
+    </string-array>
+
+    <!-- Where letters are made: the nose -->
+    <string name="lesson_makhraj_nose_say">ʿam-mma</string>
+    <string name="lesson_makhraj_nose_not_say">ʿa-ma</string>
+    <string-array name="lesson_makhraj_nose_spot">
+        <item>The ghunnah: the hum of noon and meem, heard most in نّ and مّ and wherever a noon or meem is hidden or merged.</item>
+    </string-array>
+    <string-array name="lesson_makhraj_nose_how">
+        <item>Let the sound resonate in your nose for about two counts.</item>
+        <item>Pinch your nose: if the hum stops, it is coming from the right place.</item>
+    </string-array>
+    <string name="lesson_makhraj_nose_confused">Ghunnah is the rule for when to hum; the nose is where the hum is made.</string>
+
     <!-- Lam shamsiyya -->
     <string name="lesson_lam_shamsiyya_say">ar-raḥ-mā-ni</string>
     <string name="lesson_lam_shamsiyya_not_say">al-raḥ-mā-ni</string>

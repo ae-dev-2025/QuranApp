@@ -48,6 +48,16 @@
     <string name="concept_sajdah_summary">The ۩ sign marks a place where the prostration of recitation (sajdat al-tilāwa) is made.</string>
 
     <!-- Tajweed -->
+    <string name="concept_makhraj_jawf_title">Empty space (al-jawf)</string>
+    <string name="concept_makhraj_jawf_summary">The long vowels ā, ū and ī have no fixed place: they flow from the empty space of the mouth and throat.</string>
+    <string name="concept_makhraj_throat_title">Throat letters (al-ḥalq)</string>
+    <string name="concept_makhraj_throat_summary">Six letters are made in the throat: ء ه deepest, ع ح in the middle, غ خ nearest the mouth.</string>
+    <string name="concept_makhraj_tongue_title">Tongue letters (al-lisān)</string>
+    <string name="concept_makhraj_tongue_summary">Eighteen letters are made where the tongue meets the roof of the mouth, the gums or the teeth, from ق at the back to ث at the tip.</string>
+    <string name="concept_makhraj_lips_title">Lip letters (ash-shafatān)</string>
+    <string name="concept_makhraj_lips_summary">ب م و are made with both lips, and ف with the lower lip and the upper teeth.</string>
+    <string name="concept_makhraj_nose_title">The nose (al-khayshūm)</string>
+    <string name="concept_makhraj_nose_summary">The humming ghunnah of noon and meem comes from the nose: pinch it and the sound stops.</string>
     <string name="concept_heavy_letters_title">Heavy letters (tafkhīm)</string>
     <string name="concept_heavy_letters_summary">Seven letters, خ ص ض غ ط ق ظ, are always pronounced with a full, heavy sound.</string>
 

@@ -32,6 +32,12 @@ object AyahAnalyzer {
 
         TajweedDetector.detect(clustersPerWord).forEach { add(it.conceptId, it.wordIndex) }
 
+        // The places letters are made in, which need the other detectors' findings on each word.
+        clustersPerWord.forEachIndexed { wordIndex, clusters ->
+            val onWord = wordsByConcept.filterValues { wordIndex in it }.keys
+            MakharijDetector.detect(clusters, onWord).forEach { add(it, wordIndex) }
+        }
+
         return AyahAnalysis(wordsByConcept.mapValues { (_, indexes) -> indexes.sorted() })
     }
 }

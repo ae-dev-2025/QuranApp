@@ -24,6 +24,11 @@ import com.quranapp.android.learning.concepts.ConceptIds.MADD_LAZIM
 import com.quranapp.android.learning.concepts.ConceptIds.MADD_MUNFASIL
 import com.quranapp.android.learning.concepts.ConceptIds.MADD_MUTTASIL
 import com.quranapp.android.learning.concepts.ConceptIds.MADD_SIGN
+import com.quranapp.android.learning.concepts.ConceptIds.MAKHRAJ_JAWF
+import com.quranapp.android.learning.concepts.ConceptIds.MAKHRAJ_LIPS
+import com.quranapp.android.learning.concepts.ConceptIds.MAKHRAJ_NOSE
+import com.quranapp.android.learning.concepts.ConceptIds.MAKHRAJ_THROAT
+import com.quranapp.android.learning.concepts.ConceptIds.MAKHRAJ_TONGUE
 import com.quranapp.android.learning.concepts.ConceptIds.MEEM_SAKINAH
 import com.quranapp.android.learning.concepts.ConceptIds.NOON_SAKINAH
 import com.quranapp.android.learning.concepts.ConceptIds.QALQALAH
@@ -107,6 +112,12 @@ object ConceptCatalog {
         ),
 
         // ---- Tajweed ----
+        // Where letters are made: the five places, learned with the letters (stage 0).
+        tajweed(MAKHRAJ_JAWF, R.string.concept_makhraj_jawf_title, R.string.concept_makhraj_jawf_summary, LONG_VOWELS),
+        tajweed(MAKHRAJ_THROAT, R.string.concept_makhraj_throat_title, R.string.concept_makhraj_throat_summary, LETTERS),
+        tajweed(MAKHRAJ_TONGUE, R.string.concept_makhraj_tongue_title, R.string.concept_makhraj_tongue_summary, LETTERS),
+        tajweed(MAKHRAJ_LIPS, R.string.concept_makhraj_lips_title, R.string.concept_makhraj_lips_summary, LETTERS),
+        tajweed(MAKHRAJ_NOSE, R.string.concept_makhraj_nose_title, R.string.concept_makhraj_nose_summary, LETTERS),
         tajweed(
             HEAVY_LETTERS,
             R.string.concept_heavy_letters_title,
