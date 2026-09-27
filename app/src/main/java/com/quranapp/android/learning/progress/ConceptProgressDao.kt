@@ -22,6 +22,10 @@ interface ConceptProgressDao {
     @Upsert
     suspend fun upsert(progress: ConceptProgressEntity)
 
+    /** Items that became known at or after [since]. */
+    @Query("SELECT * FROM concept_progress WHERE status = 'KNOWN' AND updated_at >= :since")
+    suspend fun knownSince(since: Long): List<ConceptProgressEntity>
+
     /** Every known item, for Export. */
     @Query("SELECT * FROM concept_progress WHERE status = 'KNOWN'")
     suspend fun known(): List<ConceptProgressEntity>

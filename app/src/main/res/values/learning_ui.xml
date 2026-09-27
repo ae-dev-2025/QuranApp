@@ -295,4 +295,32 @@
     <string name="learning_goal_reached">You can read it with the odd look-up. Keep going to 98% to read it unaided.</string>
     <string name="learning_goal_next_words">Next words:</string>
     <string name="learning_goal_learn">Learn the next words</string>
+    <!-- Progress and the week: calm numbers, no streaks -->
+    <string name="learning_week">This week</string>
+    <string name="learning_week_quiet">A quiet week so far. Pick up whenever you like.</string>
+    <plurals name="learning_week_words">
+        <item quantity="one">%d new word</item>
+        <item quantity="other">%d new words</item>
+    </plurals>
+    <plurals name="learning_week_concepts">
+        <item quantity="one">%d new rule or mark</item>
+        <item quantity="other">%d new rules and marks</item>
+    </plurals>
+    <!-- %1$d: reviews answered, %2$d: of them right -->
+    <plurals name="learning_week_reviews">
+        <item quantity="one">%1$d review, %2$d right</item>
+        <item quantity="other">%1$d reviews, %2$d right</item>
+    </plurals>
+    <string name="learning_progress_see">See your progress</string>
+    <string name="learning_progress_title">Your progress</string>
+    <string name="learning_progress_words">Words</string>
+    <!-- %1$d: dictionary words known, %2$d: all of them -->
+    <string name="learning_progress_words_known">%1$,d of %2$,d dictionary words</string>
+    <!-- %1$d: a percentage -->
+    <string name="learning_progress_words_cover">They make up %1$d%% of the Quran’s words.</string>
+    <string name="learning_progress_quran">Across the whole Quran</string>
+    <string name="learning_progress_map">The Quran, surah by surah</string>
+    <string name="learning_progress_map_legend">Each square is a surah, darker the more of its words you know. Tap one to learn its words.</string>
+    <!-- TalkBack for a square: %1$s: the surah's name, %2$d: a percentage -->
+    <string name="learning_progress_cell">%1$s, %2$d%% of its words</string>
 </resources>

@@ -37,6 +37,10 @@ interface ReviewDao {
     @Query("SELECT * FROM review_cards")
     suspend fun allCards(): List<ReviewCardEntity>
 
+    /** Reviews answered at or after [since]. */
+    @Query("SELECT * FROM review_log WHERE reviewed_at >= :since")
+    suspend fun logSince(since: Long): List<ReviewLogEntity>
+
     /** Every answered review, oldest first, for Export. */
     @Query("SELECT * FROM review_log ORDER BY id")
     suspend fun allLogs(): List<ReviewLogEntity>

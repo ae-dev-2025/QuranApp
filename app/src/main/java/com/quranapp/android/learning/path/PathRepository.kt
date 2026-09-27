@@ -27,10 +27,19 @@ class PathRepository(
             val ayahs = quran.getWordsForSurah(surahNo, QuranScriptUtils.SCRIPT_UTHMANI).values.map { ayah -> ayah.map { it.text } }
             SurahNeeds.conceptsOf(ayahs)
         }
+        SurahNeeds(surahNo, surahConcepts, wordsLocked(surahNo))
+    }
+
+    /** Just a surah's words, without analysing its text; null without the pack. */
+    suspend fun words(surahNo: Int): List<List<String>>? = mutex.withLock { wordsLocked(surahNo) }
+
+    private suspend fun wordsLocked(surahNo: Int): List<List<String>>? {
         val repository = openWords()
-        if (repository == null) words.clear() // the pack was deleted: forget its words
-        val surahWords = repository?.let { words.getOrPut(surahNo) { it.wordItemsOfSurah(surahNo) } }
-        SurahNeeds(surahNo, surahConcepts, surahWords)
+        if (repository == null) {
+            words.clear() // the pack was deleted: forget its words
+            return null
+        }
+        return words.getOrPut(surahNo) { repository.wordItemsOfSurah(surahNo) }
     }
 
     suspend fun needs(surahs: Collection<Int>): Map<Int, SurahNeeds> = surahs.associateWith { needs(it) }

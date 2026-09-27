@@ -18,6 +18,7 @@ import com.quranapp.android.learning.path.Placement
 import com.quranapp.android.learning.path.Readiness
 import com.quranapp.android.learning.path.Stage
 import com.quranapp.android.learning.path.SurahNeeds
+import com.quranapp.android.learning.progress.WeekSummary
 import com.quranapp.android.learning.words.WordItems
 import com.quranapp.android.learning.words.WordRepository
 import kotlinx.coroutines.Dispatchers
@@ -101,6 +102,19 @@ class LearnViewModel(application: Application) : AndroidViewModel(application) {
             .mapLatest { (known, surah) -> if (surah in 1..114) goalOf(surah, known) else GoalState.None }
             .flowOn(Dispatchers.IO)
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+
+    /** The last seven days; recounted when progress or a review card changes. */
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val week: StateFlow<WeekSummary?> = run {
+        val database = DatabaseProvider.getUserDatabase(application)
+        combine(database.conceptProgressDao().observeKnownIds(), database.reviewDao().observeCards()) { _, _ -> Unit }
+            .mapLatest {
+                val since = System.currentTimeMillis() - WeekSummary.WEEK_MS
+                WeekSummary.of(database.conceptProgressDao().knownSince(since), database.reviewDao().logSince(since))
+            }
+            .flowOn(Dispatchers.IO)
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+    }
 
     fun setGoal(surahNo: Int) {
         viewModelScope.launch { LearningPreferences.setGoalSurah(surahNo) }

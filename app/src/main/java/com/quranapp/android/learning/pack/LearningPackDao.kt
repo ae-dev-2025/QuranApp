@@ -70,6 +70,10 @@ interface LearningPackDao {
     )
     suspend fun occurrencesOfLemma(lemmaId: Int, limit: Int): List<WordLocation>
 
+    /** How many dictionary words the pack has. */
+    @Query("SELECT COUNT(*) FROM lemmas")
+    suspend fun lemmaCount(): Int
+
     /** The dictionary words of every word in a range of ayahs, in reading order. Uses the primary key. */
     @Query(
         "SELECT s.ayah_id, s.word_index, l.lemma_key FROM segments s JOIN lemmas l ON l.lemma_id = s.lemma_id " +

@@ -1,5 +1,6 @@
 package com.quranapp.android.learning.ui
 
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -54,6 +55,7 @@ fun LearnScreen(viewModel: LearnViewModel) {
     val path by viewModel.summary.collectAsStateWithLifecycle()
     val start by viewModel.startStage.collectAsStateWithLifecycle()
     val goal by viewModel.goal.collectAsStateWithLifecycle()
+    val week by viewModel.week.collectAsStateWithLifecycle()
     var pickingGoal by rememberSaveable { mutableStateOf(false) }
     if (pickingGoal) {
         GoalPickerSheet(
@@ -110,6 +112,9 @@ fun LearnScreen(viewModel: LearnViewModel) {
                 item { YourPathCard(loaded) }
             }
             goal?.let { loaded -> item { GoalCard(loaded, onChooseSurah = { pickingGoal = true }) } }
+            week?.let { loaded ->
+                item { WeekCard(loaded) { context.startActivity(Intent(context, ActivityProgress::class.java)) } }
+            }
             item {
                 Text(
                     text = stringResource(R.string.learning_understand_tip),
