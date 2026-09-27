@@ -441,4 +441,21 @@
     <string name="letter_place_ha">The deepest part of the throat, breathed.</string>
     <string name="letter_place_hamza">The deepest part of the throat, closed for a moment.</string>
     <string name="learning_letter_place">Where it’s made</string>
+    <!-- Letter qualities, as labels on a letter's page -->
+    <string name="learning_sifa_whispered">whispered</string>
+    <string name="learning_sifa_voiced">voiced</string>
+    <string name="learning_sifa_strong">strong</string>
+    <string name="learning_sifa_middle">middle</string>
+    <string name="learning_sifa_soft">soft</string>
+    <string name="learning_sifa_raised">raised</string>
+    <string name="learning_sifa_lowered">lowered</string>
+    <string name="learning_sifa_closed">closed</string>
+    <string name="learning_sifa_open">open</string>
+    <string name="learning_sifa_whistling">whistling</string>
+    <string name="learning_sifa_rolling">rolling</string>
+    <string name="learning_sifa_leaning">leaning</string>
+    <string name="learning_sifa_spreading">spreading</string>
+    <string name="learning_sifa_lengthening">lengthening</string>
+    <string name="learning_sifa_bouncing">bouncing (qalqalah)</string>
+    <string name="learning_letter_qualities">Its qualities</string>
 </resources>

@@ -240,6 +240,50 @@ object LessonCatalog {
             confusedWith = ConfusedWith(ConceptIds.GHUNNAH, R.string.lesson_makhraj_nose_confused),
         ),
 
+        // ---- Tajweed: letter qualities ----
+        Lesson(
+            conceptId = ConceptIds.SIFA_HAMS,
+            keyExample = KeyExample(1, 6, 2..2, R.string.lesson_sifa_hams_say),
+            spotIt = R.array.lesson_sifa_hams_spot,
+            sayIt = R.array.lesson_sifa_hams_how,
+        ),
+        Lesson(
+            conceptId = ConceptIds.SIFA_SHIDDA,
+            keyExample = KeyExample(112, 3, 1..1, R.string.lesson_sifa_shidda_say, R.string.lesson_sifa_shidda_not_say),
+            spotIt = R.array.lesson_sifa_shidda_spot,
+            sayIt = R.array.lesson_sifa_shidda_how,
+        ),
+        Lesson(
+            conceptId = ConceptIds.SIFA_ISTILA,
+            keyExample = KeyExample(1, 7, 0..0, R.string.lesson_sifa_istila_say, R.string.lesson_sifa_istila_not_say),
+            spotIt = R.array.lesson_sifa_istila_spot,
+            sayIt = R.array.lesson_sifa_istila_how,
+        ),
+        Lesson(
+            conceptId = ConceptIds.SIFA_ITBAQ,
+            keyExample = KeyExample(94, 3, 2..2, R.string.lesson_sifa_itbaq_say, R.string.lesson_sifa_itbaq_not_say),
+            spotIt = R.array.lesson_sifa_itbaq_spot,
+            sayIt = R.array.lesson_sifa_itbaq_how,
+        ),
+        Lesson(
+            conceptId = ConceptIds.SIFA_SAFIR,
+            keyExample = KeyExample(114, 4, 2..2, R.string.lesson_sifa_safir_say),
+            spotIt = R.array.lesson_sifa_safir_spot,
+            sayIt = R.array.lesson_sifa_safir_how,
+        ),
+        Lesson(
+            conceptId = ConceptIds.SIFA_TAKRIR,
+            keyExample = KeyExample(1, 2, 2..2, R.string.lesson_sifa_takrir_say, R.string.lesson_sifa_takrir_not_say),
+            spotIt = R.array.lesson_sifa_takrir_spot,
+            sayIt = R.array.lesson_sifa_takrir_how,
+        ),
+        Lesson(
+            conceptId = ConceptIds.SIFA_TAFASHSHI,
+            keyExample = KeyExample(1, 7, 8..8, R.string.lesson_sifa_tafashshi_say, R.string.lesson_sifa_tafashshi_not_say),
+            spotIt = R.array.lesson_sifa_tafashshi_spot,
+            sayIt = R.array.lesson_sifa_tafashshi_how,
+        ),
+
         // ---- Tajweed: letters and lām ----
         Lesson(
             conceptId = ConceptIds.HEAVY_LETTERS,

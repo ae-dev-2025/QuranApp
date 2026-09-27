@@ -58,6 +58,20 @@
     <string name="concept_makhraj_lips_summary">ب م و are made with both lips, and ف with the lower lip and the upper teeth.</string>
     <string name="concept_makhraj_nose_title">The nose (al-khayshūm)</string>
     <string name="concept_makhraj_nose_summary">The humming ghunnah of noon and meem comes from the nose: pinch it and the sound stops.</string>
+    <string name="concept_sifa_hams_title">Whispered and voiced (hams, jahr)</string>
+    <string name="concept_sifa_hams_summary">Ten letters are whispered, with some breath flowing out: ف ح ث ه ش خ ص س ك ت. The rest are voiced.</string>
+    <string name="concept_sifa_shidda_title">Strong, middle and soft (shidda, tawassuṭ, rakhāwa)</string>
+    <string name="concept_sifa_shidda_summary">Strong letters stop the sound completely, middle letters let it half through, and soft letters let it run on.</string>
+    <string name="concept_sifa_istila_title">Raised and lowered (istiʿlāʾ, istifāl)</string>
+    <string name="concept_sifa_istila_summary">In seven letters the back of the tongue rises, which is what makes them heavy: خ ص ض غ ط ق ظ.</string>
+    <string name="concept_sifa_itbaq_title">Closed (iṭbāq)</string>
+    <string name="concept_sifa_itbaq_summary">In ص ض ط ظ the tongue presses up against the roof of the mouth and closes the sound in: the heaviest letters.</string>
+    <string name="concept_sifa_safir_title">Whistling (ṣafīr)</string>
+    <string name="concept_sifa_safir_summary">ص س ز whistle: the air hisses through the gap between the tongue and the front teeth.</string>
+    <string name="concept_sifa_takrir_title">Rolling and leaning (takrīr, inḥirāf)</string>
+    <string name="concept_sifa_takrir_summary">ر is ready to roll, so it is tapped once; ل and ر lean the sound to the side of the tongue.</string>
+    <string name="concept_sifa_tafashshi_title">Spreading and lengthening (tafashshī, istiṭāla)</string>
+    <string name="concept_sifa_tafashshi_summary">The air spreads through the mouth in ش, and ض runs along the side of the tongue from back to front.</string>
     <string name="concept_heavy_letters_title">Heavy letters (tafkhīm)</string>
     <string name="concept_heavy_letters_summary">Seven letters, خ ص ض غ ط ق ظ, are always pronounced with a full, heavy sound.</string>
 

@@ -371,6 +371,87 @@
     </string-array>
     <string name="lesson_makhraj_nose_confused">Ghunnah is the rule for when to hum; the nose is where the hum is made.</string>
 
+    <!-- Letter qualities: Whispered and voiced (hams, jahr) -->
+    <string name="lesson_sifa_hams_say">al-mus-ta-qī-ma</string>
+    <string-array name="lesson_sifa_hams_spot">
+        <item>Ten letters are whispered: ف ح ث ه ش خ ص س ك ت, remembered as فَحَثَّهُ شَخۡصٌ سَكَتَ.</item>
+        <item>The others are voiced: the voice carries them and the breath stays in.</item>
+    </string-array>
+    <string-array name="lesson_sifa_hams_how">
+        <item>Let a little breath flow out with a whispered letter, clearest with a sukūn: the s in mus.</item>
+        <item>Don’t push a voiced letter out on the breath: keep the voice on.</item>
+    </string-array>
+
+    <!-- Letter qualities: Strong, middle and soft (shidda, tawassuṭ, rakhāwa) -->
+    <string name="lesson_sifa_shidda_say">ya-lid</string>
+    <string name="lesson_sifa_shidda_not_say">ya-lidd</string>
+    <string-array name="lesson_sifa_shidda_spot">
+        <item>Strong letters stop the sound completely: ء ج د ق ط ب ك ت, remembered as أَجِدُ قَطٍ بَكَتۡ.</item>
+        <item>Middle letters let it half through: ل ن ع م ر (لِنۡ عُمَرۡ). The rest are soft: the sound runs on.</item>
+    </string-array>
+    <string-array name="lesson_sifa_shidda_how">
+        <item>On a strong letter with sukūn, cut the sound cleanly, then let it bounce if it is a qalqalah letter.</item>
+        <item>Hold the sound a little on middle letters; let it run on soft ones.</item>
+    </string-array>
+
+    <!-- Letter qualities: Raised and lowered (istiʿlāʾ, istifāl) -->
+    <string name="lesson_sifa_istila_say">ṣi-rā-ṭa</string>
+    <string name="lesson_sifa_istila_not_say">si-rā-ta</string>
+    <string-array name="lesson_sifa_istila_spot">
+        <item>Seven raised letters: خ ص ض غ ط ق ظ, remembered as خُصَّ ضَغۡطٍ قِظۡ.</item>
+        <item>All the other letters are lowered.</item>
+    </string-array>
+    <string-array name="lesson_sifa_istila_how">
+        <item>Raise the back of the tongue: that is what makes these letters heavy.</item>
+        <item>Keep the lowered letters light, even next to a heavy one.</item>
+    </string-array>
+
+    <!-- Letter qualities: Closed (iṭbāq) -->
+    <string name="lesson_sifa_itbaq_say">ẓah-ra-ka</string>
+    <string name="lesson_sifa_itbaq_not_say">zah-ra-ka</string>
+    <string-array name="lesson_sifa_itbaq_spot">
+        <item>Four closed letters: ص ض ط ظ.</item>
+        <item>They are the heaviest of the raised letters.</item>
+    </string-array>
+    <string-array name="lesson_sifa_itbaq_how">
+        <item>Press the tongue up against the roof of the mouth so the sound is closed in.</item>
+        <item>Compare ص with س and ط with ت: the same place, but closed.</item>
+    </string-array>
+
+    <!-- Letter qualities: Whistling (ṣafīr) -->
+    <string name="lesson_sifa_safir_say">al-was-wā-si</string>
+    <string-array name="lesson_sifa_safir_spot">
+        <item>Three whistling letters: ص س ز.</item>
+    </string-array>
+    <string-array name="lesson_sifa_safir_how">
+        <item>Let the air hiss through the narrow gap between the tongue and the front teeth.</item>
+        <item>The whistle is clearest with a sukūn, as in was-wās.</item>
+    </string-array>
+
+    <!-- Letter qualities: Rolling and leaning (takrīr, inḥirāf) -->
+    <string name="lesson_sifa_takrir_say">rab-bi</string>
+    <string name="lesson_sifa_takrir_not_say">rrrab-bi</string>
+    <string-array name="lesson_sifa_takrir_spot">
+        <item>Rolling (takrīr) is in ر: the tongue is ready to trill.</item>
+        <item>Leaning (inḥirāf) is in ل and ر: the sound leans towards the side of the tongue.</item>
+    </string-array>
+    <string-array name="lesson_sifa_takrir_how">
+        <item>Tap ر once, even with a shadda: don’t let it roll into rrr.</item>
+        <item>Let ل lean naturally; don’t turn it into a different sound.</item>
+    </string-array>
+
+    <!-- Letter qualities: Spreading and lengthening (tafashshī, istiṭāla) -->
+    <string name="lesson_sifa_tafashshi_say">aḍ-ḍāl-lī-n</string>
+    <string name="lesson_sifa_tafashshi_not_say">ad-dāl-lī-n</string>
+    <string-array name="lesson_sifa_tafashshi_spot">
+        <item>Spreading (tafashshī) is in ش: the air spreads through the mouth.</item>
+        <item>Lengthening (istiṭāla) is in ض: the sound runs along the side of the tongue.</item>
+    </string-array>
+    <string-array name="lesson_sifa_tafashshi_how">
+        <item>Give ش a full, spreading sound.</item>
+        <item>Run ض along the side of the tongue against the upper back teeth; don’t make it a heavy d or a ẓ.</item>
+    </string-array>
+
     <!-- Lam shamsiyya -->
     <string name="lesson_lam_shamsiyya_say">ar-raḥ-mā-ni</string>
     <string name="lesson_lam_shamsiyya_not_say">al-raḥ-mā-ni</string>

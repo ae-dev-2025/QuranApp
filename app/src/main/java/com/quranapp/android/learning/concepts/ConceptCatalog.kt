@@ -29,6 +29,13 @@ import com.quranapp.android.learning.concepts.ConceptIds.MAKHRAJ_LIPS
 import com.quranapp.android.learning.concepts.ConceptIds.MAKHRAJ_NOSE
 import com.quranapp.android.learning.concepts.ConceptIds.MAKHRAJ_THROAT
 import com.quranapp.android.learning.concepts.ConceptIds.MAKHRAJ_TONGUE
+import com.quranapp.android.learning.concepts.ConceptIds.SIFA_HAMS
+import com.quranapp.android.learning.concepts.ConceptIds.SIFA_ISTILA
+import com.quranapp.android.learning.concepts.ConceptIds.SIFA_ITBAQ
+import com.quranapp.android.learning.concepts.ConceptIds.SIFA_SAFIR
+import com.quranapp.android.learning.concepts.ConceptIds.SIFA_SHIDDA
+import com.quranapp.android.learning.concepts.ConceptIds.SIFA_TAFASHSHI
+import com.quranapp.android.learning.concepts.ConceptIds.SIFA_TAKRIR
 import com.quranapp.android.learning.concepts.ConceptIds.MEEM_SAKINAH
 import com.quranapp.android.learning.concepts.ConceptIds.NOON_SAKINAH
 import com.quranapp.android.learning.concepts.ConceptIds.QALQALAH
@@ -124,6 +131,14 @@ object ConceptCatalog {
             R.string.concept_heavy_letters_summary,
             SHORT_VOWELS,
         ),
+        // Letter qualities (stage 2): after where letters are made, and the heavy letters.
+        tajweed(SIFA_HAMS, R.string.concept_sifa_hams_title, R.string.concept_sifa_hams_summary, MAKHRAJ_THROAT, MAKHRAJ_TONGUE, MAKHRAJ_LIPS),
+        tajweed(SIFA_SHIDDA, R.string.concept_sifa_shidda_title, R.string.concept_sifa_shidda_summary, MAKHRAJ_THROAT, MAKHRAJ_TONGUE, MAKHRAJ_LIPS),
+        tajweed(SIFA_ISTILA, R.string.concept_sifa_istila_title, R.string.concept_sifa_istila_summary, MAKHRAJ_THROAT, MAKHRAJ_TONGUE, MAKHRAJ_LIPS, HEAVY_LETTERS),
+        tajweed(SIFA_ITBAQ, R.string.concept_sifa_itbaq_title, R.string.concept_sifa_itbaq_summary, MAKHRAJ_THROAT, MAKHRAJ_TONGUE, MAKHRAJ_LIPS),
+        tajweed(SIFA_SAFIR, R.string.concept_sifa_safir_title, R.string.concept_sifa_safir_summary, MAKHRAJ_THROAT, MAKHRAJ_TONGUE, MAKHRAJ_LIPS),
+        tajweed(SIFA_TAKRIR, R.string.concept_sifa_takrir_title, R.string.concept_sifa_takrir_summary, MAKHRAJ_THROAT, MAKHRAJ_TONGUE, MAKHRAJ_LIPS),
+        tajweed(SIFA_TAFASHSHI, R.string.concept_sifa_tafashshi_title, R.string.concept_sifa_tafashshi_summary, MAKHRAJ_THROAT, MAKHRAJ_TONGUE, MAKHRAJ_LIPS),
         tajweed(
             LAM_SHAMSIYYA,
             R.string.concept_lam_shamsiyya_title,
