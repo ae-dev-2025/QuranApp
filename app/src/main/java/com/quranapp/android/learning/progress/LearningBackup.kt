@@ -1,6 +1,7 @@
 package com.quranapp.android.learning.progress
 
 import com.quranapp.android.learning.concepts.ConceptCatalog
+import com.quranapp.android.learning.letters.Letters
 import com.quranapp.android.learning.path.LearningPreferences
 import com.quranapp.android.learning.words.WordItems
 import kotlinx.coroutines.flow.first
@@ -187,7 +188,7 @@ object LearningItems {
     private val LEMMA_KEY = Regex("[!-~]{1,40}")
 
     fun isValid(itemId: String): Boolean {
-        if (ConceptCatalog[itemId] != null) return true
+        if (ConceptCatalog[itemId] != null || Letters[itemId] != null) return true
         val lemmaKey = WordItems.lemmaKeyOf(itemId) ?: return false
         return LEMMA_KEY.matches(lemmaKey)
     }
