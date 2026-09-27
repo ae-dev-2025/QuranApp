@@ -299,6 +299,7 @@ private fun AyahWordsCard(
     onTap: ((Int) -> Unit)? = null,
     look: (Int) -> WordLook,
 ) {
+    val script = rememberScriptAyah(surahNo, ayahNo)
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -327,9 +328,11 @@ private fun AyahWordsCard(
                         else -> null
                     }
                     val shape = RoundedCornerShape(8.dp)
-                    Text(
+                    LearningWord(
+                        script = script,
+                        index = index,
                         text = word,
-                        fontFamily = arabicFont,
+                        arabicFont = arabicFont,
                         style = typography.headlineMedium,
                         color = foreground,
                         modifier = Modifier

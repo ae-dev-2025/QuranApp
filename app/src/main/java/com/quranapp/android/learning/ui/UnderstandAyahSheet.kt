@@ -372,11 +372,16 @@ private fun Header(
             style = typography.labelMedium,
             color = colorScheme.onSurface.alpha(0.8f),
         )
+        // The reader's script (Indo-Pak), or null for the app's Uthmani text.
+        val script = rememberScriptAyah(verse.chapterNo, verse.verseNo)
         if (packWords != null) {
             // Word by word, with meanings, once the learning pack is there.
             Box(Modifier.padding(top = 8.dp)) {
-                InterlinearAyah(state.words, packWords, known, arabicFont)
+                InterlinearAyah(state.words, packWords, known, arabicFont, script)
             }
+        } else if (script != null) {
+            val color = colorScheme.onSurface
+            LearningWords(script, state.words, state.words.indices, arabicFont, typography.titleLarge, color = { color }, Modifier.padding(top = 8.dp))
         } else {
             Text(
                 text = state.ayahText,
