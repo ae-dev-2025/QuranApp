@@ -3,6 +3,7 @@ package com.quranapp.android.learning.path
 import com.quranapp.android.learning.analysis.AyahAnalyzer
 import com.quranapp.android.learning.concepts.Concept
 import com.quranapp.android.learning.concepts.ConceptGraph
+import com.quranapp.android.learning.concepts.ConceptStages
 
 /**
  * What a surah needs, the same way the Understand sheet counts an ayah: the concepts its
@@ -40,29 +41,35 @@ data class LayerProgress(val known: Int, val total: Int) {
  * passed a check on (decision 7: both count).
  */
 object Readiness {
-    /** Null for Words when the learning pack isn't downloaded. */
-    fun of(needs: Collection<SurahNeeds>, layer: Layer, known: Set<String>): LayerProgress? {
+    /**
+     * Null for Words when the learning pack isn't downloaded. [upToStage] leaves out concepts
+     * a later stage teaches (see [ConceptStages]); by default everything counts.
+     */
+    fun of(needs: Collection<SurahNeeds>, layer: Layer, known: Set<String>, upToStage: Int = Int.MAX_VALUE): LayerProgress? {
         if (layer == Layer.WORDS) {
             if (needs.any { it.words == null }) return null
             val words = needs.flatMap { it.words.orEmpty() }
             return LayerProgress(words.count { word -> word.all { it in known } }, words.size)
         }
         // A concept needed by several surahs is one thing to learn, not several.
-        val concepts = needs.flatMapTo(LinkedHashSet()) { surah -> surah.concepts.filter { it.track == layer.track } }
+        val concepts = needs.flatMapTo(LinkedHashSet()) { surah ->
+            surah.concepts.filter { it.track == layer.track && ConceptStages.of(it.id) <= upToStage }
+        }
         return LayerProgress(concepts.count { it.id in known }, concepts.size)
     }
 
     /** Null when a surah of the goal isn't loaded, or its words need the pack: unknown, not 0 of 0. */
-    fun of(goal: StageGoal, needsBySurah: Map<Int, SurahNeeds>, known: Set<String>): LayerProgress? = when (goal) {
+    fun of(goal: StageGoal, needsBySurah: Map<Int, SurahNeeds>, known: Set<String>, stage: Int = Int.MAX_VALUE): LayerProgress? = when (goal) {
         is StageGoal.Concepts -> LayerProgress(goal.conceptIds.count { it in known }, goal.conceptIds.size)
         is StageGoal.Surahs -> {
             val needs = goal.surahs.map { needsBySurah[it] ?: return null }
-            of(needs, goal.layer, known)
+            of(needs, goal.layer, known, upToStage = stage)
         }
     }
 
-    fun isReached(goal: StageGoal, needsBySurah: Map<Int, SurahNeeds>, known: Set<String>): Boolean {
-        val progress = of(goal, needsBySurah, known) ?: return false
+    /** [stage] is the number of the stage the goal belongs to. */
+    fun isReached(goal: StageGoal, needsBySurah: Map<Int, SurahNeeds>, known: Set<String>, stage: Int = Int.MAX_VALUE): Boolean {
+        val progress = of(goal, needsBySurah, known, stage) ?: return false
         return progress.reaches(if (goal is StageGoal.Surahs) goal.percent else 100)
     }
 

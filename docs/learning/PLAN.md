@@ -135,43 +135,45 @@ and overrides for the 258 verb headwords still marked "unchecked".
 | 54 | Letters track |
 | 55 | Letter grid and letter pages |
 | 56 | Audio for words and examples ("Hear it") |
-| 57–58 | Where letters are made (makhārij) and letter qualities (ṣifāt) |
-| 59 | Letter questions |
+| 57 | Where letters are made (makhārij) |
+| 58 | Concept stages: a stage's goals count only the concepts it teaches |
+| 59 | Letter qualities (ṣifāt) |
+| 60 | Letter questions |
 
 **M8 · Grammar I: word forms**
 
 | PR | What it adds |
 |---|---|
-| 60 | Grammar track: 70 concepts and their prerequisites |
-| 61 | Grammar detector: word features to concepts |
-| 62 | Grammar tab |
-| 63–67 | Lessons for word-form concepts |
+| 61 | Grammar track: 70 concepts and their prerequisites |
+| 62 | Grammar detector: word features to concepts |
+| 63 | Grammar tab |
+| 64–68 | Lessons for word-form concepts |
 
 **M9 · Grammar II: sentences**
 
 | PR | What it adds |
 |---|---|
-| 68 | Sentence roles to concepts |
-| 69 | Sentence roles in the Grammar tab |
-| 70–73 | Lessons for sentence concepts |
-| 74 | Grammar questions |
+| 69 | Sentence roles to concepts |
+| 70 | Sentence roles in the Grammar tab |
+| 71–74 | Lessons for sentence concepts |
+| 75 | Grammar questions |
 
 **M10 · Complete recitation**
 
 | PR | What it adds |
 |---|---|
-| 75 | Heavy and light rāʾ |
-| 76 | Idghām of two letters, lām of verbs and particles, tanwīn before hamzat al-waṣl |
-| 77 | Madds: ʿāriḍ, līn, ʿiwaḍ, badal, ṣila, disjointed letters |
-| 78 | Saktas, Ḥafṣ's special words, stopping and starting, special spellings |
-| 79–81 | Lessons for the new concepts |
+| 76 | Heavy and light rāʾ |
+| 77 | Idghām of two letters, lām of verbs and particles, tanwīn before hamzat al-waṣl |
+| 78 | Madds: ʿāriḍ, līn, ʿiwaḍ, badal, ṣila, disjointed letters |
+| 79 | Saktas, Ḥafṣ's special words, stopping and starting, special spellings |
+| 80–82 | Lessons for the new concepts |
 
 **M11 · Polish**
 
 | PR | What it adds |
 |---|---|
-| 82 | Show learning screens in the reader's script (Indo-Pak) |
-| 83 | Dark theme and right-to-left fixes |
-| 84 | Accessibility |
-| 85 | Speed: caching |
-| 86 | Security and licence review, including: Export/Import crashes on a file that isn't JSON (found in #43; the parse in `ActivityExportImport.importData` isn't caught) |
+| 83 | Show learning screens in the reader's script (Indo-Pak) |
+| 84 | Dark theme and right-to-left fixes |
+| 85 | Accessibility |
+| 86 | Speed: caching |
+| 87 | Security and licence review, including: Export/Import crashes on a file that isn't JSON (found in #43; the parse in `ActivityExportImport.importData` isn't caught) |

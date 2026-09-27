@@ -96,10 +96,10 @@ class PathViewModel(application: Application) : AndroidViewModel(application) {
                 null
             } else {
                 val needs = path.needs(PathProgress.goalSurahs(stage))
-                if (status == StageStatus.SKIPPED && stage.goals.all { Readiness.isReached(it, needs, known) }) {
+                if (status == StageStatus.SKIPPED && stage.goals.all { Readiness.isReached(it, needs, known, stage.number) }) {
                     status = StageStatus.DONE
                 }
-                stage.goals.map { goal -> GoalProgress((goal as? StageGoal.Surahs)?.layer, Readiness.of(goal, needs, known)) }
+                stage.goals.map { goal -> GoalProgress((goal as? StageGoal.Surahs)?.layer, Readiness.of(goal, needs, known, stage.number)) }
             }
             val units = stage.units.map { surah ->
                 val surahNeeds = path.needs(surah)

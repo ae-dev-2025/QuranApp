@@ -7,15 +7,16 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class PathProgressTest {
     private val sukun = ConceptCatalog[ConceptIds.SUKUN]!!
-    private val ikhfa = ConceptCatalog[ConceptIds.IKHFA]!!
+    private val qalqalah = ConceptCatalog[ConceptIds.QALQALAH]!! // stage 1, like the goals below
 
-    /** Every surah needs sukūn and ikhfāʾ, and has two words: word.a and word.b. */
+    /** Every surah needs sukūn and qalqalah, and has two words: word.a and word.b. */
     private fun fakeNeeds(surahs: Collection<Int>) =
-        surahs.associateWith { SurahNeeds(it, listOf(sukun, ikhfa), listOf(listOf("word.a"), listOf("word.b"))) }
+        surahs.associateWith { SurahNeeds(it, listOf(sukun, qalqalah), listOf(listOf("word.a"), listOf("word.b"))) }
 
     private val loaded = mutableListOf<Int>()
     private val load: suspend (Collection<Int>) -> Map<Int, SurahNeeds> = { surahs -> loaded += surahs; fakeNeeds(surahs) }
@@ -50,7 +51,7 @@ class PathProgressTest {
 
     @Test
     fun stageOneIsDoneWhenItsSurahsCanBeReadAndRecitedAndAlFatihahUnderstood() = runBlocking {
-        val readAndRecite = Curriculum.BASICS.toSet() + ConceptIds.SUKUN + ConceptIds.IKHFA
+        val readAndRecite = Curriculum.BASICS.toSet() + ConceptIds.SUKUN + ConceptIds.QALQALAH
         assertEquals("Al-Fātiḥah's words are still missing", 1, PathProgress.currentStage(readAndRecite, load).number)
         // With everything known, the path ends at its last stage.
         assertEquals(6, PathProgress.currentStage(readAndRecite + "word.a" + "word.b", load).number)
@@ -61,12 +62,25 @@ class PathProgressTest {
         val stage = Curriculum.stages[1]
         val needs = fakeNeeds(PathProgress.goalSurahs(stage))
         // Read and recite are known, but Al-Fātiḥah's words aren't: stage 1 counts them for Al-Fātiḥah only.
-        val known = setOf(ConceptIds.SUKUN, ConceptIds.IKHFA)
+        val known = setOf(ConceptIds.SUKUN, ConceptIds.QALQALAH)
         assertEquals(1, PathProgress.nextUnit(stage, needs, known))
         assertNull(PathProgress.nextUnit(stage, needs, known + "word.a" + "word.b"))
-        // Al-Fātiḥah needs only sukūn and word.a here; Al-Ikhlāṣ, next on the path, also needs ikhfāʾ.
+        // Al-Fātiḥah needs only sukūn and word.a here; Al-Ikhlāṣ, next on the path, also needs qalqalah.
         val fatihahDone = needs + (1 to SurahNeeds(1, listOf(sukun), listOf(listOf("word.a"))))
         assertEquals(112, PathProgress.nextUnit(stage, fatihahDone, setOf(ConceptIds.SUKUN, "word.a")))
+    }
+
+    @Test
+    fun aStageDoesNotAskForWhatALaterStageTeaches() = runBlocking {
+        // Every surah here also needs ikhfāʾ, which stage 2 teaches: stage 1 can be finished without it.
+        val ikhfa = ConceptCatalog[ConceptIds.IKHFA]!!
+        val withIkhfa: suspend (Collection<Int>) -> Map<Int, SurahNeeds> = { surahs ->
+            surahs.associateWith { SurahNeeds(it, listOf(sukun, qalqalah, ikhfa), listOf(listOf("word.a"))) }
+        }
+        val stageOneDone = Curriculum.BASICS.toSet() + ConceptIds.SUKUN + ConceptIds.QALQALAH + "word.a"
+        assertEquals(2, PathProgress.currentStage(stageOneDone, withIkhfa).number)
+        // Knowing ikhfāʾ too finishes stage 2 as well.
+        assertTrue(PathProgress.currentStage(stageOneDone + ConceptIds.IKHFA, withIkhfa).number > 2)
     }
 
     @Test
