@@ -5,12 +5,15 @@
     <string name="learning_understand_ayah">Understand</string>
     <string name="learning_understand_title">What this ayah needs</string>
 
-    <plurals name="learning_concept_count">
-        <item quantity="one">%d concept</item>
-        <item quantity="other">%d concepts</item>
-    </plurals>
-
-    <string name="learning_you_know">You know %1$d of %2$d</string>
+    <!-- The layers of understanding an ayah, one tab each in the Understand sheet -->
+    <string name="learning_layer_read">Read</string>
+    <string name="learning_layer_recite">Recite</string>
+    <string name="learning_layer_words">Words</string>
+    <string name="learning_layer_grammar">Grammar</string>
+    <!-- Under a tab name: how many of the layer's items the learner knows, such as "3/5" -->
+    <string name="learning_layer_count">%1$d/%2$d</string>
+    <!-- Same, when all are known: "4/4 ✓" -->
+    <string name="learning_layer_done">%1$d/%2$d ✓</string>
 
     <!-- Concept learning page -->
     <string name="learning_open_lesson">open lesson</string>
