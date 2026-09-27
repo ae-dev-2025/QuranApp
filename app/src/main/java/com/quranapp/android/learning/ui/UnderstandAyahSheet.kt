@@ -15,23 +15,26 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.PrimaryTabRow
+import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -39,7 +42,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.quranapp.android.R
 import com.quranapp.android.compose.components.reader.LocalReaderViewModel
-import com.quranapp.android.compose.extensions.bottomBorder
 import com.quranapp.android.compose.theme.alpha
 import com.quranapp.android.db.DatabaseProvider
 import com.quranapp.android.db.relations.VerseWithDetails
@@ -138,6 +140,15 @@ private suspend fun loadState(repository: QuranRepository, ayahId: Int): Underst
     return UnderstandAyahState(ayahText = words.joinToString(" "), items = items)
 }
 
+/**
+ * The layers of understanding an ayah (decision 3): one tab each. Read and Recite list the
+ * concepts found in the text; Words and Grammar are added in the next PRs.
+ */
+private enum class Layer(val labelRes: Int, val track: Track) {
+    READ(R.string.learning_layer_read, Track.READING),
+    RECITE(R.string.learning_layer_recite, Track.TAJWEED),
+}
+
 @Composable
 private fun SheetContent(verse: VerseWithDetails, state: UnderstandAyahState) {
     val arabicFont = remember { FontFamily(Font(R.font.uthmanic_hafs)) }
@@ -151,22 +162,29 @@ private fun SheetContent(verse: VerseWithDetails, state: UnderstandAyahState) {
     // Tied to this composable: if the sheet closes, unfinished work is cancelled.
     val scope = rememberCoroutineScope()
 
-    val knownCount = state.items.count { it.concept.id in known }
+    val itemsByLayer = remember(state) {
+        Layer.entries.associateWith { layer -> state.items.filter { it.concept.track == layer.track } }
+    }
+
+    // Opens on the first layer with something left to learn; rememberSaveable keeps the
+    // learner's choice when the screen rotates.
+    var selected by rememberSaveable(verse.id) {
+        mutableStateOf(
+            Layer.entries.firstOrNull { layer -> itemsByLayer.getValue(layer).any { it.concept.id !in known } }
+                ?: Layer.READ,
+        )
+    }
 
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         item {
-            Header(verse, state, knownCount, arabicFont)
+            Header(verse, state, arabicFont)
         }
 
-        // The list is already in learning order, and all reading concepts come before
-        // tajweed ones, so a heading is added whenever the track changes.
-        var previousTrack: Track? = null
-        for (conceptItem in state.items) {
-            val track = conceptItem.concept.track
-            if (track != previousTrack) {
-                item(key = "track-$track") { TrackHeading(track) }
-                previousTrack = track
-            }
+        item {
+            LayerTabs(selected, itemsByLayer, known, onSelect = { selected = it })
+        }
+
+        for (conceptItem in itemsByLayer.getValue(selected)) {
             item(key = conceptItem.concept.id) {
                 ConceptRow(
                     item = conceptItem,
@@ -196,19 +214,51 @@ private fun SheetContent(verse: VerseWithDetails, state: UnderstandAyahState) {
     }
 }
 
+/** One tab per layer, each with how many of its items the learner knows: "Recite 1/2". */
+@Composable
+private fun LayerTabs(
+    selected: Layer,
+    itemsByLayer: Map<Layer, List<ConceptItem>>,
+    known: Set<String>,
+    onSelect: (Layer) -> Unit,
+) {
+    PrimaryTabRow(selectedTabIndex = selected.ordinal, containerColor = colorScheme.surface) {
+        Layer.entries.forEach { layer ->
+            val items = itemsByLayer.getValue(layer)
+            val knownCount = items.count { it.concept.id in known }
+            Tab(
+                selected = layer == selected,
+                onClick = { onSelect(layer) },
+                text = {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(stringResource(layer.labelRes), style = typography.labelLarge)
+                        Text(
+                            text = stringResource(
+                                if (knownCount == items.size) R.string.learning_layer_done else R.string.learning_layer_count,
+                                knownCount,
+                                items.size,
+                            ),
+                            style = typography.labelSmall,
+                        )
+                    }
+                },
+                unselectedContentColor = colorScheme.onSurface.alpha(0.7f),
+            )
+        }
+    }
+}
+
 @Composable
 private fun Header(
     verse: VerseWithDetails,
     state: UnderstandAyahState,
-    knownCount: Int,
     arabicFont: FontFamily,
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .bottomBorder()
             .padding(horizontal = 16.dp)
-            .padding(bottom = 16.dp),
+            .padding(bottom = 12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
@@ -222,10 +272,6 @@ private fun Header(
                 verse.chapter.getCurrentName(),
                 verse.chapterNo,
                 verse.verseNo,
-            ) + " · " + pluralStringResource(
-                R.plurals.learning_concept_count,
-                state.items.size,
-                state.items.size,
             ),
             style = typography.labelMedium,
             color = colorScheme.onSurface.alpha(0.8f),
@@ -237,30 +283,7 @@ private fun Header(
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(top = 8.dp),
         )
-
-        val total = state.items.size
-        LinearProgressIndicator(
-            progress = { if (total == 0) 0f else knownCount / total.toFloat() },
-            modifier = Modifier
-                .fillMaxWidth(0.6f)
-                .padding(top = 12.dp),
-        )
-        Text(
-            text = stringResource(R.string.learning_you_know, knownCount, total),
-            style = typography.labelMedium,
-            color = colorScheme.primary,
-        )
     }
-}
-
-@Composable
-private fun TrackHeading(track: Track) {
-    Text(
-        text = stringResource(track.labelRes),
-        style = typography.labelLarge,
-        color = colorScheme.primary,
-        modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 4.dp),
-    )
 }
 
 @Composable
