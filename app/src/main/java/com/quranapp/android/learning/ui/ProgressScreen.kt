@@ -93,20 +93,21 @@ fun ProgressScreen(viewModel: ProgressViewModel) {
 /**
  * The 114 surahs as squares, darker the more of a surah's words are known. Each opens its
  * unit on the Words step. TalkBack reads the name and the share instead of the shade.
+ * The tap target around each square is 48dp, the size a finger needs.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun QuranMap(surahs: List<SurahCell>) {
     val context = LocalContext.current
-    FlowRow(horizontalArrangement = Arrangement.spacedBy(4.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+    val target = grownWithText(48.dp)
+    FlowRow {
         surahs.forEach { cell ->
             val share = cell.words.fraction
             val description = stringResource(R.string.learning_progress_cell, cell.name, cell.words.percent)
             Box(
                 modifier = Modifier
-                    .size(36.dp)
-                    .clip(RoundedCornerShape(6.dp))
-                    .background(colorScheme.primary.alpha(0.08f + 0.92f * share))
+                    .size(target)
+                    .clip(RoundedCornerShape(8.dp))
                     .clickable { context.startActivity(ActivityUnit.intent(context, cell.surahNo, focus = Layer.WORDS)) }
                     .clearAndSetSemantics {
                         contentDescription = description
@@ -114,11 +115,19 @@ private fun QuranMap(surahs: List<SurahCell>) {
                     },
                 contentAlignment = Alignment.Center,
             ) {
-                Text(
-                    text = cell.surahNo.toString(),
-                    style = typography.labelSmall,
-                    color = if (share > 0.55f) colorScheme.onPrimary else colorScheme.onSurface,
-                )
+                Box(
+                    modifier = Modifier
+                        .size(target - 8.dp)
+                        .clip(RoundedCornerShape(6.dp))
+                        .background(colorScheme.primary.alpha(0.08f + 0.92f * share)),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text(
+                        text = cell.surahNo.toString(),
+                        style = typography.labelSmall,
+                        color = if (share > 0.55f) colorScheme.onPrimary else colorScheme.onSurface,
+                    )
+                }
             }
         }
     }

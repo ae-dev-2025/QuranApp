@@ -131,7 +131,7 @@ internal fun ExamplesSection(key: String, find: suspend (limit: Int) -> List<Con
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(stringResource(R.string.learning_in_the_quran), style = typography.titleMedium)
+            Text(stringResource(R.string.learning_in_the_quran), style = typography.titleMedium, modifier = Modifier.heading())
             Text(
                 text = stringResource(R.string.learning_short_surahs_first),
                 style = typography.bodySmall,

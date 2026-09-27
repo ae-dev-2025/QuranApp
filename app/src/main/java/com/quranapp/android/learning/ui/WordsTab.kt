@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.Button
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme.colorScheme
@@ -180,11 +179,11 @@ internal fun WordRow(
             .padding(start = 4.dp, end = 16.dp, top = 6.dp, bottom = 6.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Checkbox(checked = isKnown, onCheckedChange = onKnownChange, modifier = Modifier.padding(4.dp))
+        KnownCheckbox(isKnown, onKnownChange, entry.gloss ?: lemma.headword)
         Column(
             modifier = Modifier
                 .weight(1f)
-                .alpha(if (isKnown) 0.6f else 1f),
+                .alpha(if (isKnown) 0.7f else 1f),
             verticalArrangement = Arrangement.spacedBy(2.dp),
         ) {
             if (entry.gloss != null) {

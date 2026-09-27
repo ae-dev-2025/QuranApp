@@ -41,7 +41,7 @@ internal fun PlacementContent(modifier: Modifier = Modifier, onChoose: (Placemen
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        Text(stringResource(R.string.learning_place_title), style = typography.headlineSmall)
+        Text(stringResource(R.string.learning_place_title), style = typography.headlineSmall, modifier = Modifier.heading())
         Text(
             text = stringResource(R.string.learning_place_subtitle),
             style = typography.bodyMedium,

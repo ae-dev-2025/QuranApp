@@ -191,7 +191,7 @@ private fun SectionTitle(title: Int) {
         text = stringResource(title),
         style = typography.titleSmall,
         color = colorScheme.primary,
-        modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 20.dp, bottom = 4.dp),
+        modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 20.dp, bottom = 4.dp).heading(),
     )
 }
 

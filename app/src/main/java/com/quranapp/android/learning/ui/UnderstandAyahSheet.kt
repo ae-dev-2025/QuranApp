@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme.colorScheme
@@ -125,7 +124,7 @@ fun UnderstandAyahSheet(
                 CircularProgressIndicator()
             }
         } else {
-            LearningDirection { SheetContent(verse, loaded) }
+            LearningStyle { SheetContent(verse, loaded) }
         }
     }
 }
@@ -300,7 +299,7 @@ private fun SheetContent(verse: VerseWithDetails, state: UnderstandAyahState) {
                     },
                 ),
                 style = typography.labelSmall,
-                color = colorScheme.onSurface.alpha(0.6f),
+                color = colorScheme.onSurface.alpha(0.7f),
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -362,6 +361,7 @@ private fun Header(
         Text(
             text = stringResource(R.string.learning_understand_title),
             style = typography.titleMedium,
+            modifier = Modifier.heading(),
         )
         Text(
             text = ayahReference(verse.chapter.getCurrentName(), verse.chapterNo, verse.verseNo),
@@ -411,9 +411,9 @@ private fun ConceptRow(
             arabicFont = arabicFont,
             modifier = Modifier
                 .weight(1f)
-                .alpha(if (isKnown) 0.55f else 1f),
+                .alpha(if (isKnown) 0.7f else 1f),
         )
-        Checkbox(checked = isKnown, onCheckedChange = onKnownChange, modifier = Modifier.padding(4.dp))
+        KnownCheckbox(isKnown, onKnownChange, conceptTitle(item.concept))
     }
 }
 
@@ -465,7 +465,7 @@ private fun ConceptDetails(item: ConceptItem, arabicFont: FontFamily, modifier: 
             Text(
                 text = stringResource(R.string.learning_needed_as_foundation),
                 style = typography.labelSmall,
-                color = colorScheme.onSurface.alpha(0.6f),
+                color = colorScheme.onSurface.alpha(0.7f),
             )
         }
     }

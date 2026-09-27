@@ -40,7 +40,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.Font
@@ -283,7 +285,7 @@ private fun IntroductionView(introduction: WordIntroduction, arabicFont: FontFam
 
 @Composable
 private fun Prompt(text: String) {
-    Text(text, style = typography.titleMedium)
+    Text(text, style = typography.titleMedium, modifier = Modifier.heading())
 }
 
 private enum class WordLook { Plain, Highlighted, Right, Wrong }
@@ -431,6 +433,8 @@ private fun Feedback(state: PracticeUiState.Asking, onContinue: () -> Unit) {
             text = stringResource(if (right) R.string.learning_right else R.string.learning_not_quite),
             style = typography.titleMedium,
             color = if (right) colorScheme.primary else colorScheme.error,
+            // TalkBack reads it out when it appears, without moving focus from the answers.
+            modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
         )
         Button(onClick = onContinue, modifier = Modifier.fillMaxWidth()) {
             Text(stringResource(R.string.learning_continue))
@@ -447,7 +451,7 @@ private fun Finished(state: PracticeUiState.Finished, onClose: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically),
     ) {
-        Text(stringResource(R.string.learning_practice_done), style = typography.headlineSmall)
+        Text(stringResource(R.string.learning_practice_done), style = typography.headlineSmall, modifier = Modifier.heading())
         Text(
             text = stringResource(R.string.learning_practice_score, state.right, state.total),
             style = typography.titleMedium,

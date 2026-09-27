@@ -89,6 +89,7 @@ fun LearningDataScreen() {
                 Text(
                     text = stringResource(R.string.learning_data_sources),
                     style = typography.titleSmall,
+                    modifier = Modifier.heading(),
                 )
             }
 

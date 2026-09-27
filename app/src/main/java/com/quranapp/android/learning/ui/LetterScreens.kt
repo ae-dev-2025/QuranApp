@@ -169,7 +169,7 @@ private fun LetterCell(letter: Letter, isKnown: Boolean, arabicFont: FontFamily)
     val description = letter.name + ", " + stringResource(if (isKnown) R.string.learning_known else R.string.learning_not_known)
     Box(
         modifier = Modifier
-            .size(56.dp)
+            .size(grownWithText(56.dp))
             .clip(shape)
             .then(if (isKnown) Modifier.background(colorScheme.primary.alpha(0.2f)) else Modifier.border(1.dp, colorScheme.outlineVariant, shape))
             .clickable { context.startActivity(ActivityLetter.intent(context, letter.id)) }
