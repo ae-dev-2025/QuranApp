@@ -254,6 +254,70 @@ object GrammarLessons {
             R.array.grammar_lesson_verbal_noun_spot, R.array.grammar_lesson_verbal_noun_how,
             ConfusedWith(GrammarIds.ACTIVE_PARTICIPLE, R.string.grammar_lesson_verbal_noun_confused),
         ),
+
+        // ---- Unit 17 · Conditions and questions ----
+        grammar(
+            GrammarIds.CONDITIONS, KeyExample(99, 7, 0..5, R.string.grammar_lesson_conditions_means),
+            R.array.grammar_lesson_conditions_spot, R.array.grammar_lesson_conditions_how,
+            ConfusedWith(GrammarIds.LAW, R.string.grammar_lesson_conditions_confused),
+        ),
+        grammar(
+            GrammarIds.LAW, KeyExample(102, 5, 1..4, R.string.grammar_lesson_law_means),
+            R.array.grammar_lesson_law_spot, R.array.grammar_lesson_law_how,
+            ConfusedWith(GrammarIds.CONDITIONS, R.string.grammar_lesson_law_confused),
+        ),
+        grammar(
+            GrammarIds.QUESTIONS, KeyExample(88, 1, 0..3, R.string.grammar_lesson_questions_means),
+            R.array.grammar_lesson_questions_spot, R.array.grammar_lesson_questions_how,
+            ConfusedWith(GrammarIds.MA, R.string.grammar_lesson_questions_confused),
+        ),
+        grammar(
+            GrammarIds.EXCEPTION, KeyExample(103, 3, 0..2, R.string.grammar_lesson_exception_means),
+            R.array.grammar_lesson_exception_spot, R.array.grammar_lesson_exception_how,
+            ConfusedWith(GrammarIds.RESTRICTION, R.string.grammar_lesson_exception_confused),
+        ),
+        grammar(
+            GrammarIds.VOCATIVE, KeyExample(109, 1, 1..2, R.string.grammar_lesson_vocative_means),
+            R.array.grammar_lesson_vocative_spot, R.array.grammar_lesson_vocative_how,
+            ConfusedWith(GrammarIds.ATTACHED_PRONOUN, R.string.grammar_lesson_vocative_confused),
+        ),
+
+        // ---- Unit 18 · Particles and emphasis ----
+        grammar(
+            GrammarIds.WA_FA_THUMMA, KeyExample(80, 21, 0..2, R.string.grammar_lesson_wa_fa_thumma_means),
+            R.array.grammar_lesson_wa_fa_thumma_spot, R.array.grammar_lesson_wa_fa_thumma_how,
+            ConfusedWith(GrammarIds.EMPHASIS, R.string.grammar_lesson_wa_fa_thumma_confused),
+        ),
+        grammar(
+            GrammarIds.MA, KeyExample(101, 10, 0..3, R.string.grammar_lesson_ma_means),
+            R.array.grammar_lesson_ma_spot, R.array.grammar_lesson_ma_how,
+            ConfusedWith(GrammarIds.LA, R.string.grammar_lesson_ma_confused),
+        ),
+        grammar(
+            GrammarIds.LA, KeyExample(88, 11, 0..3, R.string.grammar_lesson_la_means),
+            R.array.grammar_lesson_la_spot, R.array.grammar_lesson_la_how,
+            ConfusedWith(GrammarIds.MA, R.string.grammar_lesson_la_confused),
+        ),
+        grammar(
+            GrammarIds.IN_AN, KeyExample(96, 14, 1..4, R.string.grammar_lesson_in_an_means),
+            R.array.grammar_lesson_in_an_spot, R.array.grammar_lesson_in_an_how,
+            ConfusedWith(GrammarIds.INNA, R.string.grammar_lesson_in_an_confused),
+        ),
+        grammar(
+            GrammarIds.LAM_PARTICLES, KeyExample(100, 6, 0..3, R.string.grammar_lesson_lam_particles_means),
+            R.array.grammar_lesson_lam_particles_spot, R.array.grammar_lesson_lam_particles_how,
+            ConfusedWith(GrammarIds.PREPOSITION, R.string.grammar_lesson_lam_particles_confused),
+        ),
+        grammar(
+            GrammarIds.EMPHASIS, KeyExample(103, 1, 0..0, R.string.grammar_lesson_emphasis_means),
+            R.array.grammar_lesson_emphasis_spot, R.array.grammar_lesson_emphasis_how,
+            ConfusedWith(GrammarIds.WA_FA_THUMMA, R.string.grammar_lesson_emphasis_confused),
+        ),
+        grammar(
+            GrammarIds.RESTRICTION, KeyExample(51, 56, 0..5, R.string.grammar_lesson_restriction_means),
+            R.array.grammar_lesson_restriction_spot, R.array.grammar_lesson_restriction_how,
+            ConfusedWith(GrammarIds.EXCEPTION, R.string.grammar_lesson_restriction_confused),
+        ),
     )
 
     private fun grammar(conceptId: String, keyExample: KeyExample, @ArrayRes spot: Int, @ArrayRes how: Int, confused: ConfusedWith) =

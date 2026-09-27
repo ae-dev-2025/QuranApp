@@ -613,4 +613,171 @@
         <item>It is a noun, so it can take a pronoun owner: ذِكۡرَكَ “your mention”.</item>
     </string-array>
     <string name="grammar_lesson_verbal_noun_confused">The verbal noun is the action: ذِكۡر “remembrance”. The doer noun is the one doing it: ذَاكِر “one who remembers”.</string>
+
+    <!-- Unit 17 · Conditions and questions -->
+
+    <!-- Conditions -->
+    <string name="grammar_lesson_conditions_means">So whoever does an atom’s weight of good will see it (fa-man yaʿmal mithqāla dharratin khayran yarah)</string>
+    <string-array name="grammar_lesson_conditions_spot">
+        <item>إِن “if”, مَن “whoever” or مَا “whatever”, then two verbs: the condition and its answer.</item>
+        <item>Both verbs are in jazm: يَعۡمَلۡ, and يَرَهُۥ, which has lost the ā of يَرَىٰ.</item>
+        <item>إِذَا “when” starts a condition too, but doesn’t put the verbs in jazm: إِذَا جَآءَ نَصۡرُ ٱللَّهِ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_conditions_how">
+        <item>The first part sets the condition; the second says what follows from it: “whoever does …, will see it”.</item>
+        <item>When the answer isn’t a plain verb, it often starts with فَـ: فَسَبِّحۡ “then glorify” (110:3).</item>
+        <item>إِذَا is for something sure to come, “when”; إِن for something that may happen, “if”.</item>
+    </string-array>
+    <string name="grammar_lesson_conditions_confused">لَوۡ is also “if”, but for something that didn’t happen, or can’t: “had you known …”.</string>
+
+    <!-- لَوۡ and لَوۡلَآ -->
+    <string name="grammar_lesson_law_means">if you only knew with the knowledge of certainty (law taʿlamūna ʿilma l-yaqīn)</string>
+    <string-array name="grammar_lesson_law_spot">
+        <item>لَوۡ “if, if only”, and لَوۡلَآ “were it not for”.</item>
+        <item>Its answer often starts with لَـ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_law_how">
+        <item>لَوۡ is for something that didn’t happen, or can’t: if only you knew, but you don’t.</item>
+        <item>Sometimes its answer is left unsaid, for the listener to imagine: 102:5 doesn’t say what would follow.</item>
+        <item>لَوۡلَآ says what would have happened, but for something else.</item>
+    </string-array>
+    <string name="grammar_lesson_law_confused">إِن is “if” for something that may happen. لَوۡ is for something that didn’t.</string>
+
+    <!-- Questions -->
+    <string name="grammar_lesson_questions_means">Has the report of the Overwhelming come to you? (hal atāka ḥadīthu l-ghāshiyah)</string>
+    <string-array name="grammar_lesson_questions_spot">
+        <item>أَ or هَلۡ at the start of a yes-or-no question: هَلۡ أَتَىٰكَ, أَلَمۡ نَشۡرَحۡ.</item>
+        <item>Question words: مَنۡ “who”, مَا “what”, كَيۡفَ “how”, أَيۡنَ “where”, مَتَىٰ “when”.</item>
+    </string-array>
+    <string-array name="grammar_lesson_questions_how">
+        <item>أَ and هَلۡ are particles: they only turn a sentence into a question.</item>
+        <item>مَنۡ, مَا and the others are nouns with a job in the sentence: كَيۡفَ فَعَلَ رَبُّكَ “how your Lord dealt”.</item>
+        <item>Many questions in the Quran make a point rather than ask: أَلَمۡ نَشۡرَحۡ means “We did expand”.</item>
+    </string-array>
+    <string name="grammar_lesson_questions_confused">مَا can ask “what?”, but it can also mean “not” or “that which”: the words after it tell you which.</string>
+
+    <!-- Exception with إِلَّا -->
+    <string name="grammar_lesson_exception_means">except those who believe (illa lladhīna āmanū)</string>
+    <string-array name="grammar_lesson_exception_spot">
+        <item>إِلَّا “except” takes something out of what was just said.</item>
+        <item>In a complete, positive sentence, the word after it is in naṣb.</item>
+    </string-array>
+    <string-array name="grammar_lesson_exception_how">
+        <item>In 103:2–3 all mankind is in loss, and إِلَّا takes out those who believe.</item>
+        <item>What is taken out (the mustathnā) is usually in naṣb. Here it is ٱلَّذِينَ, whose ending never changes.</item>
+        <item>What it is taken out of is the whole group before it: ٱلۡإِنسَٰنَ, all mankind.</item>
+    </string-array>
+    <string name="grammar_lesson_exception_confused">After a negative, إِلَّا means “only”: مَا خَلَقۡتُ … إِلَّا لِيَعۡبُدُونِ “I created … only to worship Me”.</string>
+
+    <!-- Calling -->
+    <string name="grammar_lesson_vocative_means">O disbelievers (yā ayyuha l-kāfirūn)</string>
+    <string-array name="grammar_lesson_vocative_spot">
+        <item>يَا before the one called: يَٰمَرۡيَمُ “O Maryam”.</item>
+        <item>Before a noun with ال it becomes يَٰٓأَيُّهَا (يَٰٓأَيَّتُهَا for a feminine): يَٰٓأَيُّهَا ٱلۡكَٰفِرُونَ.</item>
+        <item>In prayers يَا is often left out: رَبَّنَا “our Lord” (2:286).</item>
+    </string-array>
+    <string-array name="grammar_lesson_vocative_how">
+        <item>A single name called directly takes a ḍamma: يَٰمَرۡيَمُ (3:43).</item>
+        <item>A called noun with an owner after it is in naṣb: رَبَّنَا.</item>
+        <item>يَا can’t come straight before ال, so أَيُّهَا carries the call.</item>
+    </string-array>
+    <string name="grammar_lesson_vocative_confused">The هَا of أَيُّهَا isn’t ـهَا “her”: it is a small word that calls for attention.</string>
+
+    <!-- Unit 18 · Particles and emphasis -->
+
+    <!-- وَ, فَـ and ثُمَّ -->
+    <string name="grammar_lesson_wa_fa_thumma_means">Then He causes him to die and gives him a grave (thumma amātahū fa-aqbarah)</string>
+    <string-array name="grammar_lesson_wa_fa_thumma_spot">
+        <item>وَ “and”, فَـ “and so”, ثُمَّ “then, later”. وَ and فَـ are joined to the next word.</item>
+        <item>Others: أَوۡ “or”, بَلۡ “rather”, لَٰكِنۡ “but”.</item>
+    </string-array>
+    <string-array name="grammar_lesson_wa_fa_thumma_how">
+        <item>وَ only joins: this and that.</item>
+        <item>فَـ joins in order, straight after, often as a result: أَمَاتَهُۥ فَأَقۡبَرَهُۥ, death and then the grave.</item>
+        <item>ثُمَّ joins in order, after a while: ثُمَّ أَمَاتَهُۥ comes after a whole life. The joined word takes the same case as the one it is joined to.</item>
+    </string-array>
+    <string name="grammar_lesson_wa_fa_thumma_confused">The وَ of an oath means “by”, not “and”: وَٱلۡعَصۡرِ “by time”.</string>
+
+    <!-- The uses of مَا -->
+    <string name="grammar_lesson_ma_means">And what will make you know what it is? (wa mā adrāka mā hiyah)</string>
+    <string-array name="grammar_lesson_ma_spot">
+        <item>At the start of a question: “what?”.</item>
+        <item>Before what it denies: “not”: مَا خَلَقۡتُ “I did not create”.</item>
+        <item>Completed by a sentence after it: “what, that which”: مَآ أَعۡبُدُ “what I worship”.</item>
+    </string-array>
+    <string-array name="grammar_lesson_ma_how">
+        <item>One word, several jobs: the words around it tell you which one.</item>
+        <item>As “what?” or “that which”, مَا is a noun. As “not”, it is a particle.</item>
+        <item>وَمَآ أَدۡرَىٰكَ “and what will make you know” stresses how great the thing is.</item>
+    </string-array>
+    <string name="grammar_lesson_ma_confused">لَا also means “not”. مَا often denies a past verb (مَا خَلَقۡتُ); لَا usually a present one (لَا تَسۡمَعُ).</string>
+
+    <!-- The uses of لَا -->
+    <string name="grammar_lesson_la_means">you will hear no idle talk in it (lā tasmaʿu fīhā lāghiyah)</string>
+    <string-array name="grammar_lesson_la_spot">
+        <item>Before a present verb with its usual ending: “not”: لَا تَسۡمَعُ.</item>
+        <item>Before a verb in jazm: “do not”: لَا تَقۡهَرۡ.</item>
+        <item>Before an indefinite noun with a fatḥa: “no … at all”: لَا رَيۡبَ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_la_how">
+        <item>As “not”, it doesn’t change the verb: تَسۡمَعُ keeps its ḍamma.</item>
+        <item>As “do not”, it puts the verb in jazm.</item>
+        <item>As “no … at all”, it works like إِنَّ and denies a whole kind.</item>
+    </string-array>
+    <string name="grammar_lesson_la_confused">مَا also means “not”, most often with a past verb: مَا خَلَقۡتُ “I did not create”.</string>
+
+    <!-- إِنۡ, أَنۡ, إِنَّ, أَنَّ -->
+    <string name="grammar_lesson_in_an_means">Does he not know that Allah sees? (a-lam yaʿlam bi-anna llāha yarā)</string>
+    <string-array name="grammar_lesson_in_an_spot">
+        <item>إِنۡ, with a sukūn and a kasra: “if”, or sometimes “not”.</item>
+        <item>أَنۡ, with a sukūn and a fatḥa: “to, that”, before a verb.</item>
+        <item>إِنَّ “indeed” starts a sentence; أَنَّ “that” joins one to what comes before: بِأَنَّ ٱللَّهَ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_in_an_how">
+        <item>Look at two marks: a shadda (before a noun) or a sukūn (usually before a verb), and a kasra or a fatḥa.</item>
+        <item>أَنَّ and أَنۡ turn what follows into something like a noun: “that Allah sees” is what he should know.</item>
+        <item>إِنۡ can also deny, like مَا: إِن كُلُّ نَفۡسٖ لَّمَّا عَلَيۡهَا حَافِظٞ “there is no soul but has a guardian over it” (86:4).</item>
+    </string-array>
+    <string name="grammar_lesson_in_an_confused">إِنَّ and أَنَّ are sisters of inna: the noun after them goes into naṣb, like ٱللَّهَ here.</string>
+
+    <!-- The lām particles -->
+    <string name="grammar_lesson_lam_particles_means">Indeed mankind, to his Lord, is ungrateful (inna l-insāna li-rabbihī la-kanūd)</string>
+    <string-array name="grammar_lesson_lam_particles_spot">
+        <item>لِـ with a kasra before a noun: “for, to”: لِرَبِّهِۦ.</item>
+        <item>لَـ with a fatḥa: “surely”: لَكَنُودٞ.</item>
+        <item>لِـ before a present verb: “so that” (لِيَعۡبُدُونِ), or a command: فَلۡيَعۡبُدُواْ “so let them worship” (106:3).</item>
+    </string-array>
+    <string-array name="grammar_lesson_lam_particles_how">
+        <item>The vowel helps: a kasra is usually “for”, a fatḥa usually “surely”.</item>
+        <item>After إِنَّ, the لَـ adds a second layer of stress: إِنَّ … لَكَنُودٞ.</item>
+        <item>The لِـ of “so that” puts its verb in naṣb; the لِـ of command puts it in jazm.</item>
+    </string-array>
+    <string name="grammar_lesson_lam_particles_confused">The لِـ of لِرَبِّهِۦ is a preposition: the noun after it is in jarr.</string>
+
+    <!-- Emphasis and oaths -->
+    <string name="grammar_lesson_emphasis_means">By time (wa l-ʿaṣr)</string>
+    <string-array name="grammar_lesson_emphasis_spot">
+        <item>وَ before a noun in jarr, often at the start of a surah: an oath, “by”.</item>
+        <item>إِنَّ “indeed”, لَـ “surely”, and a doubled نَّ at the end of a verb: لَيُنۢبَذَنَّ “he will surely be thrown” (104:4).</item>
+    </string-array>
+    <string-array name="grammar_lesson_emphasis_how">
+        <item>An oath draws attention to what follows it: وَٱلۡعَصۡرِ, then إِنَّ ٱلۡإِنسَٰنَ لَفِي خُسۡرٍ.</item>
+        <item>The وَ of an oath is a preposition, so the noun after it is in jarr: ٱلۡعَصۡرِ.</item>
+        <item>Stress can be layered: إِنَّ and لَـ together, as in 103:2.</item>
+    </string-array>
+    <string name="grammar_lesson_emphasis_confused">The وَ of “and” joins two things. The وَ of an oath starts a sentence and puts its noun in jarr.</string>
+
+    <!-- Restriction and word order -->
+    <string name="grammar_lesson_restriction_means">I did not create jinn and mankind except to worship Me (wa mā khalaqtu l-jinna wa l-insa illā li-yaʿbudūn)</string>
+    <string-array name="grammar_lesson_restriction_spot">
+        <item>مَا or لَا, then إِلَّا: “not … except”, which means “only”.</item>
+        <item>إِنَّمَا at the start: “only”: إِنَّمَآ أَنتَ مُذَكِّرٞ “you are only a reminder” (88:21).</item>
+        <item>A word moved to the front: إِيَّاكَ نَعۡبُدُ “You alone we worship”.</item>
+    </string-array>
+    <string-array name="grammar_lesson_restriction_how">
+        <item>All three narrow the meaning to one thing and shut out everything else.</item>
+        <item>In 51:56 the purpose of creation is limited to one: worship.</item>
+        <item>With مَا … إِلَّا, the word after إِلَّا keeps the case of its own job in the sentence.</item>
+    </string-array>
+    <string name="grammar_lesson_restriction_confused">In a positive sentence, إِلَّا only takes something out: “all …, except …”. After a negative, it means “only”.</string>
 </resources>
