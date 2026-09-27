@@ -51,6 +51,13 @@ object ConceptIds {
     const val RA = "tajweed.ra"
     const val RA_HEAVY = "tajweed.ra_heavy"
     const val RA_LIGHT = "tajweed.ra_light"
+
+    // Two letters that meet, and lām sākinah outside ال
+    const val IDGHAM_MITHLAYN = "tajweed.idgham_mithlayn"
+    const val IDGHAM_MUTAJANISAYN = "tajweed.idgham_mutajanisayn"
+    const val IDGHAM_MUTAQARIBAYN = "tajweed.idgham_mutaqaribayn"
+    const val LAM_SAKINAH = "tajweed.lam_sakinah"
+    const val TANWEEN_BEFORE_WASL = "tajweed.tanween_before_wasl"
     const val NOON_SAKINAH = "tajweed.noon_sakinah"
     const val IZHAR = "tajweed.izhar"
     const val IDGHAM_GHUNNAH = "tajweed.idgham_ghunnah"

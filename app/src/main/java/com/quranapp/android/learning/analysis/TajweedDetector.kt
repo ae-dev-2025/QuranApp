@@ -20,6 +20,9 @@ data class Occurrence(val conceptId: String, val wordIndex: Int)
  */
 object TajweedDetector {
     private val HEAVY_LETTERS = setOf('خ', 'ص', 'ض', 'غ', 'ط', 'ق', 'ظ')
+
+    /** Letters that only carry a long vowel or a hamza's seat, never merging into the next letter. */
+    private val NOT_MERGING = setOf(Arabic.ALIF, Arabic.ALIF_MAQSURA, Arabic.TATWEEL, Arabic.ALIF_WASLA)
     private val QALQALAH_LETTERS = setOf('ق', 'ط', 'ب', 'ج', 'د')
     private val IDGHAM_GHUNNAH_LETTERS = setOf('ي', 'ن', 'م', 'و')
     private val IDGHAM_NO_GHUNNAH_LETTERS = setOf('ل', 'ر')
@@ -33,6 +36,12 @@ object TajweedDetector {
     )
     private val KASRAS = setOf(Arabic.KASRA, Arabic.KASRATAN, Arabic.OPEN_KASRATAN)
     private val FATHATAN = setOf(Arabic.FATHATAN, Arabic.OPEN_FATHATAN)
+
+    /** Pairs made in the same place (mutajānisayn), first letter then second, as the muṣḥaf merges them. */
+    private val SAME_PLACE = setOf("دت", "تط", "تد", "ذظ", "ثذ", "بم", "طت")
+
+    /** Pairs made in close places (mutaqāribayn). */
+    private val CLOSE_PLACES = setOf("لر", "قك")
 
     /** Words where a yāʾ was dropped after the rāʾ: stopping on them, it may be heavy or light. */
     private val RA_EITHER_WHEN_STOPPING = setOf("ونذر", "يسر")
@@ -111,6 +120,11 @@ object TajweedDetector {
         }
 
         raRule(letters, index, stopped = isLastOfAyah)?.let { rules += Rule(it) }
+        twoLetterIdgham(letters, index, next)?.let { rules += Rule(it, joinsNextLetter = true) }
+        if (isLamSakinah(letters, index, next)) rules += Rule(ConceptIds.LAM_SAKINAH, joinsNextLetter = c.isBare)
+        if (c.hasAny(Arabic.TANWEEN) && next?.cluster?.letter == Arabic.ALIF_WASLA) {
+            rules += Rule(ConceptIds.TANWEEN_BEFORE_WASL, joinsNextLetter = true)
+        }
 
         return rules
     }
@@ -166,6 +180,55 @@ object TajweedDetector {
             return if (after.hasAny(KASRAS)) null else ConceptIds.RA_HEAVY
         }
         return ConceptIds.RA_LIGHT
+    }
+
+    /**
+     * Two letters that meet with the first one silent. The muṣḥaf shows the merge: no mark on
+     * the first letter and a shadda on the second (قَد تَّبَيَّنَ). ط before ت is merged only
+     * partly, keeping its heaviness, so the ت has no shadda (بَسَطتَ). Noon and meem have
+     * rules of their own, and a long vowel is not a letter that merges.
+     */
+    private fun twoLetterIdgham(letters: List<Letter>, index: Int, next: Letter?): String? {
+        val letter = letters[index]
+        val c = letter.cluster
+        if (next == null || !c.isBare || c.hasAny(Arabic.MADD_SIGNS) || c.hasAny(Arabic.SILENT_MARKS)) return null
+        if (c.letter == Arabic.NOON || c.letter == Arabic.MEEM || c.letter in NOT_MERGING || isArticleLam(letters, index)) return null
+        // A wāw or yāʾ after a fatḥa is a consonant, and merges into the same letter starting the next word (عَصَواْ وَّكَانُواْ).
+        if (c.letter == Arabic.WAW || c.letter == Arabic.YA) {
+            val afterFatha = letter.indexInWord > 0 && letters[index - 1].cluster.has(Arabic.FATHA)
+            if (!afterFatha || next.wordIndex == letter.wordIndex) return null
+        }
+        val pair = "${c.letter}${next.cluster.letter}"
+        val merged = next.cluster.has(Arabic.SHADDA)
+        return when {
+            merged && c.letter == next.cluster.letter -> ConceptIds.IDGHAM_MITHLAYN
+            merged && pair in SAME_PLACE -> ConceptIds.IDGHAM_MUTAJANISAYN
+            merged && pair in CLOSE_PLACES -> ConceptIds.IDGHAM_MUTAQARIBAYN
+            pair == "طت" && next.wordIndex == letter.wordIndex -> ConceptIds.IDGHAM_MUTAJANISAYN
+            else -> null
+        }
+    }
+
+    /**
+     * A lām with sukūn that isn't the ال of a noun (قُلۡ, هَلۡ, جَعَلۡنَا, عِلۡم): always pronounced,
+     * except before ل or ر, where the muṣḥaf shows it merged (قُل رَّبِّ).
+     */
+    private fun isLamSakinah(letters: List<Letter>, index: Int, next: Letter?): Boolean {
+        val c = letters[index].cluster
+        if (c.letter != Arabic.LAM || c.hasAny(Arabic.MADD_SIGNS) || isArticleLam(letters, index)) return false
+        if (c.has(Arabic.SUKUN)) return true
+        return c.isBare && next != null && next.cluster.has(Arabic.SHADDA) &&
+            (next.cluster.letter == Arabic.LAM || next.cluster.letter == Arabic.RA)
+    }
+
+    /** The lām of ال: after ٱ, after the لِ of لِلۡ, or after the آ of a question (ءَآلذَّكَرَيۡنِ). */
+    private fun isArticleLam(letters: List<Letter>, index: Int): Boolean {
+        val letter = letters[index]
+        if (letter.cluster.letter != Arabic.LAM || letter.indexInWord == 0) return false
+        val previous = letters[index - 1]
+        return previous.cluster.letter == Arabic.ALIF_WASLA ||
+            (previous.cluster.letter == Arabic.LAM && previous.cluster.has(Arabic.KASRA) && previous.indexInWord <= 1) ||
+            (previous.cluster.letter == Arabic.ALIF && letter.indexInWord <= 2)
     }
 
     /** Noon sakinah and tanween: iẓhār, idghām, iqlāb or ikhfāʾ. */

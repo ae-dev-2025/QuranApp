@@ -590,4 +590,70 @@
         <item>A few words may be read either way, such as فِرۡقٖ, and مِصۡرَ when you stop on it. Follow your teacher.</item>
     </string-array>
     <string name="lesson_ra_light_confused">Look at the rāʾ’s own vowel first. Only if it has a sukūn, or you stop on it, look at the vowel before it.</string>
+
+    <!-- Tajweed: two letters that meet -->
+
+    <!-- Idghām of the same letter -->
+    <string name="lesson_idgham_mithlayn_say">iḍ-ri-bbi-ʿa-ṣāk</string>
+    <string name="lesson_idgham_mithlayn_not_say">iḍ-rib bi-ʿa-ṣāk</string>
+    <string-array name="lesson_idgham_mithlayn_spot">
+        <item>A letter with no mark at all, then the same letter with a shadda: ٱضۡرِب بِّعَصَاكَ, قُل لَّكُمۡ.</item>
+        <item>Often across two words.</item>
+    </string-array>
+    <string-array name="lesson_idgham_mithlayn_how">
+        <item>Say the two letters as one doubled letter, with no break between them.</item>
+        <item>A wāw after a fatḥa merges the same way: عَصَواْ وَّكَانُواْ is ʿaṣaw-wa-kānū.</item>
+        <item>Noon into noon and meem into meem merge too, with a ghunnah: those are the noon and meem sākinah rules.</item>
+    </string-array>
+    <string name="lesson_idgham_mithlayn_confused">Here the two letters are the same. In mutajānisayn they are different letters made in the same place: قَد تَّبَيَّنَ.</string>
+
+    <!-- Idghām of letters from one place -->
+    <string name="lesson_idgham_mutajanisayn_say">qat-ta-bay-ya-na</string>
+    <string name="lesson_idgham_mutajanisayn_not_say">qad ta-bay-ya-na</string>
+    <string-array name="lesson_idgham_mutajanisayn_spot">
+        <item>A letter with no mark, then a different letter with a shadda: قَد تَّبَيَّنَ, قَالَت طَّآئِفَةٞ, إِذ ظَّلَمُوٓاْ.</item>
+        <item>The pairs in Ḥafṣ: د into ت, ت into ط or د, ذ into ظ, ث into ذ, ب into م.</item>
+    </string-array>
+    <string-array name="lesson_idgham_mutajanisayn_how">
+        <item>The first letter disappears into the second, which is said doubled: qat-tabayyana.</item>
+        <item>ط before ت merges only partly: the ت has no shadda, and you keep a trace of the ط’s heaviness: بَسَطتَ, أَحَطتُ.</item>
+    </string-array>
+    <string name="lesson_idgham_mutajanisayn_confused">Here the letters are made in the same place. In mutaqāribayn they are made close together, but not in the same place: بَل رَّفَعَهُ.</string>
+
+    <!-- Idghām of letters from close places -->
+    <string name="lesson_idgham_mutaqaribayn_say">bar-ra-fa-ʿa-hu</string>
+    <string name="lesson_idgham_mutaqaribayn_not_say">bal ra-fa-ʿa-hu</string>
+    <string-array name="lesson_idgham_mutaqaribayn_spot">
+        <item>ل with no mark before a ر with a shadda: بَل رَّفَعَهُ, قُل رَّبِّ.</item>
+        <item>ق with no mark before a ك with a shadda, once in the Quran: أَلَمۡ نَخۡلُقكُّم (77:20).</item>
+    </string-array>
+    <string-array name="lesson_idgham_mutaqaribayn_how">
+        <item>Drop the first letter and say the second doubled: bar-rafaʿahu.</item>
+        <item>In نَخۡلُقكُّم, Ḥafṣ is usually read with the ق fully merged: nakhlukkum.</item>
+    </string-array>
+    <string name="lesson_idgham_mutaqaribayn_confused">Noon sākinah merges into ل and ر too, with no ghunnah: مِن رَّبِّهِمۡ. That is the noon rule; this one is for other letters.</string>
+
+    <!-- Lām sākinah outside ال -->
+    <string name="lesson_lam_sakinah_say">qul hu-wa</string>
+    <string-array name="lesson_lam_sakinah_spot">
+        <item>A lām with sukūn in a verb, a particle or a noun: قُلۡ, هَلۡ, بَلۡ, جَعَلۡنَا, عِلۡم.</item>
+        <item>Not the lām of ال, which is at the start of a noun after ٱ.</item>
+    </string-array>
+    <string-array name="lesson_lam_sakinah_how">
+        <item>Always pronounce it clearly, whatever letter comes next: qul huwa, jaʿalnā.</item>
+        <item>Only before ل or ر does it merge, and the muṣḥaf shows it with no sukūn and a shadda on the next letter: قُل رَّبِّ, قُل لَّكُمۡ.</item>
+    </string-array>
+    <string name="lesson_lam_sakinah_confused">The lām of ال disappears before the sun letters: ٱلشَّمۡسِ. The lām of قُلۡ never does, except before ل and ر.</string>
+
+    <!-- Tanwīn before hamzat al-waṣl -->
+    <string name="lesson_tanween_before_wasl_say">khay-ra-nil-wa-ṣiy-yah</string>
+    <string name="lesson_tanween_before_wasl_not_say">khay-ran al-wa-ṣiy-yah</string>
+    <string-array name="lesson_tanween_before_wasl_spot">
+        <item>A word with tanwīn, then a word starting with ٱ: خَيۡرًا ٱلۡوَصِيَّةُ, نُوحٌ ٱبۡنَهُۥ.</item>
+    </string-array>
+    <string-array name="lesson_tanween_before_wasl_how">
+        <item>The ٱ is silent when you carry on, so two sounds without a vowel would meet. The n of the tanwīn takes a kasra to join them: khayrani l-waṣiyyah.</item>
+        <item>If you stop on the first word, the tanwīn follows the stopping rules instead.</item>
+    </string-array>
+    <string name="lesson_tanween_before_wasl_confused">Starting on a word with ٱ, you say a vowel for the ٱ itself. Joining it to a word with tanwīn, the ٱ is silent and the tanwīn gets the kasra.</string>
 </resources>

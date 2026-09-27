@@ -53,7 +53,13 @@ object ConceptStages {
         SIFA_HAMS, SIFA_SHIDDA, SIFA_ISTILA, SIFA_ITBAQ, SIFA_SAFIR, SIFA_TAKRIR, SIFA_TAFASHSHI,
     )
 
+    private val STAGE_4 = setOf(
+        ConceptIds.IDGHAM_MITHLAYN, ConceptIds.IDGHAM_MUTAJANISAYN, ConceptIds.IDGHAM_MUTAQARIBAYN,
+        ConceptIds.LAM_SAKINAH, ConceptIds.TANWEEN_BEFORE_WASL,
+    )
+
     fun of(conceptId: String): Int = GrammarCatalog.stageOf(conceptId) ?: when (conceptId) {
+        in STAGE_4 -> 4
         in STAGE_2 -> 2
         in STAGE_1 -> 1
         else -> 0

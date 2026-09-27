@@ -244,6 +244,22 @@ object ConceptCatalog {
             MADD_LAZIM, R.string.concept_madd_lazim_title, R.string.concept_madd_lazim_summary,
             MADD_SIGN, SHADDA,
         ),
+
+        // Two letters that meet (stage 4)
+        tajweed(ConceptIds.IDGHAM_MITHLAYN, R.string.concept_idgham_mithlayn_title, R.string.concept_idgham_mithlayn_summary, SHADDA),
+        tajweed(
+            ConceptIds.IDGHAM_MUTAJANISAYN, R.string.concept_idgham_mutajanisayn_title, R.string.concept_idgham_mutajanisayn_summary,
+            SHADDA, MAKHRAJ_TONGUE, MAKHRAJ_LIPS,
+        ),
+        tajweed(
+            ConceptIds.IDGHAM_MUTAQARIBAYN, R.string.concept_idgham_mutaqaribayn_title, R.string.concept_idgham_mutaqaribayn_summary,
+            SHADDA, MAKHRAJ_TONGUE,
+        ),
+        tajweed(ConceptIds.LAM_SAKINAH, R.string.concept_lam_sakinah_title, R.string.concept_lam_sakinah_summary, LAM_QAMARIYYA),
+        tajweed(
+            ConceptIds.TANWEEN_BEFORE_WASL, R.string.concept_tanween_before_wasl_title, R.string.concept_tanween_before_wasl_summary,
+            TANWEEN, HAMZAT_WASL,
+        ),
     ) + GrammarCatalog.all
 
     /**

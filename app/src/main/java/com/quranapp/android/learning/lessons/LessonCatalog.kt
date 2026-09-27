@@ -398,6 +398,43 @@ object LessonCatalog {
                 ConceptIds.MADD_MUTTASIL, R.string.lesson_madd_lazim_confused,
             ),
         ),
+
+        // ---- Tajweed: two letters that meet ----
+        Lesson(
+            conceptId = ConceptIds.IDGHAM_MITHLAYN,
+            keyExample = KeyExample(26, 63, 4..5, R.string.lesson_idgham_mithlayn_say, R.string.lesson_idgham_mithlayn_not_say),
+            spotIt = R.array.lesson_idgham_mithlayn_spot,
+            sayIt = R.array.lesson_idgham_mithlayn_how,
+            confusedWith = ConfusedWith(ConceptIds.IDGHAM_MUTAJANISAYN, R.string.lesson_idgham_mithlayn_confused),
+        ),
+        Lesson(
+            conceptId = ConceptIds.IDGHAM_MUTAJANISAYN,
+            keyExample = KeyExample(2, 256, 4..5, R.string.lesson_idgham_mutajanisayn_say, R.string.lesson_idgham_mutajanisayn_not_say),
+            spotIt = R.array.lesson_idgham_mutajanisayn_spot,
+            sayIt = R.array.lesson_idgham_mutajanisayn_how,
+            confusedWith = ConfusedWith(ConceptIds.IDGHAM_MUTAQARIBAYN, R.string.lesson_idgham_mutajanisayn_confused),
+        ),
+        Lesson(
+            conceptId = ConceptIds.IDGHAM_MUTAQARIBAYN,
+            keyExample = KeyExample(4, 158, 0..1, R.string.lesson_idgham_mutaqaribayn_say, R.string.lesson_idgham_mutaqaribayn_not_say),
+            spotIt = R.array.lesson_idgham_mutaqaribayn_spot,
+            sayIt = R.array.lesson_idgham_mutaqaribayn_how,
+            confusedWith = ConfusedWith(ConceptIds.IDGHAM_NO_GHUNNAH, R.string.lesson_idgham_mutaqaribayn_confused),
+        ),
+        Lesson(
+            conceptId = ConceptIds.LAM_SAKINAH,
+            keyExample = KeyExample(112, 1, 0..1, R.string.lesson_lam_sakinah_say),
+            spotIt = R.array.lesson_lam_sakinah_spot,
+            sayIt = R.array.lesson_lam_sakinah_how,
+            confusedWith = ConfusedWith(ConceptIds.LAM_SHAMSIYYA, R.string.lesson_lam_sakinah_confused),
+        ),
+        Lesson(
+            conceptId = ConceptIds.TANWEEN_BEFORE_WASL,
+            keyExample = KeyExample(2, 180, 8..9, R.string.lesson_tanween_before_wasl_say, R.string.lesson_tanween_before_wasl_not_say),
+            spotIt = R.array.lesson_tanween_before_wasl_spot,
+            sayIt = R.array.lesson_tanween_before_wasl_how,
+            confusedWith = ConfusedWith(ConceptIds.HAMZAT_WASL, R.string.lesson_tanween_before_wasl_confused),
+        ),
     ) + GrammarLessons.all
 
     private val byConceptId: Map<String, Lesson> = all.associateBy { it.conceptId }

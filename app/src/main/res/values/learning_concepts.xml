@@ -138,4 +138,15 @@
     <string name="concept_ra_heavy_summary">ر is heavy with a fatḥa or ḍamma, or with a sukūn after one: رَبِّ, مَرۡيَمَ, وَٱنۡحَرۡ.</string>
     <string name="concept_ra_light_title">Light rāʾ (tarqīq)</string>
     <string name="concept_ra_light_summary">ر is light with a kasra, or with a sukūn after one: رِزۡقٗا, فِرۡعَوۡنَ.</string>
+    <!-- Two letters that meet -->
+    <string name="concept_idgham_mithlayn_title">Idghām of the same letter (mutamāthilayn)</string>
+    <string name="concept_idgham_mithlayn_summary">A letter without a vowel merges into the same letter after it, said once, doubled: ٱضۡرِب بِّعَصَاكَ, قُل لَّكُمۡ.</string>
+    <string name="concept_idgham_mutajanisayn_title">Idghām of letters from one place (mutajānisayn)</string>
+    <string name="concept_idgham_mutajanisayn_summary">Two different letters made in the same place merge: قَد تَّبَيَّنَ, قَالَت طَّآئِفَةٞ. ط before ت keeps its heaviness: بَسَطتَ.</string>
+    <string name="concept_idgham_mutaqaribayn_title">Idghām of letters from close places (mutaqāribayn)</string>
+    <string name="concept_idgham_mutaqaribayn_summary">ل merges into ر, and ق into ك, because they are made close together: بَل رَّفَعَهُ, نَخۡلُقكُّم.</string>
+    <string name="concept_lam_sakinah_title">Lām sākinah outside ال</string>
+    <string name="concept_lam_sakinah_summary">A lām with sukūn in a verb, a particle or a noun (قُلۡ, هَلۡ, جَعَلۡنَا) is always pronounced, unlike the lām of ال. Before ل or ر it merges: قُل رَّبِّ.</string>
+    <string name="concept_tanween_before_wasl_title">Tanwīn before hamzat al-waṣl</string>
+    <string name="concept_tanween_before_wasl_summary">When tanwīn meets a word starting with ٱ, its n takes a kasra to join them: خَيۡرًا ٱلۡوَصِيَّةُ is khayrani l-waṣiyyah.</string>
 </resources>
