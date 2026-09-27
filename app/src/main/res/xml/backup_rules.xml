@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Backups on Android 11 and older (Android 12+ uses data_extraction_rules.xml): everything
+     but the learning pack, as there. -->
+<full-backup-content>
+    <exclude domain="file" path="learning" />
+</full-backup-content>

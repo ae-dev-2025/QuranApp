@@ -55,6 +55,13 @@ import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
 
+/**
+ * The most an import reads: 32 million characters. Five years of heavy daily learning makes a
+ * backup of about 20 million; a bigger file isn't a backup, and reading it could run the phone
+ * out of memory.
+ */
+private const val MAX_IMPORT_CHARS = 32_000_000
+
 class ActivityExportImport : BaseActivity() {
     private val userRepository = DatabaseProvider.getUserRepository(this)
     private val learningBackups by lazy { LearningBackupRepository(DatabaseProvider.getUserDatabase(this)) }
@@ -129,14 +136,22 @@ class ActivityExportImport : BaseActivity() {
     private fun importData(uri: Uri) {
         importFailuresMap = mutableMapOf()
         CoroutineScope(Dispatchers.IO).launch {
-            val content = contentResolver.openInputStream(uri)?.use { inputStream ->
-                BufferedReader(InputStreamReader(inputStream)).use { reader ->
-                    reader.readText()
+            // Any file can be picked: one that can't be read, isn't JSON, or is far bigger than
+            // a backup would crash the app here (uncaught in this coroutine). Say so instead.
+            val jsonObject = try {
+                val content = contentResolver.openInputStream(uri)?.use { inputStream ->
+                    BufferedReader(InputStreamReader(inputStream)).use { reader -> readAtMost(reader, MAX_IMPORT_CHARS) }
+                } ?: ""
+                JsonHelper.json.parseToJsonElement(content).jsonObject
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                // Not logged: a parse error quotes the file, which may be anything the user picked.
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@ActivityExportImport, R.string.strMsgImportNotBackup, Toast.LENGTH_LONG).show()
                 }
-            } ?: ""
-
-
-            val jsonObject = JsonHelper.json.parseToJsonElement(content).jsonObject
+                return@launch
+            }
             // val version = jsonObject.safeInt(ExportKeys.VERSION, 1)
 
             importV1(jsonObject, importScopes)
@@ -152,6 +167,18 @@ class ActivityExportImport : BaseActivity() {
                     restartMainActivity()
                 }
             }
+        }
+    }
+
+    /** The text of [reader], or an error if it's longer than [max] characters. */
+    private fun readAtMost(reader: BufferedReader, max: Int): String {
+        val text = StringBuilder()
+        val buffer = CharArray(8192)
+        while (true) {
+            val read = reader.read(buffer)
+            if (read < 0) return text.toString()
+            text.append(buffer, 0, read)
+            if (text.length > max) throw IllegalArgumentException("longer than $max characters: not a backup")
         }
     }
 
