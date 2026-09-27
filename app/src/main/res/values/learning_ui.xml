@@ -84,6 +84,8 @@
     <string name="learning_not">not</string>
     <string name="learning_how_to_spot_it">How to spot it</string>
     <string name="learning_how_to_say_it">How to say it</string>
+    <string name="learning_how_it_works">How it works</string>
+    <string name="learning_it_means">It means</string>
     <string name="learning_dont_mix_up">Don’t mix it up with</string>
 
     <string name="learning_track_reading">Reading</string>

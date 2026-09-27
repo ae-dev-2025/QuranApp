@@ -49,9 +49,12 @@ import kotlinx.coroutines.withContext
 /** The key example's Arabic words and surah name, loaded from the database. */
 private data class LoadedExample(val arabic: String, val surahName: String)
 
-/** The big example at the top of a lesson: the Arabic, how it sounds, and where it's from. */
+/**
+ * The big example at the top of a lesson: the Arabic, how it sounds (or, for grammar, what it
+ * means), and where it's from.
+ */
 @Composable
-fun KeyExampleCard(example: KeyExample) {
+fun KeyExampleCard(example: KeyExample, isGrammar: Boolean = false) {
     val context = LocalContext.current
     val repository = remember { DatabaseProvider.getQuranRepository(context) }
 
@@ -67,7 +70,7 @@ fun KeyExampleCard(example: KeyExample) {
     }
 
     val arabicFont = remember { FontFamily(Font(R.font.uthmanic_hafs)) }
-    val youSayLabel = stringResource(R.string.learning_you_say)
+    val youSayLabel = stringResource(if (isGrammar) R.string.learning_it_means else R.string.learning_you_say)
     val notLabel = stringResource(R.string.learning_not)
     val youSay = stringResource(example.youSay)
     val notSay = example.notSay?.let { stringResource(it) }
@@ -122,9 +125,13 @@ internal suspend fun QuranRepository.keyExampleArabic(example: KeyExample): Stri
     return example.wordIndexes.mapNotNull { words.getOrNull(it) }.joinToString(" ")
 }
 
-/** The written lesson: "How to spot it", "How to say it" and "Don't mix it up with". */
+/**
+ * The written lesson: "How to spot it", "How to say it" and "Don't mix it up with". Grammar
+ * isn't about sound, so its second part is "How it works".
+ */
 @Composable
 fun LessonCard(lesson: Lesson, known: Set<String>, onOpenConcept: (Concept) -> Unit) {
+    val isGrammar = lesson.isGrammar
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -136,7 +143,7 @@ fun LessonCard(lesson: Lesson, known: Set<String>, onOpenConcept: (Concept) -> U
         LessonHeading(R.string.learning_how_to_spot_it)
         Bullets(stringArrayResource(lesson.spotIt))
 
-        LessonHeading(R.string.learning_how_to_say_it, Modifier.padding(top = 8.dp))
+        LessonHeading(if (isGrammar) R.string.learning_how_it_works else R.string.learning_how_to_say_it, Modifier.padding(top = 8.dp))
         Bullets(stringArrayResource(lesson.sayIt))
 
         val confused = lesson.confusedWith

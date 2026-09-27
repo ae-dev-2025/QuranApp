@@ -26,6 +26,7 @@ data class GrammarSegment(
 object GrammarDetector {
     private val NOUN_TAGS = setOf("N", "PN", "ADJ", "PRON", "DEM", "REL", "T", "LOC", "IMPN")
     private val FIVE_NOUNS = setOf(">abN", ">ax", "*uw")
+    private val FIVE_NOUN_ENDINGS = setOf('و', Arabic.ALIF, Arabic.YA, Arabic.ALIF_MAQSURA)
     private val IN_AN = setOf("<in~", "<in", ">an", ">an~")
     private val LAW = setOf("law", "lawolaA^")
     private val FORMS_2_4 = setOf("(II)", "(III)", "(IV)")
@@ -127,15 +128,17 @@ object GrammarDetector {
         if (f.any { it == "NOM" || it == "ACC" || it == "GEN" }) found += GrammarIds.CASES
         val skeleton = skeleton(s.form)
         val dual = f.any { it == "MD" || it == "FD" }
+        // A plural's gender isn't always given: أَفۡوَاجًا is just P.
+        val plural = f.any { it == "MP" || it == "FP" || it == "P" }
         val soundMasculine = "MP" in f && (skeleton.endsWith("ون") || skeleton.endsWith("ين"))
         val soundFeminine = "FP" in f && skeleton.endsWith("ات")
         if (dual) found += GrammarIds.DUAL
         if (soundMasculine) found += GrammarIds.SOUND_MASC_PLURAL
         if (soundFeminine) found += GrammarIds.SOUND_FEM_PLURAL
-        if ((("MP" in f) || ("FP" in f)) && !soundMasculine && !soundFeminine) found += GrammarIds.BROKEN_PLURAL
+        if (plural && !soundMasculine && !soundFeminine) found += GrammarIds.BROKEN_PLURAL
         if (dual || soundMasculine) found += GrammarIds.DUAL_PLURAL_ENDINGS
-        // The five nouns show their case with a long vowel: أَبُو, أَخَا, ذِي.
-        if (s.lemmaKey in FIVE_NOUNS && skeleton.lastOrNull() in setOf('و', 'ا', 'ي')) found += GrammarIds.FIVE_NOUNS
+        // The five nouns show their case with a long vowel: أَبُو, أَخَا, ذِي (the pack writes أَبِى).
+        if (s.lemmaKey in FIVE_NOUNS && skeleton.lastOrNull() in FIVE_NOUN_ENDINGS) found += GrammarIds.FIVE_NOUNS
     }
 
     private fun verbConcepts(s: GrammarSegment, f: Set<String>, segments: List<GrammarSegment>, found: MutableSet<String>) {
@@ -161,5 +164,7 @@ object GrammarDetector {
         }
     }
 
-    private fun skeleton(form: String): String = form.filter { Arabic.isLetter(it) }.replace(Arabic.ALIF_WASLA, Arabic.ALIF)
+    /** The letters of a form. A dagger alif is the long ā it stands for, so ٱلصَّٰلِحَٰتِ ends in ات. */
+    private fun skeleton(form: String): String =
+        form.replace(Arabic.DAGGER_ALIF, Arabic.ALIF).filter { Arabic.isLetter(it) }.replace(Arabic.ALIF_WASLA, Arabic.ALIF)
 }

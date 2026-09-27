@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Grammar lessons (see GrammarLessons.kt), in the same format as the other lessons:
+    _means: what the key example means, with a transliteration;
+    _spot: "How to spot it" bullets; _how: "How it works" bullets;
+    _confused: how to tell it apart from a concept that looks similar.
+    Checked against the Grammar Guide of ILMHUB.org (the project's Arabic review reference) and
+    written in our own words. To be checked by a qualified teacher before release.
+-->
+<resources>
+    <!-- Unit 1 · Word types -->
+
+    <!-- Noun (ism) -->
+    <string name="grammar_lesson_ism_means">all praise (al-ḥamdu)</string>
+    <string-array name="grammar_lesson_ism_spot">
+        <item>It can take ال: ٱلۡحَمۡدُ, ٱلۡقَدۡرِ.</item>
+        <item>It can take tanwīn: كُفُوًا أَحَدٌ.</item>
+        <item>It can follow a preposition, and then ends in jarr: لِلَّهِ, فِي لَيۡلَةِ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_ism_how">
+        <item>A noun names something without tying it to a time: رَبّ “Lord”, رَحۡمَة “mercy”, يَوۡم “day”.</item>
+        <item>It covers more than an English noun: pronouns (هُوَ), pointing words (هَٰذَا), adjectives (كَبِير) and words like فَوۡقَ “above” are all nouns.</item>
+        <item>Every noun has a gender and a number, is definite or not, and has a case ending. These are the next units.</item>
+    </string-array>
+    <string name="grammar_lesson_ism_confused">A verb is tied to a time: قَالَ “he said” is past. قَوۡل “a saying” names the same idea as a noun, with no time.</string>
+
+    <!-- Verb (fiʿl) -->
+    <string name="grammar_lesson_fil_means">He did not beget (lam yalid)</string>
+    <string-array name="grammar_lesson_fil_spot">
+        <item>قَدۡ, سَـ, سَوۡفَ or لَمۡ can come before it: سَوۡفَ تَعۡلَمُونَ, لَمۡ يَلِدۡ.</item>
+        <item>Endings that say who did it: ـتُ “I”, ـتَ “you”, ـُوا “they”.</item>
+        <item>The silent تۡ of “she”: تَبَّتۡ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_fil_how">
+        <item>A verb is an action or a happening tied to a time.</item>
+        <item>There are three kinds: past (قَالَ “he said”), present and future (يَقُولُ “he says”), and command (قُلۡ “say”).</item>
+        <item>A verb has its doer built in: يَلِدۡ is “he begets”, with “he” in the يَـ.</item>
+    </string-array>
+    <string name="grammar_lesson_fil_confused">مُؤۡمِن “believer” comes from the verb ءَامَنَ “he believed”, but it takes ال and tanwīn and has no time, so it is a noun.</string>
+
+    <!-- Particle (ḥarf) -->
+    <string name="grammar_lesson_harf_means">in the Night of Decree (fī laylati l-qadr)</string>
+    <string-array name="grammar_lesson_harf_spot">
+        <item>It takes neither ال nor tanwīn, and none of a verb’s endings.</item>
+        <item>Its ending never changes: فِي is always فِي.</item>
+        <item>Some are one letter joined to the next word: the بِ of بِسۡمِ, the وَ of وَٱلۡعَصۡرِ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_harf_how">
+        <item>A particle means something only with the words around it: فِي “in” needs something after it.</item>
+        <item>Some change the next word’s ending: فِي puts لَيۡلَةِ in jarr, and لَمۡ puts يَلِدۡ in jazm.</item>
+        <item>Others only join or add meaning: وَ “and”, ثُمَّ “then”, and هَلۡ, which asks a question.</item>
+    </string-array>
+    <string name="grammar_lesson_harf_confused">مَنۡ “who” is short too, but it stands for a person, so it is a noun. A particle never stands for a person or a thing.</string>
+
+    <!-- Unit 2 · Gender, number, definiteness -->
+
+    <!-- Masculine and feminine -->
+    <string name="grammar_lesson_gender_means">O soul at peace (yā ayyatuha n-nafsu l-muṭmaʾinnah)</string>
+    <string-array name="grammar_lesson_gender_spot">
+        <item>Most feminine nouns end in ة: رَحۡمَة, جَنَّة.</item>
+        <item>Some end in ـَىٰ: ٱلۡحُسۡنَىٰ “the best”, ٱلۡأُخۡرَىٰ “the other”.</item>
+        <item>Some have no sign and are learned one by one: نَفۡس “soul”, شَمۡس “sun”, نَار “fire”, أَرۡض “earth”. They take هَٰذِهِ, the feminine “this”.</item>
+    </string-array>
+    <string-array name="grammar_lesson_gender_how">
+        <item>Every noun is masculine or feminine, things included.</item>
+        <item>Words that describe it or point to it match it: ٱلنَّفۡسُ ٱلۡمُطۡمَئِنَّةُ, and even يَٰٓأَيَّتُهَا takes a feminine ة.</item>
+        <item>Pronouns match too: وَٱلشَّمۡسِ وَضُحَىٰهَا “by the sun and its morning brightness”, where ـهَا is “her”.</item>
+    </string-array>
+    <string name="grammar_lesson_gender_confused">As a reading point, ة is said as t when you carry on and h when you stop. Here it matters as the usual sign of a feminine noun.</string>
+
+    <!-- The dual -->
+    <string name="grammar_lesson_dual_means">the two hands of Abū Lahab (yadā abī lahab)</string>
+    <string-array name="grammar_lesson_dual_spot">
+        <item>ـَانِ at the end in rafʿ: جَنَّتَانِ “two gardens”.</item>
+        <item>ـَيۡنِ in naṣb and jarr: ٱلنَّجۡدَيۡنِ “the two ways”.</item>
+        <item>Before another noun the ن drops: يَدَا أَبِي, not يَدَانِ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_dual_how">
+        <item>The dual means exactly two. Add ـَانِ or ـَيۡنِ to the singular; a ة becomes ت: جَنَّة, جَنَّتَانِ.</item>
+        <item>Its ending shows the case with a letter instead of a vowel (unit 3).</item>
+        <item>Pronouns and verbs have duals too: هُمَا “they both”.</item>
+    </string-array>
+    <string name="grammar_lesson_dual_confused">ـَيۡنِ has a fatḥa before the yāʾ and means two: ٱلنَّجۡدَيۡنِ. ـِينَ has a kasra before it and means many: ٱلضَّآلِّينَ.</string>
+
+    <!-- Sound masculine plural -->
+    <string name="grammar_lesson_sound_masc_plural_means">the disbelievers (al-kāfirūn)</string>
+    <string-array name="grammar_lesson_sound_masc_plural_spot">
+        <item>ـُونَ at the end in rafʿ: ٱلۡكَٰفِرُونَ.</item>
+        <item>ـِينَ in naṣb and jarr: ٱلضَّآلِّينَ.</item>
+        <item>Before another noun the ن drops.</item>
+    </string-array>
+    <string-array name="grammar_lesson_sound_masc_plural_how">
+        <item>It is the plural of men, and of words describing them, with the singular kept whole: كَافِر, كَافِرُونَ.</item>
+        <item>Many are doer nouns: مُؤۡمِن “believer”, مُؤۡمِنُونَ.</item>
+        <item>A few words are treated like it without being one, such as ٱلۡعَٰلَمِينَ “the worlds”.</item>
+    </string-array>
+    <string name="grammar_lesson_sound_masc_plural_confused">ـِينَ has a kasra before the yāʾ and means many: ٱلضَّآلِّينَ. ـَيۡنِ has a fatḥa before it and means two: ٱلنَّجۡدَيۡنِ.</string>
+
+    <!-- Sound feminine plural -->
+    <string name="grammar_lesson_sound_fem_plural_means">and did righteous deeds (wa ʿamilu ṣ-ṣāliḥāt)</string>
+    <string-array name="grammar_lesson_sound_fem_plural_spot">
+        <item>ـَات at the end: ٱلۡمُؤۡمِنَٰتِ, ٱلصَّٰلِحَٰتِ.</item>
+        <item>In the Quran’s spelling the ā is often a small alif: ـَٰت.</item>
+        <item>A ة in the singular drops: صَالِحَة, صَالِحَات.</item>
+    </string-array>
+    <string-array name="grammar_lesson_sound_fem_plural_how">
+        <item>It is the usual plural of nouns ending in ة, and of some others: سَمَآء, سَمَٰوَٰت.</item>
+        <item>In rafʿ it ends in a ḍamma, and in both naṣb and jarr in a kasra: ٱلصَّٰلِحَٰتِ is in naṣb here, as what they did.</item>
+        <item>It isn’t only about women: here ٱلصَّٰلِحَٰتِ are good deeds.</item>
+    </string-array>
+    <string name="grammar_lesson_sound_fem_plural_confused">Not every ات is this ending. In ٱلۡأَصۡوَٰتِ “the voices” the ت is part of the root ص و ت, so it is a broken plural of صَوۡت.</string>
+
+    <!-- Broken plural -->
+    <string name="grammar_lesson_broken_plural_means">in crowds (afwājā)</string>
+    <string-array name="grammar_lesson_broken_plural_spot">
+        <item>The word itself is reshaped, with no ending added: فَوۡج, أَفۡوَاج; رَجُل, رِجَال; كِتَاب, كُتُب.</item>
+        <item>Common shapes: أَفۡعَال (أَفۡوَاج), فِعَال (رِجَال), فُعُل (كُتُب), فُعَلَاء (عُلَمَاء).</item>
+    </string-array>
+    <string-array name="grammar_lesson_broken_plural_how">
+        <item>The plural can’t be worked out for sure from the singular, so learn each noun with its plural.</item>
+        <item>It takes the ordinary vowel endings of a singular: أَفۡوَاجًا is in naṣb, with tanwīn.</item>
+        <item>A plural of things is treated as one feminine thing: تِلۡكَ ٱلۡأَيَّامُ “those days”, with تِلۡكَ, the feminine singular “that”.</item>
+    </string-array>
+    <string name="grammar_lesson_broken_plural_confused">A sound plural keeps the singular whole and adds an ending: مُؤۡمِن, مُؤۡمِنُونَ. A broken plural changes the inside of the word.</string>
+
+    <!-- Definite and indefinite -->
+    <string name="grammar_lesson_definiteness_means">with the hardship is ease (maʿa l-ʿusri yusrā)</string>
+    <string-array name="grammar_lesson_definiteness_spot">
+        <item>ال makes a noun definite: ٱلۡعُسۡرِ “the hardship”.</item>
+        <item>Tanwīn usually shows an indefinite noun: يُسۡرًا “ease”. But a name can have tanwīn and still be definite: مُحَمَّدٞ.</item>
+        <item>A noun joined to a definite noun after it (iḍāfa) is definite without ال: رَبِّ ٱلۡعَٰلَمِينَ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_definiteness_how">
+        <item>Definite (maʿrifa) means a particular one. Indefinite (nakira) means any one of its kind.</item>
+        <item>Always definite: names (ٱللَّهُ), pronouns (هُوَ), pointing words (هَٰذَا), “the one who” words (ٱلَّذِي), and nouns with ال.</item>
+        <item>It carries meaning: many scholars noted that ٱلۡعُسۡرِ in 94:5–6 is the same hardship both times, while يُسۡرًا, without ال, is a new ease each time.</item>
+    </string-array>
+    <string name="grammar_lesson_definiteness_confused">As a reading point, tanwīn is the n sound at the end of a word. Here it matters as the usual sign of an indefinite noun.</string>
+</resources>
