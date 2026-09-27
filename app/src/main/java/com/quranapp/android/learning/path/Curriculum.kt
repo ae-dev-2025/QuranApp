@@ -84,6 +84,7 @@ object Curriculum {
                 StageGoal.Surahs(Layer.READ, STAGE_ONE_SURAHS),
                 StageGoal.Surahs(Layer.RECITE, STAGE_ONE_SURAHS),
                 StageGoal.Surahs(Layer.WORDS, listOf(1)),
+                StageGoal.Surahs(Layer.GRAMMAR, STAGE_ONE_SURAHS), // the three word types
             ),
         ),
         Stage(
@@ -91,21 +92,30 @@ object Curriculum {
             titleRes = R.string.learning_stage_2,
             goalRes = R.string.learning_stage_2_goal,
             units = JUZ_AMMA_REST,
-            goals = listOf(StageGoal.Surahs(Layer.RECITE, JUZ_AMMA)),
+            goals = listOf(
+                StageGoal.Surahs(Layer.RECITE, JUZ_AMMA),
+                StageGoal.Surahs(Layer.GRAMMAR, JUZ_AMMA), // gender, number, definiteness, cases
+            ),
         ),
         Stage(
             number = 3,
             titleRes = R.string.learning_stage_3,
             goalRes = R.string.learning_stage_3_goal,
             units = emptyList(),
-            goals = listOf(StageGoal.Surahs(Layer.WORDS, STAGE_ONE_SURAHS)),
+            goals = listOf(
+                StageGoal.Surahs(Layer.WORDS, STAGE_ONE_SURAHS),
+                StageGoal.Surahs(Layer.GRAMMAR, STAGE_ONE_SURAHS), // pronouns, prepositions, iḍāfa, adjectives
+            ),
         ),
         Stage(
             number = 4,
             titleRes = R.string.learning_stage_4,
             goalRes = R.string.learning_stage_4_goal,
             units = emptyList(),
-            goals = listOf(StageGoal.Surahs(Layer.WORDS, JUZ_AMMA, percent = 95)),
+            goals = listOf(
+                StageGoal.Surahs(Layer.WORDS, JUZ_AMMA, percent = 95),
+                StageGoal.Surahs(Layer.GRAMMAR, JUZ_AMMA), // roots, tenses, moods, inna and kāna
+            ),
         ),
         Stage(
             number = 5,
@@ -115,6 +125,7 @@ object Curriculum {
             goals = listOf(
                 StageGoal.Surahs(Layer.RECITE, JUZ_TABARAK),
                 StageGoal.Surahs(Layer.WORDS, JUZ_TABARAK, percent = 95),
+                StageGoal.Surahs(Layer.GRAMMAR, JUZ_TABARAK), // verb forms, participles, particles
             ),
         ),
         Stage(
@@ -122,7 +133,10 @@ object Curriculum {
             titleRes = R.string.learning_stage_6,
             goalRes = R.string.learning_stage_6_goal,
             units = emptyList(),
-            goals = listOf(StageGoal.Surahs(Layer.WORDS, WHOLE_QURAN, percent = 98)),
+            goals = listOf(
+                StageGoal.Surahs(Layer.WORDS, WHOLE_QURAN, percent = 98),
+                StageGoal.Surahs(Layer.GRAMMAR, WHOLE_QURAN), // the grammar of any ayah
+            ),
         ),
     )
 

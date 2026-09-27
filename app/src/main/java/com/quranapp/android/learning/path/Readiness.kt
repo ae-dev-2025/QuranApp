@@ -4,6 +4,7 @@ import com.quranapp.android.learning.analysis.AyahAnalyzer
 import com.quranapp.android.learning.concepts.Concept
 import com.quranapp.android.learning.concepts.ConceptGraph
 import com.quranapp.android.learning.concepts.ConceptStages
+import com.quranapp.android.learning.concepts.Track
 
 /**
  * What a surah needs, the same way the Understand sheet counts an ayah: the concepts its
@@ -18,6 +19,8 @@ data class SurahNeeds(
      * repeats included; words without a dictionary word are left out. Null without the pack.
      */
     val words: List<List<String>>?,
+    /** The grammar concepts its words show, prerequisites included; null without the pack. */
+    val grammar: List<Concept>? = null,
 ) {
     companion object {
         /** [ayahs] are the Uthmani words of each ayah, as the app stores them. */
@@ -25,6 +28,10 @@ data class SurahNeeds(
             val found = ayahs.flatMapTo(HashSet()) { AyahAnalyzer.analyze(it).conceptIds }
             return graph.inLearningOrder(graph.withPrerequisites(found))
         }
+
+        /** Grammar concepts [found] in a surah, with the grammar they build on, in learning order. */
+        fun grammarOf(found: Set<String>, graph: ConceptGraph = ConceptGraph()): List<Concept> =
+            graph.inLearningOrder(graph.withPrerequisites(found)).filter { it.track == Track.GRAMMAR }
     }
 }
 
@@ -51,9 +58,11 @@ object Readiness {
             val words = needs.flatMap { it.words.orEmpty() }
             return LayerProgress(words.count { word -> word.all { it in known } }, words.size)
         }
+        if (layer == Layer.GRAMMAR && needs.any { it.grammar == null }) return null
         // A concept needed by several surahs is one thing to learn, not several.
         val concepts = needs.flatMapTo(LinkedHashSet()) { surah ->
-            surah.concepts.filter { it.track == layer.track && ConceptStages.of(it.id) <= upToStage }
+            val ofLayer = if (layer == Layer.GRAMMAR) surah.grammar.orEmpty() else surah.concepts
+            ofLayer.filter { it.track == layer.track && ConceptStages.of(it.id) <= upToStage }
         }
         return LayerProgress(concepts.count { it.id in known }, concepts.size)
     }

@@ -49,7 +49,7 @@ internal fun ContinueCard(summary: PathSummary) {
                 val letter = Letters[next.itemId]
                 Text(
                     text = letter?.let { stringResource(R.string.learning_next_letter, it.char.toString(), it.name) }
-                        ?: ConceptCatalog[next.itemId]?.let { stringResource(it.titleRes) }.orEmpty(),
+                        ?: ConceptCatalog[next.itemId]?.let { conceptTitle(it) }.orEmpty(),
                     style = typography.titleMedium,
                 )
                 Text(

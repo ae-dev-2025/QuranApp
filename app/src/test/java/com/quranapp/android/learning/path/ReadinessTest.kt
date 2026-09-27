@@ -4,6 +4,7 @@ import com.quranapp.android.learning.analysis.TestAyahs
 import com.quranapp.android.learning.concepts.Concept
 import com.quranapp.android.learning.concepts.ConceptCatalog
 import com.quranapp.android.learning.concepts.ConceptIds
+import com.quranapp.android.learning.concepts.GrammarIds
 import com.quranapp.android.learning.concepts.Track
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -62,6 +63,29 @@ class ReadinessTest {
     @Test
     fun words_areUnknownWithoutThePack() {
         assertNull(Readiness.of(listOf(needs(112, ikhlas, words = null)), Layer.WORDS, emptySet()))
+    }
+
+    @Test
+    fun grammarOf_addsTheGrammarItBuildsOnButNotTheReading() {
+        // Cases build on definiteness, which builds on the noun and on tanwīn (a reading concept).
+        val ids = SurahNeeds.grammarOf(setOf(GrammarIds.CASES)).map { it.id }
+        assertEquals(listOf(GrammarIds.ISM, GrammarIds.DEFINITENESS, GrammarIds.CASES), ids)
+    }
+
+    @Test
+    fun grammar_countsTheSurahsGrammarUpToTheStage() {
+        val grammar = SurahNeeds.grammarOf(setOf(GrammarIds.CASES, GrammarIds.ROOT))
+        val surah = SurahNeeds(1, fatihah, words = null, grammar = grammar)
+        val all = Readiness.of(listOf(surah), Layer.GRAMMAR, setOf(GrammarIds.ISM))!!
+        assertEquals(grammar.size, all.total)
+        assertEquals(1, all.known)
+        // Roots are stage 4: stage 2 counts the noun, the verb, definiteness and cases only.
+        assertEquals(LayerProgress(1, 4), Readiness.of(listOf(surah), Layer.GRAMMAR, setOf(GrammarIds.ISM), upToStage = 2))
+    }
+
+    @Test
+    fun grammar_isUnknownWithoutThePack() {
+        assertNull(Readiness.of(listOf(needs(112, ikhlas)), Layer.GRAMMAR, emptySet()))
     }
 
     @Test

@@ -80,7 +80,7 @@ fun ConceptScreen(concept: Concept) {
     }
 
     Scaffold(
-        topBar = { AppBar(title = stringResource(concept.titleRes)) },
+        topBar = { AppBar(title = conceptTitle(concept)) },
     ) { innerPadding ->
         LazyColumn(
             modifier = Modifier
@@ -117,7 +117,7 @@ fun ConceptScreen(concept: Concept) {
 
             item {
                 Text(
-                    text = stringResource(concept.summaryRes),
+                    text = arabicExamplesInOrder(stringResource(concept.summaryRes)),
                     style = typography.bodyLarge,
                 )
             }
@@ -258,7 +258,7 @@ internal fun ConceptChip(concept: Concept, isKnown: Boolean, onClick: () -> Unit
             )
         }
         Text(
-            text = stringResource(concept.titleRes),
+            text = conceptTitle(concept),
             style = typography.labelLarge,
             color = if (isKnown) colorScheme.primary else colorScheme.onSurface,
         )

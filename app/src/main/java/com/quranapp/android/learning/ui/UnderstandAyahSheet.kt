@@ -37,9 +37,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranapp.android.R
@@ -52,6 +55,7 @@ import com.quranapp.android.learning.concepts.Concept
 import com.quranapp.android.learning.concepts.ConceptGraph
 import com.quranapp.android.learning.concepts.ConceptIds
 import com.quranapp.android.learning.path.Layer
+import com.quranapp.android.learning.path.SurahNeeds
 import com.quranapp.android.learning.pack.LearningPackManager
 import com.quranapp.android.learning.pack.LearningPackState
 import com.quranapp.android.learning.words.AyahWord
@@ -149,6 +153,20 @@ private suspend fun loadState(repository: QuranRepository, ayahId: Int): Underst
     return UnderstandAyahState(ayahText = words.joinToString(" "), words = words.dropLast(1), items = items)
 }
 
+/**
+ * The ayah's grammar concepts in learning order, with the grammar they build on, and the
+ * words each is found in. [found] maps concepts to 0-based word indexes, as the pack gives them.
+ */
+private fun grammarItems(found: Map<String, List<Int>>, words: List<String>): List<ConceptItem> =
+    SurahNeeds.grammarOf(found.keys).map { concept ->
+        val indexes = found[concept.id].orEmpty()
+        ConceptItem(
+            concept = concept,
+            words = indexes.mapNotNull { words.getOrNull(it) },
+            inEveryWord = words.size > 1 && indexes.size == words.size,
+        )
+    }
+
 /** How many of a layer's items the learner knows. */
 private data class LayerCount(val known: Int, val total: Int)
 
@@ -165,10 +183,6 @@ private fun SheetContent(verse: VerseWithDetails, state: UnderstandAyahState) {
     // Tied to this composable: if the sheet closes, unfinished work is cancelled.
     val scope = rememberCoroutineScope()
 
-    val itemsByLayer = remember(state) {
-        Layer.entries.associateWith { layer -> state.items.filter { it.concept.track == layer.track } }
-    }
-
     // The ayah's words from the learning pack, or null if it isn't downloaded (yet).
     val packState by LearningPackManager.state.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) { LearningPackManager.refresh(context) }
@@ -180,13 +194,29 @@ private fun SheetContent(verse: VerseWithDetails, state: UnderstandAyahState) {
             null
         }
     }
+    // Its grammar, from the pack's analysis of each word; null without the pack.
+    val packGrammar by produceState<Map<String, List<Int>>?>(initialValue = null, verse.id, installed) {
+        value = if (installed) {
+            withContext(Dispatchers.IO) { WordRepository.open(context)?.grammarOfAyah(verse.id) }
+        } else {
+            null
+        }
+    }
+    val grammarItems = remember(packGrammar, state) { packGrammar?.let { grammarItems(it, state.words) } }
+    val itemsByLayer = remember(state, grammarItems) {
+        Layer.entries.associateWith { layer ->
+            if (layer == Layer.GRAMMAR) grammarItems.orEmpty() else state.items.filter { it.concept.track == layer.track }
+        }
+    }
     val coverage = packWords?.let { WordCoverage.of(it, known) }
     val entries = remember(packWords, state) { packWords?.let { wordEntries(it, state.words) }.orEmpty() }
 
-    // Null for Words while the pack isn't there: the tab then shows a dash.
+    // Null for Words and Grammar while the pack isn't there: the tab then shows a dash.
     val counts = Layer.entries.associateWith { layer ->
         if (layer == Layer.WORDS) {
             coverage?.let { LayerCount(it.knownWords, it.countedWords) }
+        } else if (layer == Layer.GRAMMAR && grammarItems == null) {
+            null
         } else {
             val items = itemsByLayer.getValue(layer)
             LayerCount(items.count { it.concept.id in known }, items.size)
@@ -226,6 +256,8 @@ private fun SheetContent(verse: VerseWithDetails, state: UnderstandAyahState) {
                     }
                 }
             }
+        } else if (selected == Layer.GRAMMAR && grammarItems == null) {
+            item { WordsNeedPack(packState, R.string.learning_grammar_need_pack) }
         } else {
             for (conceptItem in itemsByLayer.getValue(selected)) {
                 item(key = conceptItem.concept.id) {
@@ -246,9 +278,13 @@ private fun SheetContent(verse: VerseWithDetails, state: UnderstandAyahState) {
 
         item {
             Text(
-                // Reading and tajweed come from the marks in the text; words from the pack's sources.
+                // Reading and tajweed come from the marks in the text; words and grammar from the pack's sources.
                 text = stringResource(
-                    if (selected == Layer.WORDS) R.string.learning_words_disclaimer else R.string.learning_analysis_disclaimer,
+                    when (selected) {
+                        Layer.WORDS -> R.string.learning_words_disclaimer
+                        Layer.GRAMMAR -> R.string.learning_grammar_disclaimer
+                        else -> R.string.learning_analysis_disclaimer
+                    },
                 ),
                 style = typography.labelSmall,
                 color = colorScheme.onSurface.alpha(0.6f),
@@ -375,14 +411,25 @@ private fun ConceptDetails(item: ConceptItem, arabicFont: FontFamily, modifier: 
         verticalArrangement = Arrangement.spacedBy(2.dp),
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
+            val title = conceptTitle(item.concept)
+            val termColor = colorScheme.primary
             Text(
-                text = stringResource(item.concept.titleRes),
+                // Grammar shows the Arabic term too (decision 6: English and Arabic). One text,
+                // so a long title wraps and the chevron stays at its end.
+                text = buildAnnotatedString {
+                    append(title)
+                    item.concept.arabicTerm?.let { term ->
+                        append("  ")
+                        withStyle(SpanStyle(color = termColor)) { append(term) }
+                    }
+                },
                 style = typography.titleSmall,
+                modifier = Modifier.weight(1f, fill = false),
             )
             OpenChevron()
         }
         Text(
-            text = stringResource(item.concept.summaryRes),
+            text = arabicExamplesInOrder(stringResource(item.concept.summaryRes)),
             style = typography.bodySmall,
             color = colorScheme.onSurface.alpha(0.75f),
         )
