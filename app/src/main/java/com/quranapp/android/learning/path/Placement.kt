@@ -17,7 +17,7 @@ enum class Placement(val stage: Int, @StringRes val titleRes: Int, @StringRes va
     RECITER(3, R.string.learning_place_reciter, R.string.learning_place_reciter_text),
 }
 
-/** The stage the learner chose to start at, kept on the device. */
+/** The learner's start and goal, kept on the device. */
 object LearningPreferences {
     const val NOT_CHOSEN = -1
 
@@ -27,4 +27,14 @@ object LearningPreferences {
     fun startStage(): Flow<Int> = DataStoreManager.flow(KEY_START_STAGE)
 
     suspend fun setStartStage(stage: Int) = DataStoreManager.write(KEY_START_STAGE, stage)
+
+    /** No goal surah chosen. */
+    const val NO_GOAL = 0
+
+    private val KEY_GOAL_SURAH = PrefKey(intPreferencesKey("learning_goal_surah"), NO_GOAL)
+
+    /** The surah the learner aims to understand (journey 4), or [NO_GOAL]. */
+    fun goalSurah(): Flow<Int> = DataStoreManager.flow(KEY_GOAL_SURAH)
+
+    suspend fun setGoalSurah(surahNo: Int) = DataStoreManager.write(KEY_GOAL_SURAH, surahNo)
 }

@@ -81,7 +81,7 @@ private const val WORDS_PER_CHECK = 4
 
 /** A surah unit (decision 2): what the surah needs, layer by layer, and how ready you are. */
 @Composable
-fun UnitScreen(surahNo: Int) {
+fun UnitScreen(surahNo: Int, focus: Layer? = null) {
     val context = LocalContext.current
     val progress = remember { DatabaseProvider.getLearningProgressRepository(context) }
     // Null until the database answers, so the word list below isn't built from an empty set.
@@ -104,7 +104,7 @@ fun UnitScreen(surahNo: Int) {
             Box(Modifier.fillMaxSize().padding(padding), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
             return@Scaffold
         }
-        UnitContent(loaded, knownIds, packState, Modifier.padding(padding))
+        UnitContent(loaded, knownIds, packState, focus, Modifier.padding(padding))
     }
 }
 
@@ -127,14 +127,14 @@ private suspend fun loadUnit(context: android.content.Context, surahNo: Int): Un
 private enum class UnitStep(val layer: Layer) { READ(Layer.READ), RECITE(Layer.RECITE), WORDS(Layer.WORDS) }
 
 @Composable
-private fun UnitContent(unit: UnitHeader, known: Set<String>, packState: LearningPackState, modifier: Modifier) {
+private fun UnitContent(unit: UnitHeader, known: Set<String>, packState: LearningPackState, focus: Layer?, modifier: Modifier) {
     val context = LocalContext.current
     val arabicFont = remember { FontFamily(Font(R.font.uthmanic_hafs)) }
     val progress = remember(unit, known) { Layer.entries.associateWith { Readiness.of(listOf(unit.needs), it, known) } }
     fun isDone(step: UnitStep) = progress[step.layer]?.let { it.known == it.total } ?: false
 
-    // The first step with something left is open to start with; the learner can open any other.
-    val current = UnitStep.entries.firstOrNull { !isDone(it) }
+    // The asked-for step, or the first with something left, is open to start with; any other can be opened.
+    val current = UnitStep.entries.firstOrNull { it.layer == focus } ?: UnitStep.entries.firstOrNull { !isDone(it) }
     var open by rememberSaveable(unit.needs.surahNo) { mutableStateOf(current) }
 
     LazyColumn(
