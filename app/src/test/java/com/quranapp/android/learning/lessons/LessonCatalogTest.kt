@@ -25,6 +25,12 @@ class LessonCatalogTest {
         GrammarIds.DETACHED_PRONOUN, GrammarIds.ATTACHED_PRONOUN, GrammarIds.IYYA, GrammarIds.DEMONSTRATIVE, GrammarIds.RELATIVE,
         // Units 4 and 5 · the word-form parts (iḍāfa and comparatives come with M9)
         GrammarIds.PREPOSITION, GrammarIds.PRONOUN_POSSESSOR, GrammarIds.ADJECTIVE,
+        // Units 7–10 · Roots and patterns, past, present and moods, command and passive
+        GrammarIds.ROOT, GrammarIds.PATTERN, GrammarIds.PAST, GrammarIds.DOER_IN_VERB,
+        GrammarIds.PRESENT, GrammarIds.SUBJUNCTIVE, GrammarIds.JUSSIVE, GrammarIds.QAD_SA,
+        GrammarIds.COMMAND, GrammarIds.PROHIBITION, GrammarIds.PASSIVE,
+        // Unit 14 · Inna, kāna and sisters
+        GrammarIds.INNA, GrammarIds.KANA, GrammarIds.LA_GENERIC,
     )
 
     @Test

@@ -290,4 +290,201 @@
         <item>An adjective is itself a noun, so it takes ال and tanwīn like one.</item>
     </string-array>
     <string name="grammar_lesson_adjective_confused">Two nouns side by side can also be an iḍāfa: رَبِّ ٱلۡعَٰلَمِينَ. There the first has no ال and the second is in jarr; an adjective copies its noun instead.</string>
+
+    <!-- Unit 7 · Roots and patterns -->
+
+    <!-- The three-letter root -->
+    <string name="grammar_lesson_root_means">He taught man what he did not know (ʿallama l-insāna mā lam yaʿlam)</string>
+    <string-array name="grammar_lesson_root_spot">
+        <item>Take away the extra letters and the vowels, and three letters are left: عَلَّمَ and يَعۡلَمۡ both come from ع ل م.</item>
+        <item>The same three letters, in the same order, come back in related words: عِلۡم “knowledge”, عَلِيم “all-knowing”.</item>
+    </string-array>
+    <string-array name="grammar_lesson_root_how">
+        <item>Most Arabic words are built on a root of three letters that carries a core meaning: ع ل م is about knowing.</item>
+        <item>Patterns build words around it: عَلِمَ “he knew”, عَلَّمَ “he taught”, عِلۡم “knowledge”.</item>
+        <item>Learn a root once and you know part of every word built on it. The Words tab shows each word’s root.</item>
+    </string-array>
+    <string name="grammar_lesson_root_confused">The root is the three letters that carry the meaning. The pattern is the shape around them, measured with ف ع ل.</string>
+
+    <!-- Patterns -->
+    <string name="grammar_lesson_pattern_means">Master (māliki)</string>
+    <string-array name="grammar_lesson_pattern_spot">
+        <item>Words are measured with the letters ف ع ل: مَٰلِك is on فَاعِل, like كَافِر and عَالِم.</item>
+        <item>The extra letters and vowels of a word show in its pattern: مَغۡضُوب is on مَفۡعُول, رَحِيم on فَعِيل.</item>
+    </string-array>
+    <string-array name="grammar_lesson_pattern_how">
+        <item>A pattern carries a meaning of its own: فَاعِل is the one who does, مَفۡعُول the one it is done to, فَعِيل often a lasting quality.</item>
+        <item>Put a root into a pattern to make a word: م ل ك on فَاعِل gives مَالِك “owner, master”.</item>
+        <item>Knowing the pattern tells you what kind of word it is, even before you know its meaning.</item>
+    </string-array>
+    <string name="grammar_lesson_pattern_confused">The pattern is the shape; the root is the three letters inside it that carry the meaning.</string>
+
+    <!-- Unit 8 · Past tense -->
+
+    <!-- Past-tense verb -->
+    <string name="grammar_lesson_past_means">how your Lord dealt (kayfa faʿala rabbuka)</string>
+    <string-array name="grammar_lesson_past_spot">
+        <item>The basic form of a verb, with no prefix: فَعَلَ, خَلَقَ, قَالَ.</item>
+        <item>Endings that say who did it: فَعَلۡتُ “I did”, فَعَلۡنَا “we did”, فَعَلُوا “they did”, فَعَلَتۡ “she did”.</item>
+        <item>قَدۡ often comes before it: قَدۡ أَفۡلَحَ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_past_how">
+        <item>It tells of something that has happened: فَعَلَ “he did”.</item>
+        <item>With no ending it means “he”, and a noun doer comes after it: فَعَلَ رَبُّكَ “your Lord did”.</item>
+        <item>In the Quran it can also tell of something to come, to show it is certain: أَتَىٰٓ أَمۡرُ ٱللَّهِ “the command of Allah has come” (16:1).</item>
+    </string-array>
+    <string name="grammar_lesson_past_confused">The present has a prefix for who does it: يَفۡعَلُ “he does”. The past has none, only endings: فَعَلَ.</string>
+
+    <!-- The doer inside the verb -->
+    <string name="grammar_lesson_doer_in_verb_means">You have blessed (anʿamta)</string>
+    <string-array name="grammar_lesson_doer_in_verb_spot">
+        <item>A past verb’s ending can be its doer: the ـتَ of أَنۡعَمۡتَ is “you”.</item>
+        <item>Others: ـتُ “I”, ـنَا “we”, ـُوا “they”, ـتُمۡ “you all”.</item>
+    </string-array>
+    <string-array name="grammar_lesson_doer_in_verb_how">
+        <item>When the doer is a pronoun, it is joined to the verb: أَنۡعَمۡتَ alone is a whole sentence, “you blessed”.</item>
+        <item>A noun doer comes after the verb instead: فَعَلَ رَبُّكَ.</item>
+        <item>An ending that isn’t the verb’s own person is its object: in ٱهۡدِنَا, نَا is “us”, the ones guided.</item>
+    </string-array>
+    <string name="grammar_lesson_doer_in_verb_confused">Not every pronoun on a verb is its doer: in أَعۡطَيۡنَٰكَ, نَا is the doer and كَ is the object.</string>
+
+    <!-- Unit 9 · Present tense and moods -->
+
+    <!-- Present/future verb -->
+    <string name="grammar_lesson_present_means">I do not worship what you worship (lā aʿbudu mā taʿbudūn)</string>
+    <string-array name="grammar_lesson_present_spot">
+        <item>A prefix at the start: أَ “I”, نَ “we”, يَ “he”, تَ “you” or “she”: أَعۡبُدُ, تَعۡبُدُونَ.</item>
+        <item>The four prefix letters spell أَنَيۡتُ, an easy way to remember them.</item>
+        <item>Some add an ending too: ـُونَ for “they” or “you all”.</item>
+    </string-array>
+    <string-array name="grammar_lesson_present_how">
+        <item>It is an action now or to come: أَعۡبُدُ “I worship, I will worship”.</item>
+        <item>Its usual ending is a ḍamma: أَعۡبُدُ. Some words before it change that ending (the next two concepts).</item>
+        <item>سَـ or سَوۡفَ make it clearly future: سَوۡفَ تَعۡلَمُونَ “you will come to know”.</item>
+    </string-array>
+    <string name="grammar_lesson_present_confused">The past has no prefix, only endings: عَبَدۡتُمۡ “you worshipped”. The present starts with one: تَعۡبُدُونَ.</string>
+
+    <!-- Subjunctive -->
+    <string name="grammar_lesson_subjunctive_means">no one will ever have power over him (lan yaqdira ʿalayhi aḥad)</string>
+    <string-array name="grammar_lesson_subjunctive_spot">
+        <item>أَنۡ “to, that”, لَنۡ “will never”, كَيۡ or لِـ “so that”, or حَتَّىٰ “until” comes before a present verb.</item>
+        <item>The verb ends in a fatḥa: يَقۡدِرَ.</item>
+        <item>An ending ـُونَ loses its ن: لَن تَنَالُواْ ٱلۡبِرَّ “you will never attain righteousness” (3:92).</item>
+    </string-array>
+    <string-array name="grammar_lesson_subjunctive_how">
+        <item>These words put the present verb in naṣb.</item>
+        <item>لَنۡ denies the future strongly: “will never”.</item>
+        <item>أَنۡ and its verb work together like one noun: أَن يُخَفِّفَ “to lighten” (4:28).</item>
+    </string-array>
+    <string name="grammar_lesson_subjunctive_confused">أَنۡ with a sukūn comes before a verb and puts it in naṣb. أَنَّ with a shadda comes before a noun.</string>
+
+    <!-- Jussive -->
+    <string name="grammar_lesson_jussive_means">Did We not expand (a-lam nashraḥ)</string>
+    <string-array name="grammar_lesson_jussive_spot">
+        <item>لَمۡ “did not”, لَا “do not”, the لِـ of command, or a condition like إِن “if” comes before a present verb.</item>
+        <item>The verb ends in a sukūn: نَشۡرَحۡ, يَلِدۡ.</item>
+        <item>Or it loses a letter: ـُونَ loses its ن, and a long vowel can drop: لَمۡ يَكُن, from يَكُونُ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_jussive_how">
+        <item>لَمۡ turns a present verb into a denied past: لَمۡ يَلِدۡ “He did not beget”.</item>
+        <item>أَلَمۡ asks “did … not?” and expects a yes: أَلَمۡ نَشۡرَحۡ “did We not expand?”.</item>
+        <item>This sukūn is written, so it is read even when you don’t stop.</item>
+    </string-array>
+    <string name="grammar_lesson_jussive_confused">The sukūn is a reading mark. At the end of a present verb it is also a sign of jazm.</string>
+
+    <!-- قَدۡ, سَـ and سَوۡفَ -->
+    <string name="grammar_lesson_qad_sa_means">He has succeeded (qad aflaḥa)</string>
+    <string-array name="grammar_lesson_qad_sa_spot">
+        <item>قَدۡ before a past verb: قَدۡ أَفۡلَحَ.</item>
+        <item>سَـ joined to a present verb, or سَوۡفَ before it: سَوۡفَ تَعۡلَمُونَ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_qad_sa_how">
+        <item>قَدۡ with a past verb stresses that it really happened: “has indeed”.</item>
+        <item>سَـ and سَوۡفَ make a present verb future: “will”.</item>
+        <item>Before a present verb, قَدۡ can mean “sometimes”, or stress that it is sure: قَدۡ يَعۡلَمُ ٱللَّهُ “Allah surely knows” (24:63).</item>
+    </string-array>
+    <string name="grammar_lesson_qad_sa_confused">سَـ is joined to its verb, so don’t take it for a root letter: in سَيَصۡلَىٰ (111:3) it is “will”, and the verb is يَصۡلَىٰ.</string>
+
+    <!-- Unit 10 · Command, forbidding, passive -->
+
+    <!-- Imperative -->
+    <string name="grammar_lesson_command_means">Read! (iqraʾ)</string>
+    <string-array name="grammar_lesson_command_spot">
+        <item>It has no present prefix: from تَقۡرَأُ “you read” comes ٱقۡرَأۡ “read!”.</item>
+        <item>It ends in a sukūn, or loses a letter: ٱقۡرَأۡ, قُلۡ (from تَقُولُ).</item>
+        <item>To a group it ends in ـُوا: ٱعۡبُدُوا “worship!”.</item>
+    </string-array>
+    <string-array name="grammar_lesson_command_how">
+        <item>It is made from the present: drop the prefix, and if the word then starts with a sukūn, put ٱ in front: تَقۡرَأُ, قۡرَأۡ, ٱقۡرَأۡ.</item>
+        <item>It always speaks to “you”: one man, one woman (وَٱرۡكَعِي, 3:43) or a group.</item>
+        <item>From Allah to people it is a command; from people to Allah, as in ٱهۡدِنَا, it is a prayer.</item>
+    </string-array>
+    <string name="grammar_lesson_command_confused">The command not to do something uses لَا and a present verb: لَا تَقۡهَرۡ “do not oppress”.</string>
+
+    <!-- Forbidding with لَا -->
+    <string name="grammar_lesson_prohibition_means">So as for the orphan, do not oppress him (fa-ammā l-yatīma fa-lā taqhar)</string>
+    <string-array name="grammar_lesson_prohibition_spot">
+        <item>لَا, then a present verb with تَـ, ending in a sukūn: لَا تَقۡهَرۡ.</item>
+        <item>To a group, ـُونَ becomes ـُوا: وَلَا تَعۡتَدُوٓاْ “and do not transgress” (2:190).</item>
+    </string-array>
+    <string-array name="grammar_lesson_prohibition_how">
+        <item>It is the opposite of a command: “do not …”.</item>
+        <item>This لَا puts the verb in jazm, so its ending is cut short.</item>
+        <item>From people to Allah it is a prayer: رَبَّنَا لَا تُؤَاخِذۡنَآ “our Lord, do not take us to task” (2:286).</item>
+    </string-array>
+    <string name="grammar_lesson_prohibition_confused">With a verb in its usual ḍamma, لَا only denies: لَآ أَعۡبُدُ “I do not worship” (109:2).</string>
+
+    <!-- Passive voice -->
+    <string name="grammar_lesson_passive_means">nor was He begotten (wa lam yūlad)</string>
+    <string-array name="grammar_lesson_passive_spot">
+        <item>Past: a ḍamma on the first letter and a kasra before the last: خُلِقَ “was created”.</item>
+        <item>Present: a ḍamma on the prefix and a fatḥa before the last: يُولَدۡ “is begotten”.</item>
+    </string-array>
+    <string-array name="grammar_lesson_passive_how">
+        <item>The doer is left out, and what was acted on takes its place, in rafʿ: وَخُلِقَ ٱلۡإِنسَٰنُ “and man was created” (4:28).</item>
+        <item>The doer may be obvious, unknown, or not the point.</item>
+        <item>Compare يَلِدۡ “He begets” with يُولَدۡ “He is begotten”: the vowels change who does what.</item>
+    </string-array>
+    <string name="grammar_lesson_passive_confused">مَغۡضُوب “the one angered at” is a passive noun, not a verb: it takes ال and has no time.</string>
+
+    <!-- Unit 14 · Inna, kāna and sisters -->
+
+    <!-- Inna and its sisters -->
+    <string name="grammar_lesson_inna_means">Indeed, mankind is in loss (inna l-insāna la-fī khusr)</string>
+    <string-array name="grammar_lesson_inna_spot">
+        <item>إِنَّ “indeed”, أَنَّ “that”, لَٰكِنَّ “but”, كَأَنَّ “as if”, لَيۡتَ “if only”, لَعَلَّ “perhaps, so that”.</item>
+        <item>The noun after it is in naṣb: ٱلۡإِنسَٰنَ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_inna_how">
+        <item>It comes before a nominal sentence: a subject and what is said about it.</item>
+        <item>Its subject goes into naṣb; what is said about it stays in rafʿ.</item>
+        <item>The لَـ in لَفِي adds more stress: “surely in loss”.</item>
+    </string-array>
+    <string name="grammar_lesson_inna_confused">Kāna does the mirror image: its subject stays in rafʿ, and what is said about it goes into naṣb.</string>
+
+    <!-- Kāna and its sisters -->
+    <string name="grammar_lesson_kana_means">and there is none equal to Him (wa lam yakun lahū kufuwan aḥad)</string>
+    <string-array name="grammar_lesson_kana_spot">
+        <item>كَانَ “was”, أَصۡبَحَ “became (by morning)”, صَارَ “became”, لَيۡسَ “is not”, مَا زَالَ “still”.</item>
+        <item>What is said about the subject is in naṣb: كُفُوًا.</item>
+    </string-array>
+    <string-array name="grammar_lesson_kana_how">
+        <item>It comes before a nominal sentence and places it in time: وَكَانَ ٱللَّهُ عَلِيمًا “and Allah is ever Knowing” (4:17).</item>
+        <item>Its subject stays in rafʿ (أَحَدٌ); what is said about it goes into naṣb (كُفُوًا).</item>
+        <item>The order can change: here كُفُوًا comes before أَحَدٌ, and the endings still tell you which is which.</item>
+    </string-array>
+    <string name="grammar_lesson_kana_confused">Inna does the mirror image: its subject goes into naṣb, and what is said about it stays in rafʿ.</string>
+
+    <!-- لَا denying a whole kind -->
+    <string name="grammar_lesson_la_generic_means">no doubt in it (lā rayba fīh)</string>
+    <string-array name="grammar_lesson_la_generic_spot">
+        <item>لَا, then straight away an indefinite noun,</item>
+        <item>ending in a fatḥa with no tanwīn: لَا رَيۡبَ.</item>
+    </string-array>
+    <string-array name="grammar_lesson_la_generic_how">
+        <item>It denies every one of its kind: not a single doubt.</item>
+        <item>It works like إِنَّ: its noun is in naṣb, shown by a fatḥa without tanwīn.</item>
+        <item>The testimony of faith uses it: لَآ إِلَٰهَ إِلَّا ٱللَّهُ “there is no god but Allah” (47:19).</item>
+    </string-array>
+    <string name="grammar_lesson_la_generic_confused">With tanwīn it is an ordinary “no”: لَّا بَيۡعٞ فِيهِ “no trading in it” (2:254).</string>
 </resources>
