@@ -33,6 +33,14 @@ class GrammarOfPackTest {
         // 2:2 لَا رَيۡبَ
         assertEquals(listOf(2, 3), words.grammarOfAyah(2002)[GrammarIds.LA_GENERIC])
 
+        // Sentence roles, from MASAQ.
+        val ayah2 = words.grammarOfAyah(1002)
+        assertEquals("رَبِّ ٱلۡعَٰلَمِينَ", listOf(2, 3), ayah2[GrammarIds.IDAFA])
+        assertEquals("لِلَّهِ is a phrase as the predicate", listOf(1), ayah2[GrammarIds.KHABAR_PHRASE])
+        assertEquals("نَعۡبُدُ and نَسۡتَعِينُ: “we” is hidden", listOf(1, 3), ayah5[GrammarIds.HIDDEN_DOER])
+        assertEquals("خَيۡرٞ “better”", listOf(2), words.grammarOfAyah(97003)[GrammarIds.ELATIVE])
+        assertEquals("أَزۡوَٰجٗا “in pairs”", listOf(1), words.grammarOfAyah(78008)[GrammarIds.HAL])
+
         // Al-Baqarah uses almost everything a word's form can show.
         val baqarah = words.grammarOfSurah(2)
         listOf(GrammarIds.PASSIVE, GrammarIds.SUBJUNCTIVE, GrammarIds.JUSSIVE, GrammarIds.INNA, GrammarIds.KANA, GrammarIds.VOCATIVE)

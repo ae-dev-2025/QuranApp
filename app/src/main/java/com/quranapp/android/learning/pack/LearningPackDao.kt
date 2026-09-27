@@ -42,6 +42,28 @@ data class GrammarSegmentRow(
     val rootKey: String?,
 )
 
+/** A segment's role in its sentence, for the sentence detector (see [SyntaxEntity]). */
+data class SyntaxRow(
+    @ColumnInfo(name = "ayah_id")
+    val ayahId: Int,
+    @ColumnInfo(name = "word_index")
+    val wordIndex: Int,
+    @ColumnInfo(name = "morph_type")
+    val morphType: String,
+    @ColumnInfo(name = "morph_tag")
+    val morphTag: String,
+    @ColumnInfo(name = "role")
+    val role: String?,
+    @ColumnInfo(name = "construct")
+    val construct: String?,
+    @ColumnInfo(name = "case_marker")
+    val caseMarker: String?,
+    @ColumnInfo(name = "phrase")
+    val phrase: String?,
+    @ColumnInfo(name = "phrase_function")
+    val phraseFunction: String?,
+)
+
 /** Read-only queries on learning_pack.db. The pack is never written to by the app. */
 @Dao
 interface LearningPackDao {
@@ -97,6 +119,13 @@ interface LearningPackDao {
             "WHERE s.ayah_id BETWEEN :firstAyahId AND :lastAyahId ORDER BY s.ayah_id, s.word_index, s.segment_index",
     )
     suspend fun grammarSegmentsBetween(firstAyahId: Int, lastAyahId: Int): List<GrammarSegmentRow>
+
+    /** MASAQ's analysis of a range of ayahs, segment by segment in reading order. */
+    @Query(
+        "SELECT ayah_id, word_index, morph_type, morph_tag, role, construct, case_marker, phrase, phrase_function FROM syntax " +
+            "WHERE ayah_id BETWEEN :firstAyahId AND :lastAyahId ORDER BY ayah_id, word_index, segment_index",
+    )
+    suspend fun syntaxBetween(firstAyahId: Int, lastAyahId: Int): List<SyntaxRow>
 
     /** How many dictionary words the pack has. */
     @Query("SELECT COUNT(*) FROM lemmas")

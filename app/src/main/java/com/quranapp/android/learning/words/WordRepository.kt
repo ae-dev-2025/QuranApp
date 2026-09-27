@@ -3,6 +3,8 @@ package com.quranapp.android.learning.words
 import android.content.Context
 import com.quranapp.android.learning.analysis.GrammarDetector
 import com.quranapp.android.learning.analysis.GrammarSegment
+import com.quranapp.android.learning.analysis.SentenceDetector
+import com.quranapp.android.learning.analysis.SyntaxSegment
 import com.quranapp.android.learning.pack.GrammarSegmentRow
 import com.quranapp.android.learning.pack.LearningPackDao
 import com.quranapp.android.learning.pack.LearningPackManager
@@ -10,6 +12,7 @@ import com.quranapp.android.learning.pack.LemmaEntity
 import com.quranapp.android.learning.pack.RootEntity
 import com.quranapp.android.learning.pack.SegmentEntity
 import com.quranapp.android.learning.pack.SyntaxEntity
+import com.quranapp.android.learning.pack.SyntaxRow
 import com.quranapp.android.learning.pack.WordGlossEntity
 import com.quranapp.android.learning.pack.WordLocation
 
@@ -47,9 +50,11 @@ class WordRepository(private val dao: LearningPackDao) {
         return lemmas.map { WordLemma(it, it.rootId?.let(roots::get)) }
     }
 
-    /** The grammar concepts of an ayah and the words they're in, from the corpus's analysis. */
-    suspend fun grammarOfAyah(ayahId: Int): Map<String, List<Int>> =
-        grammarByAyah(dao.grammarSegmentsBetween(ayahId, ayahId))[ayahId].orEmpty()
+    /**
+     * The grammar concepts of an ayah and the words they're in: word forms from the corpus's
+     * analysis, sentence roles from MASAQ's.
+     */
+    suspend fun grammarOfAyah(ayahId: Int): Map<String, List<Int>> = grammarBetween(ayahId, ayahId)[ayahId].orEmpty()
 
     /** Every grammar concept found in a surah. */
     suspend fun grammarOfSurah(surahNo: Int): Set<String> =
@@ -57,7 +62,10 @@ class WordRepository(private val dao: LearningPackDao) {
 
     /** For each ayah of a surah, its grammar concepts and the words they're in. */
     suspend fun grammarByAyahOfSurah(surahNo: Int): Map<Int, Map<String, List<Int>>> =
-        grammarByAyah(dao.grammarSegmentsBetween(surahNo * 1000, surahNo * 1000 + 999))
+        grammarBetween(surahNo * 1000, surahNo * 1000 + 999)
+
+    private suspend fun grammarBetween(firstAyahId: Int, lastAyahId: Int): Map<Int, Map<String, List<Int>>> =
+        grammarByAyah(dao.grammarSegmentsBetween(firstAyahId, lastAyahId), dao.syntaxBetween(firstAyahId, lastAyahId))
 
     /** A dictionary word by its stable key. */
     suspend fun lemma(lemmaKey: String): LemmaEntity? = dao.lemmaByKey(lemmaKey)
@@ -72,17 +80,33 @@ class WordRepository(private val dao: LearningPackDao) {
     }
 
     companion object {
-        /** Runs the grammar detector over each ayah's words; the list index is the app's word index. */
-        fun grammarByAyah(rows: List<GrammarSegmentRow>): Map<Int, Map<String, List<Int>>> =
-            rows.groupBy { it.ayahId }.mapValues { (_, ayah) ->
-                val byWord = ayah.groupBy { it.wordIndex }
-                val words = (0..(byWord.keys.maxOrNull() ?: -1)).map { index ->
-                    byWord[index].orEmpty().map { row ->
-                        GrammarSegment(row.kind, row.tag, row.features.split('|').filter { it.isNotEmpty() }, row.form, row.lemmaKey, row.rootKey)
-                    }
+        /**
+         * Runs the grammar and sentence detectors over each ayah's words; the list index is the
+         * app's word index, and a concept found by both lists its words once.
+         */
+        fun grammarByAyah(rows: List<GrammarSegmentRow>, syntax: List<SyntaxRow> = emptyList()): Map<Int, Map<String, List<Int>>> {
+            val formsByAyah = rows.groupBy { it.ayahId }
+            val syntaxByAyah = syntax.groupBy { it.ayahId }
+            return (formsByAyah.keys + syntaxByAyah.keys).sorted().associateWith { ayahId ->
+                val forms = byWord(formsByAyah[ayahId].orEmpty(), { it.wordIndex }) { row ->
+                    GrammarSegment(row.kind, row.tag, row.features.split('|').filter { it.isNotEmpty() }, row.form, row.lemmaKey, row.rootKey)
                 }
-                GrammarDetector.detect(words)
+                val sentence = byWord(syntaxByAyah[ayahId].orEmpty(), { it.wordIndex }) { row ->
+                    SyntaxSegment(row.morphType, row.morphTag, row.role, row.construct, row.caseMarker, row.phrase, row.phraseFunction)
+                }
+                val found = LinkedHashMap<String, List<Int>>(GrammarDetector.detect(forms))
+                SentenceDetector.detect(sentence, forms).forEach { (id, words) ->
+                    found[id] = (found[id].orEmpty() + words).distinct().sorted()
+                }
+                found
             }
+        }
+
+        /** Rows grouped into words, by word index from 0; a word with no rows is an empty list. */
+        private fun <R, S> byWord(rows: List<R>, wordIndex: (R) -> Int, segment: (R) -> S): List<List<S>> {
+            val grouped = rows.groupBy(wordIndex)
+            return (0..(grouped.keys.maxOrNull() ?: -1)).map { index -> grouped[index].orEmpty().map(segment) }
+        }
 
         /** The repository, or null when the learning pack isn't downloaded. */
         suspend fun open(context: Context): WordRepository? =

@@ -20,8 +20,8 @@ data class GrammarSegment(
 /**
  * Finds the grammar concepts that show in the form of each word (milestone 8): word types,
  * gender and number, cases, pronouns, tenses and moods, verb forms, participles, particles.
- * Concepts about how words relate (iḍāfa, subject and predicate, objects) need the sentence
- * roles and come in milestone 9.
+ * Concepts about how words relate (iḍāfa, subject and predicate, objects) are found by
+ * [SentenceDetector] from the sentence roles.
  */
 object GrammarDetector {
     private val NOUN_TAGS = setOf("N", "PN", "ADJ", "PRON", "DEM", "REL", "T", "LOC", "IMPN")

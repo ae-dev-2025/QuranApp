@@ -475,7 +475,7 @@
         <item quantity="one">%d grammar point to learn</item>
         <item quantity="other">%d grammar points to learn</item>
     </plurals>
-    <string name="learning_grammar_disclaimer">Found from the Quranic Arabic Corpus’s analysis of each word. How words relate in the sentence comes later. Please confirm with a qualified teacher.</string>
+    <string name="learning_grammar_disclaimer">Found from the Quranic Arabic Corpus’s analysis of each word and MASAQ’s analysis of each sentence. Please confirm with a qualified teacher.</string>
     <string name="learning_grammar_need_pack">The grammar of each word comes with the learning data (%1$s download, once).</string>
-    <string name="learning_grammar_examples_disclaimer">Examples found from the Quranic Arabic Corpus’s analysis of each word (with the learning data). Please confirm with a qualified teacher.</string>
+    <string name="learning_grammar_examples_disclaimer">Examples found from the Quranic Arabic Corpus’s and MASAQ’s analysis (with the learning data). Please confirm with a qualified teacher.</string>
 </resources>
