@@ -30,7 +30,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranapp.android.R
 import com.quranapp.android.compose.components.common.AppBar
 import com.quranapp.android.db.DatabaseProvider
+import com.quranapp.android.learning.concepts.ConceptIds
 import com.quranapp.android.learning.pack.LearningPackManager
+import com.quranapp.android.learning.path.LearningPreferences
 import com.quranapp.android.learning.practice.DailyReview
 import com.quranapp.android.learning.practice.ReviewSummary
 import kotlinx.coroutines.Dispatchers
@@ -47,6 +49,7 @@ fun LearnScreen(viewModel: LearnViewModel) {
     val context = LocalContext.current
     val reviews = remember { DatabaseProvider.getUserDatabase(context).reviewDao() }
     val path by viewModel.summary.collectAsStateWithLifecycle()
+    val start by viewModel.startStage.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) { LearningPackManager.refresh(context) }
     // Recomputed when a card changes and every minute, so items become due while the screen is open.
     val reviewSummary by remember {
@@ -57,6 +60,13 @@ fun LearnScreen(viewModel: LearnViewModel) {
     Scaffold(
         topBar = { AppBar(title = stringResource(R.string.learning_nav_learn)) },
     ) { padding ->
+        when (start) {
+            null -> return@Scaffold // a moment while the preference loads
+            LearningPreferences.NOT_CHOSEN -> {
+                PlacementContent(Modifier.fillMaxSize().padding(padding), onChoose = viewModel::choose)
+                return@Scaffold
+            }
+        }
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -80,6 +90,9 @@ fun LearnScreen(viewModel: LearnViewModel) {
             }
             path?.let { loaded ->
                 item { ContinueCard(loaded) }
+                // Started past the letters: offer to tick the basics they already know.
+                val checkable = loaded.unknownBasics.filter { it != ConceptIds.LETTERS } // letters get questions in M7
+                if (loaded.start > 0 && checkable.isNotEmpty()) item { PlacementCheckCard(checkable) }
                 item { YourPathCard(loaded) }
             }
             item {

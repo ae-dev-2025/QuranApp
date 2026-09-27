@@ -352,11 +352,14 @@ private fun Finished(state: PracticeUiState.Finished, onClose: () -> Unit) {
         )
         val passed = state.results.count { it.rating != ReviewRating.AGAIN }
         val failed = state.results.size - passed
+        val placement = state.mode == PracticeMode.PLACEMENT
         if (passed > 0) {
-            Text(pluralStringResource(R.plurals.learning_practice_passed, passed, passed), textAlign = TextAlign.Center)
+            val text = if (placement) R.plurals.learning_placement_passed else R.plurals.learning_practice_passed
+            Text(pluralStringResource(text, passed, passed), textAlign = TextAlign.Center)
         }
         if (failed > 0) {
-            Text(pluralStringResource(R.plurals.learning_practice_failed, failed, failed), textAlign = TextAlign.Center)
+            val text = if (placement) R.plurals.learning_placement_failed else R.plurals.learning_practice_failed
+            Text(pluralStringResource(text, failed, failed), textAlign = TextAlign.Center)
         }
         Button(onClick = onClose) { Text(stringResource(R.string.learning_continue)) }
     }
