@@ -26,6 +26,16 @@ class WordRepository(private val dao: LearningPackDao) {
     suspend fun questionPool(lemma: LemmaEntity): List<LemmaEntity> =
         dao.lemmasNearFrequency(lemma.occurrences, lemma.lemmaId, limit = 80)
 
+    /**
+     * Every word of a surah that has a dictionary word, as the item ids of its dictionary
+     * words, repeats included: what a surah's words % is counted over.
+     */
+    suspend fun wordItemsOfSurah(surahNo: Int): List<List<String>> =
+        dao.lemmaKeysBetween(surahNo * 1000, surahNo * 1000 + 999)
+            .groupBy { it.ayahId to it.wordIndex } // keeps reading order
+            .values
+            .map { word -> word.map { WordItems.idOf(it.lemmaKey) }.distinct() }
+
     /** A dictionary word by its stable key. */
     suspend fun lemma(lemmaKey: String): LemmaEntity? = dao.lemmaByKey(lemmaKey)
 

@@ -185,4 +185,19 @@
     <string name="learning_backup_missing">This file has no learning progress.</string>
     <string name="learning_backup_newer">Made by a newer app version. Update the app to import it.</string>
     <string name="learning_backup_invalid">Couldn’t read the learning progress. Nothing was changed.</string>
+    <!-- The path: seven stages from the letters to understanding any ayah -->
+    <string name="learning_stage_0">Letters</string>
+    <string name="learning_stage_0_goal">Sound out Al-Fātiḥah letter by letter</string>
+    <string name="learning_stage_1">The muṣḥaf</string>
+    <string name="learning_stage_1_goal">Read Al-Fātiḥah and the last 10 surahs smoothly</string>
+    <string name="learning_stage_2">Recitation</string>
+    <string name="learning_stage_2_goal">Recite Juz ʿAmma with the core rules</string>
+    <string name="learning_stage_3">First meanings</string>
+    <string name="learning_stage_3_goal">Understand Al-Fātiḥah and the last 10 surahs word by word</string>
+    <string name="learning_stage_4">Verbs</string>
+    <string name="learning_stage_4_goal">Understand Juz ʿAmma</string>
+    <string name="learning_stage_5">Sentences</string>
+    <string name="learning_stage_5_goal">Understand Juz Tabārak and a surah you choose</string>
+    <string name="learning_stage_6">Hero</string>
+    <string name="learning_stage_6_goal">Understand any ayah with the odd lookup</string>
 </resources>

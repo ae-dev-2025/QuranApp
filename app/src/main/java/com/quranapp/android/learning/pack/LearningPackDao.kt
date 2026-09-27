@@ -12,6 +12,16 @@ data class WordLocation(
     val wordIndex: Int,
 )
 
+/** A dictionary word inside one word of an ayah. */
+data class WordLemmaKey(
+    @ColumnInfo(name = "ayah_id")
+    val ayahId: Int,
+    @ColumnInfo(name = "word_index")
+    val wordIndex: Int,
+    @ColumnInfo(name = "lemma_key")
+    val lemmaKey: String,
+)
+
 /** Read-only queries on learning_pack.db. The pack is never written to by the app. */
 @Dao
 interface LearningPackDao {
@@ -59,4 +69,11 @@ interface LearningPackDao {
             "ORDER BY ayah_id, word_index LIMIT :limit",
     )
     suspend fun occurrencesOfLemma(lemmaId: Int, limit: Int): List<WordLocation>
+
+    /** The dictionary words of every word in a range of ayahs, in reading order. Uses the primary key. */
+    @Query(
+        "SELECT s.ayah_id, s.word_index, l.lemma_key FROM segments s JOIN lemmas l ON l.lemma_id = s.lemma_id " +
+            "WHERE s.ayah_id BETWEEN :firstAyahId AND :lastAyahId ORDER BY s.ayah_id, s.word_index, s.segment_index",
+    )
+    suspend fun lemmaKeysBetween(firstAyahId: Int, lastAyahId: Int): List<WordLemmaKey>
 }
