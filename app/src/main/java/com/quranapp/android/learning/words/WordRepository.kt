@@ -36,6 +36,14 @@ class WordRepository(private val dao: LearningPackDao) {
             .values
             .map { word -> word.map { WordItems.idOf(it.lemmaKey) }.distinct() }
 
+    /** Dictionary words with their roots, in the order of [lemmaKeys]; keys the pack doesn't have are left out. */
+    suspend fun wordLemmas(lemmaKeys: List<String>): List<WordLemma> {
+        val lemmas = lemmaKeys.mapNotNull { dao.lemmaByKey(it) }
+        val rootIds = lemmas.mapNotNull { it.rootId }.distinct()
+        val roots = if (rootIds.isEmpty()) emptyMap() else dao.roots(rootIds).associateBy { it.rootId }
+        return lemmas.map { WordLemma(it, it.rootId?.let(roots::get)) }
+    }
+
     /** A dictionary word by its stable key. */
     suspend fun lemma(lemmaKey: String): LemmaEntity? = dao.lemmaByKey(lemmaKey)
 

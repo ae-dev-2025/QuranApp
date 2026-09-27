@@ -96,6 +96,10 @@ PR numbers are planned; the list is updated as PRs open.
 | 34 | Pipeline: cleaner headwords; lemmas for bare pronouns |
 | 35 | Pack v2 in the app, with meanings on screen |
 
+Pack v3 (with the next pipeline change): checked meanings for إِيَّا ("him alone, me alone" reads
+oddly), وَلَدَ ("born, gave" → "to beget"), صَمَد ("eternal the absolute" → "the Eternal Refuge"),
+and overrides for the 258 verb headwords still marked "unchecked".
+
 **M5 · Practice and review**
 
 | PR | What it adds |
