@@ -207,6 +207,7 @@ internal fun LearnCard(label: String, content: @Composable () -> Unit) {
             text = label.uppercase(),
             style = typography.labelLarge,
             color = colorScheme.primary,
+            modifier = Modifier.heading(),
         )
         content()
     }

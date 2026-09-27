@@ -165,7 +165,7 @@ fun ConceptScreen(concept: Concept) {
                         if (concept.track == Track.GRAMMAR) R.string.learning_grammar_examples_disclaimer else R.string.learning_analysis_disclaimer,
                     ),
                     style = typography.labelSmall,
-                    color = colorScheme.onSurface.alpha(0.6f),
+                    color = colorScheme.onSurface.alpha(0.7f),
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth(),
                 )
@@ -219,6 +219,7 @@ private fun ConceptChipGroup(
             text = stringResource(title),
             style = typography.bodySmall,
             color = colorScheme.onSurfaceVariant,
+            modifier = Modifier.heading(),
         )
         FlowRow(
             horizontalArrangement = Arrangement.spacedBy(8.dp),

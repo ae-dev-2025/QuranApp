@@ -96,7 +96,7 @@ private fun StageCard(row: StageRow) {
             Text(
                 text = stringResource(R.string.learning_stage_title, stage.number, stringResource(stage.titleRes)),
                 style = typography.titleMedium,
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(1f).heading(),
             )
             when (row.status) {
                 StageStatus.DONE -> StatusLabel(R.string.learning_stage_done)

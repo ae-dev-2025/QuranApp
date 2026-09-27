@@ -180,11 +180,11 @@ internal fun WordRow(
             .padding(start = 4.dp, end = 16.dp, top = 6.dp, bottom = 6.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Checkbox(checked = isKnown, onCheckedChange = onKnownChange, modifier = Modifier.padding(4.dp))
+        KnownCheckbox(isKnown, onKnownChange, entry.gloss ?: lemma.headword)
         Column(
             modifier = Modifier
                 .weight(1f)
-                .alpha(if (isKnown) 0.6f else 1f),
+                .alpha(if (isKnown) 0.7f else 1f),
             verticalArrangement = Arrangement.spacedBy(2.dp),
         ) {
             if (entry.gloss != null) {

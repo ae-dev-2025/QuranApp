@@ -136,7 +136,7 @@ internal fun GoalPickerSheet(onPick: (Int) -> Unit, onDismiss: () -> Unit) {
                         text = surah.toString(),
                         style = typography.labelLarge,
                         color = colorScheme.onSurfaceVariant,
-                        modifier = Modifier.width(40.dp),
+                        modifier = Modifier.width(grownWithText(40.dp)),
                     )
                     Text(loaded[surah].orEmpty(), style = typography.bodyLarge)
                 }

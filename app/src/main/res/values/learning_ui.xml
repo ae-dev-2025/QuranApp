@@ -63,6 +63,11 @@
     <string name="learning_open_lesson">open lesson</string>
     <string name="learning_i_know_this">I know this</string>
     <string name="learning_known">Known</string>
+    <!-- Read by TalkBack on the checkbox that marks a word or rule known: "I know said, say". -->
+    <string name="learning_i_know_name">I know %1$s</string>
+    <!-- Read by TalkBack on a unit's step: whether its list is shown. -->
+    <string name="learning_step_expanded">Expanded</string>
+    <string name="learning_step_collapsed">Collapsed</string>
     <string name="learning_not_known_yet">Not known yet</string>
     <string name="learning_learn_these_first">Learn these first</string>
     <string name="learning_unlocks">Unlocks</string>

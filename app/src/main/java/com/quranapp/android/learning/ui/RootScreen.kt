@@ -196,11 +196,11 @@ private fun RootLemmaRow(
             .padding(horizontal = 8.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Checkbox(checked = isKnown, onCheckedChange = onKnownChange, modifier = Modifier.padding(4.dp))
+        KnownCheckbox(isKnown, onKnownChange, lemma.gloss ?: lemmaKind(lemma))
         Column(
             modifier = Modifier
                 .weight(1f)
-                .alpha(if (isKnown) 0.6f else 1f),
+                .alpha(if (isKnown) 0.7f else 1f),
         ) {
             Text(lemma.gloss ?: lemmaKind(lemma), style = typography.titleSmall)
             Text(

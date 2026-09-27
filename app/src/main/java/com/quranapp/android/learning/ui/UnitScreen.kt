@@ -46,6 +46,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
@@ -190,10 +192,13 @@ private fun UnitContent(unit: UnitHeader, known: Set<String>, packState: Learnin
 @Composable
 internal fun ReadinessBars(progress: Map<Layer, LayerProgress?>, title: String? = stringResource(R.string.learning_unit_readiness)) {
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        title?.let { Text(it, style = typography.titleSmall) }
+        title?.let { Text(it, style = typography.titleSmall, modifier = Modifier.heading()) }
+        // The label and number columns keep the bars lined up, and widen with large text.
+        val labelWidth = grownWithText(64.dp)
+        val valueWidth = grownWithText(48.dp)
         progress.forEach { (layer, layerProgress) ->
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                Text(stringResource(layer.labelRes), style = typography.bodyMedium, modifier = Modifier.width(64.dp))
+                Text(stringResource(layer.labelRes), style = typography.bodyMedium, modifier = Modifier.width(labelWidth))
                 LinearProgressIndicator(
                     progress = { layerProgress?.fraction ?: 0f },
                     trackColor = colorScheme.primary.alpha(0.15f),
@@ -206,7 +211,7 @@ internal fun ReadinessBars(progress: Map<Layer, LayerProgress?>, title: String? 
                         else -> stringResource(R.string.learning_layer_count, layerProgress.known, layerProgress.total)
                     },
                     style = typography.labelLarge,
-                    modifier = Modifier.width(48.dp),
+                    modifier = Modifier.width(valueWidth),
                     textAlign = TextAlign.End,
                 )
             }
@@ -236,6 +241,7 @@ private fun StepCard(
             .background(colorScheme.surface)
             .then(if (isOpen && !done) Modifier.border(1.5.dp, colorScheme.primary, RoundedCornerShape(16.dp)) else Modifier),
     ) {
+        val state = stringResource(if (isOpen) R.string.learning_step_expanded else R.string.learning_step_collapsed)
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -244,6 +250,7 @@ private fun StepCard(
                     onClickLabel = stringResource(if (isOpen) R.string.learning_unit_close_step else R.string.learning_unit_open_step),
                     onClick = onToggle,
                 )
+                .semantics { stateDescription = state }
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp),
@@ -317,7 +324,7 @@ private fun stepSummary(step: UnitStep, done: Boolean, unknownConcepts: Int, unk
 private fun StepNumber(number: Int, done: Boolean) {
     Box(
         modifier = Modifier
-            .size(28.dp)
+            .size(grownWithText(28.dp))
             .clip(CircleShape)
             .background(if (done) colorScheme.primary else colorScheme.primary.alpha(0.12f)),
         contentAlignment = Alignment.Center,
@@ -408,9 +415,10 @@ private fun UnitWordRow(word: WordLemma, isKnown: Boolean, onKnownChange: (Boole
             .padding(vertical = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Checkbox(checked = isKnown, onCheckedChange = onKnownChange)
+        val name = word.lemma.gloss ?: lemmaKind(word.lemma)
+        KnownCheckbox(isKnown, onKnownChange, name, Modifier)
         Column(Modifier.weight(1f)) {
-            Text(word.lemma.gloss ?: lemmaKind(word.lemma), style = typography.titleSmall)
+            Text(name, style = typography.titleSmall)
             Text(
                 text = pluralStringResource(R.plurals.learning_words_times, word.lemma.occurrences, word.lemma.occurrences),
                 style = typography.labelSmall,

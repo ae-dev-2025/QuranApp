@@ -164,7 +164,7 @@ fun LessonCard(lesson: Lesson, known: Set<String>, onOpenConcept: (Concept) -> U
 
 @Composable
 private fun LessonHeading(@StringRes text: Int, modifier: Modifier = Modifier) {
-    Text(stringResource(text), style = typography.titleSmall, modifier = modifier)
+    Text(stringResource(text), style = typography.titleSmall, modifier = modifier.heading())
 }
 
 @Composable
@@ -185,7 +185,7 @@ private fun Bullets(items: Array<String>) {
 /**
  * Lesson text often starts with an Arabic example ("قلى: you may continue…"). Taking its
  * direction from its first letter would lay such a line out right to left, so it follows
- * the learning strings' language, as the learning theme sets it (see LearningDirection).
+ * the learning strings' language, as the learning theme sets it (see LearningStyle).
  */
 @Composable
 private fun paragraphStyle(): TextStyle = typography.bodyMedium
