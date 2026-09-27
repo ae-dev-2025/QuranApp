@@ -249,4 +249,15 @@
         <item quantity="one">Check yourself on this word</item>
         <item quantity="other">Check yourself on these words</item>
     </plurals>
+    <!-- The whole path -->
+    <string name="learning_see_whole_path">See the whole path</string>
+    <string name="learning_path_intro">Seven stages, from the letters to understanding any ayah. A stage is a suggestion, not a gate: every unit is open.</string>
+    <!-- %1$d: the stage's number, %2$s: its name -->
+    <string name="learning_stage_title">Stage %1$d · %2$s</string>
+    <string name="learning_stage_done">Done</string>
+    <string name="learning_stage_current">You are here</string>
+    <string name="learning_basics">Basics</string>
+    <string name="learning_stage_3_note">Back to stage 1’s surahs, now for their meaning.</string>
+    <string name="learning_stage_4_note">Back to all of Juz ʿAmma, now for its meaning.</string>
+    <string name="learning_stage_6_note">The whole Quran, surah by surah.</string>
 </resources>
