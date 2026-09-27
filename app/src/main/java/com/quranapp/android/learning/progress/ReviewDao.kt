@@ -33,6 +33,20 @@ interface ReviewDao {
         insertLog(log)
     }
 
+    /** Every card, for Export. */
+    @Query("SELECT * FROM review_cards")
+    suspend fun allCards(): List<ReviewCardEntity>
+
+    /** Every answered review, oldest first, for Export. */
+    @Query("SELECT * FROM review_log ORDER BY id")
+    suspend fun allLogs(): List<ReviewLogEntity>
+
+    @Upsert
+    suspend fun upsertAll(cards: List<ReviewCardEntity>)
+
+    @Insert
+    suspend fun insertLogs(logs: List<ReviewLogEntity>)
+
     @Query("DELETE FROM review_cards WHERE item_id = :itemId")
     suspend fun deleteCard(itemId: String)
 }

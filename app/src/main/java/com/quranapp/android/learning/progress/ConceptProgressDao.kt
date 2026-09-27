@@ -22,6 +22,10 @@ interface ConceptProgressDao {
     @Upsert
     suspend fun upsert(progress: ConceptProgressEntity)
 
+    /** Every known item, for Export. */
+    @Query("SELECT * FROM concept_progress WHERE status = 'KNOWN'")
+    suspend fun known(): List<ConceptProgressEntity>
+
     @Query("DELETE FROM concept_progress WHERE concept_id = :conceptId")
     suspend fun delete(conceptId: String)
 }
