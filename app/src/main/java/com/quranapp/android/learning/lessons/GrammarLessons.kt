@@ -205,6 +205,55 @@ object GrammarLessons {
             R.array.grammar_lesson_la_generic_spot, R.array.grammar_lesson_la_generic_how,
             ConfusedWith(GrammarIds.LA, R.string.grammar_lesson_la_generic_confused),
         ),
+
+        // ---- Unit 11 · Verb forms and weak verbs ----
+        grammar(
+            GrammarIds.FORMS_2_4, KeyExample(96, 4, 0..2, R.string.grammar_lesson_forms_2_4_means),
+            R.array.grammar_lesson_forms_2_4_spot, R.array.grammar_lesson_forms_2_4_how,
+            ConfusedWith(ConceptIds.SHADDA, R.string.grammar_lesson_forms_2_4_confused),
+        ),
+        grammar(
+            GrammarIds.FORMS_5_6, KeyExample(78, 1, 0..1, R.string.grammar_lesson_forms_5_6_means),
+            R.array.grammar_lesson_forms_5_6_spot, R.array.grammar_lesson_forms_5_6_how,
+            ConfusedWith(GrammarIds.FORMS_2_4, R.string.grammar_lesson_forms_5_6_confused),
+        ),
+        grammar(
+            GrammarIds.FORMS_7_10, KeyExample(84, 1, 0..2, R.string.grammar_lesson_forms_7_10_means),
+            R.array.grammar_lesson_forms_7_10_spot, R.array.grammar_lesson_forms_7_10_how,
+            ConfusedWith(ConceptIds.HAMZAT_WASL, R.string.grammar_lesson_forms_7_10_confused),
+        ),
+        grammar(
+            GrammarIds.HOLLOW, KeyExample(112, 1, 0..0, R.string.grammar_lesson_hollow_means),
+            R.array.grammar_lesson_hollow_spot, R.array.grammar_lesson_hollow_how,
+            ConfusedWith(GrammarIds.DEFECTIVE, R.string.grammar_lesson_hollow_confused),
+        ),
+        grammar(
+            GrammarIds.DEFECTIVE, KeyExample(1, 6, 0..0, R.string.grammar_lesson_defective_means),
+            R.array.grammar_lesson_defective_spot, R.array.grammar_lesson_defective_how,
+            ConfusedWith(GrammarIds.HOLLOW, R.string.grammar_lesson_defective_confused),
+        ),
+        grammar(
+            GrammarIds.OTHER_WEAK, KeyExample(111, 1, 0..1, R.string.grammar_lesson_other_weak_means),
+            R.array.grammar_lesson_other_weak_spot, R.array.grammar_lesson_other_weak_how,
+            ConfusedWith(GrammarIds.FORMS_2_4, R.string.grammar_lesson_other_weak_confused),
+        ),
+
+        // ---- Unit 12 · Participles and verbal nouns ----
+        grammar(
+            GrammarIds.ACTIVE_PARTICIPLE, KeyExample(109, 4, 0..4, R.string.grammar_lesson_active_participle_means),
+            R.array.grammar_lesson_active_participle_spot, R.array.grammar_lesson_active_participle_how,
+            ConfusedWith(GrammarIds.PASSIVE_PARTICIPLE, R.string.grammar_lesson_active_participle_confused),
+        ),
+        grammar(
+            GrammarIds.PASSIVE_PARTICIPLE, KeyExample(1, 7, 4..6, R.string.grammar_lesson_passive_participle_means),
+            R.array.grammar_lesson_passive_participle_spot, R.array.grammar_lesson_passive_participle_how,
+            ConfusedWith(GrammarIds.ACTIVE_PARTICIPLE, R.string.grammar_lesson_passive_participle_confused),
+        ),
+        grammar(
+            GrammarIds.VERBAL_NOUN, KeyExample(94, 4, 0..2, R.string.grammar_lesson_verbal_noun_means),
+            R.array.grammar_lesson_verbal_noun_spot, R.array.grammar_lesson_verbal_noun_how,
+            ConfusedWith(GrammarIds.ACTIVE_PARTICIPLE, R.string.grammar_lesson_verbal_noun_confused),
+        ),
     )
 
     private fun grammar(conceptId: String, keyExample: KeyExample, @ArrayRes spot: Int, @ArrayRes how: Int, confused: ConfusedWith) =
