@@ -167,9 +167,21 @@
     </plurals>
     <string name="learning_review_none">No reviews yet</string>
     <string name="learning_review_none_text">Use “Check yourself” on a word or a rule. What you pass comes back here, spaced out over days and weeks, so you keep it.</string>
-    <string name="learning_start_from_ayah">Start from an ayah</string>
-    <string name="learning_start_from_ayah_text">Open any ayah’s menu and choose Understand. It shows the letters, rules and words that ayah needs, and which of them you already know.</string>
-    <string name="learning_open_quran">Open the Quran</string>
+    <string name="learning_understand_tip">Reading something else? Any ayah’s menu → Understand shows what that ayah needs.</string>
+    <!-- %1$d: the stage's number, %2$s: its name, such as "The muṣḥaf" -->
+    <string name="learning_continue_label">Continue · Stage %1$d · %2$s</string>
+    <!-- %1$s: a layer, such as "Recite" -->
+    <string name="learning_next_step">Next: %1$s</string>
+    <!-- %1$d: basics known, %2$d: all basics -->
+    <string name="learning_basics_progress">Basics: %1$d of %2$d known</string>
+    <string name="learning_path_finished">You’ve reached the end of the path. Keep your reviews going, and open any surah as a unit.</string>
+    <string name="learning_your_path">Your path</string>
+    <string name="learning_path_dots_legend">Dots: read · recite · words</string>
+    <!-- Read by TalkBack for each dot; %1$s: a layer, such as "Read" -->
+    <string name="learning_dot_full">%1$s done</string>
+    <string name="learning_dot_partial">%1$s started</string>
+    <string name="learning_dot_empty">%1$s not started</string>
+    <string name="learning_dot_unknown">%1$s needs the learning data</string>
     <!-- Settings → Export/Import: learning progress ("Keep it") -->
     <string name="learning_backup_title">Import/Export Learning Progress</string>
     <string name="learning_backup_text">What you know and when each item is due for review. Importing adds to the progress on this phone. Nothing is removed.</string>
