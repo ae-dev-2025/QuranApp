@@ -43,6 +43,24 @@ class ConceptQuestionsTest {
     }
 
     @Test
+    fun ruleOnWord_neverOffersWhatARuleOnTheWordBuildsOn() {
+        // An-Naba 78:8. Both words have a sukūn and a dagger alif, and a dagger alif is a long
+        // vowel, so "long vowels" would also be a right answer on either word.
+        val naba8 = AyahWords(78, 8, listOf("وَخَلَقۡنَٰكُمۡ", "أَزۡوَٰجٗا", "٨"))
+        val questions = (0 until 30).mapNotNull { ConceptQuestions.ruleOnWord(ConceptIds.SUKUN, naba8, Random(it)) }
+        assertTrue(questions.isNotEmpty())
+        questions.forEach { assertFalse(ConceptIds.LONG_VOWELS in it.options) }
+    }
+
+    @Test
+    fun foundationsOf_followsPrerequisitesAllTheWayDown() {
+        val foundations = ConceptQuestions.foundationsOf(ConceptIds.DAGGER_ALIF)
+        assertTrue(ConceptIds.LONG_VOWELS in foundations)
+        assertTrue(ConceptIds.SHORT_VOWELS in foundations)
+        assertFalse(ConceptIds.DAGGER_ALIF in foundations)
+    }
+
+    @Test
     fun siblings_areTheOtherRulesOfTheSameFamily() {
         val siblings = ConceptQuestions.siblings(ConceptIds.IKHFA)
         assertTrue(ConceptIds.IZHAR in siblings)

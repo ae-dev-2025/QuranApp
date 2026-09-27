@@ -135,7 +135,11 @@ fun RootScreen(rootKey: String) {
                         onToggleOpen = { openLemmaId = if (isOpen) null else lemma.lemmaId },
                         arabicFont = arabicFont,
                     )
-                    if (isOpen) LemmaExamples(lemma.lemmaId)
+                    if (isOpen) {
+                        // Meaning questions need a meaning to ask about.
+                        if (lemma.gloss != null) CheckYourselfButton(itemId)
+                        LemmaExamples(lemma.lemmaId)
+                    }
                 }
             }
 
