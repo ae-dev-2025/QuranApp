@@ -22,6 +22,26 @@ data class WordLemmaKey(
     val lemmaKey: String,
 )
 
+/** A segment with its dictionary word and root, for the grammar detector. */
+data class GrammarSegmentRow(
+    @ColumnInfo(name = "ayah_id")
+    val ayahId: Int,
+    @ColumnInfo(name = "word_index")
+    val wordIndex: Int,
+    @ColumnInfo(name = "form")
+    val form: String,
+    @ColumnInfo(name = "kind")
+    val kind: String,
+    @ColumnInfo(name = "tag")
+    val tag: String,
+    @ColumnInfo(name = "features")
+    val features: String,
+    @ColumnInfo(name = "lemma_key")
+    val lemmaKey: String?,
+    @ColumnInfo(name = "root_key")
+    val rootKey: String?,
+)
+
 /** Read-only queries on learning_pack.db. The pack is never written to by the app. */
 @Dao
 interface LearningPackDao {
@@ -69,6 +89,14 @@ interface LearningPackDao {
             "ORDER BY ayah_id, word_index LIMIT :limit",
     )
     suspend fun occurrencesOfLemma(lemmaId: Int, limit: Int): List<WordLocation>
+
+    /** Every segment of a range of ayahs with its dictionary word and root, in reading order. */
+    @Query(
+        "SELECT s.ayah_id, s.word_index, s.form, s.kind, s.tag, s.features, l.lemma_key, r.root_key FROM segments s " +
+            "LEFT JOIN lemmas l ON l.lemma_id = s.lemma_id LEFT JOIN roots r ON r.root_id = l.root_id " +
+            "WHERE s.ayah_id BETWEEN :firstAyahId AND :lastAyahId ORDER BY s.ayah_id, s.word_index, s.segment_index",
+    )
+    suspend fun grammarSegmentsBetween(firstAyahId: Int, lastAyahId: Int): List<GrammarSegmentRow>
 
     /** How many dictionary words the pack has. */
     @Query("SELECT COUNT(*) FROM lemmas")
