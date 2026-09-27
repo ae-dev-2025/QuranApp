@@ -67,6 +67,28 @@ class DailyReviewTest {
     }
 
     @Test
+    fun newWords_areCappedPerDay() {
+        assertEquals(10, DailyReview.newWordsLeft(startedToday = 0))
+        assertEquals(3, DailyReview.newWordsLeft(startedToday = 7))
+        assertEquals(0, DailyReview.newWordsLeft(startedToday = 12))
+    }
+
+    @Test
+    fun minutes_countANewWordAsFourSteps() {
+        assertEquals(1, DailyReview.minutesFor(reviews = 0, newWords = 0))
+        // 2 reviews and 5 new words: 2 + 20 steps of 20 s = 440 s, about 8 minutes.
+        assertEquals(8, DailyReview.minutesFor(reviews = 2, newWords = 5))
+    }
+
+    @Test
+    fun startOfDay_isLocalMidnight() {
+        val zone = ZoneId.of("Asia/Almaty")
+        val evening = ZonedDateTime.of(2026, 9, 27, 22, 30, 0, 0, zone).toInstant().toEpochMilli()
+        val midnight = ZonedDateTime.of(2026, 9, 27, 0, 0, 0, 0, zone).toInstant().toEpochMilli()
+        assertEquals(midnight, DailyReview.startOfDay(evening, zone))
+    }
+
+    @Test
     fun sessionItems_takesTheMostOverdueAndMixesThem() {
         // The DAO returns due cards most overdue first.
         val due = (0 until 30).map { card("item.$it", now - 1_000 + it) }

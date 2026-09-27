@@ -2,7 +2,7 @@ package com.quranapp.android.learning.practice
 
 import com.quranapp.android.learning.progress.ReviewRating
 
-/** An item to practise and the questions about it. */
+/** An item to practise and the questions about it, after its introduction if it's new. */
 data class PracticeItem(val itemId: String, val questions: List<Question>)
 
 /** How an item went once all its questions were answered. */
@@ -19,14 +19,22 @@ data class ItemResult(val itemId: String, val rating: ReviewRating, val right: I
  */
 class PracticeSession(items: List<PracticeItem>) {
     private val questions: List<Question> = items.flatMap { it.questions }
-    private val questionCount: Map<String, Int> = items.associate { it.itemId to it.questions.size }
+    private val questionCount: Map<String, Int> = items.associate { item -> item.itemId to item.questions.count(::isGraded) }
     private val answers = mutableMapOf<String, MutableList<Boolean>>()
 
     var index: Int = 0
         private set
 
+    /** Every step, introductions included. */
     val size: Int get() = questions.size
+
+    /** How many steps are graded questions. */
+    val gradedCount: Int get() = questions.count(::isGraded)
+
     val current: Question? get() = questions.getOrNull(index)
+
+    /** How many graded questions come before the current step: "question n of m" counts only those. */
+    val gradedBefore: Int get() = questions.take(index).count(::isGraded)
     val isFinished: Boolean get() = index >= questions.size
 
     /** How many answers were right so far. */
@@ -38,6 +46,7 @@ class PracticeSession(items: List<PracticeItem>) {
      */
     fun answer(right: Boolean): ItemResult? {
         val question = checkNotNull(current) { "the session is finished" }
+        check(isGraded(question)) { "an introduction isn't answered; acknowledge it" }
         val itemAnswers = answers.getOrPut(question.itemId) { mutableListOf() }
         itemAnswers += right
         index++
@@ -48,7 +57,15 @@ class PracticeSession(items: List<PracticeItem>) {
         return ItemResult(question.itemId, rating, rightAnswers, expected)
     }
 
+    /** Moves past an introduction. */
+    fun acknowledge() {
+        check(current is WordIntroduction) { "only an introduction is acknowledged" }
+        index++
+    }
+
     companion object {
+        fun isGraded(question: Question) = question !is WordIntroduction
+
         /** All right, or at most one wrong out of four or more. */
         fun passes(right: Int, total: Int): Boolean = right == total || (total >= 4 && right >= total - 1)
     }

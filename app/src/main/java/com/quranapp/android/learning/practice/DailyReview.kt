@@ -34,6 +34,25 @@ object DailyReview {
     /** A rough time per question, for the estimate on the card. */
     const val SECONDS_PER_REVIEW = 20
 
+    /** New words a day, from the goal surah or the next unit (the design's default). */
+    const val NEW_WORDS_PER_DAY = 10
+
+    /** A new word is an introduction and a three-question check: about four steps. */
+    private const val STEPS_PER_NEW_WORD = 4
+
+    /** A calm estimate for a session of [reviews] and [newWords], at least a minute. */
+    fun minutesFor(reviews: Int, newWords: Int): Int {
+        val seconds = (reviews + newWords * STEPS_PER_NEW_WORD) * SECONDS_PER_REVIEW
+        return ((seconds + 59) / 60).coerceAtLeast(1)
+    }
+
+    /** How many new words are still open today, after [startedToday] were introduced. */
+    fun newWordsLeft(startedToday: Int, perDay: Int = NEW_WORDS_PER_DAY): Int = (perDay - startedToday).coerceAtLeast(0)
+
+    /** Midnight at the start of [now]'s day where the learner lives. */
+    fun startOfDay(now: Long, zone: ZoneId = ZoneId.systemDefault()): Long =
+        Instant.ofEpochMilli(now).atZone(zone).toLocalDate().atStartOfDay(zone).toInstant().toEpochMilli()
+
     fun summarize(cards: List<ReviewCardEntity>, now: Long): ReviewSummary {
         val (due, waiting) = cards.partition { it.dueAt <= now }
         return ReviewSummary(

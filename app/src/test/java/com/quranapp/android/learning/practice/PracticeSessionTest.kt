@@ -9,6 +9,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import kotlin.random.Random
@@ -44,6 +45,21 @@ class PracticeSessionTest {
     }
 
     @Test
+    fun anIntroductionIsAcknowledgedAndNotGraded() {
+        val intro = WordIntroduction("word.Eabada", "عَبَدَ", "worship", 122)
+        val session = PracticeSession(listOf(PracticeItem("word.Eabada", listOf(intro) + List(3) { question("word.Eabada") })))
+        assertEquals(4, session.size)
+        assertEquals(3, session.gradedCount)
+        assertThrows(IllegalStateException::class.java) { session.answer(true) }
+        session.acknowledge()
+        assertEquals("the introduction isn't counted as a question", 0, session.gradedBefore)
+        assertNull(session.answer(true))
+        assertEquals(1, session.gradedBefore)
+        assertNull(session.answer(true))
+        assertEquals(ItemResult("word.Eabada", ReviewRating.GOOD, 3, 3), session.answer(true))
+    }
+
+    @Test
     fun eachReviewItemIsGradedOnItsOwn() {
         val session = PracticeSession(listOf(PracticeItem("a", listOf(question("a"))), PracticeItem("b", listOf(question("b")))))
         assertEquals(ReviewRating.GOOD, session.answer(true)!!.rating)
@@ -74,6 +90,12 @@ class QuestionFactoryTest {
         val questions = factory.questionsFor(ConceptIds.IKHFA, 2)
         assertEquals(2, questions.size)
         assertTrue(questions.all { it.itemId == ConceptIds.IKHFA })
+    }
+
+    @Test
+    fun introductionsShowTheDictionaryFormAndMeaning() = runBlocking {
+        assertEquals(WordIntroduction("word.Eabada", "HW", "worship", 10), factory.introductionFor("word.Eabada"))
+        assertNull("concepts have lessons instead", factory.introductionFor(ConceptIds.IKHFA))
     }
 
     @Test

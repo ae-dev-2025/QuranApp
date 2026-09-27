@@ -50,6 +50,7 @@ import com.quranapp.android.learning.practice.ChoiceKind
 import com.quranapp.android.learning.practice.ChoiceQuestion
 import com.quranapp.android.learning.practice.RuleQuestion
 import com.quranapp.android.learning.practice.TapWordQuestion
+import com.quranapp.android.learning.practice.WordIntroduction
 import com.quranapp.android.learning.progress.ReviewRating
 
 /** The practice screen: one question at a time, graded straight away (decision 8). */
@@ -60,10 +61,10 @@ fun PracticeScreen(viewModel: PracticeViewModel, onClose: () -> Unit) {
 
     Scaffold(
         topBar = {
-            val title = if (state is PracticeUiState.Asking) {
-                stringResource(R.string.learning_practice_progress, state.number, state.total)
-            } else {
-                stringResource(R.string.learning_practice_title)
+            val title = when {
+                state is PracticeUiState.Asking && state.question is WordIntroduction -> stringResource(R.string.learning_new_word)
+                state is PracticeUiState.Asking -> stringResource(R.string.learning_practice_progress, state.number, state.total)
+                else -> stringResource(R.string.learning_practice_title)
             }
             AppBar(title = title)
         },
@@ -117,9 +118,17 @@ private fun Asking(state: PracticeUiState.Asking, arabicFont: FontFamily, viewMo
                 is RuleQuestion -> RuleView(question, state.answer, arabicFont) {
                     viewModel.answer(it, question.isRight(it))
                 }
+                is WordIntroduction -> IntroductionView(question, arabicFont)
             }
         }
-        if (state.answered) Feedback(state, onContinue = viewModel::next)
+        if (state.question is WordIntroduction) {
+            Button(
+                onClick = viewModel::acknowledge,
+                modifier = Modifier.fillMaxWidth().padding(16.dp).heightIn(min = 48.dp),
+            ) { Text(stringResource(R.string.learning_got_it)) }
+        } else if (state.answered) {
+            Feedback(state, onContinue = viewModel::next)
+        }
     }
 }
 
@@ -182,6 +191,33 @@ private fun TapWordView(question: TapWordQuestion, answer: Int?, arabicFont: Fon
             else -> WordLook.Plain
         }
     }
+}
+
+/** A new word before its questions: dictionary form, meaning and how often it occurs. */
+@Composable
+private fun IntroductionView(introduction: WordIntroduction, arabicFont: FontFamily) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(16.dp))
+            .background(colorScheme.surface)
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        Text(introduction.headword, fontFamily = arabicFont, style = typography.displayMedium)
+        Text(introduction.meaning, style = typography.headlineSmall, textAlign = TextAlign.Center)
+        Text(
+            text = pluralStringResource(R.plurals.learning_words_times, introduction.occurrences, introduction.occurrences),
+            style = typography.bodyMedium,
+            color = colorScheme.onSurfaceVariant,
+        )
+    }
+    Text(
+        text = stringResource(R.string.learning_new_word_hint),
+        style = typography.bodyMedium,
+        color = colorScheme.onSurfaceVariant,
+    )
 }
 
 @Composable
@@ -316,6 +352,7 @@ private fun Feedback(state: PracticeUiState.Asking, onContinue: () -> Unit) {
         is ChoiceQuestion -> question.isRight(state.answer!!)
         is TapWordQuestion -> question.isRight(state.answer!!)
         is RuleQuestion -> question.isRight(state.answer!!)
+        is WordIntroduction -> true // never answered: it has "Got it" instead
     }
     Column(
         modifier = Modifier
