@@ -358,4 +358,34 @@
     <string name="learning_reminder_channel">Learning reminders</string>
     <string name="learning_reminder_channel_text">A daily note when reviews are due</string>
     <string name="learning_reminder_title">Reviews are ready</string>
+    <!-- Letters: a hint at each sound, until real recordings exist (see the plan). -->
+    <string name="letter_sound_alif">No sound of its own: it lengthens a fatḥa to ā, or carries a hamza</string>
+    <string name="letter_sound_ba">b as in book</string>
+    <string name="letter_sound_ta">t as in tea, with the tongue on the teeth</string>
+    <string name="letter_sound_tha">th as in think</string>
+    <string name="letter_sound_nun">n as in noon</string>
+    <string name="letter_sound_ya">y as in yes; after a kasra, a long ī</string>
+    <string name="letter_sound_jim">j as in jam</string>
+    <string name="letter_sound_hha">a breathy h from the middle of the throat, with no rasp</string>
+    <string name="letter_sound_kha">kh, like ch in the Scottish loch</string>
+    <string name="letter_sound_dal">d as in door</string>
+    <string name="letter_sound_dhal">th as in this</string>
+    <string name="letter_sound_ra">a tapped r, as in the Spanish pero</string>
+    <string name="letter_sound_zay">z as in zoo</string>
+    <string name="letter_sound_waw">w as in wow; after a ḍamma, a long ū</string>
+    <string name="letter_sound_sin">s as in sun</string>
+    <string name="letter_sound_shin">sh as in she</string>
+    <string name="letter_sound_sad">a heavy s, with the back of the tongue raised</string>
+    <string name="letter_sound_dad">a heavy d, from the side of the tongue</string>
+    <string name="letter_sound_tta">a heavy t</string>
+    <string name="letter_sound_zza">a heavy th, as in this</string>
+    <string name="letter_sound_ayn">a squeeze deep in the middle of the throat</string>
+    <string name="letter_sound_ghayn">a soft gargle, like the French r</string>
+    <string name="letter_sound_fa">f as in fish</string>
+    <string name="letter_sound_qaf">a deep k from the very back of the tongue</string>
+    <string name="letter_sound_kaf">k as in kite</string>
+    <string name="letter_sound_lam">l as in light</string>
+    <string name="letter_sound_mim">m as in moon</string>
+    <string name="letter_sound_ha">h as in hat, even at the end of a word</string>
+    <string name="letter_sound_hamza">the catch in the middle of uh-oh</string>
 </resources>

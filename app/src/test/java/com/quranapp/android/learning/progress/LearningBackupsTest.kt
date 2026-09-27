@@ -146,7 +146,8 @@ class LearningBackupsTest {
         assertTrue(LearningItems.isValid(ConceptIds.IKHFA))
         assertTrue(LearningItems.isValid("word.S~a`bi_#iyn"))
         assertTrue(LearningItems.isValid("word.PRON:3MS"))
-        assertFalse(LearningItems.isValid("letter.b")) // not in this version yet
+        assertTrue(LearningItems.isValid("letter.ba"))
+        assertFalse(LearningItems.isValid("letter.b")) // not a letter id
         assertFalse(LearningItems.isValid("word." + "a".repeat(41)))
         assertFalse(LearningItems.isValid("word.عبد"))
     }
