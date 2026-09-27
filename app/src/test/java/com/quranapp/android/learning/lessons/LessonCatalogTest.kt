@@ -38,6 +38,9 @@ class LessonCatalogTest {
         GrammarIds.CONDITIONS, GrammarIds.LAW, GrammarIds.QUESTIONS, GrammarIds.EXCEPTION, GrammarIds.VOCATIVE,
         GrammarIds.WA_FA_THUMMA, GrammarIds.MA, GrammarIds.LA, GrammarIds.IN_AN, GrammarIds.LAM_PARTICLES,
         GrammarIds.EMPHASIS, GrammarIds.RESTRICTION,
+        // Sentence roles (M9): iḍāfa, the nominal and the verbal sentence
+        GrammarIds.IDAFA, GrammarIds.MUBTADA_KHABAR, GrammarIds.KHABAR_PHRASE, GrammarIds.KHABAR_FIRST,
+        GrammarIds.VERB_DOER_OBJECT, GrammarIds.VERB_AGREEMENT, GrammarIds.HIDDEN_DOER,
     )
 
     @Test
@@ -52,7 +55,7 @@ class LessonCatalogTest {
         // Umbrella concepts get a rule overview instead of a lesson (design decision 5).
         val missing = ConceptCatalog.all.map { it.id }
             .filter { it !in ConceptCatalog.umbrellaIds && LessonCatalog[it] == null }
-            // Grammar lessons are added unit by unit (#64, #66–#69, #72–#75).
+            // Grammar lessons are added unit by unit (#64, #66–#69, #72–#73).
             .filter { ConceptCatalog[it]?.track != Track.GRAMMAR || it in GRAMMAR_UNITS_WRITTEN }
 
         assertTrue("Concepts without a lesson: $missing", missing.isEmpty())

@@ -6,7 +6,7 @@ import com.quranapp.android.learning.concepts.ConceptIds
 import com.quranapp.android.learning.concepts.GrammarIds
 
 /**
- * The grammar lessons, added unit by unit (#64, #66–#69, #72–#75). Text is in
+ * The grammar lessons, added unit by unit (#64, #66–#69, #72–#73). Text is in
  * res/values/learning_grammar_lessons.xml.
  *
  * Key examples come from Al-Fātiḥah and Juz ʿAmma where possible. GrammarLessonExamplesTest
@@ -317,6 +317,47 @@ object GrammarLessons {
             GrammarIds.RESTRICTION, KeyExample(51, 56, 0..5, R.string.grammar_lesson_restriction_means),
             R.array.grammar_lesson_restriction_spot, R.array.grammar_lesson_restriction_how,
             ConfusedWith(GrammarIds.EXCEPTION, R.string.grammar_lesson_restriction_confused),
+        ),
+
+        // ---- Unit 4 · Iḍāfa ----
+        grammar(
+            GrammarIds.IDAFA, KeyExample(1, 2, 2..3, R.string.grammar_lesson_idafa_means),
+            R.array.grammar_lesson_idafa_spot, R.array.grammar_lesson_idafa_how,
+            ConfusedWith(GrammarIds.ADJECTIVE, R.string.grammar_lesson_idafa_confused),
+        ),
+
+        // ---- Unit 13 · Nominal sentence ----
+        grammar(
+            GrammarIds.MUBTADA_KHABAR, KeyExample(93, 4, 0..1, R.string.grammar_lesson_mubtada_khabar_means),
+            R.array.grammar_lesson_mubtada_khabar_spot, R.array.grammar_lesson_mubtada_khabar_how,
+            ConfusedWith(GrammarIds.ADJECTIVE, R.string.grammar_lesson_mubtada_khabar_confused),
+        ),
+        grammar(
+            GrammarIds.KHABAR_PHRASE, KeyExample(1, 2, 0..1, R.string.grammar_lesson_khabar_phrase_means),
+            R.array.grammar_lesson_khabar_phrase_spot, R.array.grammar_lesson_khabar_phrase_how,
+            ConfusedWith(GrammarIds.KHABAR_FIRST, R.string.grammar_lesson_khabar_phrase_confused),
+        ),
+        grammar(
+            GrammarIds.KHABAR_FIRST, KeyExample(109, 6, 0..3, R.string.grammar_lesson_khabar_first_means),
+            R.array.grammar_lesson_khabar_first_spot, R.array.grammar_lesson_khabar_first_how,
+            ConfusedWith(GrammarIds.KHABAR_PHRASE, R.string.grammar_lesson_khabar_first_confused),
+        ),
+
+        // ---- Unit 15 · Verbal sentence ----
+        grammar(
+            GrammarIds.VERB_DOER_OBJECT, KeyExample(99, 2, 0..2, R.string.grammar_lesson_verb_doer_object_means),
+            R.array.grammar_lesson_verb_doer_object_spot, R.array.grammar_lesson_verb_doer_object_how,
+            ConfusedWith(GrammarIds.MUBTADA_KHABAR, R.string.grammar_lesson_verb_doer_object_confused),
+        ),
+        grammar(
+            GrammarIds.VERB_AGREEMENT, KeyExample(99, 6, 1..2, R.string.grammar_lesson_verb_agreement_means),
+            R.array.grammar_lesson_verb_agreement_spot, R.array.grammar_lesson_verb_agreement_how,
+            ConfusedWith(GrammarIds.DOER_IN_VERB, R.string.grammar_lesson_verb_agreement_confused),
+        ),
+        grammar(
+            GrammarIds.HIDDEN_DOER, KeyExample(96, 2, 0..1, R.string.grammar_lesson_hidden_doer_means),
+            R.array.grammar_lesson_hidden_doer_spot, R.array.grammar_lesson_hidden_doer_how,
+            ConfusedWith(GrammarIds.DOER_IN_VERB, R.string.grammar_lesson_hidden_doer_confused),
         ),
     )
 
