@@ -560,4 +560,34 @@
         <item>Always stretch it for 6 counts.</item>
     </string-array>
     <string name="lesson_madd_lazim_confused">Muttaṣil is 4 to 5 counts and comes before a hamza. Lāzim is 6 counts and comes before a shadda or sukūn.</string>
+
+    <!-- Tajweed: rāʾ -->
+
+    <!-- Heavy rāʾ -->
+    <string name="lesson_ra_heavy_say">rab-bi</string>
+    <string-array name="lesson_ra_heavy_spot">
+        <item>ر with a fatḥa or a ḍamma: رَبِّ, رُسُل.</item>
+        <item>ر with a sukūn after a fatḥa or a ḍamma: مَرۡيَمَ, وَٱنۡحَرۡ.</item>
+        <item>ر with a sukūn after hamzat al-waṣl: ٱرۡجِعِيٓ, ٱرۡكَعُواْ.</item>
+    </string-array>
+    <string-array name="lesson_ra_heavy_how">
+        <item>Raise the back of the tongue, as for the heavy letters, so the r sounds full.</item>
+        <item>When you stop on it, the vowel before it decides: ٱلۡقَدۡرِ is written with a kasra, but stopping you say al-qadr, heavy, because of the fatḥa on ق.</item>
+        <item>After a kasra, a heavy letter right after the rāʾ keeps it heavy: قِرۡطَاسٖ, مِرۡصَادٗا.</item>
+    </string-array>
+    <string name="lesson_ra_heavy_confused">The seven heavy letters خ ص ض غ ط ق ظ are always heavy. Rāʾ is heavy only with these vowels; with a kasra it is light.</string>
+
+    <!-- Light rāʾ -->
+    <string name="lesson_ra_light_say">ghay-ri</string>
+    <string-array name="lesson_ra_light_spot">
+        <item>ر with a kasra: غَيۡرِ, رِزۡقٗا.</item>
+        <item>ر with a sukūn after a kasra in the same word: فِرۡعَوۡنَ, وَٱسۡتَغۡفِرۡهُ.</item>
+        <item>Stopping on ر after a yāʾ: خَيۡرٌ, قَدِيرٌ end light.</item>
+    </string-array>
+    <string-array name="lesson_ra_light_how">
+        <item>Keep the back of the tongue low: a thin, clear r, without the fullness of the heavy letters.</item>
+        <item>When you stop on it, the vowel before it decides: حِجۡرٍ ends light, because of the kasra on ح.</item>
+        <item>A few words may be read either way, such as فِرۡقٖ, and مِصۡرَ when you stop on it. Follow your teacher.</item>
+    </string-array>
+    <string name="lesson_ra_light_confused">Look at the rāʾ’s own vowel first. Only if it has a sukūn, or you stop on it, look at the vowel before it.</string>
 </resources>

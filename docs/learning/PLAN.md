@@ -169,20 +169,21 @@ and overrides for the 258 verb headwords still marked "unchecked".
 
 **M10 · Complete recitation**
 
+Each PR ships its concepts' lessons too, so every concept keeps a lesson.
+
 | PR | What it adds |
 |---|---|
-| 75 | Heavy and light rāʾ |
+| 75 | Heavy and light rāʾ (an umbrella and two rules) |
 | 76 | Idghām of two letters, lām of verbs and particles, tanwīn before hamzat al-waṣl |
-| 77 | Madds: ʿāriḍ, līn, ʿiwaḍ, badal, ṣila, disjointed letters |
-| 78 | Saktas, Ḥafṣ's special words, stopping and starting, special spellings |
-| 79–81 | Lessons for the new concepts |
+| 77 | Stopping on a word; madds ʿāriḍ, līn, ʿiwaḍ, badal and ṣila |
+| 78 | Disjointed letters and their madd, the four saktas, Ḥafṣ's special words, starting on hamzat al-waṣl, special spellings |
 
 **M11 · Polish**
 
 | PR | What it adds |
 |---|---|
-| 82 | Show learning screens in the reader's script (Indo-Pak) |
-| 83 | Dark theme and right-to-left fixes |
-| 84 | Accessibility |
-| 85 | Speed: caching |
-| 86 | Security and licence review, including: Export/Import crashes on a file that isn't JSON (found in #43; the parse in `ActivityExportImport.importData` isn't caught) |
+| 79 | Show learning screens in the reader's script (Indo-Pak) |
+| 80 | Dark theme and right-to-left fixes |
+| 81 | Accessibility |
+| 82 | Speed: caching |
+| 83 | Security and licence review, including: Export/Import crashes on a file that isn't JSON (found in #43; the parse in `ActivityExportImport.importData` isn't caught) |

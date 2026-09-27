@@ -164,6 +164,11 @@ object ConceptCatalog {
             SUKUN,
         ),
 
+        // Rāʾ: an umbrella concept and its two rules
+        tajweed(ConceptIds.RA, R.string.concept_ra_title, R.string.concept_ra_summary, HEAVY_LETTERS, SUKUN),
+        tajweed(ConceptIds.RA_HEAVY, R.string.concept_ra_heavy_title, R.string.concept_ra_heavy_summary, ConceptIds.RA),
+        tajweed(ConceptIds.RA_LIGHT, R.string.concept_ra_light_title, R.string.concept_ra_light_summary, ConceptIds.RA),
+
         // Noon sakinah & tanween: an umbrella concept and its four rules
         tajweed(
             NOON_SAKINAH, R.string.concept_noon_sakinah_title, R.string.concept_noon_sakinah_summary,
@@ -245,7 +250,7 @@ object ConceptCatalog {
      * Concepts that group several rules and never occur in the text themselves. Their page
      * shows an overview of those rules instead of a lesson.
      */
-    val umbrellaIds: Set<String> = setOf(NOON_SAKINAH, MEEM_SAKINAH)
+    val umbrellaIds: Set<String> = setOf(NOON_SAKINAH, MEEM_SAKINAH, ConceptIds.RA)
 
     private val byId: Map<String, Concept> = all.associateBy { it.id }
 

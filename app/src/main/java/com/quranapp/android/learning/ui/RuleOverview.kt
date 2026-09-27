@@ -44,6 +44,8 @@ private val TRIGGERS: Map<String, Int> = mapOf(
     ConceptIds.IZHAR_SHAFAWI to R.string.learning_rule_before_izhar_shafawi,
     ConceptIds.IDGHAM_SHAFAWI to R.string.learning_rule_before_idgham_shafawi,
     ConceptIds.IKHFA_SHAFAWI to R.string.learning_rule_before_ikhfa_shafawi,
+    ConceptIds.RA_HEAVY to R.string.learning_rule_ra_heavy,
+    ConceptIds.RA_LIGHT to R.string.learning_rule_ra_light,
 )
 
 /**
