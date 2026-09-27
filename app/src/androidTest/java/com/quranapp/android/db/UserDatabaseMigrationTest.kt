@@ -7,6 +7,10 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.quranapp.android.learning.progress.ConceptProgressEntity
 import com.quranapp.android.learning.progress.ConceptStatus
+import com.quranapp.android.learning.progress.ReviewCardEntity
+import com.quranapp.android.learning.progress.ReviewLogEntity
+import com.quranapp.android.learning.progress.ReviewRating
+import com.quranapp.android.learning.progress.ReviewState
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -18,9 +22,9 @@ import org.junit.runner.RunWith
 /**
  * Runs on a device or emulator, like a real app update would:
  * 1. write a user database file exactly as version 2 of the app left it,
- * 2. open it with the current Room code, which runs MIGRATION_2_3 and then checks every
- *    table against the entities (it throws if anything differs),
- * 3. check old data survived and the new table works.
+ * 2. open it with the current Room code, which runs MIGRATION_2_3 and MIGRATION_3_4 and
+ *    then checks every table against the entities (it throws if anything differs),
+ * 3. check old data survived and the new tables work.
  */
 @RunWith(AndroidJUnit4::class)
 class UserDatabaseMigrationTest {
@@ -33,11 +37,11 @@ class UserDatabaseMigrationTest {
     }
 
     @Test
-    fun migrate2To3_keepsBookmarksAndAddsConceptProgress() = runBlocking {
+    fun migrate2To4_keepsBookmarksAndAddsLearningTables() = runBlocking {
         createVersion2Database()
 
         val database = Room.databaseBuilder(context, UserDatabase::class.java, TEST_DB)
-            .addMigrations(UserDatabase.MIGRATION_2_3)
+            .addMigrations(UserDatabase.MIGRATION_2_3, UserDatabase.MIGRATION_3_4)
             .build()
 
         try {
@@ -47,6 +51,14 @@ class UserDatabaseMigrationTest {
             val dao = database.conceptProgressDao()
             dao.upsert(ConceptProgressEntity("reading.letters", ConceptStatus.KNOWN, 1L))
             assertEquals(listOf("reading.letters"), dao.observeKnownIds().first())
+
+            val reviews = database.reviewDao()
+            val card = ReviewCardEntity("word.Eabada", ReviewState.REVIEW, 3.2, 5.0, 10L, 1L, 1, 0)
+            val log = ReviewLogEntity(itemId = card.itemId, rating = ReviewRating.GOOD, reviewedAt = 1L, stateBefore = null)
+            reviews.record(card, log)
+            assertEquals(card, reviews.card("word.Eabada"))
+            assertEquals(listOf(card), reviews.due(now = 10L, limit = 5))
+            assertEquals(emptyList<ReviewCardEntity>(), reviews.due(now = 9L, limit = 5))
         } finally {
             database.close()
         }
