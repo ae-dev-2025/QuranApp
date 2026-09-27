@@ -4,6 +4,7 @@ import androidx.annotation.StringRes
 import com.quranapp.android.R
 import com.quranapp.android.compose.utils.preferences.DataStoreManager
 import com.quranapp.android.compose.utils.preferences.PrefKey
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import kotlinx.coroutines.flow.Flow
 
@@ -46,6 +47,13 @@ object LearningPreferences {
     fun newWordsPerDay(): Flow<Int> = DataStoreManager.flow(KEY_NEW_WORDS_PER_DAY)
 
     suspend fun setNewWordsPerDay(count: Int) = DataStoreManager.write(KEY_NEW_WORDS_PER_DAY, count)
+
+    private val KEY_REMINDER = PrefKey(booleanPreferencesKey("learning_reminder"), false)
+
+    /** The opt-in reminder when reviews are due. Off until the learner turns it on. */
+    fun reminderEnabled(): Flow<Boolean> = DataStoreManager.flow(KEY_REMINDER)
+
+    suspend fun setReminderEnabled(enabled: Boolean) = DataStoreManager.write(KEY_REMINDER, enabled)
 
     /** Forgets the start, goal and daily words, as if learning mode was never opened. */
     suspend fun reset() {

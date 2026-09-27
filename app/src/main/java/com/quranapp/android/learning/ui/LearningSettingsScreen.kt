@@ -1,18 +1,23 @@
 package com.quranapp.android.learning.ui
 
+import android.Manifest
+import android.os.Build
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,11 +25,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
 import com.quranapp.android.R
 import com.quranapp.android.compose.components.common.AppBar
 import com.quranapp.android.compose.components.common.RadioItem
@@ -36,6 +46,7 @@ import com.quranapp.android.db.DatabaseProvider
 import com.quranapp.android.learning.path.Curriculum
 import com.quranapp.android.learning.path.LearningPreferences
 import com.quranapp.android.learning.progress.LearningBackupRepository
+import com.quranapp.android.learning.reminder.LearningReminder
 import kotlinx.coroutines.launch
 
 /** Settings → Learning: new words a day, where you start, learning data, and reset. */
@@ -84,6 +95,10 @@ fun LearningSettingsScreen(onOpenLearningData: () -> Unit) {
                 }
             }
 
+            item { SectionTitle(R.string.learning_reminder_setting) }
+            item { ReminderSwitch() }
+            item { Hint(R.string.learning_reminder_setting_text) }
+
             item { SectionTitle(R.string.learning_data_title) }
             item { LearningDataSettingsItem(onOpenLearningData) }
 
@@ -113,6 +128,60 @@ fun LearningSettingsScreen(onOpenLearningData: () -> Unit) {
         ),
     ) {
         Text(stringResource(R.string.learning_settings_reset_confirm_text), style = typography.bodyMedium)
+    }
+}
+
+/**
+ * Decision 10: reminders are opt-in. Turning this on asks for the notification permission
+ * where Android needs it (13 and later); if it's refused, the switch stays off and says why.
+ */
+@OptIn(ExperimentalPermissionsApi::class)
+@Composable
+private fun ReminderSwitch() {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val enabled by remember { LearningPreferences.reminderEnabled() }.collectAsStateWithLifecycle(initialValue = false)
+    var blocked by remember { mutableStateOf(false) }
+    fun turnOn() {
+        blocked = false
+        scope.launch {
+            LearningPreferences.setReminderEnabled(true)
+            LearningReminder.schedule(context)
+        }
+    }
+    val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        rememberPermissionState(Manifest.permission.POST_NOTIFICATIONS) { granted -> if (granted) turnOn() else blocked = true }
+    } else {
+        null
+    }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .toggleable(value = enabled, role = Role.Switch) { on ->
+                when {
+                    !on -> scope.launch {
+                        LearningPreferences.setReminderEnabled(false)
+                        LearningReminder.cancel(context)
+                    }
+                    permission == null || permission.status.isGranted -> turnOn()
+                    else -> permission.launchPermissionRequest()
+                }
+            }
+            .heightIn(min = 56.dp)
+            .padding(horizontal = 16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(stringResource(R.string.learning_reminder_switch), style = typography.bodyLarge, modifier = Modifier.weight(1f))
+        Switch(checked = enabled, onCheckedChange = null)
+    }
+    if (blocked) {
+        Text(
+            text = stringResource(R.string.learning_reminder_blocked),
+            style = typography.bodySmall,
+            color = colorScheme.error,
+            modifier = Modifier.padding(horizontal = 16.dp),
+        )
     }
 }
 
