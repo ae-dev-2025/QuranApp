@@ -161,7 +161,10 @@ fun ConceptScreen(concept: Concept) {
 
             item {
                 Text(
-                    text = stringResource(R.string.learning_analysis_disclaimer),
+                    // Grammar examples come from the pack's word analysis, not from the marks in the text.
+                    text = stringResource(
+                        if (concept.track == Track.GRAMMAR) R.string.learning_grammar_examples_disclaimer else R.string.learning_analysis_disclaimer,
+                    ),
                     style = typography.labelSmall,
                     color = colorScheme.onSurface.alpha(0.6f),
                     textAlign = TextAlign.Center,

@@ -38,9 +38,13 @@ import com.quranapp.android.compose.components.reader.dialogs.QuickReference
 import com.quranapp.android.compose.components.reader.dialogs.QuickReferenceData
 import com.quranapp.android.compose.theme.alpha
 import com.quranapp.android.db.DatabaseProvider
+import com.quranapp.android.learning.concepts.ConceptCatalog
+import com.quranapp.android.learning.concepts.Track
 import com.quranapp.android.learning.examples.AyahWords
 import com.quranapp.android.learning.examples.ConceptExample
 import com.quranapp.android.learning.examples.ConceptExampleFinder
+import com.quranapp.android.learning.examples.GrammarExampleFinder
+import com.quranapp.android.learning.words.WordRepository
 import com.quranapp.android.utils.reader.QuranScriptUtils
 import com.quranapp.android.utils.reader.factory.ReaderFactory
 import kotlinx.coroutines.Dispatchers
@@ -67,7 +71,17 @@ fun ConceptExamplesSection(conceptId: String) {
                 .map { (ayahId, words) -> AyahWords(surahNo, ayahId % 1000, words.map { it.text }) }
         }
     }
-    ExamplesSection(key = conceptId) { limit -> finder.find(conceptId, limit) }
+    // Grammar isn't in the text's marks: it comes from the learning pack's analysis of each word.
+    val grammarFinder = remember {
+        GrammarExampleFinder(
+            grammarOfSurah = { surahNo -> WordRepository.open(context)?.grammarByAyahOfSurah(surahNo) },
+            loadAyah = { ayahId -> repository.getWordsForAyahById(ayahId, QuranScriptUtils.SCRIPT_UTHMANI).map { it.text } },
+        )
+    }
+    val isGrammar = ConceptCatalog[conceptId]?.track == Track.GRAMMAR
+    ExamplesSection(key = conceptId) { limit ->
+        if (isGrammar) grammarFinder.find(conceptId, limit) else finder.find(conceptId, limit)
+    }
 }
 
 /**
