@@ -144,7 +144,7 @@ fun LessonCard(lesson: Lesson, known: Set<String>, onOpenConcept: (Concept) -> U
         if (confused != null && other != null) {
             LessonHeading(R.string.learning_dont_mix_up, Modifier.padding(top = 8.dp))
             ConceptChip(other, isKnown = other.id in known, onClick = { onOpenConcept(other) })
-            Text(stringResource(confused.note), style = paragraphStyle())
+            Text(arabicExamplesInOrder(stringResource(confused.note)), style = paragraphStyle())
         }
     }
 }
@@ -163,7 +163,7 @@ private fun Bullets(items: Array<String>) {
                 // weight(1f) gives the text the whole remaining width. Without it the width is
                 // measured from the text itself, which comes out too small for lines that mix
                 // Arabic and English, and they wrap too early.
-                Text(item, style = paragraphStyle(), modifier = Modifier.weight(1f))
+                Text(arabicExamplesInOrder(item), style = paragraphStyle(), modifier = Modifier.weight(1f))
             }
         }
     }

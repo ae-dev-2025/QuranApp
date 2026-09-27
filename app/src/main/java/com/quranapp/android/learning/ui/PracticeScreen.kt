@@ -221,7 +221,7 @@ private fun RuleView(question: RuleQuestion, answer: Int?, arabicFont: FontFamil
     }
     question.options.forEachIndexed { index, conceptId ->
         OptionRow(
-            text = ConceptCatalog[conceptId]?.let { stringResource(it.titleRes) } ?: conceptId,
+            text = ConceptCatalog[conceptId]?.let { conceptTitle(it) } ?: conceptId,
             arabicFont = null,
             look = optionLook(index, answer, question.answerIndex),
             onClick = { onAnswer(index) },
@@ -231,7 +231,7 @@ private fun RuleView(question: RuleQuestion, answer: Int?, arabicFont: FontFamil
 
 @Composable
 private fun TapWordView(question: TapWordQuestion, answer: Int?, arabicFont: FontFamily, onAnswer: (Int) -> Unit) {
-    val title = ConceptCatalog[question.itemId]?.let { stringResource(it.titleRes) } ?: question.itemId
+    val title = ConceptCatalog[question.itemId]?.let { conceptTitle(it) } ?: question.itemId
     Prompt(stringResource(R.string.learning_q_tap, title))
     AyahWordsCard(
         words = question.words,

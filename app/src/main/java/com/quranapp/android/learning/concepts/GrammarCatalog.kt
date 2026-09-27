@@ -426,7 +426,7 @@ object GrammarCatalog {
         ),
         // Unit 18 · Particles and emphasis (stage 5)
         grammar(
-            GrammarIds.WA_FA_THUMMA, "وَ وَفَـ وَثُمَّ",
+            GrammarIds.WA_FA_THUMMA, "حَرْف عَطْف",
             R.string.grammar_wa_fa_thumma_title, R.string.grammar_wa_fa_thumma_summary,
             5, GrammarIds.MUBTADA_KHABAR, GrammarIds.VERB_DOER_OBJECT,
         ),
