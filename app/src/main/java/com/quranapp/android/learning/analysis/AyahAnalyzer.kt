@@ -32,6 +32,7 @@ object AyahAnalyzer {
 
         TajweedDetector.detect(clustersPerWord).forEach { add(it.conceptId, it.wordIndex) }
         StopAndMaddDetector.detect(clustersPerWord).forEach { add(it.conceptId, it.wordIndex) }
+        MushafDetector.detect(clustersPerWord).forEach { add(it.conceptId, it.wordIndex) }
 
         // The places letters are made in, which need the other detectors' findings on each word.
         clustersPerWord.forEachIndexed { wordIndex, clusters ->

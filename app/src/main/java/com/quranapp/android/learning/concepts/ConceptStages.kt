@@ -44,6 +44,7 @@ object ConceptStages {
     private val STAGE_1 = setOf(
         DAGGER_ALIF, SMALL_MADD_LETTERS, HAMZAT_WASL, SILENT_LETTERS, STOP_SIGNS, SAJDAH,
         LAM_SHAMSIYYA, LAM_QAMARIYYA, LAM_OF_ALLAH, GHUNNAH, QALQALAH, ConceptIds.STOPPING,
+        ConceptIds.DISJOINTED_LETTERS, ConceptIds.WASL_START, ConceptIds.SPECIAL_SPELLINGS,
     )
     private val STAGE_2 = setOf(
         NOON_SAKINAH, IZHAR, IDGHAM_GHUNNAH, IDGHAM_NO_GHUNNAH, IQLAB, IKHFA,
@@ -55,13 +56,16 @@ object ConceptStages {
 
     private val STAGE_3 = setOf(
         ConceptIds.MADD_ARID, ConceptIds.MADD_LEEN, ConceptIds.MADD_IWAD, ConceptIds.MADD_BADAL, ConceptIds.MADD_SILA,
+        ConceptIds.MADD_MUQATTAAT,
     )
+    private val STAGE_5 = setOf(ConceptIds.SAKTA, ConceptIds.HAFS_WORDS)
     private val STAGE_4 = setOf(
         ConceptIds.IDGHAM_MITHLAYN, ConceptIds.IDGHAM_MUTAJANISAYN, ConceptIds.IDGHAM_MUTAQARIBAYN,
         ConceptIds.LAM_SAKINAH, ConceptIds.TANWEEN_BEFORE_WASL,
     )
 
     fun of(conceptId: String): Int = GrammarCatalog.stageOf(conceptId) ?: when (conceptId) {
+        in STAGE_5 -> 5
         in STAGE_4 -> 4
         in STAGE_3 -> 3
         in STAGE_2 -> 2

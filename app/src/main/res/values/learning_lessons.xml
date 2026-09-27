@@ -732,4 +732,84 @@
         <item>Stopping on it, the ṣila drops: أَخۡلَدَهُۥ ends akhladah.</item>
     </string-array>
     <string name="lesson_madd_sila_confused">The small wāw and yāʾ show a long vowel in other words too. Here it is the hāʾ of a pronoun, and it drops when you stop.</string>
+
+    <!-- Disjointed letters -->
+    <string name="lesson_disjointed_letters_say">a-lif lām mīm</string>
+    <string name="lesson_disjointed_letters_not_say">a-lam</string>
+    <string-array name="lesson_disjointed_letters_spot">
+        <item>Letters at the start of 29 surahs, written without vowels: الٓمٓ, يسٓ, حمٓ, نٓ.</item>
+    </string-array>
+    <string-array name="lesson_disjointed_letters_how">
+        <item>Read each letter by its name: الٓمٓ is alif, lām, mīm; طه is ṭā hā.</item>
+        <item>They are read, not translated; scholars have long discussed what they mean.</item>
+    </string-array>
+    <string name="lesson_disjointed_letters_confused">Everywhere else a letter is read with its vowel: بَ is ba. Here each letter is read by its name: نٓ is nūn.</string>
+
+    <!-- Starting on hamzat al-waṣl -->
+    <string name="lesson_wasl_start_say">ih-di-nā</string>
+    <string name="lesson_wasl_start_not_say">ah-di-nā</string>
+    <string-array name="lesson_wasl_start_spot">
+        <item>A word starting with ٱ, when you begin reading on it.</item>
+    </string-array>
+    <string-array name="lesson_wasl_start_how">
+        <item>With ال, start with a: ٱلۡحَمۡدُ is al-ḥamdu.</item>
+        <item>In a verb, look at the vowel of the third letter: a ḍamma gives u (ٱدۡعُ is udʿu); a fatḥa or kasra gives i (ٱهۡدِنَا is ihdinā, ٱذۡهَبۡ is idhhab).</item>
+        <item>A few nouns start with i: ٱسۡم, ٱبۡن, ٱمۡرَأَة, ٱثۡنَيۡنِ.</item>
+    </string-array>
+    <string name="lesson_wasl_start_confused">Carrying on from the word before, the ٱ is silent. Only when you start on it do you say this vowel.</string>
+
+    <!-- Special spellings -->
+    <string name="lesson_special_spellings_say">aṣ-ṣa-lā-ta</string>
+    <string name="lesson_special_spellings_not_say">aṣ-ṣa-la-wa-ta</string>
+    <string-array name="lesson_special_spellings_spot">
+        <item>A wāw with a small alif over it, read as ā: ٱلصَّلَوٰةَ, ٱلزَّكَوٰةَ, ٱلۡحَيَوٰةِ.</item>
+        <item>A letter with a small circle inside a word, never read: أُوْلَٰٓئِكَ (ulāʾika), مِاْئَةَ (miʾah).</item>
+    </string-array>
+    <string-array name="lesson_special_spellings_how">
+        <item>Read the word as it sounds, not letter by letter: the muṣḥaf keeps the spelling of the first copies.</item>
+        <item>Learn these words as words; there are only a few of them, and they come often.</item>
+    </string-array>
+    <string name="lesson_special_spellings_confused">Silent letters in general are marked with a small circle. These are whole words written the old way.</string>
+
+    <!-- Madd of the disjointed letters -->
+    <string name="lesson_madd_muqattaat_say">nūūūn</string>
+    <string name="lesson_madd_muqattaat_not_say">nūn</string>
+    <string-array name="lesson_madd_muqattaat_spot">
+        <item>A wavy line over a disjointed letter: نٓ, قٓ, الٓمٓ, كٓهيعٓصٓ.</item>
+    </string-array>
+    <string-array name="lesson_madd_muqattaat_how">
+        <item>Letters whose names have a long vowel between two sounds are stretched 6 counts: nūn, qāf, ṣād, sīn, lām, kāf, mīm.</item>
+        <item>ʿAyn (عٓ) may be stretched 4 or 6.</item>
+        <item>Names of two sounds, ḥā, yā, ṭā, hā, rā, have a normal 2 counts; alif has none.</item>
+    </string-array>
+    <string name="lesson_madd_muqattaat_confused">This is madd lāzim inside a letter’s name: the name ends in a sukūn after the long vowel, as in nūn.</string>
+
+    <!-- The saktas -->
+    <string name="lesson_sakta_say">man ¦ rāq</string>
+    <string name="lesson_sakta_not_say">mar-rāq</string>
+    <string-array name="lesson_sakta_spot">
+        <item>A small س over the last letter of a word, in four places: عِوَجَاۜ (18:1), مَّرۡقَدِنَاۜ (36:52), مَنۡۜ رَاقٖ (75:27), بَلۡۜ رَانَ (83:14).</item>
+    </string-array>
+    <string-array name="lesson_sakta_how">
+        <item>Stop the sound for a moment, without taking a breath, then carry on.</item>
+        <item>In 75:27 and 83:14 the pause keeps the noon and lām clear, so they don’t merge into the rāʾ.</item>
+        <item>At مَالِيَهۡۜ (69:28) the muṣḥaf marks a sakta too; joining it with idghām is also allowed.</item>
+    </string-array>
+    <string name="lesson_sakta_confused">At a stop sign you stop and take a breath. A sakta is a pause without a breath, and you carry on.</string>
+
+    <!-- Ḥafṣ's special words -->
+    <string name="lesson_hafs_words_say">maj-rē-hā</string>
+    <string name="lesson_hafs_words_not_say">maj-rā-hā</string>
+    <string-array name="lesson_hafs_words_spot">
+        <item>A few words with special marks: a diamond under the rāʾ of مَجۡر۪ىٰهَا, a dot in تَأۡمَ۬نَّا and ءَا۬عۡجَمِيّٞ, a small س over the ص of يَبۡصُۜطُ and بَصۜۡطَةٗ.</item>
+        <item>And ٱلِٱسۡمُ in 49:11.</item>
+    </string-array>
+    <string-array name="lesson_hafs_words_how">
+        <item>Imāla: in مَجۡر۪ىٰهَا the ā leans towards ē: majrēhā.</item>
+        <item>Ishmām: in تَأۡمَ۬نَّا round the lips as for a ḍamma while saying the doubled noon.</item>
+        <item>Tas-hīl: the second hamza of ءَا۬عۡجَمِيّٞ is eased, between a hamza and an alif.</item>
+        <item>Ṣād read as sīn: يَبۡصُۜطُ and بَصۜۡطَةٗ are read with س; in ٱلۡمُصَۜيۡطِرُونَ either is allowed.</item>
+        <item>Naql: بِئۡسَ ٱلِٱسۡمُ is read biʾsa lismu. These need a teacher’s ear.</item>
+    </string-array>
+    <string name="lesson_hafs_words_confused">A small circle marks a letter that isn’t read. These marks change how a letter is read instead.</string>
 </resources>

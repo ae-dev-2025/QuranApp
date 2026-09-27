@@ -162,4 +162,17 @@
     <string name="concept_madd_badal_summary">A hamza followed by its long vowel is stretched two counts: ءَامَنُواْ, إِيمَٰن, أُوتُواْ.</string>
     <string name="concept_madd_sila_title">Madd ṣila, small and big</string>
     <string name="concept_madd_sila_summary">The hāʾ of “him” between two vowels is lengthened, shown by a small wāw or yāʾ: لَهُۥ, بِهِۦ. Before a hamza it is stretched 4 or 5 counts.</string>
+    <!-- The muṣḥaf's own spellings and marks -->
+    <string name="concept_disjointed_letters_title">Disjointed letters (al-ḥurūf al-muqaṭṭaʿa)</string>
+    <string name="concept_disjointed_letters_summary">29 surahs open with letters read by their names: الٓمٓ is alif lām mīm, يسٓ is yā sīn.</string>
+    <string name="concept_wasl_start_title">Starting on hamzat al-waṣl</string>
+    <string name="concept_wasl_start_summary">Starting on a word with ٱ, say a vowel for it: a in ال, u if the third letter has a ḍamma (ٱدۡعُ), otherwise i (ٱهۡدِنَا).</string>
+    <string name="concept_special_spellings_title">Special spellings of the muṣḥaf</string>
+    <string name="concept_special_spellings_summary">A few words keep an old spelling: a wāw read as ā (ٱلصَّلَوٰةَ), or a letter never read (أُوْلَٰٓئِكَ, مِاْئَةَ).</string>
+    <string name="concept_madd_muqattaat_title">Madd of the disjointed letters</string>
+    <string name="concept_madd_muqattaat_summary">A disjointed letter whose name has a long vowel in the middle, marked with a wavy line, is stretched 6 counts: نٓ is nūūūn.</string>
+    <string name="concept_sakta_title">The saktas of Ḥafṣ</string>
+    <string name="concept_sakta_summary">A small س over a letter means a short pause without taking a breath, in four places: 18:1, 36:52, 75:27 and 83:14.</string>
+    <string name="concept_hafs_words_title">Ḥafṣ’s special words</string>
+    <string name="concept_hafs_words_summary">A few words read in a special way, shown by marks: imāla (مَجۡر۪ىٰهَا), ishmām (تَأۡمَ۬نَّا), tas-hīl (ءَا۬عۡجَمِيّٞ), ṣād read as sīn (يَبۡصُۜطُ) and naql (ٱلِٱسۡمُ).</string>
 </resources>

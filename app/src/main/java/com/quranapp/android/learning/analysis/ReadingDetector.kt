@@ -28,7 +28,8 @@ object ReadingDetector {
             if (cluster.hasAny(Arabic.SMALL_MADD_LETTERS)) found += ConceptIds.SMALL_MADD_LETTERS
             if (cluster.letter == Arabic.ALIF_WASLA) found += ConceptIds.HAMZAT_WASL
             if (cluster.hasAny(Arabic.SILENT_MARKS)) found += ConceptIds.SILENT_LETTERS
-            if (cluster.hasAny(Arabic.STOP_SIGNS)) found += ConceptIds.STOP_SIGNS
+            // A small س over a ص isn't a pause: it says to read the ص as س (Ḥafṣ's special words).
+            if (cluster.hasAny(Arabic.STOP_SIGNS) && !MushafDetector.isSinOverSad(cluster)) found += ConceptIds.STOP_SIGNS
             if (cluster.has(Arabic.SAJDAH_SIGN)) found += ConceptIds.SAJDAH
 
             if (index > 0 && isLongVowel(previous = clusters[index - 1], current = cluster)) {

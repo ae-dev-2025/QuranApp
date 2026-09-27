@@ -73,7 +73,8 @@ class ConceptGraphTest {
             listOf(IZHAR, IDGHAM_GHUNNAH, IDGHAM_NO_GHUNNAH, IQLAB, IKHFA),
             graph.dependentsOf(NOON_SAKINAH).map { it.id },
         )
-        assertEquals(emptyList<String>(), graph.dependentsOf(MADD_LAZIM).map { it.id })
+        assertEquals(listOf(ConceptIds.MADD_MUQATTAAT), graph.dependentsOf(MADD_LAZIM).map { it.id })
+        assertEquals(emptyList<String>(), graph.dependentsOf(ConceptIds.MADD_MUQATTAAT).map { it.id })
     }
 
     @Test

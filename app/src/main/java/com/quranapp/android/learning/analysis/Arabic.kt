@@ -75,6 +75,19 @@ object Arabic {
     const val SMALL_HIGH_YA = 'ۧ'
     const val SAJDAH_SIGN = '۩' // ۩
 
+    /** The small س over a letter: a sakta (مَنۡۜ رَاقٖ), or, over a ص, "read it as س" (يَبۡصُۜطُ). */
+    const val SMALL_HIGH_SEEN = '\u06DC'
+
+    /** (!) Unicode "empty centre low stop". Here: the imāla of مَجۡر۪ىٰهَا (11:41). */
+    const val IMALA_MARK = '\u06EA'
+
+    /** (!) Unicode "rounded high stop with filled centre". Here: ishmām (تَأۡمَ۬نَّا) and tas-hīl (ءَا۬عۡجَمِيّٞ). */
+    const val ISHMAM_MARK = '\u06EC'
+
+    /** The small noon of نُـۨجِي (21:88), a spelling of نُنۡجِي. */
+    const val SMALL_HIGH_NOON = '\u06E8'
+    const val SAD = 'ص'
+
     // ---- Groups ----
     val SHORT_VOWELS = setOf(FATHA, DAMMA, KASRA)
     val STACKED_TANWEEN = setOf(FATHATAN, DAMMATAN, KASRATAN)

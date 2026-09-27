@@ -23,6 +23,9 @@ object ConceptIds {
     const val STOP_SIGNS = "reading.stop_signs"
     const val SAJDAH = "reading.sajdah"
     const val STOPPING = "reading.stopping"
+    const val DISJOINTED_LETTERS = "reading.disjointed_letters"
+    const val WASL_START = "reading.wasl_start"
+    const val SPECIAL_SPELLINGS = "reading.special_spellings"
 
     // Tajweed: where letters are made (makhārij)
     const val MAKHRAJ_JAWF = "tajweed.makhraj_jawf"
@@ -66,6 +69,11 @@ object ConceptIds {
     const val MADD_IWAD = "tajweed.madd_iwad"
     const val MADD_BADAL = "tajweed.madd_badal"
     const val MADD_SILA = "tajweed.madd_sila"
+
+    // The disjointed letters' madd, the saktas and Ḥafṣ's special words
+    const val MADD_MUQATTAAT = "tajweed.madd_muqattaat"
+    const val SAKTA = "tajweed.sakta"
+    const val HAFS_WORDS = "tajweed.hafs_words"
     const val NOON_SAKINAH = "tajweed.noon_sakinah"
     const val IZHAR = "tajweed.izhar"
     const val IDGHAM_GHUNNAH = "tajweed.idgham_ghunnah"

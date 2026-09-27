@@ -105,7 +105,8 @@ object TajweedDetector {
         }
 
         // Qalqalah: the letter has a sukun, or it is the last letter and we stop on it.
-        if (c.letter in QALQALAH_LETTERS && (c.has(Arabic.SUKUN) || isLastOfAyah)) {
+        // Not in a letter's name, such as the ق of عٓسٓقٓ, read qāf.
+        if (c.letter in QALQALAH_LETTERS && !c.hasAny(Arabic.MADD_SIGNS) && (c.has(Arabic.SUKUN) || isLastOfAyah)) {
             rules += Rule(ConceptIds.QALQALAH)
         }
 
