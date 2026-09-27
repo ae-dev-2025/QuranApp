@@ -56,7 +56,12 @@ class ProgressViewModel(application: Application) : AndroidViewModel(application
         val first = QuranProgress(
             wordsKnown = known.count(WordItems::isWordItem),
             wordsTotal = lemmaCount,
-            layers = mapOf(Layer.READ to conceptsOf(Layer.READ), Layer.RECITE to conceptsOf(Layer.RECITE), Layer.WORDS to null),
+            layers = mapOf(
+                Layer.READ to conceptsOf(Layer.READ),
+                Layer.RECITE to conceptsOf(Layer.RECITE),
+                Layer.WORDS to null,
+                Layer.GRAMMAR to conceptsOf(Layer.GRAMMAR),
+            ),
             surahs = null,
         )
         emit(first) // the totals show at once; the map follows

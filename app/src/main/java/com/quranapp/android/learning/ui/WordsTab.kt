@@ -1,6 +1,7 @@
 package com.quranapp.android.learning.ui
 
 import android.text.format.Formatter
+import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -211,7 +212,7 @@ internal fun WordRow(
 
 /** Shown in the Words tab until the learning pack is downloaded. */
 @Composable
-internal fun WordsNeedPack(state: LearningPackState) {
+internal fun WordsNeedPack(state: LearningPackState, @StringRes message: Int = R.string.learning_words_need_pack) {
     val context = LocalContext.current
     Column(
         modifier = Modifier
@@ -221,7 +222,7 @@ internal fun WordsNeedPack(state: LearningPackState) {
     ) {
         Text(
             text = stringResource(
-                R.string.learning_words_need_pack,
+                message,
                 Formatter.formatShortFileSize(context, LearningPackRelease.DOWNLOAD_BYTES),
             ),
             style = typography.bodyMedium,

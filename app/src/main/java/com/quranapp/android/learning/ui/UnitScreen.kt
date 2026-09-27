@@ -124,7 +124,7 @@ private suspend fun loadUnit(context: android.content.Context, surahNo: Int): Un
     )
 }
 
-private enum class UnitStep(val layer: Layer) { READ(Layer.READ), RECITE(Layer.RECITE), WORDS(Layer.WORDS) }
+private enum class UnitStep(val layer: Layer) { READ(Layer.READ), RECITE(Layer.RECITE), WORDS(Layer.WORDS), GRAMMAR(Layer.GRAMMAR) }
 
 @Composable
 private fun UnitContent(unit: UnitHeader, known: Set<String>, packState: LearningPackState, focus: Layer?, modifier: Modifier) {
@@ -225,7 +225,7 @@ private fun StepCard(
     packState: LearningPackState,
     arabicFont: FontFamily,
 ) {
-    val concepts = unit.needs.concepts.filter { it.track == step.layer.track }
+    val concepts = if (step == UnitStep.GRAMMAR) unit.needs.grammar.orEmpty() else unit.needs.concepts.filter { it.track == step.layer.track }
     val unknownWords = remember(unit.needs, known) { Readiness.unknownWords(unit.needs, known) }
 
     Column(
@@ -251,7 +251,13 @@ private fun StepCard(
             Column(Modifier.weight(1f)) {
                 Text(stringResource(step.layer.labelRes), style = typography.titleSmall)
                 Text(
-                    text = stepSummary(step, done, concepts.count { it.id !in known }, unknownWords.size, unit.needs.words == null),
+                    text = stepSummary(
+                        step,
+                        done,
+                        concepts.count { it.id !in known },
+                        unknownWords.size,
+                        needsPack = if (step == UnitStep.GRAMMAR) unit.needs.grammar == null else unit.needs.words == null,
+                    ),
                     style = typography.bodyMedium,
                     color = colorScheme.onSurfaceVariant,
                 )
@@ -273,6 +279,11 @@ private fun StepCard(
             ) {
                 when (step) {
                     UnitStep.READ, UnitStep.RECITE -> ConceptChips(concepts, known)
+                    UnitStep.GRAMMAR -> if (unit.needs.grammar == null) {
+                        WordsNeedPack(packState, R.string.learning_grammar_need_pack)
+                    } else {
+                        ConceptChips(concepts, known)
+                    }
                     UnitStep.WORDS -> if (unit.needs.words == null) {
                         WordsNeedPack(packState)
                     } else {
@@ -286,16 +297,18 @@ private fun StepCard(
 
 @Composable
 private fun stepSummary(step: UnitStep, done: Boolean, unknownConcepts: Int, unknownWords: Int, needsPack: Boolean): String = when {
-    step == UnitStep.WORDS && needsPack -> stringResource(R.string.learning_unit_words_need_pack)
+    (step == UnitStep.WORDS || step == UnitStep.GRAMMAR) && needsPack -> stringResource(R.string.learning_unit_words_need_pack)
     done -> stringResource(
         when (step) {
             UnitStep.READ -> R.string.learning_unit_read_done
             UnitStep.RECITE -> R.string.learning_unit_recite_done
             UnitStep.WORDS -> R.string.learning_unit_words_done
+            UnitStep.GRAMMAR -> R.string.learning_unit_grammar_done
         },
     )
     step == UnitStep.READ -> pluralStringResource(R.plurals.learning_unit_read_left, unknownConcepts, unknownConcepts)
     step == UnitStep.RECITE -> pluralStringResource(R.plurals.learning_unit_recite_left, unknownConcepts, unknownConcepts)
+    step == UnitStep.GRAMMAR -> pluralStringResource(R.plurals.learning_unit_grammar_left, unknownConcepts, unknownConcepts)
     else -> pluralStringResource(R.plurals.learning_unit_words_left, unknownWords, unknownWords)
 }
 

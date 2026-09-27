@@ -149,7 +149,7 @@ and overrides for the 258 verb headwords still marked "unchecked".
 |---|---|
 | 61 | Grammar track: 70 concepts and their prerequisites |
 | 62 | Grammar detector: word features to concepts |
-| 63 | Grammar tab |
+| 63 | Grammar tab: the fourth layer (sheet tab, unit step, path dot, stage goals); Arabic examples kept in order in English text |
 | 64–68 | Lessons for word-form concepts |
 
 **M9 · Grammar II: sentences**

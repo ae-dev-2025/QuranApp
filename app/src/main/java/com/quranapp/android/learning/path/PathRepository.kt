@@ -20,6 +20,7 @@ class PathRepository(
     private val mutex = Mutex()
     private val concepts = HashMap<Int, List<Concept>>()
     private val words = HashMap<Int, List<List<String>>>()
+    private val grammar = HashMap<Int, List<Concept>>()
 
     suspend fun needs(surahNo: Int): SurahNeeds = mutex.withLock {
         val surahConcepts = concepts.getOrPut(surahNo) {
@@ -27,7 +28,16 @@ class PathRepository(
             val ayahs = quran.getWordsForSurah(surahNo, QuranScriptUtils.SCRIPT_UTHMANI).values.map { ayah -> ayah.map { it.text } }
             SurahNeeds.conceptsOf(ayahs)
         }
-        SurahNeeds(surahNo, surahConcepts, wordsLocked(surahNo))
+        SurahNeeds(surahNo, surahConcepts, wordsLocked(surahNo), grammarLocked(surahNo))
+    }
+
+    private suspend fun grammarLocked(surahNo: Int): List<Concept>? {
+        val repository = openWords()
+        if (repository == null) {
+            grammar.clear()
+            return null
+        }
+        return grammar.getOrPut(surahNo) { SurahNeeds.grammarOf(repository.grammarOfSurah(surahNo)) }
     }
 
     /** Just a surah's words, without analysing its text; null without the pack. */

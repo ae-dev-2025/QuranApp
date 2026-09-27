@@ -176,7 +176,7 @@
     <string name="learning_basics_progress">Basics: %1$d of %2$d known</string>
     <string name="learning_path_finished">You’ve reached the end of the path. Keep your reviews going, and open any surah as a unit.</string>
     <string name="learning_your_path">Your path</string>
-    <string name="learning_path_dots_legend">Dots: read · recite · words</string>
+    <string name="learning_path_dots_legend">Dots: read · recite · words · grammar</string>
     <!-- Read by TalkBack for each dot; %1$s: a layer, such as "Read" -->
     <string name="learning_dot_full">%1$s done</string>
     <string name="learning_dot_partial">%1$s started</string>
@@ -467,4 +467,12 @@
     <string name="learning_q_letter_first">Listen: which letter does this word start with?</string>
     <string name="learning_q_show_word">Show the word</string>
     <string name="learning_track_grammar">Grammar</string>
+    <!-- The Grammar layer -->
+    <string name="learning_unit_grammar_done">You know the grammar its words show</string>
+    <plurals name="learning_unit_grammar_left">
+        <item quantity="one">%d grammar point to learn</item>
+        <item quantity="other">%d grammar points to learn</item>
+    </plurals>
+    <string name="learning_grammar_disclaimer">Found from the Quranic Arabic Corpus’s analysis of each word. How words relate in the sentence comes later. Please confirm with a qualified teacher.</string>
+    <string name="learning_grammar_need_pack">The grammar of each word comes with the learning data (%1$s download, once).</string>
 </resources>
