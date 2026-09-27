@@ -2,6 +2,7 @@ package com.quranapp.android.learning.path
 
 import com.quranapp.android.learning.analysis.TestAyahs
 import com.quranapp.android.learning.concepts.Concept
+import com.quranapp.android.learning.concepts.ConceptCatalog
 import com.quranapp.android.learning.concepts.ConceptIds
 import com.quranapp.android.learning.concepts.Track
 import org.junit.Assert.assertEquals
@@ -33,6 +34,13 @@ class ReadinessTest {
         assertEquals(1, read.known)
         val recite = Readiness.of(listOf(surah), Layer.RECITE, known = emptySet())!!
         assertEquals(ikhlas.count { it.track == Track.TAJWEED }, recite.total)
+    }
+
+    @Test
+    fun upToStage_leavesOutWhatLaterStagesTeach() {
+        val surah = needs(113, listOf(ConceptCatalog[ConceptIds.QALQALAH]!!, ConceptCatalog[ConceptIds.IKHFA]!!))
+        assertEquals(LayerProgress(0, 2), Readiness.of(listOf(surah), Layer.RECITE, emptySet()))
+        assertEquals("ikhfāʾ is stage 2", LayerProgress(0, 1), Readiness.of(listOf(surah), Layer.RECITE, emptySet(), upToStage = 1))
     }
 
     @Test

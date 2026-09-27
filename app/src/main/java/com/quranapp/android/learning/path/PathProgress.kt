@@ -35,7 +35,7 @@ object PathProgress {
         val stages = Curriculum.stages.filter { it.number >= startAt }
         for (stage in stages) {
             val needs = load(goalSurahs(stage))
-            if (!stage.goals.all { Readiness.isReached(it, needs, known) }) return stage
+            if (!stage.goals.all { Readiness.isReached(it, needs, known, stage.number) }) return stage
         }
         return stages.last()
     }
@@ -48,7 +48,7 @@ object PathProgress {
         goalSurahs(stage).firstOrNull { surah ->
             stage.goals.filterIsInstance<StageGoal.Surahs>()
                 .filter { surah in it.surahs }
-                .any { !Readiness.isReached(it.copy(surahs = listOf(surah)), needsBySurah, known) }
+                .any { !Readiness.isReached(it.copy(surahs = listOf(surah)), needsBySurah, known, stage.number) }
         }
 
     /** Stage 0's next concept: the first basic the learner doesn't know yet. */
