@@ -22,6 +22,13 @@ import com.quranapp.android.learning.concepts.ConceptIds.MEEM_SAKINAH
 import com.quranapp.android.learning.concepts.ConceptIds.NOON_SAKINAH
 import com.quranapp.android.learning.concepts.ConceptIds.QALQALAH
 import com.quranapp.android.learning.concepts.ConceptIds.SAJDAH
+import com.quranapp.android.learning.concepts.ConceptIds.SIFA_HAMS
+import com.quranapp.android.learning.concepts.ConceptIds.SIFA_ISTILA
+import com.quranapp.android.learning.concepts.ConceptIds.SIFA_ITBAQ
+import com.quranapp.android.learning.concepts.ConceptIds.SIFA_SAFIR
+import com.quranapp.android.learning.concepts.ConceptIds.SIFA_SHIDDA
+import com.quranapp.android.learning.concepts.ConceptIds.SIFA_TAFASHSHI
+import com.quranapp.android.learning.concepts.ConceptIds.SIFA_TAKRIR
 import com.quranapp.android.learning.concepts.ConceptIds.SILENT_LETTERS
 import com.quranapp.android.learning.concepts.ConceptIds.SMALL_MADD_LETTERS
 import com.quranapp.android.learning.concepts.ConceptIds.STOP_SIGNS
@@ -42,6 +49,7 @@ object ConceptStages {
         NOON_SAKINAH, IZHAR, IDGHAM_GHUNNAH, IDGHAM_NO_GHUNNAH, IQLAB, IKHFA,
         MEEM_SAKINAH, IZHAR_SHAFAWI, IDGHAM_SHAFAWI, IKHFA_SHAFAWI,
         MADD_SIGN, MADD_MUTTASIL, MADD_MUNFASIL, MADD_LAZIM,
+        SIFA_HAMS, SIFA_SHIDDA, SIFA_ISTILA, SIFA_ITBAQ, SIFA_SAFIR, SIFA_TAKRIR, SIFA_TAFASHSHI,
     )
 
     fun of(conceptId: String): Int = when (conceptId) {

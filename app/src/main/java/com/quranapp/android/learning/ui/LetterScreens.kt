@@ -60,6 +60,7 @@ import com.quranapp.android.learning.examples.AyahWords
 import com.quranapp.android.learning.letters.Letter
 import com.quranapp.android.learning.letters.LetterExample
 import com.quranapp.android.learning.letters.LetterFinder
+import com.quranapp.android.learning.letters.LetterQualities
 import com.quranapp.android.learning.letters.Letters
 import com.quranapp.android.learning.progress.LearningProgressRepository
 import com.quranapp.android.utils.reader.QuranScriptUtils
@@ -180,6 +181,7 @@ private fun LetterCell(letter: Letter, isKnown: Boolean, arabicFont: FontFamily)
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun LetterScreen(letter: Letter) {
     val context = LocalContext.current
@@ -260,6 +262,19 @@ private fun LetterScreen(letter: Letter) {
                     }
                 }
             }
+            item {
+                LearnCard(label = stringResource(R.string.learning_letter_qualities)) {
+                    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+                        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                            LetterQualities.of(letter).forEach { quality ->
+                                QualityChip(stringResource(quality.labelRes), isKnown = known?.contains(quality.conceptId) == true) {
+                                    context.startActivity(ActivityConcept.intent(context, quality.conceptId))
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             example?.let { found ->
                 item {
                     LearnCard(label = stringResource(R.string.learning_letter_in_quran)) {
@@ -282,6 +297,23 @@ private fun LetterScreen(letter: Letter) {
             }
         }
     }
+}
+
+/** A quality as a chip: its label, opening the lesson of its pair (voiced opens whispered and voiced). */
+@Composable
+private fun QualityChip(label: String, isKnown: Boolean, onClick: () -> Unit) {
+    val shape = RoundedCornerShape(50)
+    Text(
+        text = label,
+        style = typography.labelLarge,
+        color = if (isKnown) colorScheme.primary else colorScheme.onSurface,
+        modifier = Modifier
+            .heightIn(min = 40.dp)
+            .clip(shape)
+            .then(if (isKnown) Modifier.background(colorScheme.primary.alpha(0.12f)) else Modifier.border(1.dp, colorScheme.outlineVariant, shape))
+            .clickable(onClickLabel = stringResource(R.string.learning_open_lesson), onClick = onClick)
+            .padding(horizontal = 14.dp, vertical = 10.dp),
+    )
 }
 
 /** Marks a letter known or not. Knowing all 29 completes the "Arabic letters" concept others build on. */

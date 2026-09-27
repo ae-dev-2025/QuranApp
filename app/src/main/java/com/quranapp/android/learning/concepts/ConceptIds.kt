@@ -30,6 +30,15 @@ object ConceptIds {
     const val MAKHRAJ_LIPS = "tajweed.makhraj_lips"
     const val MAKHRAJ_NOSE = "tajweed.makhraj_nose"
 
+    // Tajweed: letter qualities (ṣifāt)
+    const val SIFA_HAMS = "tajweed.sifa_hams"
+    const val SIFA_SHIDDA = "tajweed.sifa_shidda"
+    const val SIFA_ISTILA = "tajweed.sifa_istila"
+    const val SIFA_ITBAQ = "tajweed.sifa_itbaq"
+    const val SIFA_SAFIR = "tajweed.sifa_safir"
+    const val SIFA_TAKRIR = "tajweed.sifa_takrir"
+    const val SIFA_TAFASHSHI = "tajweed.sifa_tafashshi"
+
     // Tajweed
     const val HEAVY_LETTERS = "tajweed.heavy_letters"
     const val LAM_SHAMSIYYA = "tajweed.lam_shamsiyya"

@@ -36,6 +36,7 @@ object AyahAnalyzer {
         clustersPerWord.forEachIndexed { wordIndex, clusters ->
             val onWord = wordsByConcept.filterValues { wordIndex in it }.keys
             MakharijDetector.detect(clusters, onWord).forEach { add(it, wordIndex) }
+            SifatDetector.detect(clusters).forEach { add(it, wordIndex) }
         }
 
         return AyahAnalysis(wordsByConcept.mapValues { (_, indexes) -> indexes.sorted() })
