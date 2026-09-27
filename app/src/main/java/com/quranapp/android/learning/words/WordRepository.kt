@@ -47,8 +47,8 @@ class WordRepository(private val dao: LearningPackDao) {
     /** A dictionary word by its stable key. */
     suspend fun lemma(lemmaKey: String): LemmaEntity? = dao.lemmaByKey(lemmaKey)
 
-    /** Every place a dictionary word occurs, in Quran order. */
-    suspend fun occurrences(lemmaId: Int): List<WordLocation> = dao.occurrencesOfLemma(lemmaId, Int.MAX_VALUE)
+    /** Where a dictionary word occurs, in Quran order: all of them, or the first [limit]. */
+    suspend fun occurrences(lemmaId: Int, limit: Int = Int.MAX_VALUE): List<WordLocation> = dao.occurrencesOfLemma(lemmaId, limit)
 
     /** A root by its stable key (`Ebd`), with its dictionary words; null if the pack has no such root. */
     suspend fun root(rootKey: String): RootWithLemmas? {

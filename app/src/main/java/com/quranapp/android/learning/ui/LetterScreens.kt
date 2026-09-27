@@ -253,6 +253,7 @@ private fun LetterScreen(letter: Letter) {
                 item {
                     LearnCard(label = stringResource(R.string.learning_letter_in_quran)) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
+                            HearWordButton(found.surahNo, found.ayahNo, found.wordIndex)
                             Text("${found.surahNo}:${found.ayahNo}", style = typography.bodyMedium, modifier = Modifier.weight(1f))
                             Text(found.word, fontFamily = quranFont, style = typography.headlineMedium)
                         }

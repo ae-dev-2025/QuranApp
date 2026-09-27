@@ -17,7 +17,11 @@ import com.quranapp.android.learning.practice.QuestionFactory
 import com.quranapp.android.learning.practice.ReviewScheduler
 import com.quranapp.android.learning.practice.WordIntroduction
 import com.quranapp.android.learning.progress.ReviewRating
+import com.quranapp.android.learning.pack.LemmaEntity
+import com.quranapp.android.learning.pack.WordLocation
+import com.quranapp.android.learning.words.WordForms
 import com.quranapp.android.learning.words.WordRepository
+import com.quranapp.android.repository.QuranRepository
 import com.quranapp.android.utils.reader.QuranScriptUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -63,6 +67,11 @@ enum class PracticeMode(val questionsPerItem: Int) {
  * result as a review with the FSRS scheduler. A passed item is also marked known.
  */
 class PracticeViewModel(application: Application) : AndroidViewModel(application) {
+    private companion object {
+        /** Enough to find the dictionary form of a word in most cases, without reading the whole Quran. */
+        const val PLACES_TO_TRY = 30
+    }
+
     var state: PracticeUiState by mutableStateOf(PracticeUiState.Loading)
         private set
 
@@ -136,6 +145,18 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
             .filter { it.questions.isNotEmpty() }
     }
 
+    /**
+     * Where to hear a dictionary word: among its first occurrences, one written like its
+     * dictionary form (قَالَ, not يَقُولُ), so the learner hears what they see; else the first.
+     */
+    private suspend fun placeToHear(lemma: LemmaEntity, words: WordRepository?, quran: QuranRepository): WordLocation? {
+        val places = words?.occurrences(lemma.lemmaId, limit = PLACES_TO_TRY).orEmpty()
+        return places.firstOrNull { place ->
+            val text = quran.getWordsForAyahById(place.ayahId, QuranScriptUtils.SCRIPT_UTHMANI).getOrNull(place.wordIndex)?.text
+            text != null && WordForms.sameSkeleton(text, lemma.headword)
+        } ?: places.firstOrNull()
+    }
+
     private suspend fun factory(): QuestionFactory {
         val context = getApplication<Application>()
         val quran = DatabaseProvider.getQuranRepository(context)
@@ -147,6 +168,7 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
         return QuestionFactory(
             lemmaWithPool = { key -> words?.lemma(key)?.let { it to words.questionPool(it) } },
             ayahsWithConcept = { conceptId, limit -> finder.find(conceptId, limit).map { it.ayah } },
+            firstPlace = { lemma -> placeToHear(lemma, words, quran) },
         )
     }
 }

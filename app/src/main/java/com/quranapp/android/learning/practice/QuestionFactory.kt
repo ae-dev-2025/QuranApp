@@ -3,6 +3,7 @@ package com.quranapp.android.learning.practice
 import com.quranapp.android.learning.concepts.ConceptCatalog
 import com.quranapp.android.learning.examples.AyahWords
 import com.quranapp.android.learning.pack.LemmaEntity
+import com.quranapp.android.learning.pack.WordLocation
 import com.quranapp.android.learning.words.WordItems
 import kotlin.random.Random
 
@@ -16,6 +17,8 @@ class QuestionFactory(
     /** Ayahs where a concept occurs, short surahs first. */
     private val ayahsWithConcept: suspend (conceptId: String, limit: Int) -> List<AyahWords>,
     private val random: Random = Random.Default,
+    /** Where to hear a dictionary word, for "Hear it" on its introduction. */
+    private val firstPlace: suspend (lemma: LemmaEntity) -> WordLocation? = { null },
 ) {
     /** Up to [count] questions about [itemId]; fewer (or none) if fair ones can't be made. */
     suspend fun questionsFor(itemId: String, count: Int): List<Question> {
@@ -32,7 +35,7 @@ class QuestionFactory(
         val lemmaKey = WordItems.lemmaKeyOf(itemId) ?: return null
         val (lemma, _) = lemmaWithPool(lemmaKey) ?: return null
         val meaning = lemma.gloss ?: return null
-        return WordIntroduction(itemId, lemma.headword, meaning, lemma.occurrences)
+        return WordIntroduction(itemId, lemma.headword, meaning, lemma.occurrences, firstPlace(lemma))
     }
 
     private suspend fun wordQuestions(lemmaKey: String, count: Int): List<Question> {

@@ -206,6 +206,9 @@ private fun IntroductionView(introduction: WordIntroduction, arabicFont: FontFam
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Text(introduction.headword, fontFamily = arabicFont, style = typography.displayMedium)
+        introduction.firstPlace?.let { place ->
+            HearWordButton(place.ayahId / 1000, place.ayahId % 1000, place.wordIndex)
+        }
         Text(introduction.meaning, style = typography.headlineSmall, textAlign = TextAlign.Center)
         Text(
             text = pluralStringResource(R.plurals.learning_words_times, introduction.occurrences, introduction.occurrences),

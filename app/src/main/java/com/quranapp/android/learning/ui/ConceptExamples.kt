@@ -181,12 +181,17 @@ private fun ExampleCard(item: ExampleItem, arabicFont: FontFamily, onOpen: () ->
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            Text(
-                text = "${item.surahName} ${ayah.surahNo}:${ayah.ayahNo}",
-                style = typography.labelMedium,
-                color = colorScheme.onSurfaceVariant,
-            )
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                item.example.highlightedWordIndexes.minOrNull()?.let { word ->
+                    HearWordButton(ayah.surahNo, ayah.ayahNo, word, Modifier.size(40.dp))
+                }
+                Text(
+                    text = "${item.surahName} ${ayah.surahNo}:${ayah.ayahNo}",
+                    style = typography.labelMedium,
+                    color = colorScheme.onSurfaceVariant,
+                )
+            }
             Text(
                 text = stringResource(R.string.learning_view_ayah) + " ›",
                 style = typography.labelMedium,

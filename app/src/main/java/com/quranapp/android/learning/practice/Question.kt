@@ -1,5 +1,7 @@
 package com.quranapp.android.learning.practice
 
+import com.quranapp.android.learning.pack.WordLocation
+
 /**
  * One practice question. Every question has a known answer, so the app grades it itself
  * (decision 8) and nothing is left to the learner's judgement.
@@ -19,6 +21,8 @@ data class WordIntroduction(
     val headword: String,
     val meaning: String,
     val occurrences: Int,
+    /** Where it first occurs, so the learner can hear it recited; null if unknown. */
+    val firstPlace: WordLocation? = null,
 ) : Question
 
 /** What a multiple-choice question asks. The UI turns each kind into its own sentence. */
