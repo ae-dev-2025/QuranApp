@@ -11,7 +11,7 @@ import shutil
 import sys
 from pathlib import Path
 
-from . import align, corpus, lexicon, masaq, pack, sources
+from . import align, corpus, glosses, lexicon, masaq, pack, sources
 from .buckwalter import to_app, to_unicode
 
 # MASAQ leaves out 21 words (mostly مَا in أَيۡنَ مَا, which everyday spelling joins into
@@ -38,6 +38,11 @@ def main(argv=None) -> int:
     if len(sentence.unmatched_app_words) > MAX_WORDS_WITHOUT_SENTENCE_DATA:
         raise SystemExit(f"{len(sentence.unmatched_app_words)} words have no MASAQ data: {sentence.unmatched_app_words[:20]}")
 
+    meanings = glosses.derive(
+        glosses.collect(aligned, sentence.words, sentence.regular_ayahs),
+        {lemma.key: lemma.pos for lemma in lemmas},
+    )
+
     meta = {
         "pack_version": str(args.version),
         "schema_version": str(pack.SCHEMA_VERSION),
@@ -46,11 +51,11 @@ def main(argv=None) -> int:
         "words": str(len(aligned)),
     }
     pack.write(args.out, aligned, roots, lemmas, [sources.CORPUS, sources.MASAQ], meta, to_app,
-               sentence.words, sentence.regular_ayahs)
+               sentence.words, sentence.regular_ayahs, meanings)
 
     print(f"{args.out}: {len(aligned)} words, {len(lemmas)} lemmas, {len(roots)} roots")
     print(f"sentence data for {len(sentence.words)} words; none for {len(sentence.unmatched_app_words)}; "
-          f"glosses for {len(sentence.regular_ayahs)} ayahs")
+          f"glosses for {len(sentence.regular_ayahs)} ayahs; meanings for {len(meanings)} lemmas")
     print(f"size {args.out.stat().st_size:,} bytes, SHA-256 {sources.sha256_of(args.out)}")
 
     download = write_gzip(args.out)

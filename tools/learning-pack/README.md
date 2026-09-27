@@ -54,7 +54,7 @@ The same inputs always give the same file (same SHA-256). The build also writes
 | Table | One row per | Notes |
 |---|---|---|
 | `segments` | prefix, stem or suffix of each of the app's 77,429 words | Arabic form, part of speech, features such as `IMPF\|(X)\|1P`, lemma of stems |
-| `lemmas` | dictionary word (4,832) | headword, root, verb form, number of occurrences, gloss (added later) |
+| `lemmas` | dictionary word (4,832) | headword, root, verb form, number of occurrences, English meaning |
 | `roots` | root (1,642) | letters such as `ع ب د`, number of occurrences |
 | `syntax` | MASAQ segment, aligned to the app's words (157,674) | role in the sentence (iʿrāb), iḍāfa, case or mood and the ending that shows it |
 | `word_glosses` | word with an English gloss from MASAQ (76,981) | only in the 6,215 ayahs where MASAQ's words pair up with the app's word for word |
@@ -69,3 +69,7 @@ MASAQ uses everyday (imlāʾī) spelling and splits or joins a few words differe
 (يَٰقَوۡمِ = يا + قوم; أَيۡنَ مَا = أينما). `masaq.py` aligns each ayah by letter similarity.
 21 app words have no MASAQ data. In the 21 ayahs that don't pair word for word, MASAQ's
 glosses sometimes shift by a word, so no glosses are taken from them.
+
+Lemma meanings (`glosses.py`) are derived from MASAQ's word glosses: for each lemma, the
+most common gloss of its words once grammar is removed ("we worship" → "worship"), with a
+second meaning when it is common too ("from, of"). 4,822 lemmas get one.
