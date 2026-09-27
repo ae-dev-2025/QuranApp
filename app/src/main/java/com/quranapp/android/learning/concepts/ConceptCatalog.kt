@@ -260,6 +260,14 @@ object ConceptCatalog {
             ConceptIds.TANWEEN_BEFORE_WASL, R.string.concept_tanween_before_wasl_title, R.string.concept_tanween_before_wasl_summary,
             TANWEEN, HAMZAT_WASL,
         ),
+
+        // Stopping on a word, and the madds of stage 3
+        reading(ConceptIds.STOPPING, R.string.concept_stopping_title, R.string.concept_stopping_summary, SUKUN, TANWEEN, TA_MARBUTA),
+        tajweed(ConceptIds.MADD_ARID, R.string.concept_madd_arid_title, R.string.concept_madd_arid_summary, ConceptIds.STOPPING, MADD_SIGN),
+        tajweed(ConceptIds.MADD_LEEN, R.string.concept_madd_leen_title, R.string.concept_madd_leen_summary, ConceptIds.STOPPING, MADD_SIGN),
+        tajweed(ConceptIds.MADD_IWAD, R.string.concept_madd_iwad_title, R.string.concept_madd_iwad_summary, ConceptIds.STOPPING, MADD_SIGN),
+        tajweed(ConceptIds.MADD_BADAL, R.string.concept_madd_badal_title, R.string.concept_madd_badal_summary, HAMZA, LONG_VOWELS),
+        tajweed(ConceptIds.MADD_SILA, R.string.concept_madd_sila_title, R.string.concept_madd_sila_summary, SMALL_MADD_LETTERS),
     ) + GrammarCatalog.all
 
     /**
