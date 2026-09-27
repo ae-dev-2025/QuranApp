@@ -198,9 +198,12 @@ private fun RootLemmaRow(
                 .weight(1f)
                 .alpha(if (isKnown) 0.6f else 1f),
         ) {
-            Text(lemmaKind(lemma), style = typography.titleSmall)
+            Text(lemma.gloss ?: lemmaKind(lemma), style = typography.titleSmall)
             Text(
-                text = pluralStringResource(R.plurals.learning_words_times, lemma.occurrences, lemma.occurrences),
+                text = listOfNotNull(
+                    lemmaKind(lemma).takeIf { lemma.gloss != null },
+                    pluralStringResource(R.plurals.learning_words_times, lemma.occurrences, lemma.occurrences),
+                ).joinToString(" · "),
                 style = typography.labelSmall,
                 color = colorScheme.onSurfaceVariant,
             )
