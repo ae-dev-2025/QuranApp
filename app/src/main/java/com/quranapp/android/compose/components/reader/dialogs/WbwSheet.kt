@@ -71,6 +71,7 @@ import com.quranapp.android.compose.utils.formattedStringResource
 import com.quranapp.android.compose.utils.preferences.ReaderPreferences
 import com.quranapp.android.db.entities.quran.AyahWordEntity
 import com.quranapp.android.db.entities.wbw.WbwWordEntity
+import com.quranapp.android.learning.ui.LearnThisWord
 import com.quranapp.android.repository.QuranRepository
 import com.quranapp.android.repository.UserRepository
 import com.quranapp.android.utils.extensions.copyToClipboard
@@ -353,6 +354,11 @@ private fun WordContent(
                 if (content.next != null) onWordChange(content.next)
             },
         )
+
+        // Learning mode: the word's dictionary form and root (decision 4).
+        if (!word.isLastWordOfAyah) {
+            LearnThisWord(ayahId = word.ayahId, wordIndex = word.wordIndex)
+        }
 
 
         HorizontalDivider(
