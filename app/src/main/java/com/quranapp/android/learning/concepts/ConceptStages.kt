@@ -52,7 +52,7 @@ object ConceptStages {
         SIFA_HAMS, SIFA_SHIDDA, SIFA_ISTILA, SIFA_ITBAQ, SIFA_SAFIR, SIFA_TAKRIR, SIFA_TAFASHSHI,
     )
 
-    fun of(conceptId: String): Int = when (conceptId) {
+    fun of(conceptId: String): Int = GrammarCatalog.stageOf(conceptId) ?: when (conceptId) {
         in STAGE_2 -> 2
         in STAGE_1 -> 1
         else -> 0

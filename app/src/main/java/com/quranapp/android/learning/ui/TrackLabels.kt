@@ -10,4 +10,5 @@ val Track.labelRes: Int
     get() = when (this) {
         Track.READING -> R.string.learning_track_reading
         Track.TAJWEED -> R.string.learning_track_tajweed
+        Track.GRAMMAR -> R.string.learning_track_grammar
     }

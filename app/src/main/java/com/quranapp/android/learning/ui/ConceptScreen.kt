@@ -111,6 +111,10 @@ fun ConceptScreen(concept: Concept) {
                 item { KeyExampleCard(lesson.keyExample) }
             }
 
+            concept.arabicTerm?.let { term ->
+                item { Text(term, style = typography.headlineSmall, color = colorScheme.primary) }
+            }
+
             item {
                 Text(
                     text = stringResource(concept.summaryRes),
@@ -147,7 +151,8 @@ fun ConceptScreen(concept: Concept) {
                 )
             }
 
-            item { CheckYourselfButton(concept.id) }
+            // Grammar questions come with the sentence roles (milestone 9).
+            if (concept.track != Track.GRAMMAR) item { CheckYourselfButton(concept.id) }
 
             // An umbrella concept already lists what it unlocks: its rules, above.
             if (unlocks.isNotEmpty() && !isUmbrella) {

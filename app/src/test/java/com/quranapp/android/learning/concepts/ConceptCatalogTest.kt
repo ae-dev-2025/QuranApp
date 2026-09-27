@@ -48,8 +48,9 @@ class ConceptCatalogTest {
 
     @Test
     fun `every ID constant has a concept`() {
-        // Read all `const val` strings declared in ConceptIds using reflection.
-        val declaredIds = ConceptIds::class.java.declaredFields
+        // Read all `const val` strings declared in ConceptIds and GrammarIds using reflection.
+        val declaredIds = listOf(ConceptIds::class.java, GrammarIds::class.java)
+            .flatMap { it.declaredFields.toList() }
             .filter { Modifier.isStatic(it.modifiers) && it.type == String::class.java }
             .map { it.get(null) as String }
             .toSet()

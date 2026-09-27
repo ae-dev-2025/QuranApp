@@ -1,6 +1,7 @@
 package com.quranapp.android.learning.lessons
 
 import com.quranapp.android.learning.concepts.ConceptCatalog
+import com.quranapp.android.learning.concepts.Track
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNotNull
@@ -22,6 +23,8 @@ class LessonCatalogTest {
         // Umbrella concepts get a rule overview instead of a lesson (design decision 5).
         val missing = ConceptCatalog.all.map { it.id }
             .filter { it !in ConceptCatalog.umbrellaIds && LessonCatalog[it] == null }
+            // Grammar lessons are added unit by unit (#64–#68, #71–#74).
+            .filter { ConceptCatalog[it]?.track != Track.GRAMMAR }
 
         assertTrue("Concepts without a lesson: $missing", missing.isEmpty())
     }

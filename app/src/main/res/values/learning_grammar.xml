@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The grammar track: titles and summaries. Checked against ILMHUB.org's Grammar Guide. -->
+<resources>
+    <!-- Unit 1 · Word types -->
+    <string name="grammar_ism_title">Noun (ism)</string>
+    <string name="grammar_ism_summary">A word for a person, thing, place or idea that is not tied to a time: رَبّ, ٱلْكِتَاب, هُوَ.</string>
+    <string name="grammar_fil_title">Verb (fiʿl)</string>
+    <string name="grammar_fil_summary">A word for an action or happening tied to a time: past, present or future: قَالَ, يَعْلَمُ.</string>
+    <string name="grammar_harf_title">Particle (ḥarf)</string>
+    <string name="grammar_harf_summary">A word that only has its full meaning with other words: فِي \"in\", مِنْ \"from\", وَ \"and\".</string>
+    <!-- Unit 2 · Gender, number, definiteness -->
+    <string name="grammar_gender_title">Masculine and feminine (mudhakkar, muʾannath)</string>
+    <string name="grammar_gender_summary">Every noun is masculine or feminine. Most feminine nouns end in ة, as in رَحْمَة.</string>
+    <string name="grammar_dual_title">The dual (muthannā)</string>
+    <string name="grammar_dual_summary">Two of something, made by adding ـَانِ or ـَيْنِ: جَنَّتَانِ \"two gardens\".</string>
+    <string name="grammar_sound_masc_plural_title">Sound masculine plural</string>
+    <string name="grammar_sound_masc_plural_summary">A plural of men made by adding ـُونَ or ـِينَ to the unchanged singular: مُؤْمِنُونَ.</string>
+    <string name="grammar_sound_fem_plural_title">Sound feminine plural</string>
+    <string name="grammar_sound_fem_plural_summary">A plural made by adding ـَات to the singular: مُؤْمِنَات, سَمَٰوَٰت.</string>
+    <string name="grammar_broken_plural_title">Broken plural (jamʿ taksīr)</string>
+    <string name="grammar_broken_plural_summary">A plural made by reshaping the word itself, with no fixed ending: رَجُل becomes رِجَال.</string>
+    <string name="grammar_definiteness_title">Definite and indefinite (maʿrifa, nakira)</string>
+    <string name="grammar_definiteness_summary">A definite noun is a particular one (\"the book\"); an indefinite noun is any one (\"a book\"), usually with tanwīn.</string>
+    <!-- Unit 3 · Case endings -->
+    <string name="grammar_cases_title">The three cases (rafʿ, naṣb, jarr)</string>
+    <string name="grammar_cases_summary">A noun’s ending shows its job in the sentence: ḍamma for rafʿ, fatḥa for naṣb, kasra for jarr.</string>
+    <string name="grammar_dual_plural_endings_title">Dual and plural endings</string>
+    <string name="grammar_dual_plural_endings_summary">Duals and sound masculine plurals show the case with letters instead: ـَانِ / ـَيْنِ and ـُونَ / ـِينَ.</string>
+    <string name="grammar_diptote_title">Partly declining nouns (mamnūʿ min al-ṣarf)</string>
+    <string name="grammar_diptote_summary">Some nouns never take tanwīn, and take a fatḥa where others take a kasra: إِبْرَٰهِيمَ.</string>
+    <string name="grammar_five_nouns_title">The five nouns (al-asmāʾ al-khamsa)</string>
+    <string name="grammar_five_nouns_summary">أَب, أَخ, حَم, فُو and ذُو show their case with a long vowel when they are followed by another word: أَبُوهُ, أَبَاهُ, أَبِيهِ.</string>
+    <!-- Unit 6 · Pronouns and relatives -->
+    <string name="grammar_detached_pronoun_title">Detached pronouns (ḍamīr munfaṣil)</string>
+    <string name="grammar_detached_pronoun_summary">Pronouns that stand on their own: هُوَ \"he\", أَنْتُمْ \"you all\", نَحْنُ \"we\". Every pronoun is definite.</string>
+    <string name="grammar_attached_pronoun_title">Attached pronouns (ḍamīr muttaṣil)</string>
+    <string name="grammar_attached_pronoun_summary">Pronouns joined to the end of a word: رَبُّكَ \"your Lord\", عَلَيْهِمْ \"on them\", خَلَقَنَا \"created us\".</string>
+    <string name="grammar_iyya_title">إِيَّا, the pronoun base for objects</string>
+    <string name="grammar_iyya_summary">إِيَّا carries an attached pronoun so an object can come first: إِيَّاكَ نَعْبُدُ \"You alone we worship\".</string>
+    <string name="grammar_demonstrative_title">This and that (ism ishāra)</string>
+    <string name="grammar_demonstrative_summary">Words that point: هَٰذَا \"this\", ذَٰلِكَ \"that\", هَٰٓؤُلَآءِ \"these\", أُولَٰٓئِكَ \"those\".</string>
+    <string name="grammar_relative_title">Who and which (ism mawṣūl)</string>
+    <string name="grammar_relative_summary">Words meaning \"the one who\" or \"that which\", completed by the clause after them: ٱلَّذِينَ ءَامَنُوا, مَا.</string>
+    <!-- Unit 4 · Prepositions and iḍāfa -->
+    <string name="grammar_preposition_title">Preposition and its noun (ḥarf jarr)</string>
+    <string name="grammar_preposition_summary">A preposition such as فِي, مِنْ, عَلَىٰ or بِـ puts the noun after it in jarr: فِي ٱلْأَرْضِ.</string>
+    <string name="grammar_idafa_title">Possessive phrase (iḍāfa)</string>
+    <string name="grammar_idafa_summary">Two nouns joined as \"X of Y\": the first (muḍāf) loses ال and tanwīn, the second (muḍāf ilayh) is always in jarr: رَبِّ ٱلْعَٰلَمِينَ.</string>
+    <string name="grammar_pronoun_possessor_title">A pronoun as the possessor</string>
+    <string name="grammar_pronoun_possessor_summary">An attached pronoun can be the second part of an iḍāfa: رَبُّكَ \"your Lord\", كِتَٰبُهُ \"his book\".</string>
+    <!-- Unit 5 · Adjectives -->
+    <string name="grammar_adjective_title">Adjective and agreement (naʿt)</string>
+    <string name="grammar_adjective_summary">An adjective comes after its noun and matches it in case, definiteness, number and gender: ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ.</string>
+    <string name="grammar_elative_title">Comparative and superlative (ism al-tafḍīl)</string>
+    <string name="grammar_elative_summary">The pattern أَفْعَل means \"more\" or \"most\": أَكْبَرُ \"greater, greatest\", أَعْلَمُ \"knows best\".</string>
+    <!-- Unit 13 · Nominal sentence -->
+    <string name="grammar_mubtada_khabar_title">Subject and predicate (mubtadaʾ, khabar)</string>
+    <string name="grammar_mubtada_khabar_summary">A nominal sentence opens with what it talks about (mubtadaʾ) and then says something about it (khabar), both in rafʿ: ٱللَّهُ أَحَدٌ.</string>
+    <string name="grammar_khabar_phrase_title">A predicate that is a phrase or a sentence</string>
+    <string name="grammar_khabar_phrase_summary">The khabar can be a preposition phrase (ٱلْحَمْدُ لِلَّهِ) or a whole sentence (ٱللَّهُ يَعْلَمُ).</string>
+    <string name="grammar_khabar_first_title">The predicate placed first</string>
+    <string name="grammar_khabar_first_summary">When the subject is indefinite and the khabar is a phrase, the khabar comes first: لَهُمْ عَذَابٌ \"for them is a punishment\".</string>
+    <!-- Unit 7 · Roots and patterns -->
+    <string name="grammar_root_title">The three-letter root</string>
+    <string name="grammar_root_summary">Most words are built on three root letters carrying a core meaning: ك ت ب \"writing\" in كَتَبَ, كِتَٰب, مَكْتُوب.</string>
+    <string name="grammar_pattern_title">Patterns on the scale فَعَلَ (wazn)</string>
+    <string name="grammar_pattern_summary">Words are shaped by patterns measured with ف ع ل: كَاتِب is on فَاعِل \"one who does\", مَكْتُوب on مَفْعُول \"one done to\".</string>
+    <!-- Unit 8 · Past tense -->
+    <string name="grammar_past_title">Past-tense verb (al-māḍī)</string>
+    <string name="grammar_past_summary">A finished action. Endings show who did it: فَعَلْتُ \"I did\", فَعَلُوا \"they did\".</string>
+    <string name="grammar_doer_in_verb_title">The doer inside the verb</string>
+    <string name="grammar_doer_in_verb_summary">The ending of a verb can itself be the doer: in ءَامَنُوا the و is \"they\", the ones who believed.</string>
+    <!-- Unit 9 · Present tense and moods -->
+    <string name="grammar_present_title">Present/future verb (al-muḍāriʿ)</string>
+    <string name="grammar_present_summary">An action now or to come, with a prefix for who does it: يَعْلَمُ \"he knows\", نَعْبُدُ \"we worship\".</string>
+    <string name="grammar_subjunctive_title">Subjunctive after أَنْ and لَنْ</string>
+    <string name="grammar_subjunctive_summary">After أَنْ, لَنْ, كَيْ and حَتَّىٰ a present verb is in naṣb: لَنْ تَنَالُوا \"you will never attain\".</string>
+    <string name="grammar_jussive_title">Jussive after لَمْ and in conditions</string>
+    <string name="grammar_jussive_summary">After لَمْ, لَا of forbidding and in conditions a present verb is in jazm, shown by a sukūn or a dropped letter: لَمْ يَلِدْ.</string>
+    <string name="grammar_qad_sa_title">قَدْ, سَـ and سَوْفَ</string>
+    <string name="grammar_qad_sa_summary">قَدْ before a past verb means \"has indeed\"; سَـ and سَوْفَ before a present verb mean \"will\".</string>
+    <!-- Unit 10 · Command, forbidding, passive -->
+    <string name="grammar_command_title">Imperative verb (al-amr)</string>
+    <string name="grammar_command_summary">A command to the one addressed: قُلْ \"say\", ٱعْبُدُوا \"worship\".</string>
+    <string name="grammar_prohibition_title">Forbidding with لَا</string>
+    <string name="grammar_prohibition_summary">لَا before a present verb in jazm means \"do not\": لَا تَحْزَنْ \"do not grieve\".</string>
+    <string name="grammar_passive_title">Passive voice</string>
+    <string name="grammar_passive_summary">The doer is left out and something else takes its place: خُلِقَ ٱلْإِنسَٰنُ \"man was created\".</string>
+    <!-- Unit 14 · Inna, kāna and sisters -->
+    <string name="grammar_inna_title">Inna and its sisters</string>
+    <string name="grammar_inna_summary">إِنَّ, أَنَّ, لَكِنَّ, كَأَنَّ, لَعَلَّ and لَيْتَ come before a nominal sentence and put its subject in naṣb: إِنَّ ٱللَّهَ غَفُورٌ.</string>
+    <string name="grammar_kana_title">Kāna and its sisters</string>
+    <string name="grammar_kana_summary">كَانَ, أَصْبَحَ, لَيْسَ and their sisters come before a nominal sentence and put its predicate in naṣb: كَانَ ٱللَّهُ عَلِيمًا.</string>
+    <string name="grammar_la_generic_title">لَا denying a whole kind</string>
+    <string name="grammar_la_generic_summary">لَا before an indefinite noun with a fatḥa and no tanwīn denies every one of its kind: لَا رَيْبَ \"no doubt at all\".</string>
+    <!-- Unit 15 · Verbal sentence -->
+    <string name="grammar_verb_doer_object_title">Verb, doer and object</string>
+    <string name="grammar_verb_doer_object_summary">A verbal sentence opens with a verb; its doer (fāʿil) is in rafʿ and what it acts on (mafʿūl bihi) in naṣb: خَلَقَ ٱللَّهُ ٱلسَّمَٰوَٰتِ.</string>
+    <string name="grammar_verb_agreement_title">Verb agreement</string>
+    <string name="grammar_verb_agreement_summary">A verb before its doer stays singular but matches its gender; a verb after its doer matches it in number too.</string>
+    <string name="grammar_hidden_doer_title">The hidden doer</string>
+    <string name="grammar_hidden_doer_summary">When no doer is written, it is understood from the verb: يَعْلَمُ \"he knows\", with \"he\" hidden inside.</string>
+    <!-- Unit 11 · Verb forms and weak verbs -->
+    <string name="grammar_forms_2_4_title">Verb forms II–IV</string>
+    <string name="grammar_forms_2_4_summary">Extra letters change a root’s meaning: فَعَّلَ (II) often \"make do\", فَاعَلَ (III) \"do with someone\", أَفْعَلَ (IV) \"cause\".</string>
+    <string name="grammar_forms_5_6_title">Verb forms V–VI</string>
+    <string name="grammar_forms_5_6_summary">تَفَعَّلَ (V) and تَفَاعَلَ (VI) add تَـ, often meaning \"do to oneself\" or \"do to each other\": تَسَآءَلُونَ.</string>
+    <string name="grammar_forms_7_10_title">Verb forms VII–X</string>
+    <string name="grammar_forms_7_10_summary">ٱنْفَعَلَ (VII), ٱفْتَعَلَ (VIII), ٱفْعَلَّ (IX) and ٱسْتَفْعَلَ (X), such as ٱسْتَعَانَ \"seek help\".</string>
+    <string name="grammar_hollow_title">Hollow verbs, such as قَالَ</string>
+    <string name="grammar_hollow_summary">Verbs with و or ي in the middle of the root, which turns into a long vowel or drops: قَالَ, يَقُولُ, قُلْ.</string>
+    <string name="grammar_defective_title">Defective verbs, such as هَدَىٰ</string>
+    <string name="grammar_defective_summary">Verbs with و or ي at the end of the root, which changes or drops: هَدَىٰ, يَهْدِي, لَمْ يَهْدِ.</string>
+    <string name="grammar_other_weak_title">Assimilated, doubled and hamzated verbs</string>
+    <string name="grammar_other_weak_summary">Roots starting with و (وَعَدَ, يَعِدُ), with the same last two letters (رَدَّ) or with a hamza (أَخَذَ).</string>
+    <!-- Unit 12 · Participles and verbal nouns -->
+    <string name="grammar_active_participle_title">The doer noun (ism al-fāʿil)</string>
+    <string name="grammar_active_participle_summary">A noun for the one who does the action, on فَاعِل or with مُـ in the longer forms: كَافِر, مُؤْمِن.</string>
+    <string name="grammar_passive_participle_title">The done-to noun (ism al-mafʿūl)</string>
+    <string name="grammar_passive_participle_summary">A noun for the one the action is done to, on مَفْعُول or مُـ…َـ: مَغْضُوب, مُسْتَقِيم.</string>
+    <string name="grammar_verbal_noun_title">The verbal noun (maṣdar)</string>
+    <string name="grammar_verbal_noun_summary">The name of the action itself, like \"-ing\": ٱلْحَمْد \"praising\", عِبَادَة \"worshipping\".</string>
+    <string name="grammar_place_time_intensive_title">Nouns of place, time and intensity</string>
+    <string name="grammar_place_time_intensive_summary">مَفْعَل for where or when (مَسْجِد \"place of prostration\") and patterns like فَعَّال or فَعِيل for \"very\" (غَفَّار, رَحِيم).</string>
+    <!-- Unit 16 · Objects, ḥāl, tamyīz -->
+    <string name="grammar_absolute_object_title">Absolute object (mafʿūl muṭlaq)</string>
+    <string name="grammar_absolute_object_summary">A verbal noun in naṣb from the same verb, to stress it or say how or how often: وَكَلَّمَ ٱللَّهُ مُوسَىٰ تَكْلِيمًا.</string>
+    <string name="grammar_object_of_reason_title">Object of reason (mafʿūl lahu)</string>
+    <string name="grammar_object_of_reason_summary">A verbal noun in naṣb that says why the action happened: حَذَرَ ٱلْمَوْتِ \"for fear of death\".</string>
+    <string name="grammar_time_place_title">Object of time or place (ẓarf)</string>
+    <string name="grammar_time_place_summary">A word in naṣb for when or where the action happened: يَوْمَ, بَيْنَ, عِنْدَ.</string>
+    <string name="grammar_hal_title">Circumstance (ḥāl)</string>
+    <string name="grammar_hal_summary">A word in naṣb describing the state someone was in as the action happened: يَدْخُلُونَ … أَفْوَاجًا \"entering in crowds\".</string>
+    <string name="grammar_tamyiz_title">Specifier (tamyīz)</string>
+    <string name="grammar_tamyiz_summary">An indefinite noun in naṣb that makes clear what a number or vague word is about: أَحَدَ عَشَرَ كَوْكَبًا \"eleven stars\".</string>
+    <!-- Unit 17 · Conditions and questions -->
+    <string name="grammar_conditions_title">Conditions with إِنْ, مَنْ and إِذَا</string>
+    <string name="grammar_conditions_summary">\"If … then …\": إِنْ, مَنْ and مَا put both verbs in jazm; إِذَا is \"when\", about something sure to come.</string>
+    <string name="grammar_law_title">لَوْ and لَوْلَا</string>
+    <string name="grammar_law_summary">لَوْ \"if only, had it been\" for what did not happen; لَوْلَا \"were it not for\".</string>
+    <string name="grammar_questions_title">Questions (istifhām)</string>
+    <string name="grammar_questions_summary">أَ and هَلْ ask yes-or-no; مَنْ \"who\", مَا \"what\", كَيْفَ \"how\", أَيْنَ \"where\" ask for more.</string>
+    <string name="grammar_exception_title">Exception with إِلَّا</string>
+    <string name="grammar_exception_summary">إِلَّا takes a word out of what was said, and that word (mustathnā) is usually in naṣb: لَآ إِلَٰهَ إِلَّا ٱللَّهُ.</string>
+    <string name="grammar_vocative_title">Calling with يَا and يَٰٓأَيُّهَا</string>
+    <string name="grammar_vocative_summary">يَا calls someone; before a noun with ال it becomes يَٰٓأَيُّهَا: يَٰٓأَيُّهَا ٱلنَّاسُ.</string>
+    <!-- Unit 18 · Particles and emphasis -->
+    <string name="grammar_wa_fa_thumma_title">وَ, فَـ and ثُمَّ</string>
+    <string name="grammar_wa_fa_thumma_summary">وَ joins \"and\", فَـ \"and so, then at once\", ثُمَّ \"then, after a while\". What follows matches what it joins.</string>
+    <string name="grammar_ma_title">The uses of مَا</string>
+    <string name="grammar_ma_summary">مَا can ask \"what?\", mean \"that which\", or deny \"not\": مَا هُمْ بِمُؤْمِنِينَ.</string>
+    <string name="grammar_la_title">The uses of لَا</string>
+    <string name="grammar_la_summary">لَا denies \"no, not\", forbids \"do not\", or denies a whole kind: لَا رَيْبَ.</string>
+    <string name="grammar_in_an_title">إِنْ, أَنْ, إِنَّ, أَنَّ</string>
+    <string name="grammar_in_an_summary">Four look-alikes: إِنْ \"if\" or \"not\", أَنْ \"to, that\" before a verb, إِنَّ \"indeed\", أَنَّ \"that\" before a noun.</string>
+    <string name="grammar_lam_particles_title">The lām particles</string>
+    <string name="grammar_lam_particles_summary">لِـ \"for, belonging to\", لَـ \"surely\", and لِـ of purpose or command before a verb: لِيَعْبُدُونِ.</string>
+    <string name="grammar_emphasis_title">Emphasis and oaths</string>
+    <string name="grammar_emphasis_summary">إِنَّ, لَـ and the doubled نّ strengthen a statement; وَ in an oath means \"by\": وَٱلْعَصْرِ.</string>
+    <string name="grammar_restriction_title">Restriction and word order</string>
+    <string name="grammar_restriction_summary">Putting a word first, or مَا … إِلَّا and إِنَّمَا, means \"only\": إِيَّاكَ نَعْبُدُ \"You alone we worship\".</string>
+</resources>
