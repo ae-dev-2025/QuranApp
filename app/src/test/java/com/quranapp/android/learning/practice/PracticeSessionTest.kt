@@ -4,6 +4,7 @@ import com.quranapp.android.learning.analysis.TestAyahs
 import com.quranapp.android.learning.concepts.ConceptIds
 import com.quranapp.android.learning.examples.AyahWords
 import com.quranapp.android.learning.pack.LemmaEntity
+import com.quranapp.android.learning.pack.WordLocation
 import com.quranapp.android.learning.progress.ReviewRating
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -95,6 +96,13 @@ class QuestionFactoryTest {
     @Test
     fun introductionsShowTheDictionaryFormAndMeaning() = runBlocking {
         assertEquals(WordIntroduction("word.Eabada", "HW", "worship", 10), factory.introductionFor("word.Eabada"))
+        // With where it first occurs, so it can be heard.
+        val withPlace = QuestionFactory(
+            lemmaWithPool = { worship to pool },
+            ayahsWithConcept = { _, _ -> emptyList() },
+            firstPlace = { lemma -> WordLocation(ayahId = 1005, wordIndex = lemma.occurrences - 9) },
+        )
+        assertEquals(WordLocation(1005, 1), withPlace.introductionFor("word.Eabada")?.firstPlace)
         assertNull("concepts have lessons instead", factory.introductionFor(ConceptIds.IKHFA))
     }
 
