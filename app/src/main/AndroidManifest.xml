@@ -93,6 +93,7 @@
         <activity android:name=".learning.ui.ActivityConcept" />
         <activity android:name=".learning.ui.ActivityRoot" />
         <activity android:name=".learning.ui.ActivityPractice" />
+        <activity android:name=".learning.ui.ActivityLearn" />
         <activity
             android:name=".activities.reference.ActivityReference"
             android:exported="true">

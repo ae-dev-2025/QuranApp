@@ -145,4 +145,29 @@
         <item quantity="one">%d item needs more practice. It comes back soon.</item>
         <item quantity="other">%d items need more practice. They come back soon.</item>
     </plurals>
+    <!-- The Learn tab -->
+    <string name="learning_nav_learn">Learn</string>
+    <string name="learning_today">Today</string>
+    <plurals name="learning_reviews_due">
+        <item quantity="one">%d review</item>
+        <item quantity="other">%d reviews</item>
+    </plurals>
+    <!-- %1$d: minutes -->
+    <string name="learning_about_minutes">about %1$d min</string>
+    <string name="learning_review_what">Words and rules you checked, one question each.</string>
+    <!-- %1$d: how many items one session asks about -->
+    <string name="learning_review_more_later">The %1$d most overdue now. The rest wait for your next session.</string>
+    <string name="learning_review_start">Start</string>
+    <string name="learning_review_caught_up">All caught up</string>
+    <string name="learning_review_next_today">Next review later today</string>
+    <string name="learning_review_next_tomorrow">Next review tomorrow</string>
+    <plurals name="learning_review_next_days">
+        <item quantity="one">Next review in %d day</item>
+        <item quantity="other">Next review in %d days</item>
+    </plurals>
+    <string name="learning_review_none">No reviews yet</string>
+    <string name="learning_review_none_text">Use “Check yourself” on a word or a rule. What you pass comes back here, spaced out over days and weeks, so you keep it.</string>
+    <string name="learning_start_from_ayah">Start from an ayah</string>
+    <string name="learning_start_from_ayah_text">Open any ayah’s menu and choose Understand. It shows the letters, rules and words that ayah needs, and which of them you already know.</string>
+    <string name="learning_open_quran">Open the Quran</string>
 </resources>
