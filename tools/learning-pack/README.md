@@ -26,3 +26,31 @@ anything else.
 cd tools/learning-pack
 python -m unittest discover -s tests -t .
 ```
+
+`escape_arabic.py` rewrites Arabic in test files as `\uXXXX` escapes. Editors often reorder
+"shadda + vowel", which would silently change what a test checks.
+
+## Build
+
+```bash
+cd tools/learning-pack
+python -m learning_pack.build --data ../../../data \
+    --quran-db ../../app/src/main/assets/db/quranapp.db \
+    --out build/learning_pack.db --version 1
+```
+
+The same inputs always give the same file (same SHA-256).
+
+## What's in the pack
+
+| Table | One row per | Notes |
+|---|---|---|
+| `segments` | prefix, stem or suffix of each of the app's 77,429 words | Arabic form, part of speech, features such as `IMPF\|(X)\|1P`, lemma of stems |
+| `lemmas` | dictionary word (4,832) | headword, root, verb form, number of occurrences, gloss (added later) |
+| `roots` | root (1,642) | letters such as `ع ب د`, number of occurrences |
+| `credits`, `meta` | source, setting | licences and notices shown in the app; pack and schema versions |
+
+Many corpus lemmas for verbs are inflected forms (يَخۡدَعُ). `lexicon.py` picks a
+dictionary headword (خَدَعَ) and records where it came from in `headword_source`:
+`corpus`, `quran`, `pattern` or `unchecked` (258 verbs, 4% of verb occurrences, left for a
+person to check).
