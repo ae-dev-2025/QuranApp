@@ -94,7 +94,10 @@ internal fun LearningWord(
     }
 }
 
-/** Some of an ayah's words, right to left, in the reader's script; [highlight] styles each word. */
+/**
+ * Some of an ayah's words, right to left, in the reader's script; [color] and [wordModifier]
+ * style each word. [alignment] is in the words' own right-to-left direction: Start is the right.
+ */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun LearningWords(
@@ -106,11 +109,12 @@ internal fun LearningWords(
     color: (Int) -> Color,
     modifier: Modifier = Modifier,
     wordModifier: (Int) -> Modifier = { Modifier },
+    alignment: Alignment.Horizontal = Alignment.CenterHorizontally,
 ) {
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
         FlowRow(
             modifier = modifier,
-            horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+            horizontalArrangement = Arrangement.spacedBy(8.dp, alignment),
             verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             for (index in indexes) {

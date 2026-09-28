@@ -76,6 +76,8 @@ private data class ConceptItem(
     val concept: Concept,
     val words: List<String>,
     val inEveryWord: Boolean,
+    /** Where [words] are in the ayah (0-based), to draw them in the reader's script. */
+    val wordIndexes: List<Int> = emptyList(),
 )
 
 /** Everything the sheet shows for one ayah. */
@@ -148,6 +150,7 @@ private suspend fun loadState(repository: QuranRepository, ayahId: Int): Underst
             concept = concept,
             words = wordIndexes.map { words[it] },
             inEveryWord = wordCount > 1 && wordIndexes.size == wordCount,
+            wordIndexes = wordIndexes,
         )
     }
 
@@ -160,11 +163,12 @@ private suspend fun loadState(repository: QuranRepository, ayahId: Int): Underst
  */
 private fun grammarItems(found: Map<String, List<Int>>, words: List<String>): List<ConceptItem> =
     SurahNeeds.grammarOf(found.keys).map { concept ->
-        val indexes = found[concept.id].orEmpty()
+        val indexes = found[concept.id].orEmpty().filter { it in words.indices }
         ConceptItem(
             concept = concept,
-            words = indexes.mapNotNull { words.getOrNull(it) },
+            words = indexes.map { words[it] },
             inEveryWord = words.size > 1 && indexes.size == words.size,
+            wordIndexes = indexes,
         )
     }
 
@@ -174,6 +178,8 @@ private data class LayerCount(val known: Int, val total: Int)
 @Composable
 private fun SheetContent(verse: VerseWithDetails, state: UnderstandAyahState) {
     val arabicFont = remember { FontFamily(Font(R.font.uthmanic_hafs)) }
+    // The reader's script (Indo-Pak), or null for the app's Uthmani text.
+    val script = rememberScriptAyah(verse.chapterNo, verse.verseNo)
     val context = LocalContext.current
     val progress = remember { DatabaseProvider.getLearningProgressRepository(context) }
 
@@ -237,7 +243,7 @@ private fun SheetContent(verse: VerseWithDetails, state: UnderstandAyahState) {
 
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         item {
-            Header(verse, state, packWords, known, arabicFont)
+            Header(verse, state, packWords, known, arabicFont, script)
         }
 
         item {
@@ -256,6 +262,8 @@ private fun SheetContent(verse: VerseWithDetails, state: UnderstandAyahState) {
                             isKnown = entry.lemma.itemId in known,
                             onKnownChange = { isKnown -> scope.launch { progress.setKnown(entry.lemma.itemId, isKnown) } },
                             arabicFont = arabicFont,
+                            script = script,
+                            ayahWords = state.words,
                         )
                     }
                 }
@@ -264,7 +272,7 @@ private fun SheetContent(verse: VerseWithDetails, state: UnderstandAyahState) {
             item { WordsNeedPack(packState, R.string.learning_grammar_need_pack) }
         } else if (selected == Layer.GRAMMAR && grammarByWord) {
             item(key = "grammar-view") { GrammarViewSwitch(byWord = true) { grammarByWord = it } }
-            wordRoleItems(packWords.orEmpty(), state.words, arabicFont) {
+            wordRoleItems(packWords.orEmpty(), state.words, arabicFont, script) {
                 ReaderFactory.startTafsir(context, verse.chapterNo, verse.verseNo)
             }
         } else {
@@ -283,6 +291,8 @@ private fun SheetContent(verse: VerseWithDetails, state: UnderstandAyahState) {
                             context.startActivity(ActivityConcept.intent(context, conceptItem.concept.id))
                         },
                         arabicFont = arabicFont,
+                        script = script,
+                        ayahWords = state.words,
                     )
                 }
             }
@@ -349,6 +359,7 @@ private fun Header(
     packWords: List<AyahWord>?,
     known: Set<String>,
     arabicFont: FontFamily,
+    script: ScriptAyah?,
 ) {
     Column(
         modifier = Modifier
@@ -368,8 +379,6 @@ private fun Header(
             style = typography.labelMedium,
             color = colorScheme.onSurface.alpha(0.8f),
         )
-        // The reader's script (Indo-Pak), or null for the app's Uthmani text.
-        val script = rememberScriptAyah(verse.chapterNo, verse.verseNo)
         if (packWords != null) {
             // Word by word, with meanings, once the learning pack is there.
             Box(Modifier.padding(top = 8.dp)) {
@@ -397,6 +406,8 @@ private fun ConceptRow(
     onKnownChange: (Boolean) -> Unit,
     onOpen: () -> Unit,
     arabicFont: FontFamily,
+    script: ScriptAyah?,
+    ayahWords: List<String>,
 ) {
     // Two tap targets: the row opens the concept's learning page, the checkbox marks it known.
     // onClickLabel is what screen readers announce: "double-tap to open lesson".
@@ -409,6 +420,8 @@ private fun ConceptRow(
         ConceptDetails(
             item = item,
             arabicFont = arabicFont,
+            script = script,
+            ayahWords = ayahWords,
             modifier = Modifier
                 .weight(1f)
                 .alpha(if (isKnown) 0.7f else 1f),
@@ -418,7 +431,7 @@ private fun ConceptRow(
 }
 
 @Composable
-private fun ConceptDetails(item: ConceptItem, arabicFont: FontFamily, modifier: Modifier) {
+private fun ConceptDetails(item: ConceptItem, arabicFont: FontFamily, script: ScriptAyah?, ayahWords: List<String>, modifier: Modifier) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(2.dp),
@@ -452,6 +465,18 @@ private fun ConceptDetails(item: ConceptItem, arabicFont: FontFamily, modifier: 
                 text = stringResource(R.string.learning_in_every_word),
                 style = typography.labelSmall,
                 color = colorScheme.primary,
+            )
+        } else if (item.words.isNotEmpty() && script != null) {
+            val primary = colorScheme.primary
+            LearningWords(
+                script = script,
+                words = ayahWords,
+                indexes = item.wordIndexes,
+                arabicFont = arabicFont,
+                style = typography.titleMedium,
+                color = { primary },
+                modifier = Modifier.fillMaxWidth().padding(top = 4.dp),
+                alignment = Alignment.End, // where the Uthmani words sit: at the start of the English
             )
         } else if (item.words.isNotEmpty()) {
             Text(

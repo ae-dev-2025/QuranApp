@@ -241,6 +241,7 @@ private fun ExampleCard(item: ExampleItem, arabicFont: FontFamily, onOpen: () ->
                 color = { if (it in highlighted) primary else plain },
                 modifier = Modifier.fillMaxWidth(),
                 wordModifier = { if (it in highlighted) Modifier.background(background) else Modifier },
+                alignment = Alignment.Start, // on the right, like the Uthmani text
             )
         }
     }

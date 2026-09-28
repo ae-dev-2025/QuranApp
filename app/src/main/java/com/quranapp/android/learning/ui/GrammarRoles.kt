@@ -54,6 +54,7 @@ internal fun LazyListScope.wordRoleItems(
     words: List<AyahWord>,
     texts: List<String>,
     arabicFont: FontFamily,
+    script: ScriptAyah?,
     onOpenTafsir: () -> Unit,
 ) {
     item(key = "roles-note") {
@@ -64,13 +65,13 @@ internal fun LazyListScope.wordRoleItems(
     }
     for (word in words) {
         item(key = "roles-${word.wordIndex}") {
-            WordRolesRow(texts.getOrNull(word.wordIndex).orEmpty(), word, arabicFont)
+            WordRolesRow(texts.getOrNull(word.wordIndex).orEmpty(), word, arabicFont, script)
         }
     }
 }
 
 @Composable
-private fun WordRolesRow(text: String, word: AyahWord, arabicFont: FontFamily) {
+private fun WordRolesRow(text: String, word: AyahWord, arabicFont: FontFamily, script: ScriptAyah?) {
     val roles = SentenceRoles.of(word.syntax)
     Row(
         modifier = Modifier
@@ -88,7 +89,7 @@ private fun WordRolesRow(text: String, word: AyahWord, arabicFont: FontFamily) {
                 Text(roleLine(role), style = typography.bodySmall)
             }
         }
-        Text(text, fontFamily = arabicFont, style = typography.titleLarge, color = colorScheme.primary)
+        LearningWord(script, word.wordIndex, text, arabicFont, typography.titleLarge, colorScheme.primary)
     }
 }
 
