@@ -31,6 +31,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withLink
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranapp.android.R
@@ -211,7 +217,24 @@ private fun PackCard(
 private fun CreditRow(credit: PackCreditEntity) {
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(credit.name, style = typography.titleSmall)
-        Text("${credit.licence} · ${credit.url}", style = typography.bodySmall, color = colorScheme.primary)
+        // The source's address as a link, as the Quranic Arabic Corpus's terms ask. Only https
+        // addresses become links: the pack is checked by its hash, but a link should never be
+        // anything else.
+        val link = credit.url.takeIf { it.startsWith("https://") }
+        Text(
+            text = buildAnnotatedString {
+                append("${credit.licence} · ")
+                if (link == null) {
+                    append(credit.url)
+                } else {
+                    withLink(LinkAnnotation.Url(link, TextLinkStyles(SpanStyle(textDecoration = TextDecoration.Underline)))) {
+                        append(credit.url)
+                    }
+                }
+            },
+            style = typography.bodySmall,
+            color = colorScheme.primary,
+        )
         Text(credit.notice, style = typography.bodySmall, color = colorScheme.onSurfaceVariant)
     }
 }
