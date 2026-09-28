@@ -64,23 +64,29 @@ found, and what was done. Open points need a person's decision.
 | What | Licence | How it's met |
 |---|---|---|
 | The app, including learning mode | GPL-3.0 (the upstream licence) | All code is in this repository |
-| Quranic Arabic Corpus 0.4 (morphology) | GNU GPL | Credited with its notice and link in Settings → Learning → Learning data |
+| Quranic Arabic Corpus 0.4 (morphology) | GNU GPL, plus the corpus's own terms (below) | Credited with its full notice and a tappable link in Settings → Learning → Learning data |
 | MASAQ **version 5** (syntax, word glosses) | CC BY 4.0 | Credited as above; the pipeline pins v5 by SHA-256, because v6 was relabelled CC BY-NC 3.0, which isn't open source |
 | English word meanings | derived from MASAQ glosses (CC BY 4.0), plus reviewed overrides | `tools/learning-pack/data/meaning_overrides.tsv` |
 | `concept_index.txt` | made from the app's own Quran text | Only ayah numbers, no text |
 | Fonts (Uthmanic Hafs, Scheherazade New) | the upstream app's existing fonts | Nothing new is bundled |
 | ILMHUB | used as a reference when reviewing Arabic | No text copied; lessons are written for this app |
 
+**The Quranic Arabic Corpus's terms** (checked on corpus.quran.com/download, 2026-09-28).
+The corpus file says copies of *the file* must be verbatim. Separately, the terms let the
+annotation be used "in any website or application", as long as:
+- the source is clearly named
+- a link is made to corpus.quran.com
+- the copyright notice is reproduced in works derived from it
+
+The pack doesn't ship the corpus file. The app names the corpus, shows its full notice, and
+(since this review) links to corpus.quran.com. So the terms are met.
+
 ## Open points for a person
 
-1. **The corpus's "verbatim" clause.** The corpus file says copies must be verbatim. The
-   pack keeps its segments and tags unchanged but stores them in tables, credited as asked.
-   Whether reformatting counts as changing it is a question for the corpus's terms
-   (corpus.quran.com). It's widely read as allowed, but that's not my decision to make.
-2. **A teacher's review** of the reading and tajweed lessons. ILMHUB covers grammar, but it
+1. **A teacher's review** of the reading and tajweed lessons. ILMHUB covers grammar, but it
    has no tajweed pages.
-3. **258 verb headwords** are marked `unchecked` in the pack (4% of verb occurrences).
-4. **Import size vs. learning limits.** The learning format allows up to 500,000 log
+2. **258 verb headwords** are marked `unchecked` in the pack (4% of verb occurrences).
+3. **Import size vs. learning limits.** The learning format allows up to 500,000 log
    entries, about 46 million characters. That's more than the 32 million an import reads.
    Reaching it would take around 400,000 reviews, so it isn't a problem in practice. If it
    ever matters, the log limit can come down.
