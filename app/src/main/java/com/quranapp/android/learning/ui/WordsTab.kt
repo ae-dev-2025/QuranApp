@@ -53,6 +53,8 @@ internal data class WordEntry(
     val texts: List<String>,
     /** Its meaning where it first occurs in this ayah. */
     val gloss: String?,
+    /** Where each of [texts] first is in the ayah (0-based), to draw it in the reader's script. */
+    val wordIndexes: List<Int> = emptyList(),
 )
 
 /** The dictionary words of an ayah, in the order they first occur. */
@@ -62,8 +64,11 @@ internal fun wordEntries(words: List<AyahWord>, ayahWords: List<String>): List<W
         val text = ayahWords.getOrNull(word.wordIndex) ?: continue
         for (lemma in word.lemmas) {
             val existing = entries[lemma.lemma.lemmaId]
-            entries[lemma.lemma.lemmaId] = existing?.copy(texts = (existing.texts + text).distinct())
-                ?: WordEntry(lemma, listOf(text), word.gloss)
+            entries[lemma.lemma.lemmaId] = when {
+                existing == null -> WordEntry(lemma, listOf(text), word.gloss, listOf(word.wordIndex))
+                text in existing.texts -> existing
+                else -> existing.copy(texts = existing.texts + text, wordIndexes = existing.wordIndexes + word.wordIndex)
+            }
         }
     }
     return entries.values.toList()
@@ -159,6 +164,8 @@ internal fun WordRow(
     isKnown: Boolean,
     onKnownChange: (Boolean) -> Unit,
     arabicFont: FontFamily,
+    script: ScriptAyah? = null,
+    ayahWords: List<String> = emptyList(),
 ) {
     val context = LocalContext.current
     val lemma = entry.lemma.lemma
@@ -205,12 +212,17 @@ internal fun WordRow(
                 color = colorScheme.onSurfaceVariant,
             )
         }
-        Text(
-            text = entry.texts.joinToString("  "),
-            fontFamily = arabicFont,
-            style = typography.titleLarge,
-            color = colorScheme.primary,
-        )
+        if (script != null && entry.wordIndexes.isNotEmpty()) {
+            val primary = colorScheme.primary
+            LearningWords(script, ayahWords, entry.wordIndexes, arabicFont, typography.titleLarge, color = { primary })
+        } else {
+            Text(
+                text = entry.texts.joinToString("  "),
+                fontFamily = arabicFont,
+                style = typography.titleLarge,
+                color = colorScheme.primary,
+            )
+        }
     }
 }
 
