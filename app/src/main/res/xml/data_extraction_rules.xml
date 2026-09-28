@@ -6,6 +6,10 @@
 -->
 <data-extraction-rules>
     <cloud-backup>
+        <!-- The learning pack (25 MB) and the grammar index made from it: they can be downloaded
+             and made again, and the pack alone is over the 25 MB Android keeps for an app's
+             backup, which would stop the rest (bookmarks, learning progress) being backed up. -->
+        <exclude domain="file" path="learning" />
         <!--
         TODO: Use <include> and <exclude> to control what is backed up.
         The domain can be file, database, sharedpref, external or root.

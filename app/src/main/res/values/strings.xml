@@ -344,6 +344,7 @@
     <string name="labelImportExportSettings">Import/Export Settings</string>
     <string name="warnImportSettings">WARNING: Importing settings will override your current settings.</string>
     <string name="msgExportImportBookmarks">Export or import your bookmarks along with notes.</string>
+    <string name="strMsgImportNotBackup">This file isn’t a QuranApp backup, so nothing was imported.</string>
     <string name="msgExportSuccess">Exported successfully</string>
     <string name="desc_votd_widget">Get a new verse every day</string>
     <string name="autoScroll">Auto scroll</string>
